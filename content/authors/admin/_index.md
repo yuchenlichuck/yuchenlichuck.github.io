@@ -1,47 +1,50 @@
 ---
 # Display name
-title: Alice Wu 吳恩達
+title: Yuchen Li 李禹陈
 
 # Full name (for SEO)
-first_name: Alice
-last_name: Wu
+first_name: Yuchen
+last_name: Li
 
 # Status emoji
 status:
-  icon: ☕️
+  icon: ❤️
 
 # Is this the primary user of the site?
 superuser: true
 
 # Role/position/tagline
-role: Professor of Artificial Intelligence
+role: PhD in Computer Vision
 
 # Organizations/Affiliations to show in About widget
 organizations:
-  - name: Stanford University
-    url: https://www.stanford.edu/
+  - name: Mohamed Bin Zayed University of Science and Technology
+    url: https://mbzuai.ac.ae/
 
 # Short bio (displayed in user profile at end of posts)
-bio: My research interests include distributed robotics, mobile computing and programmable matter.
+bio: 📫 [2020/8] I join the Vision-Cair@KAUST as a MS student in 2020 Fall, under the supervision of Prof. Mohamed Elhoseiny.
+😄 I’m currently working on 3D Computer Vision. I am looking for the summer research internship!
+👉 You can find me at liyc@mail.com, LinkedIn and Google Scholar!
+
 
 # Interests to show in About widget
 interests:
-  - Artificial Intelligence
-  - Computational Linguistics
+  - Artificial Intelligence Generated Content
+  - 3D Computer Vision
   - Information Retrieval
 
 # Education to show in About widget
 education:
   courses:
-    - course: PhD in Artificial Intelligence
-      institution: Stanford University
-      year: 2012
-    - course: MEng in Artificial Intelligence
+    - course: PhD in Computer Vision
+      institution: MBZUAI
+      year: 2027
+    - course: MSc in Computer Science
+      institution: King Abdullah University of Science and Technology
+      year: 2022
+    - course: BSc in Computer Science and Technology
       institution: Massachusetts Institute of Technology
-      year: 2009
-    - course: BSc in Artificial Intelligence
-      institution: Massachusetts Institute of Technology
-      year: 2008
+      year: 2021
 
 # Social/Academic Networking
 # For available icons, see: https://wowchemy.com/docs/getting-started/page-builder/#icons
