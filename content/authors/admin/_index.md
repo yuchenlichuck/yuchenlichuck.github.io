@@ -22,9 +22,7 @@ organizations:
     url: https://mbzuai.ac.ae/
 
 # Short bio (displayed in user profile at end of posts)
-bio: I join the Vision-Cair@KAUST as a MS student in 2020 Fall, under the supervision of Prof. Mohamed Elhoseiny.
-
-
+bio: I join Vision-Cair@KAUST as a MS student in 2020 Fall, under the supervision of Prof. Mohamed Elhoseiny.
 
 # Interests to show in About widget
 interests:
