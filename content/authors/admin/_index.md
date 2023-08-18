@@ -34,7 +34,7 @@ interests:
 education:
   courses:
     - course: PhD in Computer Vision
-      institution: MBZUAI
+      institution: Mohamed Bin Zayed University of Science and Technology
       year: 2027
     - course: MSc in Computer Science
       institution: King Abdullah University of Science and Technology
@@ -53,7 +53,7 @@ social:
     link: '/#contact'
   - icon: twitter
     icon_pack: fab
-    link: https://twitter.com/GeorgeCushen
+    link: https://twitter.com/Yuchen_LiLi
     label: Follow me on Twitter
     display:
       header: true
@@ -65,16 +65,16 @@ social:
     link: https://github.com/yuchenlichuck
   - icon: linkedin
     icon_pack: fab
-    link: https://www.linkedin.com/
+    link: https://www.linkedin.com/liyc
   # Link to a PDF of your resume/CV.
   # To use: copy your resume to `static/uploads/resume.pdf`, enable `ai` icons in `params.yaml`,
   # and uncomment the lines below.
   - icon: cv
     icon_pack: ai
-    link: uploads/resume.pdf
+    link: uploads/CV_Yuchen_LI_KAUST_Job_Application.pdf
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
-email: ''
+email: 'liyc@mail.com'
 
 # Highlight the author in author lists? (true/false)
 highlight_name: true
