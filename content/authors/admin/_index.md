@@ -40,7 +40,7 @@ education:
       institution: King Abdullah University of Science and Technology
       year: 2022
     - course: BSc in Computer Science and Technology
-      institution: Massachusetts Institute of Technology
+      institution: Southern University of Science and Technology
       year: 2021
 
 # Social/Academic Networking
@@ -62,7 +62,7 @@ social:
     link: https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ
   - icon: github
     icon_pack: fab
-    link: https://github.com/gcushen
+    link: https://github.com/yuchenlichuck
   - icon: linkedin
     icon_pack: fab
     link: https://www.linkedin.com/
