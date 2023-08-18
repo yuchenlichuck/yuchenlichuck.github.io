@@ -23,8 +23,7 @@ organizations:
 
 # Short bio (displayed in user profile at end of posts)
 bio: I join the Vision-Cair@KAUST as a MS student in 2020 Fall, under the supervision of Prof. Mohamed Elhoseiny.
-😄 I’m currently working on 3D Computer Vision. I am looking for the summer research internship!
-👉 You can find me at liyc@mail.com, LinkedIn and Google Scholar!
+
 
 
 # Interests to show in About widget
