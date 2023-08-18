@@ -59,13 +59,17 @@ social:
       header: true
   - icon: graduation-cap # Alternatively, use `google-scholar` icon from `ai` icon pack
     icon_pack: fas
-    link: https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ
+    link: https://scholar.google.com/citations?user=7MocPGkAAAAJ&hl=zh-CN
   - icon: github
     icon_pack: fab
     link: https://github.com/yuchenlichuck
   - icon: linkedin
     icon_pack: fab
-    link: https://www.linkedin.com/liyc
+    link: https://www.linkedin.com/in/liyc
+  - icon: zhihu
+    icon_pack: fab
+    link: https://www.zhihu.com/people/li-yu-chen-53-11-35
+
   # Link to a PDF of your resume/CV.
   # To use: copy your resume to `static/uploads/resume.pdf`, enable `ai` icons in `params.yaml`,
   # and uncomment the lines below.
