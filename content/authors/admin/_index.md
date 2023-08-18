@@ -80,5 +80,6 @@ email: ''
 highlight_name: true
 ---
 
-Alice Wu is a professor of artificial intelligence at the Stanford AI Lab. Her research interests include distributed robotics, mobile computing and programmable matter. She leads the Robotic Neurobiology group, which develops self-reconfiguring robots, systems of self-organizing robots, and mobile sensor networks.
+Yuchen Li, MBZUAI Computer Vision Ph.D., is a young talent with a global perspective and a profound background in technology. Born in Hefei, China, he received his undergraduate and graduate education at the Southern University of Science and Technology in Shenzhen and KAUST in Saudi Arabia, respectively, specializing in 3D deep learning and meta-learning, with published papers in ECCV and NeurIPS top AI conference. He has garnered a wealth of experience from around the world, at places like Emirates Airlines, the Dubai Future Lab, Saudi Aramco, and iFLYTEK, and continues to shine as a member of the 8th cohort of Dubai's Business Talent. Alongside pursuing advancements in technology, he actively participates in public welfare activities, having volunteered at a refugee school in Lebanon, and traveled to 25 countries. His mission is to make a positive impact on his community and the world through his expertise and global experiences, whether through technological innovation or through educational and volunteer services.
+
 {style="text-align: justify;"}
