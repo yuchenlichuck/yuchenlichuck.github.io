@@ -1,0 +1,353 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Learn PyTorch &mdash; Deep Learning PhD Wiki  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="How to use IBEX" href="learnIBEX.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="learnLinux.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Deep Learning PhD Wiki
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Deep Learning Wiki</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="env_install.html">Install a deep-learning-machine-environment on Ubuntu</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="env_install.html#dependencies-related">Dependencies Related</a></li>
+<li class="toctree-l2"><a class="reference internal" href="env_install.html#cuda-installation">CUDA installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="env_install.html#id1">Anaconda</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="env_install.html#install-anaconda">Install anaconda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="env_install.html#manage-env-using-anaconda">Manage env using Anaconda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="env_install.html#id2">Jupyter Lab</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="env_install.html#git-support-github">Git Support (GitHub)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="env_install.html#terminal-related-tools">Terminal Related Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="env_install.html#software">Software</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Learn PyTorch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pitfall-in-python">Pitfall in Python</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#some-advanced-operations">Some advanced operations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#suggested-pytorch-libraries">Suggested Pytorch Libraries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#general">general</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#d">3D</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="learnIBEX.html">How to use IBEX</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="learnIBEX.html#termius">Termius</a></li>
+<li class="toctree-l2"><a class="reference internal" href="learnIBEX.html#tmux">Tmux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="learnIBEX.html#run-a-job-in-cluster-ibex">Run a Job in cluster (IBEX)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="learnIBEX.html#use-nodecenter-ivul-kaust">Use NodeCenter (IVUL-KAUST)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="work_remote.html">Work Remotely</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="work_remote.html#inside-kaust">Inside KAUST</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="work_remote.html#terminal">Terminal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="work_remote.html#pycharm-remote">PyCharm Remote</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="work_remote.html#outside-kaust">Outside KAUST</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">PhD Wiki</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../phd/homepage.html">Personal Website</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../phd/homepage.html#how-to-design-your-own-homepage">How to design Your Own Homepage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../phd/homepage.html#new-domain-username-com-setup">New domain username.com Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../phd/homepage.html#google-index">Google index</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Deep Learning PhD Wiki</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Learn PyTorch</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            
+              <!-- User defined GitHub URL -->
+              <a href="https://github.com/guochengqian/deep_learning_phd_wiki" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="learn-pytorch">
+<h1>Learn PyTorch<a class="headerlink" href="#learn-pytorch" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="pitfall-in-python">
+<h2>Pitfall in Python<a class="headerlink" href="#pitfall-in-python" title="Permalink to this headline">¶</a></h2>
+<!--the content inside list will be changed or not?--><ol class="arabic">
+<li><p>Mutable and immutable data types:</p>
+<div class="line-block">
+<div class="line">In Python, data types can be either mutable (changeable) or
+immutable (unchangable). And while most of the data types in Python
+are immutable (including integers, floats, strings, Booleans, and
+tuples), <code class="docutils literal notranslate"><span class="pre">lists</span> <span class="pre">and</span> <span class="pre">dictionaries</span> <span class="pre">are</span> <span class="pre">mutable</span></code>. That means
+<code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">global</span> <span class="pre">list</span> <span class="pre">or</span> <span class="pre">dictionary</span> <span class="pre">(mutable</span> <span class="pre">datatypes)</span> <span class="pre">can</span> <span class="pre">be</span> <span class="pre">changed</span> <span class="pre">even</span> <span class="pre">when</span> <span class="pre">it’s</span> <span class="pre">used</span> <span class="pre">inside</span> <span class="pre">of</span> <span class="pre">a</span> <span class="pre">function.</span></code></div>
+<div class="line">If a data type is immutable, it means it can’t be updated once it’s
+been created. In Pytorch, all tensor operations are immutable.
+e.g.:</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">initial_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="k">def</span> <span class="nf">duplicate_last</span><span class="p">(</span><span class="n">a_list</span><span class="p">):</span>
+    <span class="n">last_element</span> <span class="o">=</span> <span class="n">a_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">a_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">last_element</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">a_list</span>
+
+<span class="n">new_list</span> <span class="o">=</span> <span class="n">duplicate_last</span><span class="p">(</span><span class="n">a_list</span> <span class="o">=</span> <span class="n">initial_list</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">new_list</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">initial_list</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">As we can see, here the global value of initial_list was updated,
+even though its value was only changed inside the function!</div>
+<div class="line">Because of the mutable characteristics of list and dictionary, we
+usually use it to save the imortant middle results (like accuracy,
+metrics, args).</div>
+</div>
+</li>
+<li></li>
+</ol>
+<div class="section" id="some-advanced-operations">
+<h3>Some advanced operations<a class="headerlink" href="#some-advanced-operations" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic">
+<li><p>Change layers in pretrained models
+<code class="docutils literal notranslate"><span class="pre">model.conv1[0]</span> <span class="pre">=</span> <span class="pre">new_model.conv1[0]</span></code></p></li>
+<li><p>detach some modules</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">conv1</span><span class="o">.</span><span class="n">parameters</span><span class="p">():</span>
+    <span class="n">param</span><span class="o">.</span><span class="n">requres_grad</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</div>
+</div>
+<div class="section" id="suggested-pytorch-libraries">
+<h2>Suggested Pytorch Libraries<a class="headerlink" href="#suggested-pytorch-libraries" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="general">
+<h3>general<a class="headerlink" href="#general" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.wandb.com/">wandb</a>: Experiment tracking, hyperparameter optimization, model and
+dataset versioning.</p></li>
+<li><p><a class="reference external" href="https://hydra.cc/">hydra</a>: A framework for elegantly configuring complex applications.</p></li>
+<li><p><a class="reference external" href="https://github.com/KevinMusgrave/pytorch-metric-learning">PyTorch Metric Learning</a>: The easiest way to use deep metric
+learning in your application. Modular, flexible, and extensible. Like
+triplet loss support.</p></li>
+<li><p><a class="reference external" href="https://github.com/pytorch/tnt">TNT</a>: torchnet(TNT) is a library providing powerful dataloading,
+logging and visualization utilities for Python. It is closely
+integrated with PyTorch and is designed to enable rapid iteration
+with any model or training regimen.</p></li>
+</ul>
+</div>
+<div class="section" id="d">
+<h3>3D<a class="headerlink" href="#d" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/rusty1s/pytorch_geometric">Pytorch-Geometric</a>: Geometric Deep Learning Extension Library for
+PyTorch</p></li>
+<li><p><a class="reference external" href="https://github.com/nicolas-chaulet/torch-points-kernels">torch-points-kernels</a>: Pytorch kernels for spatial operations on
+point clouds</p></li>
+<li><p><a class="reference external" href="https://github.com/nicolas-chaulet/torch-points3d">torch-points3d</a>: Pytorch framework for doing deep learning on point
+clouds.</p></li>
+<li><p><a class="reference external" href="https://github.com/facebookresearch/pytorch3d">pytorch3d</a>: PyTorch3D is FAIR’s library of reusable components for
+deep learning with 3D data.</p></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="learnIBEX.html" class="btn btn-neutral float-right" title="How to use IBEX" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="learnLinux.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, Guocheng Qian.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

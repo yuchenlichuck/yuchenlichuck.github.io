@@ -1,0 +1,46 @@
+[build]
+  command = "hugo --gc --minify -b $URL"
+  publish = "public"
+
+[build.environment]
+  HUGO_VERSION = "0.58.3"
+  HUGO_ENABLEGITINFO = "true"
+
+[context.production.environment]
+  HUGO_ENV = "production"
+
+[context.deploy-preview]
+  command = "hugo --gc --minify --buildFuture -b $DEPLOY_PRIME_URL"
+
+[context.branch-deploy]
+  command = "hugo --gc --minify -b $DEPLOY_PRIME_URL"
+
+[[headers]]
+  for = "*.webmanifest"
+  [headers.values]
+    Content-Type = "application/manifest+json; charset=UTF-8"
+
+[[headers]]
+  for = "index.xml"
+  [headers.values]
+    Content-Type = "application/rss+xml"
+
+# Add canonical link header to help search engines
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Link = "<https://guochengqian.github.io:splat>; rel=\"canonical\""
+
+[[redirects]]
+  from = "/publication/iclr2023magic123/*"
+  to = "/publication/iclr2024magic123/:splat"
+  status = 301
+  force = true
+
+# Strip UTM and other tracking parameters to prevent duplicate content
+[[redirects]]
+  from = "/*"
+  to = "/:splat"
+  status = 301
+  force = false
+  query = {utm_source = ":utm_source", utm_medium = ":utm_medium", utm_campaign = ":utm_campaign", utm_term = ":utm_term", utm_content = ":utm_content", ref = ":ref", fbclid = ":fbclid", gclid = ":gclid", msclkid = ":msclkid"}

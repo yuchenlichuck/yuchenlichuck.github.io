@@ -1,0 +1,9 @@
+# This repository uses Hugo's config directory layout.
+#
+# Main site configuration lives under:
+#   config/_default/config.toml
+#   config/_default/params.toml
+#   config/_default/menus.toml
+#
+# Keep this root file intentionally minimal to avoid conflicting placeholder
+# settings such as example.com, "My Hugo Site", or dummy author names.

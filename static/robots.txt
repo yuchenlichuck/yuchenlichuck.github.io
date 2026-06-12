@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://guochengqian.github.io/sitemap.xml
+
+# Tell crawlers to ignore URLs with common tracking parameters
+# This helps prevent duplicate content issues
+User-agent: Googlebot
+Clean-param: utm_source&utm_medium&utm_campaign&utm_term&utm_content&ref&fbclid&gclid&msclkid

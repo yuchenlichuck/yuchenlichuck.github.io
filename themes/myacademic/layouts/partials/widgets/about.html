@@ -1,0 +1,141 @@
+{{ $ := .root }}
+{{ $page := .page }}
+
+{{ $author := "" }}
+{{ if .author }}
+  {{ $author = .author }}
+{{ else }}
+  {{ $author = $page.Params.author }}
+{{end}}
+
+{{ $person_page_path := (printf "/authors/%s" (urlize $author)) }}
+{{ $person_page := site.GetPage $person_page_path }}
+{{ $person := $person_page.Params }}
+{{ $avatar := ($person_page.Resources.ByType "image").GetMatch "*avatar*" }}
+
+<!-- About widget -->
+<div class="row justify-content-center" >
+  <div class="col-12 col-lg-3">
+    <div id="profile">
+
+      {{ if site.Params.gravatar }}
+      <img class="portrait" src="https://s.gravatar.com/avatar/{{ md5 $person.email }}?s=200')" alt="Avatar">
+      {{ else if $avatar }}
+      {{ $avatar_image := $avatar.Fill "250x250 Center" }}
+      <img class="portrait" src="{{ $avatar_image.RelPermalink }}" alt="Avatar">
+      {{ end }}
+
+      <div class="portrait-title">
+        <h2>{{ $person.name }}</h2>
+        <h4>{{ $person.namecn }}</h4>
+        {{ with $person.role }}<h3>{{ . | markdownify | emojify }}</h3>{{ end }}
+
+        {{ range $person.organizations }}
+        <h3>
+          {{ with .url }}<a href="{{ . }}" target="_blank" rel="noopener">{{ end }}
+          <span>{{ .name }}</span>
+          {{ if .url }}</a>{{ end }}
+        </h3>
+        {{ end }}
+        
+        {{ if $person.address.street | or $person.address.city | or $person.address.region | or $person.address.postcode | or $person.address.country }}
+          {{ $addr := slice }}
+          {{with $person.address.street}}{{$addr = $addr | append .}}{{end}}
+          {{with $person.address.city}}{{$addr = $addr | append .}}{{end}}
+          {{with $person.address.region}}{{$addr = $addr | append .}}{{end}}
+          {{with $person.address.postcode}}{{$addr = $addr | append .}}{{end}}
+          {{with $person.address.country}}{{$addr = $addr | append .}}{{end}}
+          {{ $addr_formatted := delimit $addr (site.Params.list_delimiter | default ", ") }}
+          <h3 style="font-size: 0.9rem; color: rgba(0,0,0,0.54);">
+            <i class="fas fa-map-marker-alt" style="margin-right: 0.3rem;"></i>{{ $addr_formatted }}
+          </h3>
+        {{ end }}
+      </div>
+
+      <ul class="network-icon" aria-hidden="true">
+        {{ range $person.social }}
+        {{ $pack := or .icon_pack "fas" }}
+        {{ $pack_prefix := $pack }}
+        {{ if in (slice "fab" "fas" "far" "fal") $pack }}
+          {{ $pack_prefix = "fa" }}
+        {{ end }}
+        {{ $link := .link }}
+        {{ $scheme := (urls.Parse $link).Scheme }}
+        {{ $target := "" }}
+        {{ if not $scheme }}
+          {{ $link = .link | relLangURL }}
+        {{ else if in (slice "http" "https") $scheme }}
+          {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+        {{ end }}
+        <li>
+          <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }}>
+            {{ if eq $pack "img" }}
+              {{/* Use `.icon` as the logo filename under static/img/logo (including extension). */}}
+              {{ $img_size := cond (eq .icon "rednote-black.png") "2.15em" "1.7em" }}
+              <img src="{{ printf "/img/logo/%s" .icon }}" alt="{{ .icon }}" style="height:{{ $img_size }}; width:{{ $img_size }}; object-fit:contain; vertical-align:middle;">
+            {{ else }}
+              <i class="{{ $pack }} {{ $pack_prefix }}-{{ .icon }} big-icon"></i>
+            {{ end }}
+          </a>
+        </li>
+        {{ end }}
+      </ul>
+
+    </div>
+  </div>
+  <div class="col-12 col-lg-6" style="text-align: justify">
+
+    {{/* Only display widget title in explicit instances of about widget, not in author pages. */}}
+    {{ if and $page.Params.widget $page.Title }}<h1>{{ $page.Title | markdownify | emojify }}</h1>{{ end }}
+
+    <p>
+      I am a final-year PhD student in Computer Vision at Mohamed bin Zayed University of Artificial Intelligence (MBZUAI). My research focuses on AIGC, 3D computer vision, multimodal vision-language models, and video generation, with an emphasis on spatial reasoning and controllable generation across image, audio, video, 3D, and 4D content.
+      I am the first author of <a target="_blank" href="https://arxiv.org/abs/2206.04670">PointNeXt</a>, which has received over 1,450 citations, and <a target="_blank" href="https://www.ecva.net/papers/eccv_2022/papers_ECCV/html/3631_ECCV_2022_paper.php">3D-CoMPaT</a>, which was presented as an oral paper at ECCV. I also work on perception-enhanced vision-language models, such as <a target="_blank" href="https://arxiv.org/abs/2603.18795">Perceptio</a>, and long-horizon pose diffusion for music-driven dance video synthesis, such as UCanDance.
+      Before joining MBZUAI, I studied at SUSTech and KAUST and gained international experience across research, open-source engineering, and applied innovation through positions and collaborations with Amazon Science, Sony AI, Dubai Business Associates / Emirates Airlines, and Apache RocketMQ.
+      Beyond research, I am a global traveler who has visited more than 30 countries and a lifelong tennis player who enjoys playing tennis in different countries while traveling.
+      <br>
+      If you are interested in related research, please feel free to reach out at yuchen.li [at] mbzuai.ac.ae.
+    </p>
+
+
+    <div class="row">
+      {{ with $person.education }}
+      <div class="col-md-5">
+        <h3>{{ i18n "education" | markdownify }}</h3>
+        <ul class="ul-edu fa-ul">
+          {{ range .courses }}
+          {{ $course := . }}
+          <li>
+              {{ with $course.logo }}
+                <a href="{{ $course.link }}" target="_blank">
+                  <i><img src="img/logo/{{ . }}" alt="{{ $course.institution }} logo" style="position: absolute;left: -2.5rem;width: 2rem;top: 0.14285714em;text-align: center;"></i>
+                </a>
+              {{ end }}
+              <div class="description">
+                <p class="course">{{ $course.course }}</p>
+                <a href="{{ $course.link }}" target="_blank"><p class="institution">{{ $course.institution }} , {{$course.year}}</p></a>
+              </div>
+          </li>
+          {{ end }}
+        </ul>
+      </div>
+      {{ end }}
+      
+      {{ with $person.interests }}
+      <div class="col-md-7">
+        <h3>{{ i18n "interests" | markdownify }}</h3>
+        <ul class="ul-interests"> 
+          {{ range . }}
+          <div class="description">
+            <li class="course">{{ .item }}</li>
+            <div>{{ .works | markdownify | emojify }}</div>
+          </div>
+          {{ end }}
+        </ul>
+      </div>
+      {{ end }}
+
+
+    </div>
+  </div>
+</div>

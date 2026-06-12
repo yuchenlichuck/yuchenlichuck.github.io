@@ -1,0 +1,92 @@
+<script>
+  (function () {
+    function getPlaceholder(video) {
+      var placeholder = video.previousElementSibling;
+      if (placeholder && placeholder.classList.contains('video-placeholder')) {
+        return placeholder;
+      }
+      return null;
+    }
+
+    function revealVideo(video) {
+      video.style.display = 'block';
+
+      var placeholder = getPlaceholder(video);
+      if (placeholder) {
+        placeholder.style.display = 'none';
+      }
+    }
+
+    function tryAutoplay(video) {
+      video.muted = true;
+      video.defaultMuted = true;
+      video.playsInline = true;
+      video.setAttribute('muted', '');
+      video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', '');
+
+      revealVideo(video);
+
+      var playPromise = video.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(function () {});
+      }
+    }
+
+    function initPublicationVideo(video) {
+      if (video.dataset.mobileAutoplayReady === 'true') {
+        return;
+      }
+
+      video.dataset.mobileAutoplayReady = 'true';
+
+      video.addEventListener('loadeddata', function () {
+        tryAutoplay(video);
+      });
+
+      video.addEventListener('canplay', function () {
+        tryAutoplay(video);
+      });
+
+      video.addEventListener('play', function () {
+        revealVideo(video);
+      });
+
+      if (video.readyState >= 2) {
+        tryAutoplay(video);
+      }
+    }
+
+    function initPublicationVideos() {
+      var videos = document.querySelectorAll('.publication-image-container .video-content');
+      videos.forEach(initPublicationVideo);
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      initPublicationVideos();
+
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+          return;
+        }
+
+        document
+          .querySelectorAll('.publication-image-container .video-content')
+          .forEach(tryAutoplay);
+      });
+
+      ['touchstart', 'pointerdown'].forEach(function (eventName) {
+        document.addEventListener(
+          eventName,
+          function handleFirstInteraction() {
+            document
+              .querySelectorAll('.publication-image-container .video-content')
+              .forEach(tryAutoplay);
+            document.removeEventListener(eventName, handleFirstInteraction);
+          },
+          { passive: true }
+        );
+      });
+    });
+  })();
+</script>

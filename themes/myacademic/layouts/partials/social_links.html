@@ -1,0 +1,27 @@
+<ul class="network-icon" aria-hidden="true">
+  {{ range .Params.social }}
+    {{ $pack := or .icon_pack "fas" }}
+    {{ $pack_prefix := $pack }}
+    {{ if in (slice "fab" "fas" "far" "fal") $pack }}
+      {{ $pack_prefix = "fa" }}
+    {{ end }}
+    {{ $link := .link }}
+    {{ $scheme := (urls.Parse $link).Scheme }}
+    {{ $target := "" }}
+    {{ if not $scheme }}
+      {{ $link = .link | relLangURL }}
+    {{ else if in (slice "http" "https") $scheme }}
+      {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+    {{ end }}
+    <li>
+      <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }}>
+        {{ if eq $pack "img" }}
+          {{/* Use `.icon` as the logo filename under static/img/logo (including extension). */}}
+          <img src="{{ printf "/img/logo/%s" .icon }}" alt="{{ .icon }}" style="height:1.5em; width:1.5em; vertical-align:middle;">
+        {{ else }}
+          <i class="{{ $pack }} {{ $pack_prefix }}-{{ .icon }}"></i>
+        {{ end }}
+      </a>
+    </li>
+  {{end}}
+</ul>

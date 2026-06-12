@@ -1,0 +1,445 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Install a deep-learning-machine-environment on Ubuntu &mdash; Deep Learning PhD Wiki  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="learnLinux.html" />
+    <link rel="prev" title="Welcome to Deep Learning PhD Wiki" href="../../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Deep Learning PhD Wiki
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Deep Learning Wiki</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Install a deep-learning-machine-environment on Ubuntu</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies-related">Dependencies Related</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cuda-installation">CUDA installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Anaconda</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#install-anaconda">Install anaconda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#manage-env-using-anaconda">Manage env using Anaconda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Jupyter Lab</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#git-support-github">Git Support (GitHub)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#terminal-related-tools">Terminal Related Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#software">Software</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="learnPytorch.html">Learn PyTorch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="learnPytorch.html#pitfall-in-python">Pitfall in Python</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="learnPytorch.html#some-advanced-operations">Some advanced operations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="learnPytorch.html#suggested-pytorch-libraries">Suggested Pytorch Libraries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="learnPytorch.html#general">general</a></li>
+<li class="toctree-l3"><a class="reference internal" href="learnPytorch.html#d">3D</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="learnIBEX.html">How to use IBEX</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="learnIBEX.html#termius">Termius</a></li>
+<li class="toctree-l2"><a class="reference internal" href="learnIBEX.html#tmux">Tmux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="learnIBEX.html#run-a-job-in-cluster-ibex">Run a Job in cluster (IBEX)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="learnIBEX.html#use-nodecenter-ivul-kaust">Use NodeCenter (IVUL-KAUST)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="work_remote.html">Work Remotely</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="work_remote.html#inside-kaust">Inside KAUST</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="work_remote.html#terminal">Terminal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="work_remote.html#pycharm-remote">PyCharm Remote</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="work_remote.html#outside-kaust">Outside KAUST</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">PhD Wiki</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../phd/homepage.html">Personal Website</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../phd/homepage.html#how-to-design-your-own-homepage">How to design Your Own Homepage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../phd/homepage.html#new-domain-username-com-setup">New domain username.com Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../phd/homepage.html#google-index">Google index</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Deep Learning PhD Wiki</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Install a deep-learning-machine-environment on Ubuntu</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            
+              <!-- User defined GitHub URL -->
+              <a href="https://github.com/guochengqian/deep_learning_phd_wiki" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="install-a-deep-learning-machine-environment-on-ubuntu">
+<h1>Install a deep-learning-machine-environment on Ubuntu<a class="headerlink" href="#install-a-deep-learning-machine-environment-on-ubuntu" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="dependencies-related">
+<h2>Dependencies Related<a class="headerlink" href="#dependencies-related" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://developer.nvidia.com/cuda-10.1-download-archive-base">CUDA</a>: for accelerated computing</p></li>
+<li><p><a class="reference external" href="https://www.anaconda.com/products/individual">anaconda</a>: tool for environment management</p></li>
+<li><p><a class="reference external" href="https://jupyter.org/">jupyter lab</a>: develop open-source software, open-standards, and services for interactive computing</p></li>
+<li><p><a class="reference external" href="https://product.hubspot.com/blog/git-and-github-tutorial-for-beginners">git</a>: manage your code in a diligently</p></li>
+</ul>
+</div>
+<div class="section" id="cuda-installation">
+<h2>CUDA installation<a class="headerlink" href="#cuda-installation" title="Permalink to this headline">¶</a></h2>
+<p>You may want to see the detailed <a class="reference external" href="https://www.pugetsystems.com/labs/hpc/How-to-install-CUDA-9-2-on-Ubuntu-18-04-1184/">blog</a>.
+Take CUDA 10.1 installation for example.</p>
+<ol class="arabic">
+<li><p>Download the <a class="reference external" href="https://developer.nvidia.com/cuda-10.1-download-archive-update2?target_os=Linux&amp;target_arch=x86_64&amp;target_distro=Ubuntu&amp;target_version=1804&amp;target_type=runfilelocal">CUDA 10.1.243 Ubuntu 18.04 source</a>.</p></li>
+<li><p>install:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo sh cuda_10.1.243_418.87.00_linux.run
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Set the path to <cite>~/.bashrc</cite>:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># for cuda path</span>
+<span class="nv">cuda</span><span class="o">=</span>cuda-10.1
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span>/usr/local/<span class="nv">$cuda</span>/bin:<span class="nv">$PATH</span>
+<span class="nb">export</span> <span class="nv">CUDADIR</span><span class="o">=</span>/usr/local/<span class="nv">$cuda</span>
+<span class="nb">export</span> <span class="nv">NUMBAPRO_NVVM</span><span class="o">=</span><span class="nv">$CUDADIR</span>/nvvm/lib64/libnvvm.so
+<span class="nb">export</span> <span class="nv">NUMBAPRO_LIBDEVICE</span><span class="o">=</span><span class="nv">$CUDADIR</span>/nvvm/libdevice/
+<span class="nb">export</span> <span class="nv">NVCCDIR</span><span class="o">=</span><span class="nv">$CUDADIR</span>/bin/nvcc
+<span class="nb">export</span> <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span>/usr/local/<span class="nv">$cuda</span>/lib64:<span class="nv">$LD_LIBRARY_PATH</span>
+<span class="nb">export</span> <span class="nv">CPATH</span><span class="o">=</span>/usr/local/<span class="nv">$cuda</span>/include:<span class="nv">$CPATH</span>
+<span class="nb">export</span> <span class="nv">CUDA_HOME</span><span class="o">=</span>/usr/local/<span class="nv">$cuda</span>
+<span class="c1"># for CUDA_DEVICES</span>
+<span class="nb">export</span> <span class="nv">CUDA_DEVICE_ORDER</span><span class="o">=</span>PCI_BUS_ID
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</div>
+<div class="section" id="id1">
+<h2>Anaconda<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="install-anaconda">
+<h3>Install anaconda<a class="headerlink" href="#install-anaconda" title="Permalink to this headline">¶</a></h3>
+<p>Download the anaconda individual version from <a class="reference external" href="https://www.anaconda.com/products/individual">Anaconda official website</a>.</p>
+<ol class="arabic">
+<li><p>Install: <cite>bash Anaconda3-xxx-xxx.sh</cite>, e.g.: <code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">Anaconda3-2020.07-Linux-x86_64.sh</span></code>. Suggest keeping the default settings</p></li>
+<li><p>make sure to add anaconda path to <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code>. If you forgot to do so, just add the below into bashrc:</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span># &gt;&gt;&gt; conda initialize &gt;&gt;&gt;
+# !! Contents within this block are managed by &#39;conda init&#39; !!
+__conda_setup=&quot;$(&#39;/home/qiang/anaconda3/bin/conda&#39; &#39;shell.bash&#39; &#39;hook&#39; 2&gt; /dev/null)&quot;
+if [ $? -eq 0 ]; then
+    eval &quot;$__conda_setup&quot;
+else
+    if [ -f &quot;/home/qiang/anaconda3/etc/profile.d/conda.sh&quot; ]; then
+        . &quot;/home/qiang/anaconda3/etc/profile.d/conda.sh&quot;
+    else
+        export PATH=&quot;/home/qiang/anaconda3/bin:$PATH&quot;
+    fi
+fi
+unset __conda_setup
+# &lt;&lt;&lt; conda initialize &lt;&lt;&lt;
+</pre></div>
+</div>
+<p>Note: Please change the <code class="docutils literal notranslate"><span class="pre">/home/qiang/anaconda3</span></code> to your own path to anaconda3.</p>
+</div></blockquote>
+</li>
+</ol>
+</div>
+<div class="section" id="manage-env-using-anaconda">
+<h3>Manage env using Anaconda<a class="headerlink" href="#manage-env-using-anaconda" title="Permalink to this headline">¶</a></h3>
+<p>Here is how install a specific environment for one project. (deepgcn_env_install.sh, find this file <a class="reference external" href="https://raw.githubusercontent.com/guochengqian/deep_learning_phd_wiki/master/scripts/deepgcn_env_install.sh">here</a>:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
+
+<span class="c1"># make sure command is : source deepgcn_env_install.sh</span>
+
+<span class="c1"># uncomment if using cluster</span>
+<span class="c1"># module purge</span>
+<span class="c1"># module load gcc</span>
+<span class="c1"># module load cuda/10.1.105</span>
+
+<span class="c1"># make sure your annaconda3 is added to bashrc (normally add to bashrc path automatically)</span>
+<span class="nb">source</span> ~/.bashrc
+
+conda create -n deepgcn <span class="c1"># conda create env</span>
+conda activate deepgcn  <span class="c1"># activate</span>
+
+<span class="c1"># conda install and pip install</span>
+conda install -y pytorch torchvision <span class="nv">cudatoolkit</span><span class="o">=</span><span class="m">10</span>.0 tensorflow <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.7 -c pytorch
+<span class="c1"># install useful modules</span>
+pip install tqdm
+</pre></div>
+</div>
+</div></blockquote>
+<p>Install the env above by: <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">deepgcn_env_install.sh</span></code>.
+Now you install the new env called deepgcn, <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">deepgcn</span></code> and have fun!
+Take a look at <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html">the official guide</a> how to use anaconda.</p>
+</div>
+<div class="section" id="id2">
+<h3>Jupyter Lab<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://jupyter.org/">Jupyter lab</a>: Jupyter exists to develop open-source software, open-standards, and services for interactive computing across dozens of programming languages.
+It’s automatically installed when you install anaconda3.  You have to add conda env to jupyter lab manually by code below.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda activate myenv
+python -m ipykernel install --user --name myenv --display-name <span class="s2">&quot;Python (myenv)&quot;</span>
+</pre></div>
+</div>
+<p>You may have to install <code class="docutils literal notranslate"><span class="pre">ipykernel</span></code> at first: <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">ipykernel</span></code>.</p>
+<p>Jupyter lab supports using the remote environment to run the kernel and render in the local browser. Support! Sometimes, we may need to run jupyter lab on our laptop but use the hardware and env of remote workstation. How to do that? Open one terminal in your laptop, then open jupyter lab by code below.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh remoteAccount@eremoteIp <span class="c1"># connect remote server</span>
+<span class="c1"># jupyter notebook password # uncomment if you have not set password (do it once)</span>
+jupyter lab --port<span class="o">=</span><span class="m">9000</span> --no-browser <span class="p">&amp;</span>
+</pre></div>
+</div>
+<p>Open another terminal in your laptop, then map ip by code below:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh -N -f -L <span class="m">8888</span>:localhost:9000 remoteAccount@eremoteIp
+</pre></div>
+</div>
+<p>Now open your chrome, type: <code class="docutils literal notranslate"><span class="pre">http://localhost:8888/</span></code>. Enjoy your remote jupyter lab.</p>
+<p>You can kill the port forwarding by:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ps aux <span class="p">|</span> grep ssh
+<span class="nb">kill</span> &lt;id&gt;
+</pre></div>
+</div>
+<p>More info see <a class="reference external" href="http://www.blopig.com/blog/2018/03/running-jupyter-notebook-on-a-remote-server-via-ssh">blog</a></p>
+</div>
+</div>
+<div class="section" id="git-support-github">
+<h2>Git Support (GitHub)<a class="headerlink" href="#git-support-github" title="Permalink to this headline">¶</a></h2>
+<p>Using <code class="docutils literal notranslate"><span class="pre">git</span></code> command to pull, push and manage your code.
+Here is <a class="reference external" href="https://product.hubspot.com/blog/git-and-github-tutorial-for-beginners">an introduction to git</a> .
+CheatSheet for <code class="docutils literal notranslate"><span class="pre">git</span></code> is <a class="reference external" href="https://education.github.com/git-cheat-sheet-education.pdf">here</a>.</p>
+<p><a class="reference external" href="https://github.com/">GitHub</a> is the largest code sharing, management and version control platform.
+You may have to add <code class="docutils literal notranslate"><span class="pre">ssh</span></code> to github, otherwise each time you use git command, you have to input your account information.
+Here is the <a class="reference external" href="https://docs.github.com/en/free-pro-team&#64;latest/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account">instruction</a>.</p>
+<p>Set your git global username and email address. This is to let Git know who you are. (If you do not change this, you can still git pull and git push as along as you add your ssh into github. However, github will not be able to appreciate your commits in commit history, they will think it is someone else make the changes not you.) To set the username and email:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git config --global user.name <span class="s2">&quot;FIRST_NAME LAST_NAME&quot;</span>
+git config --global user.email <span class="s2">&quot;MY_NAME@example.com&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="terminal-related-tools">
+<h2>Terminal Related Tools<a class="headerlink" href="#terminal-related-tools" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://gnometerminator.blogspot.com/p/introduction.html">Terminator</a>: useful tool for arranging terminals</p></li>
+<li><p><a class="reference external" href="https://termius.com/">Termius</a>: SSH client that works on Desktop and Mobile for
+connecting to local and remote machines.</p></li>
+<li><p><a class="reference external" href="https://linuxize.com/post/getting-started-with-tmux/">tmux</a>: tools for multiple windows in terminal. Very useful for
+working with remote machines. The tmux will keep your job running in
+the background even if you lose you connection with the remote
+machines. <a class="reference external" href="https://tmuxcheatsheet.com/">tmux cheatsheet</a>.</p></li>
+<li><p>vim: the best command line editor. <a class="reference external" href="https://vim.rtorr.com/">vim cheatsheet</a></p></li>
+<li><p><a class="reference external" href="https://rclone.org/install/">rclone</a>: command tools for downloading and pushing files from or to
+google drive. <a class="reference external" href="https://rclone.org/drive/">See here for more info</a>.</p></li>
+<li><p><a class="reference external" href="https://aria2.github.io/">aria2</a>: a lightweight multi-protocol &amp; multi-source command-line
+download utility. Here is the <a class="reference external" href="https://aria2.github.io/manual/en/html/aria2c.html#options">documentation</a>. Here is an example
+(download imagenet using 16 threads and set the <code class="docutils literal notranslate"><span class="pre">continue=true</span></code>
+which resumes the downloading):
+<code class="docutils literal notranslate"><span class="pre">aria2c</span> <span class="pre">-c</span> <span class="pre">-x</span> <span class="pre">16</span> <span class="pre">-s</span> <span class="pre">16</span> <span class="pre">-d</span> <span class="pre">imagenet</span> <span class="pre">http://image-net.org/challenges/LSVRC/2012/dd31405981ef5f776aa17412e1f0c112/ILSVRC2012_img_train.tar</span></code></p></li>
+<li><p><a class="reference external" href="https://www.markdownguide.org/">Markdown</a>: a lightweight markup language with plain-text-formatting
+syntax. <a class="reference external" href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Markdown cheatsheet</a></p></li>
+</ul>
+</div>
+<div class="section" id="software">
+<h2>Software<a class="headerlink" href="#software" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.jetbrains.com/pycharm/">PyCharm</a>: my favorite IDE for Python. Professional version is free
+for students</p></li>
+<li><p><a class="reference external" href="https://www.jetbrains.com/clion/">Clion</a>: my favorite IDE for C and C++. Professional version is free
+for students</p></li>
+<li><p><a class="reference external" href="https://snapcraft.io/install/meshlab/ubuntu">MeshLab</a>: my favorite 3D viewer.</p></li>
+<li><p><a class="reference external" href="https://symless.com/synergy">Synergy</a>: share one mouse and keyboard between multiple computers
+(Linux, Mac, Windows).</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="learnLinux.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../../index.html" class="btn btn-neutral float-left" title="Welcome to Deep Learning PhD Wiki" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, Guocheng Qian.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

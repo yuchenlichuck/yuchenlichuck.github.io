@@ -1,0 +1,141 @@
+{{ $item := . }}
+
+
+{{/* Dynamic view adjusts to content type. */}}
+{{ $show_buttons := false }}
+{{ if eq $item.Type "talk" }}
+  {{ $show_buttons = true }}
+{{ else if eq $item.Type "publication" }}
+  {{ $show_buttons = true }}
+{{ end }}
+
+{{/* Get summary. */}}
+{{ $summary := "" }}
+{{ if $item.Params.summary }}
+  {{ $summary = $item.Params.summary | markdownify | emojify }}
+{{ else if .Params.abstract }}
+  {{ $summary = .Params.abstract_short | markdownify | emojify }}
+{{ else if $item.Truncated }}
+  {{ $summary = $item.Summary }}
+{{ else }}
+  {{ $summary = $item.Content }}
+{{ end }}
+
+<div class="card-simple">
+  <div class="row align-items-center">
+    {{ $imageResource := ($item.Resources.ByType "image").GetMatch "*featured*" }}
+    {{ $videoResource := ($item.Resources.ByType "video").GetMatch "*featured*" }}
+    <div class="col-12 col-lg-3">
+      {{ if or $imageResource $videoResource }}
+      {{ $imgLink := $item.RelPermalink }}
+      {{ if $item.Params.url_project }}
+        {{ $imgLink = $item.Params.url_project }}
+      {{ else if $item.Params.url_preprint }}
+        {{ $imgLink = $item.Params.url_preprint }}
+      {{ end }}
+      <div class="publication-image-container">
+        {{ if $videoResource }}
+          <a href="{{ $imgLink }}" target="_blank" rel="noopener">
+            {{ if $imageResource }}
+            {{/* Show image placeholder first if available */}}
+            <img src="{{$item.RelPermalink}}{{$imageResource}}" class="article-banner video-placeholder" alt="{{ $item.Title }} teaser image" style="display: block;">
+            {{end}}
+            <video autoplay muted loop playsinline webkit-playsinline preload="metadata" class="article-banner video-content" style="width: 100%; height: auto; {{ if $imageResource }}display: none;{{ end }}">
+              <source src="{{$item.RelPermalink}}{{$videoResource}}" type="video/mp4">
+            </video>
+          </a>
+        {{ else if $imageResource }}
+          <a href="{{ $imgLink }}" target="_blank" rel="noopener">
+            <img src="{{$item.RelPermalink}}{{$imageResource}}" class="article-banner" alt="{{ $item.Title }} teaser image">
+          </a>
+        {{ end }}
+        {{ if $item.Params.publication_short }}
+        <div class="venue-badge">
+          {{ $item.Params.publication_short | replaceRE "\\*|'" "" | markdownify }}
+        </div>
+        {{ end }}
+      </div>
+      {{end}}
+    </div>
+
+    <div class="col-12 col-lg-9">
+      <h3 class="article-title mb-0 mt-0">
+        {{ $link := $item.RelPermalink }}
+        {{ if $item.Params.url_project }}
+          {{ $link = $item.Params.url_project }}
+        {{ else if $item.Params.url_preprint }}
+          {{ $link = $item.Params.url_preprint }}
+        {{ end }}
+        <a href="{{ $link }}" target="_blank" rel="noopener">{{ $item.Title }}</a>
+      </h3>
+
+      {{ $slug := $item.File.ContentBaseName }}
+      {{ $citesPath := printf "static/img/pub/%s_cites.png" $slug }}
+      {{ $starsPath := printf "static/img/pub/%s_stars.png" $slug }}
+      {{ $hasCites := and $item.Params.citations (fileExists $citesPath) }}
+      {{ $hasStars := and $item.Params.github_repo (fileExists $starsPath) }}
+      {{ if or $hasCites $hasStars }}
+      <div class="article-metadata-badges" style="margin-top: 8px; margin-bottom: 8px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center;">
+        {{ if $hasCites }}
+        <img src="{{ printf "/img/pub/%s_cites.png" $slug }}"
+             alt="Google Scholar citations"
+             style="height:20px; vertical-align:middle;">
+        {{ end }}
+        {{ if $hasStars }}
+        <img src="{{ printf "/img/pub/%s_stars.png" $slug }}"
+             alt="GitHub stars"
+             style="height:20px; vertical-align:middle;">
+        {{ end }}
+      </div>
+      {{ end }}
+
+      {{ if eq $item.Type "talk" }}
+      <div class="article-metadata">
+        {{ if $item.Params.authors }}
+        <div>
+          {{ partial "page_metadata_authors" $item }}
+        </div>
+        {{ end }}
+        <span>
+          {{ partial "functions/get_event_dates" $item }}
+        </span>
+        {{ with $item.Params.location }}
+        <span class="middot-divider"></span>
+        <span>{{ . }}</span>
+        {{ end }}
+      </div>
+      {{ else }}
+        {{ partial "page_metadata" (dict "page" $item "is_list" 1) }}
+      {{ end }}
+
+      {{ with $summary }}
+      <div class="article-style" style="margin-top: 4px; margin-bottom: 4px;">
+        <p style="margin: 0; font-size: 14px; letter-spacing: 0.03em; color: rgba(0,0,0,0.54); line-height: 1.5;">{{.}}</p>
+      </div>
+      {{ end }}
+
+      {{ if $show_buttons }}
+      <div class="btn-links" style="margin-top: 12px;">
+        {{ partial "page_links" (dict "page" $item "is_list" 1) }}
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</div>
+
+<style>
+.card-simple {
+  margin-bottom: 1.5rem;
+}
+.card-simple .row {
+  margin-left: -10px;
+  margin-right: -10px;
+}
+.card-simple .article-title {
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+.card-simple .article-metadata {
+  margin-bottom: 6px;
+}
+</style>

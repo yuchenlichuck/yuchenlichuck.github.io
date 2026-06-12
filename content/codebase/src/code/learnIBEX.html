@@ -1,0 +1,361 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>How to use IBEX &mdash; Deep Learning PhD Wiki  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Work Remotely" href="work_remote.html" />
+    <link rel="prev" title="Learn PyTorch" href="learnPytorch.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Deep Learning PhD Wiki
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Deep Learning Wiki</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="env_install.html">Install a deep-learning-machine-environment on Ubuntu</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="env_install.html#dependencies-related">Dependencies Related</a></li>
+<li class="toctree-l2"><a class="reference internal" href="env_install.html#cuda-installation">CUDA installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="env_install.html#id1">Anaconda</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="env_install.html#install-anaconda">Install anaconda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="env_install.html#manage-env-using-anaconda">Manage env using Anaconda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="env_install.html#id2">Jupyter Lab</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="env_install.html#git-support-github">Git Support (GitHub)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="env_install.html#terminal-related-tools">Terminal Related Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="env_install.html#software">Software</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="learnPytorch.html">Learn PyTorch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="learnPytorch.html#pitfall-in-python">Pitfall in Python</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="learnPytorch.html#some-advanced-operations">Some advanced operations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="learnPytorch.html#suggested-pytorch-libraries">Suggested Pytorch Libraries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="learnPytorch.html#general">general</a></li>
+<li class="toctree-l3"><a class="reference internal" href="learnPytorch.html#d">3D</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">How to use IBEX</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#termius">Termius</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tmux">Tmux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#run-a-job-in-cluster-ibex">Run a Job in cluster (IBEX)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#use-nodecenter-ivul-kaust">Use NodeCenter (IVUL-KAUST)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="work_remote.html">Work Remotely</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="work_remote.html#inside-kaust">Inside KAUST</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="work_remote.html#terminal">Terminal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="work_remote.html#pycharm-remote">PyCharm Remote</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="work_remote.html#outside-kaust">Outside KAUST</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">PhD Wiki</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../phd/homepage.html">Personal Website</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../phd/homepage.html#how-to-design-your-own-homepage">How to design Your Own Homepage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../phd/homepage.html#new-domain-username-com-setup">New domain username.com Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../phd/homepage.html#google-index">Google index</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Deep Learning PhD Wiki</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>How to use IBEX</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            
+              <!-- User defined GitHub URL -->
+              <a href="https://github.com/guochengqian/deep_learning_phd_wiki" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="how-to-use-ibex">
+<span id="use-ibex"></span><h1>How to use IBEX<a class="headerlink" href="#how-to-use-ibex" title="Permalink to this headline">¶</a></h1>
+<p>IBEX is the GPU cluster hosted in KAUST. IBEX is managed using Slurm. This Documentation teachs you how to use Slurm GPU cluster. IBEX is just an example. You can use what mentions in this doc in any Slurm based cluster (like the node center in IVUL-KAUST, the GPU clusters in most companies).</p>
+<div class="section" id="termius">
+<h2>Termius<a class="headerlink" href="#termius" title="Permalink to this headline">¶</a></h2>
+<p>Recall that when you connect to a cluster (or a remote machine), you have to <code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">yourAccount&#64;ipAddress</span></code>, and then input your password. This is annoying because you have to do it everytime when you want to login in the cluster.</p>
+<p>To avoid inputing username and password every time, I highly recommend a terminal software called <a class="reference external" href="https://termius.com/">termius</a> to all of you.</p>
+<p>After installing termius, simply add the host (the your username in termius:  add address of the cluster or any remote machine -&gt; click ssh -&gt; add username and password.
+Note: the address of the host can be the actual IP or the ip label, like in IBEX, you can use <code class="docutils literal notranslate"><span class="pre">glogin.kaust.edu.sa</span></code> or the actual IP Address, I recommend using the IP address)</p>
+<p>After adding the host, whenever you want to login in host, you just need to click the host name</p>
+<p>For example, setting a host named (glogin) for logging gloin in IBEX:</p>
+<ul class="simple">
+<li><p>address: 10.109.66.127 (or, you can use <code class="docutils literal notranslate"><span class="pre">glogin.ibex.kaust.edu.sa</span></code>)</p></li>
+<li><p>username: qiang (this is my username, please use yours)</p></li>
+<li><p>password: xxxxxxxx</p></li>
+</ul>
+<p>After setting up, only a click on the glogin button in termius is needed to ssh into the ibex system.</p>
+</div>
+<div class="section" id="tmux">
+<h2>Tmux<a class="headerlink" href="#tmux" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">tmux</span></code> is very helpful if you want to connect to a remote machine.
+If you do not use <code class="docutils literal notranslate"><span class="pre">tmux</span></code>, you will lose your connection if your terminal somehow disconnects with your remote machine (this situation happens a lot).
+tmux is easy to use. You only have to <code class="docutils literal notranslate"><span class="pre">tmux</span> <span class="pre">new</span> <span class="pre">-s</span> <span class="pre">xxx</span></code> to create a new tmux window. You can then login into the window using <code class="docutils literal notranslate"><span class="pre">tmux</span> <span class="pre">a</span> <span class="pre">-t</span> <span class="pre">xxx</span></code>.
+Then even if you lose your connection with the remote machine, you can re-login, and the tmux is always there. You can use tmux to login into that windown, and you will find everything is continues running there without being affected by the disconnection.
+There is a <a class="reference external" href="https://gist.github.com/MohamedAlaa/2961058">tmux cheatsheet</a>. Here is the <a class="reference external" href="https://github.com/tmux/tmux/wiki">tmux wiki</a>.</p>
+</div>
+<div class="section" id="run-a-job-in-cluster-ibex">
+<h2>Run a Job in cluster (IBEX)<a class="headerlink" href="#run-a-job-in-cluster-ibex" title="Permalink to this headline">¶</a></h2>
+<p>In any Slurm based cluster, whenever you want to use any resources (node, CPU, GPU, Mem, and running Time), you should ask a request for the resources.</p>
+<p>You can either use <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> or <code class="docutils literal notranslate"><span class="pre">srun</span></code> to request for resources to run your program in cluster.</p>
+<ol class="arabic">
+<li><dl>
+<dt>sbatch</dt><dd><p>The first option to run a program (eg, train or evaluate a deep learning model) is to use sbatch to send your job. Sbatch send your job in the priority queue and your code will continue to run even if you lose connection with cluster for some reason.</p>
+<p>There is an example of sbatch file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash --login</span>
+<span class="c1">#SBATCH -N 1</span>
+<span class="c1">##SBATCH --array=1-5  # uncomment to repeat the task, \eg, if you want to run the same program for 5 times, you can use --array=1-5</span>
+<span class="c1">#SBATCH -J rloc</span>
+<span class="c1">#SBATCH -o slurm_log/%x.%3a.%A.out    # make sure the slurm_log folder exists</span>
+<span class="c1">#SBATCH -e slurm_log/%x.%3a.%A.err</span>
+<span class="c1">#SBATCH --time=5-0:00:00 # time, you&#39;d better make job less than 24 hours therefore you get resources faster. You can split your job into smalle chunks if the total time is over 24 hours.</span>
+<span class="c1">#SBATCH --gpus=8            # or: --gres=gpu:v100:8 to specify the GPUs.</span>
+<span class="c1">##SBATCH --constraint=[rtx2080ti|gtx1080ti|v100] # or use this line to specify the GPUS. Note: you either use this line and above line to specify GPUs, or you use single line: --gres=gpu:v100:8</span>
+<span class="c1">#SBATCH --gpus-per-node=8   # use gpu_wide. specify the node, only consider node with 8 GPUs. comment out if you do not need this constraint.</span>
+<span class="c1">#SBATCH --cpus-per-gpu=6 # cps-per-gpu can not be over 6, for fair use</span>
+<span class="c1">#SBATCH --mem-per-gpu=45G # can not be over 45G for fair use</span>
+<span class="c1">#SBATCH --mail-user=xxx@kaust.edu.sa    # send message to your email</span>
+<span class="c1">#SBATCH --mail-type=FAIL,TIME_LIMIT,TIME_LIMIT_90</span>
+<span class="c1">##SBATCH -A conf-gpu-2020.11.23 # if you have additional QOS (that can give you higher priority for requesting resources, you can add it)</span>
+<span class="c1">#SBATCH --constraint=[ref_32T]  # use shared folder in v100s. this line can only be added if you request for 8 v100s node, and you want to use datasets in shared folder.</span>
+
+<span class="c1"># activate your conda env</span>
+<span class="n">echo</span> <span class="s2">&quot;Loading anaconda...&quot;</span>
+
+<span class="n">module</span> <span class="n">purge</span>
+<span class="n">module</span> <span class="n">load</span> <span class="n">gcc</span>
+<span class="n">module</span> <span class="n">load</span> <span class="n">cuda</span><span class="o">/</span><span class="mf">10.1</span><span class="o">.</span><span class="mi">105</span>
+
+<span class="n">conda</span> <span class="n">activate</span> <span class="n">deepgcn</span>
+
+<span class="n">echo</span> <span class="s2">&quot;...Anaconda env loaded&quot;</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">u</span> <span class="n">examples</span><span class="o">/</span><span class="n">classification</span><span class="o">/</span><span class="n">train</span><span class="o">.</span><span class="n">py</span>  <span class="o">--</span><span class="n">phase</span> <span class="n">train</span> <span class="o">--</span><span class="n">train_path</span> <span class="o">/</span><span class="n">scratch</span><span class="o">/</span><span class="n">dragon</span><span class="o">/</span><span class="n">intel</span><span class="o">/</span><span class="n">lig</span><span class="o">/</span><span class="n">guocheng</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">deepgcn</span><span class="o">/</span><span class="n">modelnet40</span>
+<span class="n">echo</span> <span class="s2">&quot;...training function Done&quot;</span>
+</pre></div>
+</div>
+<p>Run <code class="docutils literal notranslate"><span class="pre">sbatch</span> <span class="pre">train_ibex.sh</span></code> then your job will be put in the queue. You can check your queue info by : <code class="docutils literal notranslate"><span class="pre">squeue</span> <span class="pre">-u</span> <span class="pre">yourusername</span></code>.
+You can check your job output and error through the file <code class="docutils literal notranslate"><span class="pre">slurm_log/%x.%3a.%A.out</span></code> and <code class="docutils literal notranslate"><span class="pre">slurm_log/%x.%3a.%A.err</span></code>.</p>
+<p>You can check the available GPUs by: <code class="docutils literal notranslate"><span class="pre">gpu-usage</span> <span class="pre">--nodes|grep</span> <span class="pre">v100</span></code></p>
+<p>See <a class="reference external" href="https://www.hpc.kaust.edu.sa/sites/default/files/files/public/Cluster_training/26_11_2018/0_Ibex_cheat_sheet_Nov_26_2018.pdf">KAUST IBEX offical doc</a> for detailed information. See the <a class="reference external" href="../../files/Deep%20Learning%20Best%20Practices.pdf">IBEX
+Best Practice</a> for the detailed configuration of best usage on IBEX.</p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>srun</dt><dd><p>srun allow you to use cluster just like in terminal on your local
+machine. This is very useful when you want to debug your code.
+srun is convenient to use, however it will stop run when you
+lose connection with ibex. You need tmux to protect the node. When
+you lose connection, you can use tmux to login back into the node.</p>
+<p>You can also srun into your allocated node using:
+<code class="docutils literal notranslate"><span class="pre">srun</span> <span class="pre">--jobid=yourjobid</span> <span class="pre">--pty</span> <span class="pre">bash</span></code>
+To do that, you have to use Sbatch at first to query for resources and
+start your training there. The srun is just used as a tube. After you
+srun into the node, you can check your mem usage using <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code>, etc.</p>
+</dd>
+</dl>
+</li>
+</ol>
+</div>
+<div class="section" id="use-nodecenter-ivul-kaust">
+<h2>Use NodeCenter (IVUL-KAUST)<a class="headerlink" href="#use-nodecenter-ivul-kaust" title="Permalink to this headline">¶</a></h2>
+<p>If you are the member of IVUL-KAUST, you can use the internal GPU cluster belonging to our group called NodeCenter.
+The usage of the NodeCenter is roughly the same of IBEX.
+However, you have to login into each node and request resources in each node.</p>
+<p>Note: the time limit for a job is 12:00:00, so you must cut your job into small jobs (chunks) if the whole time is over 12 hours.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="work_remote.html" class="btn btn-neutral float-right" title="Work Remotely" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="learnPytorch.html" class="btn btn-neutral float-left" title="Learn PyTorch" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, Guocheng Qian.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

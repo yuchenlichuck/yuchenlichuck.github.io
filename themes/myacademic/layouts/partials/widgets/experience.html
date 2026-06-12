@@ -1,0 +1,52 @@
+{{ $ := .root }}
+{{ $page := .page }}
+
+<!-- Experience widget -->
+<div class="row">
+  <div class="col-12 section-heading">
+    <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
+    {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
+  </div>
+  <div class="col-12">
+    {{ with $page.Content }}{{ . }}{{ end }}
+
+    {{ if $page.Params.experience }}
+    <div class="experience-horizontal-wrapper">
+      <div class="experience-horizontal-scroll">
+        {{ range $idx, $key := sort $page.Params.experience ".date_start" "desc" }}
+        {{ $company := .company }}
+        {{ $isCurrent := not .date_end }}
+        <article class="experience-card-horizontal{{ if $isCurrent }} is-current{{ end }}">
+          <div class="experience-card-top">
+            <div class="experience-logo-container">
+            {{- with .logo}}
+            <img src="img/logo/{{ . }}" alt="{{$company}}" class="experience-logo">
+            {{end -}}
+            </div>
+            <div class="experience-status">{{ if $isCurrent }}Current{{ else }}Previous{{ end }}</div>
+          </div>
+          <div class="experience-content-horizontal">
+            <div class="experience-time">
+              {{ (time .date_start).Format ($page.Params.date_format | default "Jan 2006") }} –
+              {{ if .date_end}}
+                {{ (time .date_end).Format ($page.Params.date_format | default "Jan 2006") }}
+              {{else}}
+                {{ i18n "present" | default "Present" }}
+              {{end}}
+            </div>
+            <h4 class="experience-company-name">
+              {{- with .company_url}}<a href="{{.}}" target="_blank" rel="noopener">{{end}}
+              {{.company | markdownify | emojify}}
+              {{with .company_url}}</a>{{end -}}
+            </h4>
+            <div class="experience-role">{{.title | markdownify | emojify}}</div>
+            {{ with .location }}<div class="experience-location">{{ . | markdownify | emojify }}</div>{{ end }}
+            {{ with .description }}<div class="experience-summary">{{ . | markdownify | emojify }}</div>{{ end }}
+          </div>
+        </article>
+        {{end}}
+      </div>
+    </div>
+    {{end}}
+  </div>
+</div>

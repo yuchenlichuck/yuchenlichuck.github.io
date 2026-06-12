@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="{{ site.LanguageCode | default "en-us" }}">
+
+{{ partial "site_head.html" . }}
+{{ $body_classes := slice (printf "theme-%s" (.Scratch.Get "theme_index" | default "minimal")) }}
+{{ if not (.Scratch.Get "light") }}
+  {{ $body_classes = $body_classes | append "dark" }}
+{{ end }}
+<body id="top" data-spy="scroll" data-offset="70" data-target="{{ if or .IsHome (eq .Type "widget_page") }}#navbar-main{{else}}#TableOfContents{{end}}" class="{{ delimit $body_classes " " }}">
+
+  {{ partial "search" . }}
+
+  {{ partial "navbar.html" . }}
+
+  {{ block "main" . }}{{ end }}
+
+  {{ partial "site_js.html" . }}
+
+  {{ if ne .Type "docs" }}
+  <div class="container">
+    {{ partial "site_footer.html" . }}
+  </div>
+  {{ end }}
+
+  {{ partial "citation.html" . }}
+
+</body>
+</html>

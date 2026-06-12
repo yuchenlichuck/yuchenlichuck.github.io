@@ -1,0 +1,11 @@
+# Font style metadata
+name = "Claude"
+
+# Optional Google font URL
+google_fonts = "Newsreader:500,600,700|Manrope:400,500,600,700,800|IBM+Plex+Mono:400,500,600"
+
+# Font families
+heading_font = "Newsreader"
+body_font = "Manrope"
+nav_font = "Manrope"
+mono_font = "IBM Plex Mono"
