@@ -1,0 +1,405 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=google-site-verification content="7MghMiEezWCdLZfbrgYR845yxCJj-g02bSAnoythP1A"><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=generator content="Source Themes Academic 4.5.0"><meta name=author content="Yuchen Li"><meta name=description content='<!DOCTYPE html>
+
+
+
+    
+
+    
+    
+    
+
+    
+    
+    Magic123: One Image to High-Quality 3D Object Generation Using Both 2D and 3D Diffusion Priors
+    
+    
+    
+    
+
+    
+    
+    
+
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+
+
+
+    
+
+    
+        
+            
+            Magic123: One Image to High-Quality 3D Object Generation Using Both 2D and 3D Diffusion Priors
+            
+            ICLR 2024
+            
+        
+
+        
+            
+                
+                    Guocheng
+                            Qian1,2 
+                
+                
+                    Jinjie
+                            Mai1
+                
+                
+                    Abdullah
+                            Hamdi3
+                
+                
+                    Jian
+                            Ren2
+                
+            
+            
+                
+                    Aliaksandr
+                            Siarohin2
+                
+                
+                    Bing
+                            Li1
+                
+                
+                    Hsin-Ying
+                            Lee2
+                
+                
+                    Ivan
+                            Skorokhodov1,2
+                
+            
+            
+                
+                    Peter
+                            Wonka1
+                
+                
+                    Sergey
+                            Tulyakov2
+                
+                
+                    Bernard
+                            Ghanem1
+                
+            
+            
+                
+                    1King Abdullah University of Science and
+                            Technology (KAUST)
+                
+                
+                    2Snap Inc.
+                
+                
+                    3Visual Geometry Group, University of
+                            Oxford
+                
+            
+        
+    
+
+    
+        
+            
+                
+                    
+                
+                Arxiv
+            
+            
+                
+                    
+                
+                Code
+            
+        
+    
+
+    
+    
+    
+
+
+    
+    
+        
+            
+                Abstract
+                
+                    
+                    We present "Magic123", a two-stage coarse-to-fine solution for high-quality, textured 3D meshes
+                    generation from a single unposed image in the wild using both 2D and 3D priors. In the first stage,
+                    we optimize a neural radiance field to produce a coarse geometry. In the second stage, we adopt a
+                    memory-efficient differentiable mesh representation to yield a high-resolution mesh with a visually
+                    appealing texture. In both stages, the 3D content is learned through reference view supervision and
+                    novel views guided by both 2D and 3D diffusion priors. We introduce a single tradeoff parameter
+                    between the 2D and 3D priors to control exploration (more imaginative) and exploitation (more
+                    precise) of the generated geometry. Additionally, We employ textual inversion and monocular depth
+                    regularization to encourage consistent appearances across views and to prevent degenerate solutions,
+                    respectively.
+                    Magic123 demonstrates a significant improvement over previous image-to-3D techniques, as validated
+                    through extensive experiments on synthetic benchmarks and diverse real-world images.
+                    
+                '><link rel=alternate hreflang=en-us href=https://www.liyc.pw/project/magic123/><meta name=theme-color content="#b76531"><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin=anonymous><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin=anonymous><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin=anonymous><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css crossorigin=anonymous title=hl-light><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/dracula.min.css crossorigin=anonymous title=hl-dark disabled><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Newsreader:500,600,700%7CManrope:400,500,600,700,800%7CIBM+Plex+Mono:400,500,600&display=swap"><link rel=stylesheet href=/css/academic.min.725fa1d3f7543f5d06f0d328f0829365.css><link rel=manifest href=/manifest.webmanifest><link rel=icon type=image/png href=/img/icon.ico><link rel=apple-touch-icon type=image/png href=/img/icon.ico><link rel=canonical href=https://www.liyc.pw/project/magic123/><meta property="twitter:card" content="summary_large_image"><meta property="og:site_name" content="Yuchen Li"><meta property="og:url" content="https://www.liyc.pw/project/magic123/"><meta property="og:title" content=" | Yuchen Li"><meta property="og:description" content='<!DOCTYPE html>
+
+
+
+    
+
+    
+    
+    
+
+    
+    
+    Magic123: One Image to High-Quality 3D Object Generation Using Both 2D and 3D Diffusion Priors
+    
+    
+    
+    
+
+    
+    
+    
+
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+
+
+
+    
+
+    
+        
+            
+            Magic123: One Image to High-Quality 3D Object Generation Using Both 2D and 3D Diffusion Priors
+            
+            ICLR 2024
+            
+        
+
+        
+            
+                
+                    Guocheng
+                            Qian1,2 
+                
+                
+                    Jinjie
+                            Mai1
+                
+                
+                    Abdullah
+                            Hamdi3
+                
+                
+                    Jian
+                            Ren2
+                
+            
+            
+                
+                    Aliaksandr
+                            Siarohin2
+                
+                
+                    Bing
+                            Li1
+                
+                
+                    Hsin-Ying
+                            Lee2
+                
+                
+                    Ivan
+                            Skorokhodov1,2
+                
+            
+            
+                
+                    Peter
+                            Wonka1
+                
+                
+                    Sergey
+                            Tulyakov2
+                
+                
+                    Bernard
+                            Ghanem1
+                
+            
+            
+                
+                    1King Abdullah University of Science and
+                            Technology (KAUST)
+                
+                
+                    2Snap Inc.
+                
+                
+                    3Visual Geometry Group, University of
+                            Oxford
+                
+            
+        
+    
+
+    
+        
+            
+                
+                    
+                
+                Arxiv
+            
+            
+                
+                    
+                
+                Code
+            
+        
+    
+
+    
+    
+    
+
+
+    
+    
+        
+            
+                Abstract
+                
+                    
+                    We present "Magic123", a two-stage coarse-to-fine solution for high-quality, textured 3D meshes
+                    generation from a single unposed image in the wild using both 2D and 3D priors. In the first stage,
+                    we optimize a neural radiance field to produce a coarse geometry. In the second stage, we adopt a
+                    memory-efficient differentiable mesh representation to yield a high-resolution mesh with a visually
+                    appealing texture. In both stages, the 3D content is learned through reference view supervision and
+                    novel views guided by both 2D and 3D diffusion priors. We introduce a single tradeoff parameter
+                    between the 2D and 3D priors to control exploration (more imaginative) and exploitation (more
+                    precise) of the generated geometry. Additionally, We employ textual inversion and monocular depth
+                    regularization to encourage consistent appearances across views and to prevent degenerate solutions,
+                    respectively.
+                    Magic123 demonstrates a significant improvement over previous image-to-3D techniques, as validated
+                    through extensive experiments on synthetic benchmarks and diverse real-world images.
+                    
+                '><meta property="og:image" content="https://www.liyc.pw/img/avatar.jpg"><meta property="twitter:image" content="https://www.liyc.pw/img/avatar.jpg"><meta property="og:locale" content="en-us"><script type=application/ld+json>{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.liyc.pw/project/magic123/"},"headline":"","datePublished":"0001-01-01T00:00:00Z","dateModified":"0001-01-01T00:00:00Z","author":{"@type":"Person","name":"Yuchen Li"},"publisher":{"@type":"Organization","name":"Yuchen Li","logo":{"@type":"ImageObject","url":"https://www.liyc.pw/img/icon.ico"}},"description":"\u003c!DOCTYPE html\u003e\n\u003chtml\u003e\n\n\u003chead\u003e\n    \u003cscript id=\"MathJax-script\" async src=\"https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js\"\u003e\u003c/script\u003e\n\n    \u003c!-- Google tag (gtag.js) --\u003e\n    \u003cscript async src=\"https://www.googletagmanager.com/gtag/js?id=G-XB3PR2Y1TQ\"\u003e\u003c/script\u003e\n    \u003cscript\u003e\n        window.dataLayer = window.dataLayer || [];\n\n        function gtag() {\n            dataLayer.push(arguments);\n        }\n        gtag('js', new Date());\n\n        gtag('config', 'G-XB3PR2Y1TQ');\n    \u003c/script\u003e\n\n    \u003cmeta charset=\"utf-8\"\u003e\n    \u003cmeta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, shrink-to-fit=no\"\u003e\n    \u003ctitle\u003eMagic123: One Image to High-Quality 3D Object Generation Using Both 2D and 3D Diffusion Priors\u003c/title\u003e\n    \u003clink rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css\"\u003e\n    \u003clink href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,600' rel='stylesheet'\n        type='text/css'\u003e\n    \u003clink rel=\"stylesheet\" href=\"assets/css/Highlight-Clean.css\"\u003e\n    \u003clink rel=\"stylesheet\" href=\"assets/css/styles.css\"\u003e\n\n    \u003clink rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/dragon.png\"\u003e\n    \u003clink rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/dragon-32x32.png\"\u003e\n    \u003clink rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/dragon-16x16.png\"\u003e\n\n\n    \u003clink rel=\"manifest\" href=\"/site.webmanifest\"\u003e\n\n    \u003cmeta property=\"og:site_name\"\n        content=\"Magic123: One Image to High-Quality 3D Object Generation Using Both 2D and 3D Diffusion Priors\" /\u003e\n    \u003cmeta property=\"og:type\" content=\"video.other\" /\u003e\n    \u003cmeta property=\"og:title\"\n        content=\"Magic123: One Image to High-Quality 3D Object Generation Using Both 2D and 3D Diffusion Priors\" /\u003e\n    \u003cmeta property=\"og:description\"\n        content=\"Magic123: One Image to High-Quality 3D Object Generation Using Both 2D and 3D Diffusion Priors, 2023.\" /\u003e\n    \u003cmeta property=\"og:url\" content=\"https://guochengqian.github.io/project/magic123/\" /\u003e\n    \u003cmeta property=\"og:image\" content=\"https://guochengqian.github.io/project/magic123/assets/images/pull.jpg\" /\u003e\n    \u003c!-- todo change the sample image here  --\u003e\n\n    \u003cmeta property=\"article:publisher\" content=\"https://guochengqian.github.io/project/magic123/\" /\u003e\n    \u003cmeta name=\"twitter:card\" content=\"summary_large_image\" /\u003e\n    \u003cmeta name=\"twitter:title\"\n        content=\"Magic123: One Image to High-Quality 3D Object Generation Using Both 2D and 3D Diffusion Priors\" /\u003e\n    \u003cmeta name=\"twitter:description\"\n        content=\"We combine 2D and 3D priors to generate photo-realistic 3D objects from a single image.\" /\u003e\n    \u003cmeta name=\"twitter:url\" content=\"https://guochengqian.github.io/project/magic123/\" /\u003e\n    \u003cmeta name=\"twitter:image\" content=\"https://guochengqian.github.io/project/magic123/assets/images/pull.jpg\" /\u003e\n    \u003c!-- \u003cmeta name=\"twitter:site\" content=\"\" /\u003e --\u003e\n\n    \u003cscript src=\"assets/js/video_comparison.js\"\u003e\u003c/script\u003e\n    \u003cscript type=\"module\" src=\"https://unpkg.com/@google/model-viewer@2.0.1/dist/model-viewer.min.js\"\u003e\u003c/script\u003e\n\u003c/head\u003e\n\n\u003cbody\u003e\n\n    \u003cstyle\u003e\n        .project-links {\n            margin-top: 0.25rem;\n            margin-bottom: 2rem;\n        }\n        .project-link-item {\n            margin-bottom: 0.25rem;\n        }\n        .project-link-icon {\n            height: 64px;\n            width: auto;\n            display: inline-block;\n        }\n        .hero-gif {\n            width: 100%;\n            height: auto;\n            display: block;\n            margin: 14px auto 0;\n        }\n        .example-generated-objects,\n        .example-generated-objects h2,\n        .example-generated-objects p {\n            text-align: center;\n        }\n        .example-generated-objects .examples-grid .row {\n            justify-content: center;\n        }\n        .example-generated-objects .examples-grid .col-sm-1 {\n            justify-content: center !important;\n            text-align: center;\n        }\n        .example-generated-objects .examples-grid img,\n        .example-generated-objects .examples-grid video,\n        .tradeoff-media img,\n        .tradeoff-media video,\n        .quantitative-results-media img {\n            width: 100%;\n            max-width: 100%;\n            height: auto;\n            display: block;\n            margin-left: auto;\n            margin-right: auto;\n        }\n        .tradeoff-media {\n            width: 100%;\n        }\n        .tradeoff-media img,\n        .tradeoff-media video {\n            margin-bottom: 16px;\n        }\n        .tradeoff-media \u003e img,\n        .tradeoff-media \u003e video {\n            width: 100% !important;\n            max-width: none !important;\n            min-width: 100%;\n            height: auto !important;\n            max-height: none !important;\n            display: block;\n            box-sizing: border-box;\n            object-fit: contain;\n        }\n        .footer .footer-icons {\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            gap: 16px;\n            text-align: center;\n            margin-bottom: 10px;\n        }\n        .footer .icon-link {\n            display: inline-flex;\n            align-items: center;\n            justify-content: center;\n            min-width: 36px;\n            min-height: 36px;\n            font-size: 18px;\n            text-decoration: none;\n        }\n        .footer .content {\n            text-align: center;\n        }\n        @media (max-width: 575px) {\n            .project-link-icon {\n                height: 52px;\n            }\n            .project-links {\n                margin-bottom: 1.5rem;\n            }\n        }\n    \u003c/style\u003e\n\n    \u003cdiv class=\"highlight-clean\" style=\"padding-bottom: 10px;\"\u003e\n        \u003cdiv class=\"container\" style=\"max-width: 100%;\"\u003e\n            \u003cbr\u003e\n            \u003ch1 class=\"text-center\"\u003e\u003cb\u003eMagic123\u003c/b\u003e: One Image to High-Quality 3D Object Generation Using Both 2D and 3D Diffusion Priors\u003c/h1\u003e\n            \u003cbr\u003e\n            \u003ch2 class=\"text-center\"\u003e\u003cb\u003eICLR 2024\u003c/b\u003e\u003c/h2\u003e\n            \u003cbr\u003e\n        \u003c/div\u003e\n\n        \u003cdiv class=\"container author-container\"\u003e\n            \u003cdiv class=\"row authors\"\u003e\n                \u003cdiv class=\"col\"\u003e\n                    \u003ch5\u003e\u003ca href=\"https://guochengqian.github.io/\"\u003eGuocheng\n                            Qian\u003csup\u003e1,2\u003c/sup\u003e \u003c/a\u003e\u003c/h5\u003e\n                \u003c/div\u003e\n                \u003cdiv class=\"col\"\u003e\n                    \u003ch5\u003e\u003ca href=\"https://cemse.kaust.edu.sa/people/person/jinjie-mai\"\u003eJinjie\n                            Mai\u003csup\u003e1\u003c/sup\u003e\u003c/a\u003e\u003c/h5\u003e\n                \u003c/div\u003e\n                \u003cdiv class=\"col\"\u003e\n                    \u003ch5\u003e\u003ca href=\"https://abdullahamdi.com/\"\u003eAbdullah\n                            Hamdi\u003csup\u003e3\u003c/sup\u003e\u003c/a\u003e\u003c/h5\u003e\n                \u003c/div\u003e\n                \u003cdiv class=\"col\"\u003e\n                    \u003ch5\u003e\u003ca href=\"https://alanspike.github.io/\"\u003eJian\n                            Ren\u003csup\u003e2\u003c/sup\u003e\u003c/a\u003e\u003c/h5\u003e\n                \u003c/div\u003e\n            \u003c/div\u003e\n            \u003cdiv class=\"row authors\"\u003e\n                \u003cdiv class=\"col\"\u003e\n                    \u003ch5\u003e\u003ca class=\"text-center\"\n                            href=\"https://aliaksandrsiarohin.github.io/aliaksandr-siarohin-website/\"\u003eAliaksandr\n                            Siarohin\u003csup\u003e2\u003c/sup\u003e\u003c/a\u003e\u003c/h5\u003e\n                \u003c/div\u003e\n                \u003cdiv class=\"col\"\u003e\n                    \u003ch5\u003e\u003ca class=\"text-center\" href=\"https://cemse.kaust.edu.sa/people/person/bing-li\"\u003eBing\n                            Li\u003csup\u003e1\u003c/sup\u003e\u003c/a\u003e\u003c/h5\u003e\n                \u003c/div\u003e\n                \u003cdiv class=\"col\"\u003e\n                    \u003ch5\u003e\u003ca href=\"http://hsinyinglee.com/\"\u003eHsin-Ying\n                            Lee\u003csup\u003e2\u003c/sup\u003e\u003c/a\u003e\u003c/h5\u003e\n                \u003c/div\u003e\n                \u003cdiv class=\"col\"\u003e\n                    \u003ch5\u003e\u003ca href=\"https://universome.github.io/\"\u003eIvan\n                            Skorokhodov\u003csup\u003e1,2\u003c/sup\u003e\u003c/a\u003e\u003c/h5\u003e\n                \u003c/div\u003e\n            \u003c/div\u003e\n            \u003cdiv class=\"row authors\"\u003e\n                \u003cdiv class=\"col\"\u003e\n                    \u003ch5\u003e\u003ca href=\"https://peterwonka.net/\"\u003ePeter\n                            Wonka\u003csup\u003e1\u003c/sup\u003e\u003c/a\u003e\u003c/h5\u003e\n                \u003c/div\u003e\n                \u003cdiv class=\"col\"\u003e\n                    \u003ch5\u003e\u003ca href=\"http://www.stulyakov.com/\"\u003eSergey\n                            Tulyakov\u003csup\u003e2\u003c/sup\u003e\u003c/a\u003e\u003c/h5\u003e\n                \u003c/div\u003e\n                \u003cdiv class=\"col\"\u003e\n                    \u003ch5\u003e\u003ca href=\"https://www.bernardghanem.com/\"\u003eBernard\n                            Ghanem\u003csup\u003e1\u003c/sup\u003e\u003c/a\u003e\u003c/h5\u003e\n                \u003c/div\u003e\n            \u003c/div\u003e\n            \u003cdiv class=\"row affiliations\"\u003e\n                \u003cdiv class=\"col\"\u003e\n                    \u003ch6 class=\"text-center\"\u003e\u003ca class=\"text-center\"\u003e\u003csup\u003e1\u003c/sup\u003eKing Abdullah University of Science and\n                            Technology (KAUST)\u003c/a\u003e\u003c/h6\u003e\n                \u003c/div\u003e\n                \u003cdiv class=\"col\"\u003e\n                    \u003ch6 class=\"text-center\"\u003e\u003ca class=\"text-center\"\u003e\u003csup\u003e2\u003c/sup\u003eSnap Inc.\u003c/a\u003e\u003c/h6\u003e\n                \u003c/div\u003e\n                \u003cdiv class=\"col\"\u003e\n                    \u003ch6 class=\"text-center\"\u003e\u003ca class=\"text-center\"\u003e\u003csup\u003e3\u003c/sup\u003eVisual Geometry Group, University of\n                            Oxford\u003c/a\u003e\u003c/h6\u003e\n                \u003c/div\u003e\n            \u003c/div\u003e\n        \u003c/div\u003e\n    \u003c/div\u003e\n\n    \u003cdiv class=\"container align-items-center project-links\"\u003e\n        \u003cdiv class=\"row text-center mx-auto justify-content-center\"\u003e\n            \u003cdiv class=\"col-sm-4 col-md-3 project-link-item\"\u003e\n                \u003ca href=\"https://arxiv.org/abs/2306.17843\" target=\"_blank\" class=\"link-block w-inline-block\"\u003e\n                    \u003cimg src=\"assets/images/arxiv_paper.png\" alt=\"paper\" class=\"img-fluid project-link-icon\" /\u003e\u003c/a\u003e\n                \u003cbr\u003e\n                \u003cdiv class=\"text-block-2\"\u003e\u003cstrong class=\"bold-text-nerf_v2\"\u003eArxiv\u003c/strong\u003e\u003c/div\u003e\n            \u003c/div\u003e\n            \u003cdiv class=\"col-sm-4 col-md-3 project-link-item\"\u003e\n                \u003ca href=\"https://github.com/guochengqian/Magic123\" target=\"_blank\" class=\"link-block w-inline-block\"\u003e\n                    \u003cimg src=\"assets/images/github.png\" alt=\"github\" class=\"img-fluid project-link-icon\" /\u003e\u003c/a\u003e\n                \u003cbr\u003e\n                \u003cdiv class=\"text-block-2\"\u003e\u003cstrong class=\"bold-text-nerf_v2\"\u003eCode\u003c/strong\u003e\u003c/div\u003e\n            \u003c/div\u003e\n        \u003c/div\u003e\n    \u003c/div\u003e\n\n    \u003c/div\u003e\n    \u003c!-- \u003cdiv class=\"banner\"\u003e\n      \u003cvideo class=\"video lazy\"\n          poster=\"https://dreamfusion-cdn.ajayj.com/sept28/banner_1x6_customhue_A.jpg\"\n          autoplay loop playsinline muted\u003e\n        \u003csource data-src=\"https://dreamfusion-cdn.ajayj.com/sept28/banner_1x6_customhue_A.mp4\" type=\"video/mp4\" style=\"width: 100%; height: auto;\"\u003e\u003c/source\u003e\n      \u003c/video\u003e\n    \u003c/div\u003e --\u003e\n    \u003cvideo src=\"assets/videos/pull.mp4\" autoplay loop playsinline muted class=\"hero-gif\" type=\"video/mp4\"\u003e\u003c/video\u003e\n\n\n    \u003chr class=\"divider\" /\u003e\n    \u003cdiv class=\"container\" style=\"max-width: col-md-8;\"\u003e\n        \u003cdiv class=\"row\"\u003e\n            \u003cdiv class=\"col-sm-12\"\u003e\n                \u003ch2\u003eAbstract\u003c/h2\u003e\n                \u003cp\u003e\n                    \u003c!-- \u003cstrong\u003e --\u003e\n                    We present \"Magic123\", a two-stage coarse-to-fine solution for high-quality, textured 3D meshes\n                    generation from a single unposed image in the wild using both 2D and 3D priors. In the first stage,\n                    we optimize a neural radiance field to produce a coarse geometry. In the second stage, we adopt a\n                    memory-efficient differentiable mesh representation to yield a high-resolution mesh with a visually\n                    appealing texture. In both stages, the 3D content is learned through reference view supervision and\n                    novel views guided by both 2D and 3D diffusion priors. We introduce a single tradeoff parameter\n                    between the 2D and 3D priors to control exploration (more imaginative) and exploitation (more\n                    precise) of the generated geometry. Additionally, We employ textual inversion and monocular depth\n                    regularization to encourage consistent appearances across views and to prevent degenerate solutions,\n                    respectively.\n                    Magic123 demonstrates a significant improvement over previous image-to-3D techniques, as validated\n                    through extensive experiments on synthetic benchmarks and diverse real-world images.\n                    \u003c!-- \u003c/strong\u003e --\u003e\n                \u003c/p\u003e"}</script><title>| Yuchen Li</title></head><body id=top data-spy=scroll data-offset=70 data-target=#TableOfContents class=theme-claude><aside class=search-results id=search><div class=container><section class=search-header><div class="row no-gutters justify-content-between mb-3"><div class=col-6><h1>Search</h1></div><div class="col-6 col-search-close"><a class=js-search href=#><i class="fas fa-times-circle text-muted" aria-hidden=true></i></a></div></div><div id=search-box><input name=q id=search-query placeholder=Search... autocapitalize=off autocomplete=off autocorrect=off spellcheck=false type=search></div></section><section class=section-search-results><div id=search-hits></div></section></div></aside><nav class="navbar navbar-light fixed-top navbar-expand-lg py-0 compensate-for-scrollbar" id=navbar-main><div class=container><a class=navbar-brand href=/>Yuchen Li</a>
+<button type=button class=navbar-toggler data-toggle=collapse data-target=#navbar aria-controls=navbar aria-expanded=false aria-label="Toggle navigation">
+<span><i class="fas fa-bars"></i></span></button><div class="collapse navbar-collapse" id=navbar><ul class="navbar-nav mr-auto"><li class=nav-item><a class=nav-link href=/#about><span>Home</span></a></li><li class=nav-item><a class=nav-link href=/#focused-areas><span>Research</span></a></li><li class=nav-item><a class=nav-link href=/#featured><span>Publications</span></a></li><li class=nav-item><a class=nav-link href=/#experience><span>Experience</span></a></li><li class=nav-item><a class=nav-link href=/#news><span>News</span></a></li><li class=nav-item><a class=nav-link href=/#service><span>Service</span></a></li><li class=nav-item><a class=nav-link href=/#accomplishments><span>Awards</span></a></li></ul><ul class="navbar-nav ml-auto"><li class=nav-item><a class="nav-link js-search" href=#><i class="fas fa-search" aria-hidden=true></i></a></li><li class=nav-item><a class="nav-link js-dark-toggle" href=#><i class="fas fa-moon" aria-hidden=true></i></a></li></ul></div></div></nav><article class="article article-project"><div class="article-container pt-3"><h1></h1><div class=article-metadata><span class=article-date>Jan 1, 0001</span><div class=share-box aria-hidden=true><ul class=share><li><a href="https://twitter.com/intent/tweet?url=https://www.liyc.pw/project/magic123/&amp;text=" target=_blank rel=noopener class=share-btn-twitter><i class="fab fa-twitter"></i></a></li><li><a href="https://www.facebook.com/sharer.php?u=https://www.liyc.pw/project/magic123/&amp;t=" target=_blank rel=noopener class=share-btn-facebook><i class="fab fa-facebook-f"></i></a></li><li><a href="mailto:?subject=&amp;body=https://www.liyc.pw/project/magic123/" target=_blank rel=noopener class=share-btn-email><i class="fas fa-envelope"></i></a></li><li><a href="https://www.linkedin.com/shareArticle?url=https://www.liyc.pw/project/magic123/&amp;title=" target=_blank rel=noopener class=share-btn-linkedin><i class="fab fa-linkedin-in"></i></a></li><li><a href="https://web.whatsapp.com/send?text=%20https://www.liyc.pw/project/magic123/" target=_blank rel=noopener class=share-btn-whatsapp><i class="fab fa-whatsapp"></i></a></li><li><a href="https://service.weibo.com/share/share.php?url=https://www.liyc.pw/project/magic123/&amp;title=" target=_blank rel=noopener class=share-btn-weibo><i class="fab fa-weibo"></i></a></li></ul></div></div></div><div class=article-container><div class=article-style><!doctype html><html><head><script id=MathJax-script async src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-XB3PR2Y1TQ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-XB3PR2Y1TQ")</script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><title>Magic123: One Image to High-Quality 3D Object Generation Using Both 2D and 3D Diffusion Priors</title><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css><link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,600' rel=stylesheet type=text/css><link rel=stylesheet href=assets/css/Highlight-Clean.css><link rel=stylesheet href=assets/css/styles.css><link rel=apple-touch-icon sizes=180x180 href=/dragon.png><link rel=icon type=image/png sizes=32x32 href=/dragon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/dragon-16x16.png><link rel=manifest href=/site.webmanifest><meta property="og:site_name" content="Magic123: One Image to High-Quality 3D Object Generation Using Both 2D and 3D Diffusion Priors"><meta property="og:type" content="video.other"><meta property="og:title" content="Magic123: One Image to High-Quality 3D Object Generation Using Both 2D and 3D Diffusion Priors"><meta property="og:description" content="Magic123: One Image to High-Quality 3D Object Generation Using Both 2D and 3D Diffusion Priors, 2023."><meta property="og:url" content="https://guochengqian.github.io/project/magic123/"><meta property="og:image" content="https://guochengqian.github.io/project/magic123/assets/images/pull.jpg"><meta property="article:publisher" content="https://guochengqian.github.io/project/magic123/"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="Magic123: One Image to High-Quality 3D Object Generation Using Both 2D and 3D Diffusion Priors"><meta name=twitter:description content="We combine 2D and 3D priors to generate photo-realistic 3D objects from a single image."><meta name=twitter:url content="https://guochengqian.github.io/project/magic123/"><meta name=twitter:image content="https://guochengqian.github.io/project/magic123/assets/images/pull.jpg"><script src=assets/js/video_comparison.js></script><script type=module src=https://unpkg.com/@google/model-viewer@2.0.1/dist/model-viewer.min.js></script></head><body><style>.project-links{margin-top:.25rem;margin-bottom:2rem}.project-link-item{margin-bottom:.25rem}.project-link-icon{height:64px;width:auto;display:inline-block}.hero-gif{width:100%;height:auto;display:block;margin:14px auto 0}.example-generated-objects,.example-generated-objects h2,.example-generated-objects p{text-align:center}.example-generated-objects .examples-grid .row{justify-content:center}.example-generated-objects .examples-grid .col-sm-1{justify-content:center!important;text-align:center}.example-generated-objects .examples-grid img,.example-generated-objects .examples-grid video,.tradeoff-media img,.tradeoff-media video,.quantitative-results-media img{width:100%;max-width:100%;height:auto;display:block;margin-left:auto;margin-right:auto}.tradeoff-media{width:100%}.tradeoff-media img,.tradeoff-media video{margin-bottom:16px}.tradeoff-media>img,.tradeoff-media>video{width:100%!important;max-width:none!important;min-width:100%;height:auto!important;max-height:none!important;display:block;box-sizing:border-box;object-fit:contain}.footer .footer-icons{display:flex;justify-content:center;align-items:center;gap:16px;text-align:center;margin-bottom:10px}.footer .icon-link{display:inline-flex;align-items:center;justify-content:center;min-width:36px;min-height:36px;font-size:18px;text-decoration:none}.footer .content{text-align:center}@media(max-width:575px){.project-link-icon{height:52px}.project-links{margin-bottom:1.5rem}}</style><div class=highlight-clean style=padding-bottom:10px><div class=container style=max-width:100%><br><h1 class=text-center><b>Magic123</b>: One Image to High-Quality 3D Object Generation Using Both 2D and 3D Diffusion Priors</h1><br><h2 class=text-center><b>ICLR 2024</b></h2><br></div><div class="container author-container"><div class="row authors"><div class=col><h5><a href=https://guochengqian.github.io/>Guocheng
+Qian<sup>1,2</sup></a></h5></div><div class=col><h5><a href=https://cemse.kaust.edu.sa/people/person/jinjie-mai>Jinjie
+Mai<sup>1</sup></a></h5></div><div class=col><h5><a href=https://abdullahamdi.com/>Abdullah
+Hamdi<sup>3</sup></a></h5></div><div class=col><h5><a href=https://alanspike.github.io/>Jian
+Ren<sup>2</sup></a></h5></div></div><div class="row authors"><div class=col><h5><a class=text-center href=https://aliaksandrsiarohin.github.io/aliaksandr-siarohin-website/>Aliaksandr
+Siarohin<sup>2</sup></a></h5></div><div class=col><h5><a class=text-center href=https://cemse.kaust.edu.sa/people/person/bing-li>Bing
+Li<sup>1</sup></a></h5></div><div class=col><h5><a href=http://hsinyinglee.com/>Hsin-Ying
+Lee<sup>2</sup></a></h5></div><div class=col><h5><a href=https://universome.github.io/>Ivan
+Skorokhodov<sup>1,2</sup></a></h5></div></div><div class="row authors"><div class=col><h5><a href=https://peterwonka.net/>Peter
+Wonka<sup>1</sup></a></h5></div><div class=col><h5><a href=http://www.stulyakov.com/>Sergey
+Tulyakov<sup>2</sup></a></h5></div><div class=col><h5><a href=https://www.bernardghanem.com/>Bernard
+Ghanem<sup>1</sup></a></h5></div></div><div class="row affiliations"><div class=col><h6 class=text-center><a class=text-center><sup>1</sup>King Abdullah University of Science and
+Technology (KAUST)</a></h6></div><div class=col><h6 class=text-center><a class=text-center><sup>2</sup>Snap Inc.</a></h6></div><div class=col><h6 class=text-center><a class=text-center><sup>3</sup>Visual Geometry Group, University of
+Oxford</a></h6></div></div></div></div><div class="container align-items-center project-links"><div class="row text-center mx-auto justify-content-center"><div class="col-sm-4 col-md-3 project-link-item"><a href=https://arxiv.org/abs/2306.17843 target=_blank class="link-block w-inline-block"><img src=assets/images/arxiv_paper.png alt=paper class="img-fluid project-link-icon"></a><br><div class=text-block-2><strong class=bold-text-nerf_v2>Arxiv</strong></div></div><div class="col-sm-4 col-md-3 project-link-item"><a href=https://github.com/guochengqian/Magic123 target=_blank class="link-block w-inline-block"><img src=assets/images/github.png alt=github class="img-fluid project-link-icon"></a><br><div class=text-block-2><strong class=bold-text-nerf_v2>Code</strong></div></div></div></div></div><video src=assets/videos/pull.mp4 autoplay loop playsinline muted class=hero-gif type=video/mp4></video><hr class=divider><div class=container style=max-width:col-md-8><div class=row><div class=col-sm-12><h2>Abstract</h2><p>We present "Magic123", a two-stage coarse-to-fine solution for high-quality, textured 3D meshes
+generation from a single unposed image in the wild using both 2D and 3D priors. In the first stage,
+we optimize a neural radiance field to produce a coarse geometry. In the second stage, we adopt a
+memory-efficient differentiable mesh representation to yield a high-resolution mesh with a visually
+appealing texture. In both stages, the 3D content is learned through reference view supervision and
+novel views guided by both 2D and 3D diffusion priors. We introduce a single tradeoff parameter
+between the 2D and 3D priors to control exploration (more imaginative) and exploitation (more
+precise) of the generated geometry. Additionally, We employ textual inversion and monocular depth
+regularization to encourage consistent appearances across views and to prevent degenerate solutions,
+respectively.
+Magic123 demonstrates a significant improvement over previous image-to-3D techniques, as validated
+through extensive experiments on synthetic benchmarks and diverse real-world images.</p></div></div></div><div class=container style=max-width:col-md-8><div class="row captioned_videos"><div class=col-sm-12><img src=assets/images/magic123_pipeline.png alt="Image description" class=img-fluid><h6 class=caption style=text-align:left><b>Magic123 pipeline.</b> Magic123 is a two-stage
+coarse-to-fine framework for high-quality
+3D generation from a reference image. Magic123 is guided by the reference image, constrained by the
+monocular depth estimation from the image, and driven by a joint 2D and 3D diffusion prior to dream
+up novel views. At the coarse stage, we optimize an Instant-NGP neural radiance field (NeRF) to
+reconstruct a coarse geometry. At the fine stage, we initialize a DMTet mesh from the NeRF output
+and optimize a high-resolution mesh and texture directly. Textural inversion is used in both stages
+to generate object-preserving geometry and view-consistent textures.</h6></div></div></div><hr class=divider><div class="container example-generated-objects" style=max-width:col-md-8><div class="row text-center"><div class=col-sm-12><h2>Example generated objects</h2><p>Magic123 generates photo-realistic 3D objects from a single unposed image.</p></div></div><div class="container align-items-center examples-grid"><div class=row><div class="col-sm-1 d-flex align-items-center justify-content-start p-0"><div class=method-title>Input</div></div><div class=col-sm-2><img src=assets/videos/reference/bear.png alt="Bear Image" class=img-fluid></div><div class=col-sm-2><img src=assets/videos/reference/dragon.png alt="Dragon Image" class=img-fluid></div><div class=col-sm-2><img src=assets/videos/reference/horse.png alt="Horse Image" class=img-fluid></div><div class=col-sm-2><img src=assets/videos/reference/teapot.png alt="Sparrow Image" class=img-fluid></div></div><div class=row><div class="col-sm-1 d-flex align-items-center justify-content-start p-0"><div class=method-title><a href=https://github.com/openai/shap-e>Shap-E</a></div></div><div class=col-sm-2><video src=assets/videos/shape_e/bear.mp4 autoplay loop playsinline muted type=video/mp4 style=width:100%;height:auto></video></div><div class=col-sm-2><video src=assets/videos/shape_e/dragon.mp4 autoplay loop playsinline muted type=video/mp4 style=width:100%;height:auto></video></div><div class=col-sm-2><video src=assets/videos/shape_e/horse.mp4 autoplay loop playsinline muted type=video/mp4 style=width:100%;height:auto></video></div><div class=col-sm-2><video src=assets/videos/shape_e/teapot.mp4 autoplay loop playsinline muted type=video/mp4 style=width:100%;height:auto></video></div></div><div class=row><div class="col-sm-1 d-flex align-items-center justify-content-start p-0"><div class=method-title><a href=https://ku-cvlab.github.io/3DFuse/>3D Fuse</a></div></div><div class=col-sm-2><video src=assets/videos/3d_fuse/bear.mp4 autoplay loop playsinline muted type=video/mp4 style=width:100%;height:auto></video></div><div class=col-sm-2><video src=assets/videos/3d_fuse/dragon.mp4 autoplay loop playsinline muted type=video/mp4 style=width:100%;height:auto></video></div><div class=col-sm-2><video src=assets/videos/3d_fuse/horse.mp4 autoplay loop playsinline muted type=video/mp4 style=width:100%;height:auto></video></div><div class=col-sm-2><video src=assets/videos/3d_fuse/teapot.mp4 autoplay loop playsinline muted type=video/mp4 style=width:100%;height:auto></video></div></div><div class=row><div class="col-sm-1 d-flex align-items-center justify-content-start p-0"><div class=method-title><a href=https://vita-group.github.io/NeuralLift-360/>Neural Lift</a></div></div><div class=col-sm-2><video src=assets/videos/neural_lift/bear.mp4 autoplay loop playsinline muted type=video/mp4 style=width:100%;height:auto></video></div><div class=col-sm-2><video src=assets/videos/neural_lift/dragon.mp4 autoplay loop playsinline muted type=video/mp4 style=width:100%;height:auto></video></div><div class=col-sm-2><video src=assets/videos/neural_lift/horse.mp4 autoplay loop playsinline muted type=video/mp4 style=width:100%;height:auto></video></div><div class=col-sm-2><video src=assets/videos/neural_lift/teapot.mp4 autoplay loop playsinline muted type=video/mp4 style=width:100%;height:auto></video></div></div><div class=row><div class="col-sm-1 d-flex align-items-center justify-content-start p-0"><div class=method-title><a href=https://lukemelas.github.io/realfusion/>Real Fusion</a></div></div><div class=col-sm-2><video src=assets/videos/realfusion/bear.mp4 autoplay loop playsinline muted type=video/mp4 style=width:100%;height:auto></video></div><div class=col-sm-2><video src=assets/videos/realfusion/dragon.mp4 autoplay loop playsinline muted type=video/mp4 style=width:100%;height:auto></video></div><div class=col-sm-2><video src=assets/videos/realfusion/horse.mp4 autoplay loop playsinline muted type=video/mp4 style=width:100%;height:auto></video></div><div class=col-sm-2><video src=assets/videos/realfusion/teapot.mp4 autoplay loop playsinline muted type=video/mp4 style=width:100%;height:auto></video></div></div><div class=row><div class="col-sm-1 d-flex align-items-center justify-content-start p-0"><div class=method-title><b>Magic123</b><br><b>(Ours)</b></div></div><div class=col-sm-2><video src=assets/videos/magic123/bear.mp4 autoplay loop playsinline muted type=video/mp4 style=width:100%;height:auto></video></div><div class=col-sm-2><video src=assets/videos/magic123/dragon.mp4 autoplay loop playsinline muted type=video/mp4 style=width:100%;height:auto></video></div><div class=col-sm-2><video src=assets/videos/magic123/horse.mp4 autoplay loop playsinline muted type=video/mp4 style=width:100%;height:auto></video></div><div class=col-sm-2><video src=assets/videos/magic123/teapot.mp4 autoplay loop playsinline muted type=video/mp4 style=width:100%;height:auto></video></div></div></div></div><hr class=divider><div class=container style=max-width:col-md-8><div class=row><div class=col-sm-12><h2>Tradeoff between 2D and 3D priors in Magic123</h2><p>We compare single image reconstructions for three cases: a cactus (common object), two stacked
+donuts (less common object), and a dragon statue (uncommon object).
+Magic123 with only 2D prior (on the right) favors geometry exploration, generating 3D content
+with
+more imagination but potentially lacking 3D consistency. Magic123 with only 3D prior prioritizes
+geometry exploitation, resulting in precise yet potentially simplified geometry with reduced
+details. Magic123 thus proposes to use both 2D and 3D prior and introduces a tradeoff parameter
+\( \lambda_{2D/3D} \) to control the geometry exploration and exploitation. We provide a
+balanced point
+\( \lambda_{2D/3D}=1 \) , with which Magic123 consistently offers
+identity-preserving 3D content with fine-grained geometry and visually appealing texture.</p></div></div><div class="row justify-content-center" style=padding:0;margin:0><div class="col-sm-8 text-center tradeoff-media"><img src=assets/images/priors.jpeg alt="Image description" class=img-fluid><div style=height:30px></div><img src=assets/images/2d_3d.png alt="Image description" class=img-fluid>
+<video src=assets/videos/human_examples.mp4 autoplay loop playsinline muted type=video/mp4 style=width:100%;height:auto></video>
+<video src=assets/videos/lambda_2d.mp4 autoplay loop playsinline muted type=video/mp4 style=width:100%;height:auto></video></div></div></div></div><hr class=divider><div class=container style=max-width:col-md-8><div class=row><div class=col-sm-12><h2>Effects of the coarse-to-fine pipeline</h2><p>Qualitative comparisons of the coarse and fine stages between Magic123 with only 2D prior \(
+\lambda_{2D}=1,\lambda_{3D}=0 \),
+Magic123 with only 3D prior \( \lambda_{2D}=0,\lambda_{3D}=40 \), and Magic123 \(
+\lambda_{2D}=1,\lambda_{3D}=40 \).</p></div></div><div class="row justify-content-center" style=padding:0;margin:0><div class="col-sm-12 text-center"><img src=assets/images/coarse_2_fine.png alt="Image description" class=img-fluid><div style=height:10px></div></div></div></div><hr class=divider><div class=container style=max-width:col-md-8><div class=row><div class=col-sm-12><h2>Quantitative Results</h2><p>To demonstrate the effectiveness of the proposed Magic123, we evaluate its performance on the
+NeRF4 and RealFusion15 datasets. We conduct a comprehensive and quantitative comparison with
+multiple baselines for both datasets, as shown in Table I. Notably, our method achieves Top-1
+performance across all the metrics when compared to previous SOTA approaches. This remarkable
+performance demonstrates the superiority of Magic123 and its ability to generate high-quality 3D
+representations.</p></div></div><div class="row justify-content-center" style=padding:0;margin:0><div class="col-sm-12 text-center quantitative-results-media"><img src=assets/images/results.jpeg alt="Image description" class=img-fluid></div></div></div><hr class=divider><footer class=footer><div class=container><div class="content has-text-centered footer-icons"><a class=icon-link href=https://arxiv.org/abs/2306.17843 aria-label="Magic123 paper"><i class="fa-solid fa-file-pdf" aria-hidden=true></i>
+</a><a class=icon-link href=https://github.com/guochengqian/Magic123 aria-label="Magic123 GitHub"><i class="fab fa-github" aria-hidden=true></i></a></div><div class="columns is-centered"><div class="column is-8"><div class=content><p>This website is licensed under a <a rel=license href=http://creativecommons.org/licenses/by-sa/4.0/>Creative
+Commons Attribution-ShareAlike 4.0 International License</a>.</p><p>We borrow the <a href=https://dreamfusion3d.github.io/>source code</a> for our
+website.
+We sincerely appreciate DreamFusion authors for their awesome templates.</p></div></div></div></div></footer><script src=assets/js/yall.js></script><script>yall({observeChanges:!0})</script><script src=assets/js/scripts.js></script><script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js></script><script src=https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js></script></body></html></div></div></article><script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js integrity="sha256-aYTdUrn6Ow1DDgh5JTc3aDGnnju48y/1c8s1dgkYPQ8=" crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/r.min.js></script><script>hljs.initHighlightingOnLoad()</script><script>const search_config={indexURI:"/index.json",minLength:1,threshold:.3},i18n={no_results:"No results found",placeholder:"Search...",results:"results found"},content_type={post:"Posts",project:"Projects",publication:"Publications",talk:"Talks"}</script><script id=search-hit-fuse-template type=text/x-template>
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin=anonymous></script><script src=/js/academic.min.b89d1011e4e05f2d9ac6fafcb0f556d1.js></script><section class=tail-section><div class=container></div></section><script>(function(){function n(e){var t=e.previousElementSibling;return t&&t.classList.contains("video-placeholder")?t:null}function t(e){e.style.display="block";var t=n(e);t&&(t.style.display="none")}function e(e){e.muted=!0,e.defaultMuted=!0,e.playsInline=!0,e.setAttribute("muted",""),e.setAttribute("playsinline",""),e.setAttribute("webkit-playsinline",""),t(e);var n=e.play();n&&typeof n.catch=="function"&&n.catch(function(){})}function s(n){if(n.dataset.mobileAutoplayReady==="true")return;n.dataset.mobileAutoplayReady="true",n.addEventListener("loadeddata",function(){e(n)}),n.addEventListener("canplay",function(){e(n)}),n.addEventListener("play",function(){t(n)}),n.readyState>=2&&e(n)}function o(){var e=document.querySelectorAll(".publication-image-container .video-content");e.forEach(s)}document.addEventListener("DOMContentLoaded",function(){o(),document.addEventListener("visibilitychange",function(){if(document.hidden)return;document.querySelectorAll(".publication-image-container .video-content").forEach(e)}),["touchstart","pointerdown"].forEach(function(t){document.addEventListener(t,function n(){document.querySelectorAll(".publication-image-container .video-content").forEach(e),document.removeEventListener(t,n)},{passive:!0})})})})()</script><div class=container><footer class=site-footer><p class=powered-by>© 2026 Yuchen Li. Thanks for the template from wowchemy-hugo-themes.
+<span class=float-right aria-hidden=true><a href=# class=back-to-top><span class=button_icon><i class="fas fa-chevron-up fa-2x"></i></span></a></span></p></footer></div><div id=modal class="modal fade" role=dialog><div class=modal-dialog><div class=modal-content><div class=modal-header><h5 class=modal-title>Cite</h5><button type=button class=close data-dismiss=modal aria-label=Close>
+<span aria-hidden=true>&#215;</span></button></div><div class=modal-body><pre><code class="tex hljs"></code></pre></div><div class=modal-footer><a class="btn btn-outline-primary my-1 js-copy-cite" href=# target=_blank><i class="fas fa-copy"></i> Copy
+</a><a class="btn btn-outline-primary my-1 js-download-cite" href=# target=_blank><i class="fas fa-download"></i> Download</a><div id=modal-error></div></div></div></div></div></body></html>

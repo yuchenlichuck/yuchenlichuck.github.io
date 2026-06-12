@@ -1,0 +1,265 @@
+h4{
+	font-size: 24px;
+	font-weight:bold;
+	padding:20px 0px 10px 0px;
+
+	}
+
+.img {
+    max-width: 100%;
+    max-height: 100%;
+	margin-bottom: 4%;
+}
+
+@media (min-width: 767px) {
+	.navbar {
+		-webkit-transition: background .5s ease-in-out, padding .5s ease-in-out;
+		-moz-transition: background .5s ease-in-out, padding .5s ease-in-out;
+		transition: background .5s ease-in-out, padding .5s ease-in-out; }
+
+	.top-nav-collapse {
+		padding: 0; }
+
+	.navbar-nav{
+		text-align: right;
+		float:right;
+		font-size:18px;
+		font-weight: bold;
+	}
+}
+.logo{
+	margin-left: 20px;
+}
+
+.logo img{
+	width: 200px;
+	background-color: rgba(255, 255, 255, 0);
+}
+
+.navbar-default {
+background-color: rgba(255, 255, 255, 0.7);
+border-color: #ffffff}
+
+
+.content{
+	margin-top: 10%;
+
+}
+
+.about {
+	max-width: 80%;
+	margin-left: 10%;
+	margin-top: 2%;
+	margin-bottom: 2%;
+	overflow: hidden;
+}
+
+
+.news{
+	max-width: 80%;
+	margin-left: 10%;
+	margin-top: 2%;
+	margin-bottom: 2%;
+	height: 120px;
+	overflow-y: hidden;
+}
+
+.overview{
+	max-width: 80%;
+	margin-left: 10%;
+	margin-top: 2%;
+	margin-bottom: 2%;
+
+}
+
+.browser {
+	background-color: #fff;
+	border: 1px solid #dfdfdf;
+	overflow: hidden;
+	padding: 36px 10px 10px 10px;
+	position: relative;
+	border-radius: 6px;
+	/*height:50vh;*/
+	margin-bottom: 3%;
+}
+	.browser2 {
+		background-color: #fff;
+		border: 1px solid #dfdfdf;
+		overflow-y: scroll;
+		padding: 36px 10px 10px 10px;
+		position: relative;
+		border-radius: 6px;
+		height:75vh;
+	}
+	.browser-body1 {
+		background-image: url('../img/pixelshift200_train_min.jpg');
+		background-size: cover;
+		background-position: 0 0;
+		height: 45vh;
+	}
+
+	.browser-header {
+		height: 2vh;
+		padding: 8px 35px 8px 55px;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+	}
+
+	.browser-buttons {
+		float: left;
+		padding: 6px 10px;
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+
+		.browser-buttons span {
+			display: inline-block;
+			height: 8px;
+			margin: 0 5px 0 0;
+			width: 8px;
+			border-radius: 4px;
+		}
+
+			.browser-buttons span:nth-child(1) {
+				background-color: #ff545d;
+			}
+
+			.browser-buttons span:nth-child(2) {
+				background-color: #ffbe36;
+			}
+
+			.browser-buttons span:nth-child(3) {
+				background-color: #00d142;
+			}
+
+	.browser-bar {
+		background-color: #f1f4f5;
+		color: #666;
+		font-size: 12px;
+		line-height: 180%;
+		text-align: center;
+		height: 20px;
+		width: 100%;
+		-webkit-border-radius: 2px;
+		   -moz-border-radius: 2px;
+				border-radius: 2px;
+	}
+
+	.browser-menu {
+		padding: 14px 10px;
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+
+		.browser-menu span {
+			display: block;
+			height: 1px;
+			width: 16px;
+			margin: 0 0 3px 0;
+			background-color: #dde1e6;
+		}
+
+
+
+.download{
+	max-width: 80%;
+	margin-left: 10%;
+	margin-top: 5%;
+	margin-bottom: 2%;
+	/*height: 200px;*/
+}
+
+	.download img{
+		height: 150px;
+		width: 150px;
+	}
+	.download ul.list-inline {
+		margin: 20px 0 0;
+		text-align: center;
+	}
+
+	.download ul.list-inline li.list-inline-item {
+		margin-right: 30px;
+	}
+
+
+	.download ul.list-inline a {
+		color: #333;
+		font-size: 16px;
+	}
+
+
+.paper{
+	max-width: 100%;
+	margin-top: 5%;
+	margin-bottom: 2%;
+	height: 220px;
+	background-color: #f3f3f3;
+}
+
+	.paper ul.list-inline li.list-inline-item {
+		margin-right: 30px;
+	}
+
+.team{
+	max-width: 80%;
+	margin-left: 10%;
+	margin-top: 5%;
+	margin-bottom: 2%;
+	overflow: hidden;
+	/*height: 300px;*/
+}
+
+	.team img{
+		height: 150px;
+		width: 150px;
+	}
+	.team ul.list-inline {
+		margin: 20px 0 0;
+		text-align: center;
+	}
+
+	.team ul.list-inline li.list-inline-item {
+		margin-right: 30px;
+	}
+
+
+	.team ul.list-inline a {
+		color: #333;
+		font-size: 16px;
+	}
+
+
+
+.footer {
+	background-color: #f3f3f3;
+	padding: 20px 0;
+}
+
+	.footer p {
+		color: #666;
+		font-size: 14px;
+		margin: 0;
+		text-align: center;
+	}
+
+
+div.modal-dialog {
+	max-width: 880px;
+	margin: 9.75rem auto 0;
+}
+pre {
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	color: #212529;
+	font-size: 12px;
+	margin: 5px 0;
+	max-width: 100%;
+	overflow: auto;
+	padding: 12px;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}

@@ -1,0 +1,807 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Projects | Yuchen Li</title><link>https://www.liyc.pw/project/</link><atom:link href="https://www.liyc.pw/project/index.xml" rel="self" type="application/rss+xml"/><description>Projects</description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2026 Yuchen Li</copyright><image><url>https://www.liyc.pw/img/avatar.jpg</url><title>Projects</title><link>https://www.liyc.pw/project/</link></image><item><title/><link>https://www.liyc.pw/project/magic123/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.liyc.pw/project/magic123/</guid><description>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"&gt;&lt;/script&gt;
+&lt;!-- Google tag (gtag.js) --&gt;
+&lt;script async src="https://www.googletagmanager.com/gtag/js?id=G-XB3PR2Y1TQ"&gt;&lt;/script&gt;
+&lt;script&gt;
+window.dataLayer = window.dataLayer || [];
+function gtag() {
+dataLayer.push(arguments);
+}
+gtag('js', new Date());
+gtag('config', 'G-XB3PR2Y1TQ');
+&lt;/script&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"&gt;
+&lt;title&gt;Magic123: One Image to High-Quality 3D Object Generation Using Both 2D and 3D Diffusion Priors&lt;/title&gt;
+&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"&gt;
+&lt;link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,600' rel='stylesheet'
+type='text/css'&gt;
+&lt;link rel="stylesheet" href="assets/css/Highlight-Clean.css"&gt;
+&lt;link rel="stylesheet" href="assets/css/styles.css"&gt;
+&lt;link rel="apple-touch-icon" sizes="180x180" href="https://www.liyc.pw/dragon.png"&gt;
+&lt;link rel="icon" type="image/png" sizes="32x32" href="https://www.liyc.pw/dragon-32x32.png"&gt;
+&lt;link rel="icon" type="image/png" sizes="16x16" href="https://www.liyc.pw/dragon-16x16.png"&gt;
+&lt;link rel="manifest" href="https://www.liyc.pw/site.webmanifest"&gt;
+&lt;meta property="og:site_name"
+content="Magic123: One Image to High-Quality 3D Object Generation Using Both 2D and 3D Diffusion Priors" /&gt;
+&lt;meta property="og:type" content="video.other" /&gt;
+&lt;meta property="og:title"
+content="Magic123: One Image to High-Quality 3D Object Generation Using Both 2D and 3D Diffusion Priors" /&gt;
+&lt;meta property="og:description"
+content="Magic123: One Image to High-Quality 3D Object Generation Using Both 2D and 3D Diffusion Priors, 2023." /&gt;
+&lt;meta property="og:url" content="https://guochengqian.github.io/project/magic123/" /&gt;
+&lt;meta property="og:image" content="https://guochengqian.github.io/project/magic123/assets/images/pull.jpg" /&gt;
+&lt;!-- todo change the sample image here --&gt;
+&lt;meta property="article:publisher" content="https://guochengqian.github.io/project/magic123/" /&gt;
+&lt;meta name="twitter:card" content="summary_large_image" /&gt;
+&lt;meta name="twitter:title"
+content="Magic123: One Image to High-Quality 3D Object Generation Using Both 2D and 3D Diffusion Priors" /&gt;
+&lt;meta name="twitter:description"
+content="We combine 2D and 3D priors to generate photo-realistic 3D objects from a single image." /&gt;
+&lt;meta name="twitter:url" content="https://guochengqian.github.io/project/magic123/" /&gt;
+&lt;meta name="twitter:image" content="https://guochengqian.github.io/project/magic123/assets/images/pull.jpg" /&gt;
+&lt;!-- &lt;meta name="twitter:site" content="" /&gt; --&gt;
+&lt;script src="assets/js/video_comparison.js"&gt;&lt;/script&gt;
+&lt;script type="module" src="https://unpkg.com/@google/model-viewer@2.0.1/dist/model-viewer.min.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;style&gt;
+.project-links {
+margin-top: 0.25rem;
+margin-bottom: 2rem;
+}
+.project-link-item {
+margin-bottom: 0.25rem;
+}
+.project-link-icon {
+height: 64px;
+width: auto;
+display: inline-block;
+}
+.hero-gif {
+width: 100%;
+height: auto;
+display: block;
+margin: 14px auto 0;
+}
+.example-generated-objects,
+.example-generated-objects h2,
+.example-generated-objects p {
+text-align: center;
+}
+.example-generated-objects .examples-grid .row {
+justify-content: center;
+}
+.example-generated-objects .examples-grid .col-sm-1 {
+justify-content: center !important;
+text-align: center;
+}
+.example-generated-objects .examples-grid img,
+.example-generated-objects .examples-grid video,
+.tradeoff-media img,
+.tradeoff-media video,
+.quantitative-results-media img {
+width: 100%;
+max-width: 100%;
+height: auto;
+display: block;
+margin-left: auto;
+margin-right: auto;
+}
+.tradeoff-media {
+width: 100%;
+}
+.tradeoff-media img,
+.tradeoff-media video {
+margin-bottom: 16px;
+}
+.tradeoff-media &gt; img,
+.tradeoff-media &gt; video {
+width: 100% !important;
+max-width: none !important;
+min-width: 100%;
+height: auto !important;
+max-height: none !important;
+display: block;
+box-sizing: border-box;
+object-fit: contain;
+}
+.footer .footer-icons {
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 16px;
+text-align: center;
+margin-bottom: 10px;
+}
+.footer .icon-link {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+min-width: 36px;
+min-height: 36px;
+font-size: 18px;
+text-decoration: none;
+}
+.footer .content {
+text-align: center;
+}
+@media (max-width: 575px) {
+.project-link-icon {
+height: 52px;
+}
+.project-links {
+margin-bottom: 1.5rem;
+}
+}
+&lt;/style&gt;
+&lt;div class="highlight-clean" style="padding-bottom: 10px;"&gt;
+&lt;div class="container" style="max-width: 100%;"&gt;
+&lt;br&gt;
+&lt;h1 class="text-center"&gt;&lt;b&gt;Magic123&lt;/b&gt;: One Image to High-Quality 3D Object Generation Using Both 2D and 3D Diffusion Priors&lt;/h1&gt;
+&lt;br&gt;
+&lt;h2 class="text-center"&gt;&lt;b&gt;ICLR 2024&lt;/b&gt;&lt;/h2&gt;
+&lt;br&gt;
+&lt;/div&gt;
+&lt;div class="container author-container"&gt;
+&lt;div class="row authors"&gt;
+&lt;div class="col"&gt;
+&lt;h5&gt;&lt;a href="https://guochengqian.github.io/"&gt;Guocheng
+Qian&lt;sup&gt;1,2&lt;/sup&gt; &lt;/a&gt;&lt;/h5&gt;
+&lt;/div&gt;
+&lt;div class="col"&gt;
+&lt;h5&gt;&lt;a href="https://cemse.kaust.edu.sa/people/person/jinjie-mai"&gt;Jinjie
+Mai&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;&lt;/h5&gt;
+&lt;/div&gt;
+&lt;div class="col"&gt;
+&lt;h5&gt;&lt;a href="https://abdullahamdi.com/"&gt;Abdullah
+Hamdi&lt;sup&gt;3&lt;/sup&gt;&lt;/a&gt;&lt;/h5&gt;
+&lt;/div&gt;
+&lt;div class="col"&gt;
+&lt;h5&gt;&lt;a href="https://alanspike.github.io/"&gt;Jian
+Ren&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;&lt;/h5&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="row authors"&gt;
+&lt;div class="col"&gt;
+&lt;h5&gt;&lt;a class="text-center"
+href="https://aliaksandrsiarohin.github.io/aliaksandr-siarohin-website/"&gt;Aliaksandr
+Siarohin&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;&lt;/h5&gt;
+&lt;/div&gt;
+&lt;div class="col"&gt;
+&lt;h5&gt;&lt;a class="text-center" href="https://cemse.kaust.edu.sa/people/person/bing-li"&gt;Bing
+Li&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;&lt;/h5&gt;
+&lt;/div&gt;
+&lt;div class="col"&gt;
+&lt;h5&gt;&lt;a href="http://hsinyinglee.com/"&gt;Hsin-Ying
+Lee&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;&lt;/h5&gt;
+&lt;/div&gt;
+&lt;div class="col"&gt;
+&lt;h5&gt;&lt;a href="https://universome.github.io/"&gt;Ivan
+Skorokhodov&lt;sup&gt;1,2&lt;/sup&gt;&lt;/a&gt;&lt;/h5&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="row authors"&gt;
+&lt;div class="col"&gt;
+&lt;h5&gt;&lt;a href="https://peterwonka.net/"&gt;Peter
+Wonka&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;&lt;/h5&gt;
+&lt;/div&gt;
+&lt;div class="col"&gt;
+&lt;h5&gt;&lt;a href="http://www.stulyakov.com/"&gt;Sergey
+Tulyakov&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;&lt;/h5&gt;
+&lt;/div&gt;
+&lt;div class="col"&gt;
+&lt;h5&gt;&lt;a href="https://www.bernardghanem.com/"&gt;Bernard
+Ghanem&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;&lt;/h5&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="row affiliations"&gt;
+&lt;div class="col"&gt;
+&lt;h6 class="text-center"&gt;&lt;a class="text-center"&gt;&lt;sup&gt;1&lt;/sup&gt;King Abdullah University of Science and
+Technology (KAUST)&lt;/a&gt;&lt;/h6&gt;
+&lt;/div&gt;
+&lt;div class="col"&gt;
+&lt;h6 class="text-center"&gt;&lt;a class="text-center"&gt;&lt;sup&gt;2&lt;/sup&gt;Snap Inc.&lt;/a&gt;&lt;/h6&gt;
+&lt;/div&gt;
+&lt;div class="col"&gt;
+&lt;h6 class="text-center"&gt;&lt;a class="text-center"&gt;&lt;sup&gt;3&lt;/sup&gt;Visual Geometry Group, University of
+Oxford&lt;/a&gt;&lt;/h6&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="container align-items-center project-links"&gt;
+&lt;div class="row text-center mx-auto justify-content-center"&gt;
+&lt;div class="col-sm-4 col-md-3 project-link-item"&gt;
+&lt;a href="https://arxiv.org/abs/2306.17843" target="_blank" class="link-block w-inline-block"&gt;
+&lt;img src="assets/images/arxiv_paper.png" alt="paper" class="img-fluid project-link-icon" /&gt;&lt;/a&gt;
+&lt;br&gt;
+&lt;div class="text-block-2"&gt;&lt;strong class="bold-text-nerf_v2"&gt;Arxiv&lt;/strong&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="col-sm-4 col-md-3 project-link-item"&gt;
+&lt;a href="https://github.com/guochengqian/Magic123" target="_blank" class="link-block w-inline-block"&gt;
+&lt;img src="assets/images/github.png" alt="github" class="img-fluid project-link-icon" /&gt;&lt;/a&gt;
+&lt;br&gt;
+&lt;div class="text-block-2"&gt;&lt;strong class="bold-text-nerf_v2"&gt;Code&lt;/strong&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- &lt;div class="banner"&gt;
+&lt;video class="video lazy"
+poster="https://dreamfusion-cdn.ajayj.com/sept28/banner_1x6_customhue_A.jpg"
+autoplay loop playsinline muted&gt;
+&lt;source data-src="https://dreamfusion-cdn.ajayj.com/sept28/banner_1x6_customhue_A.mp4" type="video/mp4" style="width: 100%; height: auto;"&gt;&lt;/source&gt;
+&lt;/video&gt;
+&lt;/div&gt; --&gt;
+&lt;video src="assets/videos/pull.mp4" autoplay loop playsinline muted class="hero-gif" type="video/mp4"&gt;&lt;/video&gt;
+&lt;hr class="divider" /&gt;
+&lt;div class="container" style="max-width: col-md-8;"&gt;
+&lt;div class="row"&gt;
+&lt;div class="col-sm-12"&gt;
+&lt;h2&gt;Abstract&lt;/h2&gt;
+&lt;p&gt;
+&lt;!-- &lt;strong&gt; --&gt;
+We present "Magic123", a two-stage coarse-to-fine solution for high-quality, textured 3D meshes
+generation from a single unposed image in the wild using both 2D and 3D priors. In the first stage,
+we optimize a neural radiance field to produce a coarse geometry. In the second stage, we adopt a
+memory-efficient differentiable mesh representation to yield a high-resolution mesh with a visually
+appealing texture. In both stages, the 3D content is learned through reference view supervision and
+novel views guided by both 2D and 3D diffusion priors. We introduce a single tradeoff parameter
+between the 2D and 3D priors to control exploration (more imaginative) and exploitation (more
+precise) of the generated geometry. Additionally, We employ textual inversion and monocular depth
+regularization to encourage consistent appearances across views and to prevent degenerate solutions,
+respectively.
+Magic123 demonstrates a significant improvement over previous image-to-3D techniques, as validated
+through extensive experiments on synthetic benchmarks and diverse real-world images.
+&lt;!-- &lt;/strong&gt; --&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="container" style="max-width: col-md-8;"&gt;
+&lt;div class="row captioned_videos"&gt;
+&lt;div class="col-sm-12"&gt;
+&lt;!-- Image --&gt;
+&lt;img src="assets/images/magic123_pipeline.png" alt="Image description" class="img-fluid"&gt;
+&lt;h6 class="caption" style="text-align: left;"&gt;&lt;b&gt;Magic123 pipeline.&lt;/b&gt; Magic123 is a two-stage
+coarse-to-fine framework for high-quality
+3D generation from a reference image. Magic123 is guided by the reference image, constrained by the
+monocular depth estimation from the image, and driven by a joint 2D and 3D diffusion prior to dream
+up novel views. At the coarse stage, we optimize an Instant-NGP neural radiance field (NeRF) to
+reconstruct a coarse geometry. At the fine stage, we initialize a DMTet mesh from the NeRF output
+and optimize a high-resolution mesh and texture directly. Textural inversion is used in both stages
+to generate object-preserving geometry and view-consistent textures.&lt;/h6&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;hr class="divider" /&gt;
+&lt;div class="container example-generated-objects" style="max-width: col-md-8;"&gt;
+&lt;div class="row text-center"&gt;
+&lt;div class="col-sm-12"&gt;
+&lt;h2&gt;Example generated objects&lt;/h2&gt;
+&lt;p&gt;Magic123 generates photo-realistic 3D objects from a single unposed image. &lt;/p&gt;
+&lt;/div&gt;
+&lt;!-- &lt;div class="col-sm-3 my-auto"&gt;
+&lt;a href="https://www.liyc.pw/gallery.html" class="btn btn-primary btn-lg btn-search"&gt;&lt;svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewbox="0 0 600 550"&gt;
+&lt;path fill="none" stroke="#fff" stroke-width="36" stroke-linecap="round" d="m280,278a153,153 0 1,0-2,2l170,170m-91-117 110,110-26,26-110-110"/&gt;
+&lt;/svg&gt;Search assets
+&lt;/a&gt;
+&lt;/div&gt; --&gt;
+&lt;/div&gt;
+&lt;div class="container align-items-center examples-grid"&gt;
+&lt;div class="row"&gt;
+&lt;!-- Row 0 --&gt;
+&lt;div class="col-sm-1 d-flex align-items-center justify-content-start p-0"&gt;
+&lt;div class="method-title"&gt;
+Input
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="col-sm-2"&gt;
+&lt;img src="assets/videos/reference/bear.png" alt="Bear Image" class="img-fluid "&gt;
+&lt;/div&gt;
+&lt;div class="col-sm-2"&gt;
+&lt;img src="assets/videos/reference/dragon.png" alt="Dragon Image" class="img-fluid "&gt;
+&lt;/div&gt;
+&lt;div class="col-sm-2"&gt;
+&lt;img src="assets/videos/reference/horse.png" alt="Horse Image" class="img-fluid "&gt;
+&lt;/div&gt;
+&lt;div class="col-sm-2"&gt;
+&lt;img src="assets/videos/reference/teapot.png" alt="Sparrow Image" class="img-fluid "&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- Row 1 --&gt;
+&lt;div class="row"&gt;
+&lt;div class="col-sm-1 d-flex align-items-center justify-content-start p-0"&gt;
+&lt;div class="method-title"&gt;
+&lt;a href="https://github.com/openai/shap-e"&gt;Shap-E&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="col-sm-2"&gt;
+&lt;video src="assets/videos/shape_e/bear.mp4" autoplay loop playsinline muted type="video/mp4"
+style="width: 100%; height: auto;"&gt;&lt;/video&gt;
+&lt;/div&gt;
+&lt;div class="col-sm-2"&gt;
+&lt;video src="assets/videos/shape_e/dragon.mp4" autoplay loop playsinline muted type="video/mp4"
+style="width: 100%; height: auto;"&gt;&lt;/video&gt;
+&lt;/div&gt;
+&lt;div class="col-sm-2"&gt;
+&lt;video src="assets/videos/shape_e/horse.mp4" autoplay loop playsinline muted type="video/mp4"
+style="width: 100%; height: auto;"&gt;&lt;/video&gt;
+&lt;/div&gt;
+&lt;div class="col-sm-2"&gt;
+&lt;video src="assets/videos/shape_e/teapot.mp4" autoplay loop playsinline muted type="video/mp4"
+style="width: 100%; height: auto;"&gt;&lt;/video&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="row"&gt;
+&lt;!-- Row 2 --&gt;
+&lt;div class="col-sm-1 d-flex align-items-center justify-content-start p-0"&gt;
+&lt;div class="method-title"&gt;
+&lt;a href="https://ku-cvlab.github.io/3DFuse/"&gt;3D Fuse&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="col-sm-2"&gt;
+&lt;video src="assets/videos/3d_fuse/bear.mp4" autoplay loop playsinline muted type="video/mp4"
+style="width: 100%; height: auto;"&gt;&lt;/video&gt;
+&lt;/div&gt;
+&lt;div class="col-sm-2"&gt;
+&lt;video src="assets/videos/3d_fuse/dragon.mp4" autoplay loop playsinline muted type="video/mp4"
+style="width: 100%; height: auto;"&gt;&lt;/video&gt;
+&lt;/div&gt;
+&lt;div class="col-sm-2"&gt;
+&lt;video src="assets/videos/3d_fuse/horse.mp4" autoplay loop playsinline muted type="video/mp4"
+style="width: 100%; height: auto;"&gt;&lt;/video&gt;
+&lt;/div&gt;
+&lt;div class="col-sm-2"&gt;
+&lt;video src="assets/videos/3d_fuse/teapot.mp4" autoplay loop playsinline muted type="video/mp4"
+style="width: 100%; height: auto;"&gt;&lt;/video&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="row"&gt;
+&lt;!-- Row 3 --&gt;
+&lt;div class="col-sm-1 d-flex align-items-center justify-content-start p-0"&gt;
+&lt;div class="method-title"&gt;
+&lt;a href="https://vita-group.github.io/NeuralLift-360/"&gt;Neural Lift&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="col-sm-2"&gt;
+&lt;video src="assets/videos/neural_lift/bear.mp4" autoplay loop playsinline muted type="video/mp4"
+style="width: 100%; height: auto;"&gt;&lt;/video&gt;
+&lt;/div&gt;
+&lt;div class="col-sm-2"&gt;
+&lt;video src="assets/videos/neural_lift/dragon.mp4" autoplay loop playsinline muted type="video/mp4"
+style="width: 100%; height: auto;"&gt;&lt;/video&gt;
+&lt;/div&gt;
+&lt;div class="col-sm-2"&gt;
+&lt;video src="assets/videos/neural_lift/horse.mp4" autoplay loop playsinline muted type="video/mp4"
+style="width: 100%; height: auto;"&gt;&lt;/video&gt;
+&lt;/div&gt;
+&lt;div class="col-sm-2"&gt;
+&lt;video src="assets/videos/neural_lift/teapot.mp4" autoplay loop playsinline muted type="video/mp4"
+style="width: 100%; height: auto;"&gt;&lt;/video&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="row"&gt;
+&lt;!-- Row 3 --&gt;
+&lt;div class="col-sm-1 d-flex align-items-center justify-content-start p-0"&gt;
+&lt;div class="method-title"&gt;
+&lt;a href="https://lukemelas.github.io/realfusion/"&gt;Real Fusion&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="col-sm-2"&gt;
+&lt;video src="assets/videos/realfusion/bear.mp4" autoplay loop playsinline muted type="video/mp4"
+style="width: 100%; height: auto;"&gt;&lt;/video&gt;
+&lt;/div&gt;
+&lt;div class="col-sm-2"&gt;
+&lt;video src="assets/videos/realfusion/dragon.mp4" autoplay loop playsinline muted type="video/mp4"
+style="width: 100%; height: auto;"&gt;&lt;/video&gt;
+&lt;/div&gt;
+&lt;div class="col-sm-2"&gt;
+&lt;video src="assets/videos/realfusion/horse.mp4" autoplay loop playsinline muted type="video/mp4"
+style="width: 100%; height: auto;"&gt;&lt;/video&gt;
+&lt;/div&gt;
+&lt;div class="col-sm-2"&gt;
+&lt;video src="assets/videos/realfusion/teapot.mp4" autoplay loop playsinline muted type="video/mp4"
+style="width: 100%; height: auto;"&gt;&lt;/video&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="row"&gt;
+&lt;!-- Row 4 --&gt;
+&lt;div class="col-sm-1 d-flex align-items-center justify-content-start p-0"&gt;
+&lt;div class="method-title"&gt;
+&lt;b&gt;Magic123&lt;/b&gt;&lt;br&gt;
+&lt;b&gt;(Ours)&lt;/b&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="col-sm-2"&gt;
+&lt;video src="assets/videos/magic123/bear.mp4" autoplay loop playsinline muted type="video/mp4"
+style="width: 100%; height: auto;"&gt;&lt;/video&gt;
+&lt;/div&gt;
+&lt;div class="col-sm-2"&gt;
+&lt;video src="assets/videos/magic123/dragon.mp4" autoplay loop playsinline muted type="video/mp4"
+style="width: 100%; height: auto;"&gt;&lt;/video&gt;
+&lt;/div&gt;
+&lt;div class="col-sm-2"&gt;
+&lt;video src="assets/videos/magic123/horse.mp4" autoplay loop playsinline muted type="video/mp4"
+style="width: 100%; height: auto;"&gt;&lt;/video&gt;
+&lt;/div&gt;
+&lt;div class="col-sm-2"&gt;
+&lt;video src="assets/videos/magic123/teapot.mp4" autoplay loop playsinline muted type="video/mp4"
+style="width: 100%; height: auto;"&gt;&lt;/video&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;hr class="divider" /&gt;
+&lt;div class="container" style="max-width: col-md-8;"&gt;
+&lt;div class="row"&gt;
+&lt;div class="col-sm-12"&gt;
+&lt;h2&gt;Tradeoff between 2D and 3D priors in Magic123&lt;/h2&gt;
+&lt;p&gt; We compare single image reconstructions for three cases: a cactus (common object), two stacked
+donuts (less common object), and a dragon statue (uncommon object).
+Magic123 with only 2D prior (on the right) favors geometry exploration, generating 3D content
+with
+more imagination but potentially lacking 3D consistency. Magic123 with only 3D prior prioritizes
+geometry exploitation, resulting in precise yet potentially simplified geometry with reduced
+details. Magic123 thus proposes to use both 2D and 3D prior and introduces a tradeoff parameter
+\( \lambda_{2D/3D} \) to control the geometry exploration and exploitation. We provide a
+balanced point
+\( \lambda_{2D/3D}=1 \) , with which Magic123 consistently offers
+identity-preserving 3D content with fine-grained geometry and visually appealing texture. &lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="row justify-content-center" style="padding: 0; margin: 0;"&gt;
+&lt;div class="col-sm-8 text-center tradeoff-media"&gt;
+&lt;img src="assets/images/priors.jpeg" alt="Image description" class="img-fluid"&gt;
+&lt;div style="height: 30px;"&gt;&lt;/div&gt;
+&lt;img src="assets/images/2d_3d.png" alt="Image description" class="img-fluid"&gt;
+&lt;video src="assets/videos/human_examples.mp4" autoplay loop playsinline muted type="video/mp4"
+style="width: 100%; height: auto;"&gt;&lt;/video&gt;
+&lt;video src="assets/videos/lambda_2d.mp4" autoplay loop playsinline muted type="video/mp4"
+style="width: 100%; height: auto;"&gt;&lt;/video&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;hr class="divider" /&gt;
+&lt;div class="container" style="max-width: col-md-8;"&gt;
+&lt;div class="row"&gt;
+&lt;div class="col-sm-12"&gt;
+&lt;h2&gt;Effects of the coarse-to-fine pipeline&lt;/h2&gt;
+&lt;p&gt; Qualitative comparisons of the coarse and fine stages between Magic123 with only 2D prior \(
+\lambda_{2D}=1,\lambda_{3D}=0 \),
+Magic123 with only 3D prior \( \lambda_{2D}=0,\lambda_{3D}=40 \), and Magic123 \(
+\lambda_{2D}=1,\lambda_{3D}=40 \). &lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="row justify-content-center" style="padding: 0; margin: 0;"&gt;
+&lt;div class="col-sm-12 text-center"&gt;
+&lt;img src="assets/images/coarse_2_fine.png" alt="Image description" class="img-fluid"&gt;
+&lt;div style="height: 10px;"&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;hr class="divider" /&gt;
+&lt;div class="container" style="max-width: col-md-8;"&gt;
+&lt;div class="row"&gt;
+&lt;div class="col-sm-12"&gt;
+&lt;h2&gt;Quantitative Results&lt;/h2&gt;
+&lt;p&gt; To demonstrate the effectiveness of the proposed Magic123, we evaluate its performance on the
+NeRF4 and RealFusion15 datasets. We conduct a comprehensive and quantitative comparison with
+multiple baselines for both datasets, as shown in Table I. Notably, our method achieves Top-1
+performance across all the metrics when compared to previous SOTA approaches. This remarkable
+performance demonstrates the superiority of Magic123 and its ability to generate high-quality 3D
+representations. &lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- &lt;div class="col-sm-12"&gt;
+&lt;img src="assets/images/results.png" alt="Image description" class="img-fluid"&gt;
+&lt;/div&gt; --&gt;
+&lt;div class="row justify-content-center" style="padding: 0; margin: 0;"&gt;
+&lt;div class="col-sm-12 text-center quantitative-results-media"&gt;
+&lt;img src="assets/images/results.jpeg" alt="Image description" class="img-fluid"&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;hr class="divider" /&gt;
+&lt;footer class="footer"&gt;
+&lt;div class="container"&gt;
+&lt;div class="content has-text-centered footer-icons"&gt;
+&lt;a class="icon-link" href="https://arxiv.org/abs/2306.17843" aria-label="Magic123 paper"&gt;
+&lt;i class="fa-solid fa-file-pdf" aria-hidden="true"&gt;&lt;/i&gt;
+&lt;/a&gt;
+&lt;a class="icon-link" href="https://github.com/guochengqian/Magic123" aria-label="Magic123 GitHub"&gt;
+&lt;i class="fab fa-github" aria-hidden="true"&gt;&lt;/i&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class="columns is-centered"&gt;
+&lt;div class="column is-8"&gt;
+&lt;div class="content"&gt;
+&lt;p&gt;
+This website is licensed under a &lt;a rel="license"
+href="http://creativecommons.org/licenses/by-sa/4.0/"&gt;Creative
+Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;.
+&lt;/p&gt;
+&lt;p&gt;
+We borrow the &lt;a href="https://dreamfusion3d.github.io/"&gt;source code&lt;/a&gt; for our
+website.
+We sincerely appreciate DreamFusion authors for their awesome templates.
+&lt;!-- we just ask that you link back to this page in the footer.
+Please remember to remove the analytics code included in the header of the website which
+you do not want on your website. --&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/footer&gt;
+&lt;script src="assets/js/yall.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+yall({
+observeChanges: true
+});
+&lt;/script&gt;
+&lt;script src="assets/js/scripts.js"&gt;&lt;/script&gt;
+&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"&gt;
+&lt;/script&gt;
+&lt;!-- Import the component --&gt;
+&lt;/body&gt;
+&lt;/html&gt;</description></item><item><title/><link>https://www.liyc.pw/project/pixelshift200/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.liyc.pw/project/pixelshift200/</guid><description>&lt;!DOCTYPE html&gt;
+&lt;html lang="en-US"&gt;
+&lt;head&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;title&gt;PixelShift200 Dataset&lt;/title&gt;
+&lt;meta name="google-site-verification" content="mcivkFLfGVCg2Lxkzqv0Cuvuw7CXJB-klKjvkptRY7A" /&gt;
+&lt;meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+&lt;link href="./asset/images/smile.ico" rel="shortcut icon" type="image/x-icon"&gt;
+&lt;link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"&gt;
+&lt;link rel="stylesheet" href="assets/css/style.css"&gt;
+&lt;script type="text/javascript" src="assets/js/jquery-3.3.1.min.js"&gt;&lt;/script&gt;
+&lt;link rel="stylesheet" href="assets/css/fontawesome.min.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top px-md-4"&gt;
+&lt;a class="navbar-brand col-sm-3 offset-sm-1" href=""&gt;
+&lt;img src="assets/img/logo.png" width="200px"&gt;
+&lt;/a&gt;
+&lt;button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"&gt;
+&lt;span class="navbar-toggler-icon"&gt;&lt;/span&gt;
+&lt;/button&gt;
+&lt;div class="collapse navbar-collapse offset-sm-3" id="navbarSupportedContent"&gt;
+&lt;ul class="navbar-nav mr-auto"&gt;
+&lt;li class="nav-item"&gt;
+&lt;a class="nav-link" href="#about"&gt;About&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class="nav-item"&gt;
+&lt;a class="nav-link" href="#news"&gt;News&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class="nav-item"&gt;
+&lt;a class="nav-link" href="#overview"&gt;Overview&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class="nav-item"&gt;
+&lt;a class="nav-link" href="#download"&gt;Download&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class="nav-item"&gt;
+&lt;a class="nav-link" href="#paper"&gt;Paper&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class="nav-item"&gt;
+&lt;a class="nav-link" href="#team"&gt;Team&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/nav&gt;
+&lt;div class="content"&gt;
+&lt;div id="about" class="about"&gt;
+&lt;div class="container"&gt;
+&lt;img src="assets/img/PixelShift2_min.jpg" alt="pixelshift" class="img"&gt;
+&lt;/div&gt; &lt;!-- .container --&gt;
+&lt;!-- About --&gt;
+&lt;div class="container"&gt;
+&lt;h4&gt;About&lt;/h4&gt;
+&lt;p&gt;We employ advanced pixel shift technology to perform a full color sampling of the image.
+Pixel shift technology takes four samples of the same image at nearly the same time, and physically controls the camera sensor to move one pixel horizontally or vertically at each sampling to capture all color information at each pixel.
+The pixel shift technology ensures that the sampled images follow the distribution of natural images sampled by the camera, and the full information of the color (R, Gr, Gb, B channel) is completely obtained without any need of interpolation.
+In this way, the collected RGB images are artifacts-free, which leads to better training results for demosaicing related tasks.
+&lt;/p&gt;
+&lt;p&gt;
+PixelShift200 Dataset contains 210 high quality 4K images.
+&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Training: 200 images&lt;/li&gt;
+&lt;li&gt;Testing: 10 images&lt;/li&gt;
+&lt;li&gt;Key Features: fully colored, demosiacing artifacts free&lt;/li&gt;
+&lt;li&gt;Camera: &lt;a href="https://www.sony.com/en-sa/electronics/interchangeable-lens-cameras/ilce-7rm3" target="_blank"&gt;SONY α7R III&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt; &lt;!-- .container --&gt;
+&lt;/div&gt;
+&lt;!-- News --&gt;
+&lt;div id="news" class="news"&gt;
+&lt;div class="container"&gt;
+&lt;h4&gt;Recent News&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;2023-01-01 : &lt;span class="sdb"&gt;PixelShift200 Dataset&lt;/span&gt; raw data release&lt;/li&gt;
+&lt;li&gt;2019-05-25 : &lt;span class="sdb"&gt;PixelShift200 Dataset&lt;/span&gt; initial release&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt; &lt;!-- .container --&gt;
+&lt;/div&gt; &lt;!-- #news --&gt;
+&lt;!-- Overview --&gt;
+&lt;div id="overview" class="overview"&gt;
+&lt;div class="container"&gt;
+&lt;h4&gt;Overview&lt;/h4&gt;
+&lt;h5&gt;Trainning Dataset&lt;/h5&gt;
+&lt;div class="browser"&gt;
+&lt;div class="browser-header"&gt;
+&lt;div class="browser-buttons"&gt;
+&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+&lt;/div&gt; &lt;!-- .browser-buttons --&gt;
+&lt;div class="browser-bar"&gt;PixelShift200 Training Dataset/&lt;/div&gt; &lt;!-- .browser-bar --&gt;
+&lt;div class="browser-menu"&gt;
+&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+&lt;/div&gt; &lt;!-- .browser-menu --&gt;
+&lt;/div&gt; &lt;!-- .browser-header --&gt;
+&lt;div class="browser-body1"&gt;&lt;/div&gt; &lt;!-- .browser-body --&gt;
+&lt;/div&gt; &lt;!-- .browser --&gt;
+&lt;/div&gt;
+&lt;div class="container"&gt;
+&lt;h5&gt;Validation Dataset&lt;/h5&gt;
+&lt;div class="browser2"&gt;
+&lt;div class="browser-header"&gt;
+&lt;div class="browser-buttons"&gt;
+&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+&lt;/div&gt; &lt;!-- .browser-buttons --&gt;
+&lt;div class="browser-bar"&gt;PixelShift200 Validation Dataset/&lt;/div&gt; &lt;!-- .browser-bar --&gt;
+&lt;div class="browser-menu"&gt;
+&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+&lt;/div&gt; &lt;!-- .browser-menu --&gt;
+&lt;/div&gt; &lt;!-- .browser-header --&gt;
+&lt;img src="assets/img/pixelshift200_val.jpg" width="100%"&gt;
+&lt;!--&lt;div class="browser-body2"&gt;&lt;/div&gt; &amp;lt;!&amp;ndash; .browser-body &amp;ndash;&amp;gt;--&gt;
+&lt;/div&gt; &lt;!-- .browser --&gt;
+&lt;/div&gt;
+&lt;/div&gt; &lt;!-- #overview --&gt;
+&lt;!-- Download --&gt;
+&lt;div id="download" class="download"&gt;
+&lt;div class="container"&gt;
+&lt;h4&gt;Download&lt;/h4&gt;
+&lt;ul class="list-inline"&gt;
+&lt;li class="list-inline-item"&gt;
+&lt;a href="https://drive.google.com/drive/folders/1S1mt9D8IlpSAVm7RTjLheh1hTaltsV_f?usp=share_link" target="_blank"&gt;
+&lt;img src="assets/img/downloads/googledriver.png" class="rounded-circle" alt="Googledriver"&gt;&lt;br&gt;
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt; &lt;!-- .container --&gt;
+&lt;/div&gt; &lt;!-- #download --&gt;
+&lt;!-- paper --&gt;
+&lt;div id="paper" class="paper"&gt;
+&lt;div class="container" align="center"&gt;
+&lt;h4&gt;Paper&lt;/h4&gt;
+&lt;h5&gt;Rethinking Learning-based Demosaicing, Denoising, and Super-Resolution Pipeline&lt;/h5&gt;
+&lt;ul class="list-inline"&gt;
+&lt;li class="list-inline-item"&gt;Guocheng Qian*&lt;/li&gt;
+&lt;li class="list-inline-item"&gt;Yuanhao Wang*&lt;/li&gt;
+&lt;li class="list-inline-item"&gt;Jinjin Gu*&lt;/li&gt;
+&lt;li class="list-inline-item"&gt;Chao Dong&lt;/li&gt;
+&lt;li class="list-inline-item"&gt;Wolfgang Heidrich&lt;/li&gt;
+&lt;li class="list-inline-item"&gt;Bernard Ghanem&lt;/li&gt;
+&lt;li class="list-inline-item"&gt;Jimmy S. Ren&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;ICCP'22&lt;/p&gt;
+&lt;ul id="paper-file-buttons" class="list-inline"&gt;
+&lt;li class="list-inline-item"&gt;
+&lt;a href="https://arxiv.org/abs/1905.02538" target="_blank"&gt;&lt;i class="fa fa-file-pdf"&gt;&lt;/i&gt; Paper &lt;/a&gt;
+&lt;/li&gt;
+&lt;li class="list-inline-item"&gt;
+&lt;a href="javascript:void(0)" data-toggle="modal" data-target="#bibtex-modal"&gt;
+&lt;i class="fa fa-file"&gt;&lt;/i&gt; BibTeX
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class="list-inline-item"&gt;
+&lt;a href="https://github.com/guochengqian/TENet" target="_blank"&gt;&lt;i class="fa fa-code"&gt;&lt;/i&gt; Code&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt; &lt;!-- .container --&gt;
+&lt;/div&gt; &lt;!-- #paper --&gt;
+&lt;!-- team --&gt;
+&lt;!-- &lt;div id="team" class="team"&gt;
+&lt;h4 align="center"&gt;Team Members&lt;/h4&gt;
+&lt;ul class="list-inline"&gt;
+&lt;li class="list-inline-item"&gt;
+&lt;a href="https://www.gcqian.com" target="_blank"&gt;
+&lt;img src="assets/img/avatars/guocheng.jpg" class="rounded-circle" alt="Guocheng Qian"&gt;&lt;br&gt;
+Guocheng Qian
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class="list-inline-item"&gt;
+&lt;a href="http://www.jasongt.com/" target="_blank"&gt;
+&lt;img src="assets/img/avatars/jinjingu.jpg" class="rounded-circle" alt="Jinjin Gu"&gt;&lt;br&gt;
+Jinjin Gu
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class="list-inline-item"&gt;
+&lt;a href="http://jimmyren.com" target="_blank"&gt;
+&lt;img src="assets/img/avatars/jimmy-ren.jpg" class="rounded-circle" alt="Jimmy Ren"&gt;&lt;br&gt;
+Jimmy Ren
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class="list-inline-item"&gt;
+&lt;a href="https://scholar.google.com/citations?user=OSDCB0UAAAAJ&amp;hl=zh-CN&amp;oi=ao" target="_blank"&gt;
+&lt;img src="assets/img/avatars/chaodong.jpg" class="rounded-circle" alt="Chao Dong"&gt;&lt;br&gt;
+Chao Dong
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class="list-inline-item"&gt;
+&lt;a href="#team"&gt;
+&lt;img src="assets/img/avatars/furong.jpg" class="rounded-circle" alt="Furong Zhao"&gt;&lt;br&gt;
+Furong Zhao
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class="list-inline-item"&gt;
+&lt;a href="#team"&gt;
+&lt;img src="assets/img/avatars/juan.jpg" class="rounded-circle" alt="Juan Lin"&gt;&lt;br&gt;
+Juan Lin
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt; --&gt;
+&lt;!-- #team --&gt;
+&lt;div id="bibtex-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="bibtex-modal-label" aria-hidden="true"&gt;
+&lt;div class="modal-dialog" role="document"&gt;
+&lt;div class="modal-content"&gt;
+&lt;div class="modal-header"&gt;
+&lt;h5 class="modal-title"&gt;BibTeX&lt;/h5&gt;
+&lt;button type="button" class="close" data-dismiss="modal" aria-label="Close"&gt;
+&lt;span aria-hidden="true"&gt;&amp;times;&lt;/span&gt;
+&lt;/button&gt;
+&lt;/div&gt; &lt;!-- .modal-header --&gt;
+&lt;div class="modal-body"&gt;
+&lt;pre id="bibtex-code"&gt;@article{qian2019trinity,
+title={Rethinking the Pipeline of Demosaicing, Denoising and Super-Resolution},
+author={Qian, Guocheng; Wang, Yuanhao; Gu, Jinjin; Dong, Chao; Heidrich, Wolfgang; Ghanem, Bernard; Ren, Jimmy S},
+journal={arXiv preprint arXiv:1905.02538},
+year={2019}
+}&lt;/pre&gt;
+&lt;/div&gt; &lt;!-- .modal-body --&gt;
+&lt;/div&gt; &lt;!-- .modal-content --&gt;
+&lt;/div&gt; &lt;!-- .modal-dialog --&gt;
+&lt;/div&gt; &lt;!-- #bibtex-modal --&gt;
+&lt;/div&gt; &lt;!-- #content --&gt;
+&lt;!-- Footer --&gt;
+&lt;div id="footer" class="footer"&gt;
+&lt;div class="container"&gt;
+&lt;p&gt;Copyright&amp;copy; 2019 PixelShift200 Dataset.&lt;/p&gt;
+&lt;/div&gt; &lt;!-- .container --&gt;
+&lt;/div&gt; &lt;!-- #footer --&gt;
+&lt;!-- Java Scripts --&gt;
+&lt;script type="text/javascript" src="assets/js/bootstrap.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="assets/js/particles.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+$('.toast').toast()
+var posY = 0
+isScrolling = true
+browserInterval = setInterval(function() {
+$('.browser-body1').css('background-position', '0 ' + posY + '%')
+if ( isScrolling ) {
+posY += 0.05
+}
+}, 100)
+&lt;/script&gt;
+&lt;!--&lt;script type="text/javascript"&gt;--&gt;
+&lt;!--$('.toast').toast()--&gt;
+&lt;!--var posY = 0--&gt;
+&lt;!--isScrolling = true--&gt;
+&lt;!--browserInterval = setInterval(function() {--&gt;
+&lt;!--$('.browser-body2').css('background-position', '0 ' + posY + '%')--&gt;
+&lt;!--if ( isScrolling ) {--&gt;
+&lt;!--posY += 0.5--&gt;
+&lt;!--}--&gt;
+&lt;!--}, 50)--&gt;
+&lt;!--&lt;/script&gt;--&gt;
+&lt;/body&gt;
+&lt;/html&gt;</description></item></channel></rss>
