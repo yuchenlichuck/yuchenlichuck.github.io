@@ -19,7 +19,7 @@ subtitle = ""
 +++
 
 <div class="visitor-map-wrapper">
-  <iframe src="https://revolvermaps2.com/widget/ebf37178-9ec6-441b-95b0-771d414b1713" width="320" height="320" style="border:0;" loading="lazy"></iframe>
+  <script type="text/javascript" id="mmvst_globe" src="//mapmyvisitors.com/globe.js?d=CH7YYWf1gUzO4-FDQX3NUtl51_vNRIA1douYHIn8rmI"></script>
 </div>
 
 <style>
