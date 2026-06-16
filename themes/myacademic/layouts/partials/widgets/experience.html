@@ -13,7 +13,7 @@
     {{ if $page.Params.experience }}
     <div class="experience-horizontal-wrapper">
       <div class="experience-horizontal-scroll">
-        {{ range $idx, $key := sort $page.Params.experience ".date_start" "desc" }}
+        {{ range $idx, $key := $page.Params.experience }}
         {{ $company := .company }}
         {{ $isCurrent := not .date_end }}
         <article class="experience-card-horizontal{{ if $isCurrent }} is-current{{ end }}">

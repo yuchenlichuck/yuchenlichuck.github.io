@@ -1,49 +1,45 @@
 +++
-# Focused areas widget.
 widget = "focused_areas"
 headless = true
 active = true
 weight = 24
-
 title = "Research"
 subtitle = ""
 
 [advanced]
-  css_class = "focused-areas-section"
+css_class = "focused-areas-section"
 
 [[focus_areas]]
-  title = "Multimodal VLMs for Spatial Perception"
-  summary = "Building perception-augmented vision-language models for complex 2D and 3D spatial reasoning."
-  highlights = [
-    { name = "Perceptio", url = "https://arxiv.org/abs/2603.18795", label = "Spatial token generation" },
-    { name = "Amazon Science", url = "https://www.amazon.science/", label = "Distributed VLM training" },
-    { name = "256 H200 GPUs", url = "", label = "Large-scale training" },
-  ]
+title = "Multimodal VLM for Spatial Understanding"
+summary = "Developing perception-enhanced vision-language models that generate spatial tokens for complex 2D and 3D spatial understanding."
+highlights = [
+  { name = "Perceptio", url = "https://arxiv.org/abs/2603.18795", label = "Amazon Science" },
+  { name = "Spatial Reasoning", url = "", label = "2D & 3D understanding" },
+]
 
 [[focus_areas]]
-  title = "Video Generation"
-  summary = "Long-horizon pose diffusion for video synthesis."
-  highlights = [
-    { name = "UCanDance", url = "", label = "Under Review" },
-    { name = "Sony AI", url = "https://ai.sony/", label = "Research internship" },
-    { name = "Pose alignment", url = "", label = "Robust motion synthesis" },
-  ]
+title = "Conditional Video Generation"
+summary = "Studying controllable video synthesis through long-horizon pose diffusion conditioned on music and motion structure."
+highlights = [
+  { name = "UCanDance", url = "", label = "Sony AI" },
+  { name = "Pose-conditioned Video", url = "", label = "Music & motion control" },
+]
 
 [[focus_areas]]
-  title = "3D Computer Vision and Representation Learning"
-  summary = "Researching scalable point-cloud understanding, 3D object recognition, compositional 3D perception, and 3D deep learning."
-  highlights = [
-    { name = "PointNeXt", url = "https://arxiv.org/abs/2206.04670", label = "NeurIPS 2022" },
-    { name = "Scaling Laws of PointNets", url = "", label = "3DV 2025 Spotlight" },
-    { name = "3D-CoMPaT", url = "https://www.ecva.net/papers/eccv_2022/papers_ECCV/html/3631_ECCV_2022_paper.php", label = "ECCV Oral" },
-  ]
+title = "3D Computer Vision Understanding"
+summary = "Building scalable point-cloud networks and training strategies for robust 3D object understanding and recognition."
+highlights = [
+  { name = "PointNeXt", url = "https://arxiv.org/abs/2206.04670", label = "NeurIPS 2022" },
+  { name = "Point Cloud Understanding", url = "", label = "3D recognition" },
+]
 
 [[focus_areas]]
-  title = "AIGC, 3D and 4D Content Generation"
-  summary = "Exploring generative models that connect image, video, audio, 3D, and 4D content through diffusion and LLM/VLM-based systems."
-  highlights = [
-    { name = "MBZUAI", url = "https://mbzuai.ac.ae/", label = "Assistant Researcher" },
-    { name = "Diffusion models", url = "", label = "Generation" },
-    { name = "LLM/VLM systems", url = "", label = "Perception" },
-  ]
+title = "3D Content Creation"
+summary = "Creating compositional 3D datasets and assets that support material, part, and object-level content generation and recognition."
+highlights = [
+  { name = "3D-CoMPaT", url = "https://www.ecva.net/papers/eccv_2022/papers_ECCV/html/3631_ECCV_2022_paper.php", label = "ECCV Oral" },
+  { name = "Compositional 3D Assets", url = "", label = "Parts & materials" },
+]
 +++
+
+<!-- Focused areas widget content is configured in front matter. -->

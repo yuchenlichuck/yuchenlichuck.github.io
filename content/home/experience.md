@@ -50,12 +50,32 @@ date_format = "Jan 2006"
 
 [[experience]]
   title = "Innovation Associate"
-  company = "Dubai Business Associates - Dubai Future Foundation / Emirates Airlines"
+  company = "Dubai Business Associates"
   company_url = "https://dubaibusinessassociates.ae/"
   location = "Dubai, UAE"
   date_start = "2022-09-01"
+  date_end = "2023-06-30" 
+  description = "Selected for a prestigious mini-MBA program under the privilege of Sheikh Mohammed bin Rashid, with a 0.3% acceptance rate."
+  logo = "falcon.png"
+
+[[experience]]
+  title = "Strategy Consultant"
+  company = "Emirates Airlines"
+  company_url = "https://www.emirates.com/"
+  location = "Dubai, UAE"
+  date_start = "2022-02-01"
   date_end = "2023-06-30"
-  description = "Selected for a mini-MBA program and consulted for Emirates Airlines on a data-driven AI chatbot and a three-year strategic performance roadmap."
+  description = "Consulted for Emirates Airlines on a data-driven AI chatbot and a three-year strategic performance roadmap."
+  logo = "emirates.png"
+
+[[experience]]
+  title = "Innovation Consultant"
+  company = "Dubai Future Foundation"
+  company_url = "https://www.dubaifuture.ae/"
+  location = "Dubai, UAE"
+  date_start = "2022-10-01"
+  date_end = "2023-01-31"
+  description = "Worked on sidewalk delivery robot perception and navigation."
   logo = "dubai_future_foundation.png"
 
 [[experience]]
@@ -77,4 +97,24 @@ date_format = "Jan 2006"
   date_end = "2019-07-31"
   description = "Developed the Apache RocketMQ JDBC Connector as an independent student developer."
   logo = "apache.png"
+
+[[experience]]
+  title = "Visiting Student, Electronics and Computer Engineering"
+  company = "University of British Columbia"
+  company_url = "https://www.ubc.ca/"
+  location = "Vancouver, Canada"
+  date_start = "2019-07-01"
+  date_end = "2019-08-31"
+  description = "Visited the Electronics and Computer Engineering program."
+  logo = "ubc.png"
+
+[[experience]]
+  title = "Visiting Research Student"
+  company = "Tsinghua University - Digital Manufacturing Lab"
+  company_url = "https://www.tsinghua.edu.cn/en/"
+  location = "Beijing, China"
+  date_start = "2019-06-01"
+  date_end = "2019-07-31"
+  description = "Led a team to research micro-organic prediction modeling of the cladding process using CNNs."
+  logo = "tsinghua.png"
 +++

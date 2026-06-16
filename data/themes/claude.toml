@@ -11,14 +11,14 @@ link = "#93502b"
 link_hover = "#ce7f4f"
 
 # Menu
-menu_primary = "rgba(238, 243, 237, 0.88)"
+menu_primary = "rgba(248, 241, 231, 0.84)"
 menu_text = "#4a3928"
 menu_text_active = "#b76531"
 menu_title = "#241a12"
 
 # Background
-background = "#eef3ed"
+background = "#f6efe4"
 
 # Home sections
-home_section_odd = "rgb(238, 243, 237)"
-home_section_even = "rgb(230, 237, 228)"
+home_section_odd = "rgb(246, 239, 228)"
+home_section_even = "rgb(240, 231, 218)"
