@@ -19,7 +19,7 @@ subtitle = ""
 +++
 
 <div class="visitor-map-wrapper">
-  <script type="text/javascript" id="mmvst_globe" src="//mapmyvisitors.com/globe.js?d=CH7YYWf1gUzO4-FDQX3NUtl51_vNRIA1douYHIn8rmI"></script>
+  <script type="text/javascript" id="mapmyvisitors" src="//mapmyvisitors.com/map.js?d=QPxs_-R5BqEWih0nTgJXCXOsEyYiKnmZrrJKz8EHn3Q&cl=ffffff&w=a"></script>
 </div>
 
 <style>
