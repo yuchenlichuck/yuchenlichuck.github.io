@@ -393,6 +393,18 @@ body.theme-claude .card-simple p {
   font-size: 0.85rem;
 }
 
+body.theme-claude .card-simple .article-summary-text {
+  margin: 0;
+  color: var(--claude-muted);
+  font-size: 14px;
+  line-height: 1.5;
+  letter-spacing: 0.03em;
+}
+
+body.theme-claude.dark .card-simple .article-summary-text {
+  color: var(--claude-muted);
+}
+
 body.theme-claude .publication-image-container {
   padding-top: 1.15rem;
 }
