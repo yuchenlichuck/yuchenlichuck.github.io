@@ -71,7 +71,7 @@
           <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }}>
             {{ if eq $pack "img" }}
               {{/* Use `.icon` as the logo filename under static/img/logo (including extension). */}}
-              {{ $img_size := cond (eq .icon "rednote-black.png") "2.45em" "1.7em" }}
+              {{ $img_size := cond (eq .icon "rednote-black.png") "2.15em" "1.7em" }}
               <img src="{{ printf "/img/logo/%s" .icon }}" alt="{{ .icon }}" style="height:{{ $img_size }}; width:{{ $img_size }}; object-fit:contain; vertical-align:middle;">
             {{ else }}
               <i class="{{ $pack }} {{ $pack_prefix }}-{{ .icon }} big-icon"></i>
