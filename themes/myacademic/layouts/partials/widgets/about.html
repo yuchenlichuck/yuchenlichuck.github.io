@@ -46,7 +46,7 @@
           {{with $person.address.postcode}}{{$addr = $addr | append .}}{{end}}
           {{with $person.address.country}}{{$addr = $addr | append .}}{{end}}
           {{ $addr_formatted := delimit $addr (site.Params.list_delimiter | default ", ") }}
-          <h3 style="font-size: 0.9rem; color: rgba(0,0,0,0.54);">
+          <h3 class="profile-address">
             <i class="fas fa-map-marker-alt" style="margin-right: 0.3rem;"></i>{{ $addr_formatted }}
           </h3>
         {{ end }}

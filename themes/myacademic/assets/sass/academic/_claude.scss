@@ -240,6 +240,28 @@ body.theme-claude .portrait-title h4 {
   color: var(--claude-muted);
 }
 
+body.theme-claude .portrait-title .profile-address {
+  font-size: 0.9rem;
+  color: var(--claude-muted);
+}
+
+body.theme-claude.dark .portrait-title h3,
+body.theme-claude.dark .portrait-title h4,
+body.theme-claude.dark .portrait-title .profile-address,
+body.theme-claude.dark .portrait-title .profile-address i {
+  color: var(--claude-muted-strong);
+}
+
+body.theme-claude.dark .ul-edu li .description p.course,
+body.theme-claude.dark .ul-interests .description li.course {
+  color: var(--claude-ink);
+}
+
+body.theme-claude.dark .ul-edu li .description p.institution,
+body.theme-claude.dark .ul-interests .description div {
+  color: var(--claude-muted);
+}
+
 body.theme-claude #profile .network-icon {
   margin-top: 1.5rem;
   gap: 0.35rem;
