@@ -71,7 +71,7 @@ subtitle = ""
     transition: transform 160ms ease;
   }
 
-  .media-coverage-meta {
+  body.theme-claude .media-coverage-meta {
     margin-bottom: 0.45rem;
     color: #6b7280;
     font-size: 0.82rem;
@@ -79,21 +79,21 @@ subtitle = ""
     text-transform: uppercase;
   }
 
-  .media-coverage-title {
+  body.theme-claude .media-coverage-title {
     margin: 0 0 0.6rem;
     color: #111827;
     font-size: 1rem;
     line-height: 1.45;
   }
 
-  .media-coverage-summary {
+  body.theme-claude .media-coverage-summary {
     margin: 0;
     color: #4b5563;
     font-size: 0.92rem;
     line-height: 1.55;
   }
 
-  .media-coverage-link {
+  body.theme-claude .media-coverage-link {
     margin-top: 1rem;
     font-size: 0.9rem;
     font-weight: 600;
