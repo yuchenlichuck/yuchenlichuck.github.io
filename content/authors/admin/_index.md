@@ -29,7 +29,7 @@ address:
   country: United Arab Emirates
 
 # Short bio (displayed in user profile at end of posts)
-bio: Yuchen Li is a final-year PhD student in Computer Vision at MBZUAI, working on AIGC, 3D computer vision, multimodal vision-language models, and video generation.
+bio: Yuchen Li is a final-year PhD student at MBZUAI working on spatially grounded multimodal intelligence.
 
 education:
   courses:
@@ -55,12 +55,16 @@ education:
     year: 2020
 
 interests:
-  - item: Multimodal Visual Language Models
-    works: <a target="_blank" href="https://arxiv.org/abs/2603.18795">Perceptio</a>
-  - item: 3D Computer Vision
-    works: <a target="_blank" href="https://arxiv.org/abs/2206.04670">PointNeXt</a>, <a target="_blank" href="https://www.ecva.net/papers/eccv_2022/papers_ECCV/html/3631_ECCV_2022_paper.php">3D-CoMPaT</a>, <a target="_blank" href="https://arxiv.org/abs/2310.18511">3D-CoMPaT++</a>
-  - item: Video Generation
-    works: UCanDance (Under Review)
+  - item: Perceptio
+    works: <a target="_blank" href="https://liyc.pw/Perceptio/">Spatial-token VLM</a> / Amazon Science internship
+  - item: UCanDance
+    works: Music-driven long-horizon video generation / Sony AI
+  - item: PointNeXt
+    works: <a target="_blank" href="https://arxiv.org/abs/2206.04670">NeurIPS</a>, 1,450+ citations
+  - item: 3D-CoMPaT
+    works: <a target="_blank" href="https://www.ecva.net/papers/eccv_2022/papers_ECCV/html/3631_ECCV_2022_paper.php">ECCV Oral</a> / dataset
+  - item: 3DCoMPaT++
+    works: <a target="_blank" href="https://arxiv.org/abs/2310.18511">TPAMI</a>
   
 # Social/Academic Networking
 # For available icons, see: https://sourcethemes.com/academic/docs/widgets/#icons
@@ -101,12 +105,6 @@ social:
 
 ---
 
-I am a final-year PhD student in Computer Vision at Mohamed bin Zayed University of Artificial Intelligence (MBZUAI). My research focuses on AIGC, 3D computer vision, multimodal vision-language models, and video generation, with an emphasis on spatial reasoning and controllable generation across image, audio, video, 3D, and 4D content.
+I am a final-year PhD student at MBZUAI working on spatially grounded multimodal intelligence. My research builds vision-language and generative models that understand and create 2D, 3D, video, and 4D content. My representative works include [Perceptio](https://liyc.pw/Perceptio/), UCanDance, [PointNeXt](https://arxiv.org/abs/2206.04670), and [3D-CoMPaT](https://www.ecva.net/papers/eccv_2022/papers_ECCV/html/3631_ECCV_2022_paper.php).
 
-I am the first author of [PointNeXt](https://arxiv.org/abs/2206.04670), which has received over 1,450 citations, and [3D-CoMPaT](https://www.ecva.net/papers/eccv_2022/papers_ECCV/html/3631_ECCV_2022_paper.php), which was presented as an oral paper at ECCV. I also work on perception-enhanced vision-language models, such as [Perceptio](https://arxiv.org/abs/2603.18795), and long-horizon pose diffusion for music-driven dance video synthesis, such as UCanDance.
-
-Before joining MBZUAI, I studied at SUSTech and KAUST and gained international experience across research, open-source engineering, and applied innovation through positions and collaborations with Amazon Science, Sony AI, Dubai Business Associates / Emirates Airlines, and Apache RocketMQ.
-
-Beyond research, I am a global traveler who has visited more than 30 countries and a lifelong tennis player who enjoys playing tennis in different countries while traveling.
-
-If you are interested in related research, please feel free to reach out at yuchen.li [at] mbzuai.ac.ae.
+I am actively seeking research scientist, postdoctoral, and industry research opportunities in multimodal VLMs, spatial reasoning, world models, and generative AI starting in 2027.

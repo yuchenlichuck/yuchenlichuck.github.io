@@ -10,15 +10,15 @@ subtitle = ""
 css_class = "focused-areas-section"
 
 [[focus_areas]]
-title = "Multimodal VLM for Spatial Understanding"
+title = "Spatially Grounded Multimodal VLMs"
 summary = "Developing perception-enhanced vision-language models that generate spatial tokens for complex 2D and 3D spatial understanding."
 highlights = [
-  { name = "Perceptio", url = "https://arxiv.org/abs/2603.18795", label = "Amazon Science" },
+  { name = "Perceptio", url = "https://liyc.pw/Perceptio/", label = "Amazon Science" },
   { name = "Spatial Reasoning", url = "", label = "2D & 3D understanding" },
 ]
 
 [[focus_areas]]
-title = "Conditional Video Generation"
+title = "Controllable Video and Motion Generation"
 summary = "Studying controllable video synthesis through long-horizon pose diffusion conditioned on music and motion structure."
 highlights = [
   { name = "UCanDance", url = "", label = "Sony AI" },
@@ -26,7 +26,7 @@ highlights = [
 ]
 
 [[focus_areas]]
-title = "3D Computer Vision Understanding"
+title = "Scalable 3D Perception"
 summary = "Building scalable point-cloud networks and training strategies for robust 3D object understanding and recognition."
 highlights = [
   { name = "PointNeXt", url = "https://arxiv.org/abs/2206.04670", label = "NeurIPS 2022" },
@@ -34,7 +34,7 @@ highlights = [
 ]
 
 [[focus_areas]]
-title = "3D Content Creation"
+title = "Compositional 3D Content and Datasets"
 summary = "Creating compositional 3D datasets and assets that support material, part, and object-level content generation and recognition."
 highlights = [
   { name = "3D-CoMPaT", url = "https://www.ecva.net/papers/eccv_2022/papers_ECCV/html/3631_ECCV_2022_paper.php", label = "ECCV Oral" },

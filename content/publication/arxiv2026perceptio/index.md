@@ -10,10 +10,12 @@ abstract = "Perceptio explores perception-enhanced vision-language modeling thro
 abstract_short = "A perception-enhanced VLM using spatial token generation for 2D and 3D spatial reasoning."
 selected = true
 featured = true
+featured_order = 1
 projects = []
 slides = ""
 tags = ["VLM", "Spatial Reasoning", "3D Perception"]
 url_preprint = "https://arxiv.org/abs/2603.18795"
+url_project = "https://liyc.pw/Perceptio/"
 math = false
 
 [image]

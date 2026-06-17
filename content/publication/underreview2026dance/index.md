@@ -10,6 +10,7 @@ abstract = "This work studies music-driven dance video generation with long-hori
 abstract_short = "Long-horizon pose diffusion for music-driven dance video synthesis."
 selected = true
 featured = true
+featured_order = 2
 projects = []
 slides = ""
 tags = ["Video Generation", "Dance Generation", "Diffusion Models", "Pose"]

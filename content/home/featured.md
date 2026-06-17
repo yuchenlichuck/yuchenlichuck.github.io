@@ -19,7 +19,8 @@ subtitle = "Selected publications and preprints. * denotes equal contribution."
   count = 0
 
   # Page order. Descending (desc) or ascending (asc) date.
-  order = "desc"
+  sort_by = "Params.featured_order"
+  order = "asc"
 
   # Filter posts by a taxonomy term.
   [content.filters]

@@ -10,6 +10,7 @@ abstract = "3D CoMPaT is a large-scale 3D vision dataset for studying the compos
 abstract_short = "A large-scale 3D dataset for compositional material and part recognition."
 selected = true
 featured = true
+featured_order = 4
 projects = []
 slides = ""
 tags = ["3D Vision", "Dataset", "Compositional Recognition"]

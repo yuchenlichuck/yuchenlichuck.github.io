@@ -9,7 +9,7 @@ active = true  # Activate this widget? true/false
 weight = 95  # Order that this section will appear.
 
 title = "News"
-subtitle = ""
+subtitle = "Last updated: March 2026"
 
 [design]
   # Choose how many columns the section has. Valid values: 1 or 2.

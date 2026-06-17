@@ -10,6 +10,7 @@ abstract = """PointNet++ is one of the most influential neural architectures for
 abstract_short = "PointNeXt revisits PointNet++ with improved training and scaling strategies for point-cloud understanding."
 selected = true
 featured = true
+featured_order = 3
 projects = []
 slides = ""
 tags = ["Point Cloud", "3D Vision", "Representation Learning"]

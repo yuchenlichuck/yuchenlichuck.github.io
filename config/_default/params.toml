@@ -44,7 +44,8 @@ local_business_type = ""
 org_name = ""
 
 # Description for social sharing and search engines. If undefined, superuser role is used in place.
-description = "Yuchen Li's homepage - PhD student in Computer Vision at MBZUAI"
+description = "Yuchen Li's homepage - PhD student in Computer Vision at MBZUAI working on multimodal VLMs, spatial reasoning, 3D vision, video generation, and generative AI."
+browser_title = "Yuchen Li | PhD Student in Computer Vision"
 
 # Display a logo in navigation bar rather than title (optional).
 #   To enable, place an image in `static/img/` and reference its filename below. To disable, set the value to "".

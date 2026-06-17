@@ -10,6 +10,7 @@ abstract = "This work studies semi-supervised few-shot learning using prototypic
 abstract_short = "Semi-supervised few-shot learning with prototypical random walks."
 selected = true
 featured = true
+featured_order = 6
 projects = []
 slides = ""
 tags = ["Few-Shot Learning", "Meta Learning"]

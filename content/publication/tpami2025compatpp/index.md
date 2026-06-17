@@ -10,6 +10,7 @@ abstract = "3DCoMPaT++ extends large-scale 3D compositional recognition resource
 abstract_short = "An improved large-scale 3D vision dataset for compositional recognition."
 selected = true
 featured = true
+featured_order = 5
 projects = []
 slides = ""
 tags = ["3D Vision", "Dataset", "Compositional Recognition"]
