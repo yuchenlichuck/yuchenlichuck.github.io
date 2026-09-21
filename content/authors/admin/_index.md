@@ -29,7 +29,7 @@ address:
   country: United Arab Emirates
 
 # Short bio (displayed in user profile at end of posts)
-bio: Yuchen Li is a final-year PhD student at MBZUAI working on spatially grounded multimodal intelligence.
+bio: Yuchen Li is a final-year PhD student in the Metaverse Lab at MBZUAI, supervised by Hao Li, working on spatially grounded multimodal intelligence.
 
 education:
   courses:
@@ -60,11 +60,13 @@ interests:
   - item: UCanDance
     works: Music-driven long-horizon video generation / Sony AI
   - item: PointNeXt
-    works: <a target="_blank" href="https://arxiv.org/abs/2206.04670">NeurIPS</a>, 1,450+ citations
+    works: <a target="_blank" href="https://arxiv.org/abs/2206.04670">NeurIPS</a>, 1,600+ citations
   - item: 3D-CoMPaT
     works: <a target="_blank" href="https://www.ecva.net/papers/eccv_2022/papers_ECCV/html/3631_ECCV_2022_paper.php">ECCV Oral</a> / dataset
   - item: 3DCoMPaT++
     works: <a target="_blank" href="https://arxiv.org/abs/2310.18511">TPAMI</a>
+  - item: Recursive Self-Improvement (RSI)
+    works: Interested in AI systems that iteratively improve their own capabilities.
   
 # Social/Academic Networking
 # For available icons, see: https://sourcethemes.com/academic/docs/widgets/#icons
@@ -105,6 +107,6 @@ social:
 
 ---
 
-I am a final-year PhD student at MBZUAI working on spatially grounded multimodal intelligence. My research builds vision-language and generative models that understand and create 2D, 3D, video, and 4D content. My representative works include [Perceptio](https://liyc.pw/Perceptio/), UCanDance, [PointNeXt](https://arxiv.org/abs/2206.04670), and [3D-CoMPaT](https://www.ecva.net/papers/eccv_2022/papers_ECCV/html/3631_ECCV_2022_paper.php).
+I am a final-year PhD student in the Metaverse Lab at MBZUAI, supervised by Hao Li, working on spatially grounded multimodal intelligence. My research builds vision-language and generative models that understand and create 2D, 3D, video, and 4D content. My representative works include [Perceptio](https://liyc.pw/Perceptio/), UCanDance, [PointNeXt](https://arxiv.org/abs/2206.04670), and [3D-CoMPaT](https://www.ecva.net/papers/eccv_2022/papers_ECCV/html/3631_ECCV_2022_paper.php).
 
 I am actively seeking research scientist, postdoctoral, and industry research opportunities in multimodal VLMs, spatial reasoning, world models, and generative AI starting in 2027.
