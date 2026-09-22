@@ -848,3 +848,40 @@ body.theme-claude .focus-area-link-label {
     padding-right: 0.45rem;
   }
 }
+
+// Profile actions and bilingual navigation.
+.language-switcher { margin-left: auto; margin-right: .75rem; }
+.language-switch { white-space: nowrap; }
+@media (min-width: 992px) {
+  .language-switcher { order: 3; margin-left: 1rem; margin-right: 0; }
+}
+.profile-contact { margin: 1.1rem 0 .8rem; }
+.profile-email {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  max-width: 100%;
+  white-space: normal;
+  text-align: left;
+  overflow-wrap: anywhere;
+  line-height: 1.6;
+  padding: .6rem .85rem;
+}
+body.theme-claude .profile-motto {
+  color: var(--claude-muted-strong);
+  font-style: italic;
+  font-size: .9rem;
+  margin-bottom: 1.6rem;
+}
+html[lang="zh-Hans"] body.theme-claude h1,
+html[lang="zh-Hans"] body.theme-claude h2,
+html[lang="zh-Hans"] body.theme-claude h3 {
+  letter-spacing: 0;
+  line-height: 1.35;
+}
+
+body.theme-claude .profile-email,
+body.theme-claude .language-switch {
+  text-transform: none;
+  letter-spacing: normal;
+}

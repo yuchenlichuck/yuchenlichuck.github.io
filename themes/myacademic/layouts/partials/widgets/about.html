@@ -88,13 +88,14 @@
     {{/* Only display widget title in explicit instances of about widget, not in author pages. */}}
     {{ if and $page.Params.widget $page.Title }}<h1>{{ $page.Title | markdownify | emojify }}</h1>{{ end }}
 
-    <p>
-      I am a final-year PhD student in the Metaverse Lab at MBZUAI, supervised by Hao Li, working on spatially grounded multimodal intelligence.
-      My research builds vision-language and generative models that understand and create 2D, 3D, video, and 4D content.
-      My representative works include <a target="_blank" href="https://liyc.pw/Perceptio/">Perceptio</a>, UCanDance, <a target="_blank" href="https://arxiv.org/abs/2206.04670">PointNeXt</a>, and <a target="_blank" href="https://www.ecva.net/papers/eccv_2022/papers_ECCV/html/3631_ECCV_2022_paper.php">3D-CoMPaT</a>.
-      <br>
-      <strong>I am actively seeking research scientist, postdoctoral, and industry research opportunities in multimodal VLMs, spatial reasoning, world models, and generative AI starting in 2027.</strong>
-    </p>
+    <div class="profile-biography">{{ $person_page.Content }}</div>
+    <div class="profile-contact">
+      <a class="btn btn-outline-primary profile-email" href="mailto:yuchen.li@mbzuai.ac.ae">
+        <i class="fas fa-envelope" aria-hidden="true"></i>
+        <span>yuchen [dot] li [AT] mbzuai [dot] ac [dot] ae</span>
+      </a>
+    </div>
+    <p class="profile-motto">Work Hard, Play Hard, El Psy Congroo!</p>
 
 
     <div class="row">
@@ -107,7 +108,7 @@
           <li>
               {{ with $course.logo }}
                 <a href="{{ $course.link }}" target="_blank">
-                  <i><img src="img/logo/{{ . }}" alt="{{ $course.institution }} logo" style="position: absolute;left: -2.5rem;width: 2rem;top: 0.14285714em;text-align: center;"></i>
+                  <i><img src="{{ printf "img/logo/%s" . | relURL }}" alt="{{ $course.institution }} logo" style="position: absolute;left: -2.5rem;width: 2rem;top: 0.14285714em;text-align: center;"></i>
                 </a>
               {{ end }}
               <div class="description">

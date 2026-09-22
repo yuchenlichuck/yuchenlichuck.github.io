@@ -38,15 +38,15 @@
           <a href="{{ $imgLink }}" target="_blank" rel="noopener">
             {{ if $imageResource }}
             {{/* Show image placeholder first if available */}}
-            <img src="{{$item.RelPermalink}}{{$imageResource}}" class="article-banner video-placeholder" alt="{{ $item.Title }} teaser image" style="display: block;">
+            <img src="{{ $imageResource.RelPermalink }}" class="article-banner video-placeholder" alt="{{ $item.Title }} teaser image" style="display: block;">
             {{end}}
             <video autoplay muted loop playsinline webkit-playsinline preload="metadata" class="article-banner video-content" style="width: 100%; height: auto; {{ if $imageResource }}display: none;{{ end }}">
-              <source src="{{$item.RelPermalink}}{{$videoResource}}" type="video/mp4">
+              <source src="{{ $videoResource.RelPermalink }}" type="video/mp4">
             </video>
           </a>
         {{ else if $imageResource }}
           <a href="{{ $imgLink }}" target="_blank" rel="noopener">
-            <img src="{{$item.RelPermalink}}{{$imageResource}}" class="article-banner" alt="{{ $item.Title }} teaser image">
+            <img src="{{ $imageResource.RelPermalink }}" class="article-banner" alt="{{ $item.Title }} teaser image">
           </a>
         {{ end }}
         {{ if $item.Params.publication_short }}

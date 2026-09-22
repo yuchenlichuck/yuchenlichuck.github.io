@@ -8,7 +8,7 @@ headless = false  # This file represents a page section.
 active = true  # Activate this widget? true/false
 weight = 96  # Order that this section will appear.
 
-title = "Public Coverage"
+title = "媒体报道"
 subtitle = ""
 
 [design]
@@ -121,38 +121,38 @@ subtitle = ""
   }
 </style>
 
-### Public Coverage
+### 媒体报道
 
 <div class="media-coverage-grid">
   <article class="media-coverage-card">
     <div>
-      <div class="media-coverage-meta">36Kr Europe · Jun 12, 2025</div>
+      <div class="media-coverage-meta">36氪欧洲 · 2025 年 6 月 12 日</div>
       <h4 class="media-coverage-title">72小时全程纪实：人类首度与AI亲密接触</h4>
-      <p class="media-coverage-summary">Featured in 36Kr Europe's documentary coverage of a 72-hour AI survival challenge, discussing AI agents, AI video creation, and human-AI interaction.</p>
+      <p class="media-coverage-summary">参与 36氪欧洲关于 72 小时 AI 生存挑战的纪实报道，探讨 AI 智能体、AI 视频创作与人机交互。</p>
     </div>
-    <a class="media-coverage-link" href="https://eu.36kr.com/zh/p/3333024150333961" target="_blank" rel="noopener">Read article</a>
+    <a class="media-coverage-link" href="https://eu.36kr.com/zh/p/3333024150333961" target="_blank" rel="noopener">阅读文章</a>
   </article>
 
   <article class="media-coverage-card">
     <div>
-      <div class="media-coverage-meta">Next Capital · Jan 2024</div>
+      <div class="media-coverage-meta">嘉程资本 · 2024 年 1 月</div>
       <h4 class="media-coverage-title">迪拜商业英才李禹陈：浅谈中东2030愿景</h4>
-      <p class="media-coverage-summary">Invited by Next Capital to share perspectives on the Middle East 2030 vision and opportunities for Chinese founders in the region.</p>
+      <p class="media-coverage-summary">受嘉程资本邀请，分享对中东 2030 愿景及中国创业者在当地发展机遇的看法。</p>
     </div>
-    <a class="media-coverage-link" href="https://www.jiachengcap.com/blog/240105_56c8" target="_blank" rel="noopener">Read article</a>
+    <a class="media-coverage-link" href="https://www.jiachengcap.com/blog/240105_56c8" target="_blank" rel="noopener">阅读文章</a>
   </article>
 
   <article class="media-coverage-card">
     <div>
-      <div class="media-coverage-meta">Xiaoyuzhou · Podcast</div>
+      <div class="media-coverage-meta">小宇宙 · 播客</div>
       <h4 class="media-coverage-title">07. 去中东上学：全靠酋长资助，不用交学费，还赚钱！</h4>
-      <p class="media-coverage-summary">Guest appearance on 掘金中东, covering KAUST, MBZUAI, Dubai Business Associates, Middle East universities, and life across the region.</p>
+      <p class="media-coverage-summary">做客《掘金中东》，分享 KAUST、MBZUAI、Dubai Business Associates、中东高校与当地生活经历。</p>
     </div>
-    <a class="media-coverage-link" href="https://www.xiaoyuzhoufm.com/episode/6641cf18f968fce2cbbccdfc" target="_blank" rel="noopener">Listen episode</a>
+    <a class="media-coverage-link" href="https://www.xiaoyuzhoufm.com/episode/6641cf18f968fce2cbbccdfc" target="_blank" rel="noopener">收听节目</a>
   </article>
 </div>
 
-### Video Interviews
+### 视频访谈
 
 <div class="media-video-grid">
   <iframe class="media-video-frame" src="https://player.bilibili.com/player.html?bvid=BV1jL411G7HL&page=1&high_quality=1&autoplay=0" loading="lazy" allowfullscreen="true" scrolling="no"></iframe>

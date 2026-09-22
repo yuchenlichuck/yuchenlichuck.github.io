@@ -20,10 +20,10 @@
           <div class="experience-card-top">
             <div class="experience-logo-container">
             {{- with .logo}}
-            <img src="img/logo/{{ . }}" alt="{{$company}}" class="experience-logo">
+            <img src="{{ printf "img/logo/%s" . | relURL }}" alt="{{$company}}" class="experience-logo">
             {{end -}}
             </div>
-            <div class="experience-status">{{ if $isCurrent }}Current{{ else }}Previous{{ end }}</div>
+            <div class="experience-status">{{ if $isCurrent }}{{ i18n "experience_current" }}{{ else }}{{ i18n "experience_previous" }}{{ end }}</div>
           </div>
           <div class="experience-content-horizontal">
             <div class="experience-time">

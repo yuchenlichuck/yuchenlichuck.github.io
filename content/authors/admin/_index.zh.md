@@ -1,8 +1,8 @@
 ---
 
 # Display name
-name: Yuchen Li
-namecn: 李禹陈
+name: 李禹陈
+namecn: Yuchen Li
 
 # # Username (this should match the folder name)
 # authors:
@@ -12,61 +12,61 @@ namecn: 李禹陈
 superuser: true
 
 # Role/position
-role: PhD Student in Computer Vision
+role: 计算机视觉博士生
 
 # Organizations/Affiliations
 organizations:
-- name: Mohamed bin Zayed University of Artificial Intelligence
+- name: 穆罕默德·本·扎耶德人工智能大学（MBZUAI）
   url: "https://mbzuai.ac.ae/"
 
 # Address
 # For available fields see: https://sourcethemes.com/academic/docs/page-builder/#contact
 address:
   street: ""
-  city: Abu Dhabi
+  city: 阿布扎比
   region: ""
   postcode: ""
-  country: United Arab Emirates
+  country: 阿联酋
 
 # Short bio (displayed in user profile at end of posts)
-bio: Yuchen Li is a final-year PhD student in the Metaverse Lab at MBZUAI, supervised by Hao Li, working on spatially grounded multimodal intelligence.
+bio: 李禹陈是 MBZUAI Metaverse Lab 的博士生，师从 Hao Li，研究以空间理解为基础的多模态智能。
 
 education:
   courses:
-  - course: PhD in Computer Vision
-    institution: Mohamed bin Zayed University of Artificial Intelligence
+  - course: 计算机视觉博士
+    institution: 穆罕默德·本·扎耶德人工智能大学（MBZUAI）
     link: https://mbzuai.ac.ae/
     logo: "mbzuai.png"
     year: 2023 - 2027
-  - course: M.Sc. in Computer Science
-    institution: King Abdullah University of Science and Technology
+  - course: 计算机科学硕士
+    institution: 阿卜杜拉国王科技大学（KAUST）
     link: https://www.kaust.edu.sa/en
     logo: "kaust.png"
     year: 2020 - 2022
-  - course: B.Sc. in Computer Science and Technology
-    institution: Southern University of Science and Technology
+  - course: 计算机科学与技术学士
+    institution: 南方科技大学
     link: https://www.sustech.edu.cn/en/
     logo: "sustech.png"
     year: 2017 - 2021
-  - course: Exchange Student, School of Computing
-    institution: National University of Singapore
+  - course: 计算机学院交换生
+    institution: 新加坡国立大学
     link: https://www.comp.nus.edu.sg/
     logo: "nus.png"
     year: 2020
 
 interests:
   - item: Perceptio
-    works: <a target="_blank" href="https://liyc.pw/Perceptio/">Spatial-token VLM</a> / Amazon Science internship
+    works: <a target="_blank" href="https://liyc.pw/Perceptio/">空间 token 视觉语言模型</a> / Amazon Science 实习
   - item: UCanDance
-    works: Music-driven long-horizon video generation / Sony AI
+    works: 音乐驱动的长时序视频生成 / Sony AI
   - item: PointNeXt
-    works: <a target="_blank" href="https://arxiv.org/abs/2206.04670">NeurIPS</a>, 1,600+ citations
+    works: <a target="_blank" href="https://arxiv.org/abs/2206.04670">NeurIPS</a>, 1,600+ 次引用
   - item: 3D-CoMPaT
-    works: <a target="_blank" href="https://www.ecva.net/papers/eccv_2022/papers_ECCV/html/3631_ECCV_2022_paper.php">ECCV Oral</a> / dataset
+    works: <a target="_blank" href="https://www.ecva.net/papers/eccv_2022/papers_ECCV/html/3631_ECCV_2022_paper.php">ECCV 口头报告</a> / 数据集
   - item: 3DCoMPaT++
     works: <a target="_blank" href="https://arxiv.org/abs/2310.18511">TPAMI</a>
-  - item: Recursive Self-Improvement (RSI)
-    works: Interested in AI systems that iteratively improve their own capabilities.
+  - item: 递归自我改进（RSI）
+    works: 关注通过迭代提升自身能力的人工智能系统。
   
 # Social/Academic Networking
 # For available icons, see: https://sourcethemes.com/academic/docs/widgets/#icons
@@ -107,6 +107,6 @@ social:
 
 ---
 
-I am a final-year PhD student in the Metaverse Lab at MBZUAI, supervised by Hao Li, working on spatially grounded multimodal intelligence. My research builds vision-language and generative models that understand and create 2D, 3D, video, and 4D content. My representative works include [Perceptio](https://liyc.pw/Perceptio/), UCanDance, [PointNeXt](https://arxiv.org/abs/2206.04670), and [3D-CoMPaT](https://www.ecva.net/papers/eccv_2022/papers_ECCV/html/3631_ECCV_2022_paper.php).
+我目前是 MBZUAI Metaverse Lab 的博士生，即将进入毕业阶段，师从 Hao Li，研究以空间理解为基础的多模态智能。我致力于构建能够理解与生成二维、三维、视频及四维内容的视觉语言模型与生成模型。代表作包括 [Perceptio](https://liyc.pw/Perceptio/)、UCanDance、[PointNeXt](https://arxiv.org/abs/2206.04670) 和 [3D-CoMPaT](https://www.ecva.net/papers/eccv_2022/papers_ECCV/html/3631_ECCV_2022_paper.php)。
 
-**I am actively seeking research scientist, postdoctoral, and industry research opportunities in multimodal VLMs, spatial reasoning, world models, and generative AI starting in 2027.**
+**我正在寻找 2027 年开始的研究科学家、博士后及产业研究机会，方向包括多模态视觉语言模型、空间推理、世界模型和生成式人工智能。**

@@ -8,7 +8,7 @@ headless = false  # This file represents a page section.
 active = true  # Activate this widget? true/false
 weight = 100  # Order that this section will appear.
 
-title = "Awards"
+title = "荣誉与奖项"
 subtitle = ""
 
 [design]
@@ -46,8 +46,8 @@ subtitle = ""
  # CSS class.
  css_class = ""
 +++
-- *2026/09*: HLF Young Researcher & Carl-Zeiss-Stiftung Abbe Grant (Top 3%), Heidelberg Laureate Forum & Carl-Zeiss-Stiftung, Heidelberg, Germany.
-- *2023/06*: Organizer, CVPR Workshop on Compositional 3D Vision and 3D-CoMPaT Challenge.
-- *2021/05*: Super AI Youth, Jiangmen Innovation Ventures.
-- *2019/06*: 2nd Prize, ASC World University Student Supercomputer Challenge.
-- *2019/04*: Honorable Mention, International Interdisciplinary Contest in Modeling.
+- *2026/09*: 入选海德堡桂冠论坛（HLF）青年研究者，获 Carl-Zeiss-Stiftung Abbe Grant（前 3%），德国海德堡。
+- *2023/06*: CVPR 组合式三维视觉研讨会暨 3D-CoMPaT 挑战赛组织者。
+- *2021/05*: 将门创投 Super AI Youth。
+- *2019/06*: ASC 世界大学生超级计算机竞赛二等奖。
+- *2019/04*: 美国大学生交叉学科建模竞赛（ICM）荣誉奖。

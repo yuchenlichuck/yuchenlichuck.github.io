@@ -6,9 +6,9 @@
 widget = "blank"  # See https://sourcethemes.com/academic/docs/page-builder/
 headless = false  # This file represents a page section.
 active = true  # Activate this widget? true/false
-weight = 100  # Order that this section will appear.
+weight = 97  # Order that this section will appear.
 
-title = "Awards"
+title = "学术服务"
 subtitle = ""
 
 [design]
@@ -46,8 +46,5 @@ subtitle = ""
  # CSS class.
  css_class = ""
 +++
-- *2026/09*: HLF Young Researcher & Carl-Zeiss-Stiftung Abbe Grant (Top 3%), Heidelberg Laureate Forum & Carl-Zeiss-Stiftung, Heidelberg, Germany.
-- *2023/06*: Organizer, CVPR Workshop on Compositional 3D Vision and 3D-CoMPaT Challenge.
-- *2021/05*: Super AI Youth, Jiangmen Innovation Ventures.
-- *2019/06*: 2nd Prize, ASC World University Student Supercomputer Challenge.
-- *2019/04*: Honorable Mention, International Interdisciplinary Contest in Modeling.
+- 核心组织者：CVPR 2023 组合式三维视觉研讨会暨 3D-CoMPaT 挑战赛。
+- 担任人工智能会议与期刊的程序主席或审稿人，涉及 TPAMI、IJCV、CVPR、ICCV、AAAI、TCSVT、BMVC、TNNLS 和 NeurIPS。
