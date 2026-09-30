@@ -49,5 +49,15 @@
     url = "#accomplishments"
     weight = 70
 
+  [[zh.menu.main]]
+    name = "报道索引"
+    url = "/press/"
+    weight = 80
+
+  [[zh.menu.main]]
+    name = "博客"
+    url = "/zh/post/"
+    weight = 90
+
   [zh.params.publications]
     date_format = "2006年1月"
