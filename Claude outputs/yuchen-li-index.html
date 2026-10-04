@@ -69,9 +69,6 @@
   .brand { font-family: var(--display); font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px; }
   .brand .led { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent); }
   .brand span.tag { color: var(--muted); font-family: var(--mono); font-weight: 400; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
-  .home { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line-hi); border-radius: 999px; padding: 6px 13px; font-size: 13px; font-weight: 500; color: var(--accent); background: var(--surface); white-space: nowrap; }
-  .home::before { content: "←"; }
-  .home:hover { text-decoration: none; box-shadow: var(--glow); }
   .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 2px; background: var(--surface); }
   .seg button { border: 0; background: transparent; padding: 5px 12px; border-radius: 999px; cursor: pointer; font-size: 13px; font-weight: 500; color: var(--muted); }
   .seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
@@ -214,12 +211,9 @@
 
 <div class="top"><div class="wrap">
   <div class="brand"><span class="led" aria-hidden="true"></span>Yuchen Li · 李禹陈 <span class="tag" data-i18n="tagline"></span></div>
-  <div style="display:flex;align-items:center;gap:8px">
-  <a class="home" href="https://www.liyc.pw/" data-i18n="home"></a>
   <div class="seg" role="group" aria-label="Language">
     <button type="button" id="lang-en" aria-pressed="true">EN</button>
     <button type="button" id="lang-zh" aria-pressed="false">中文</button>
-  </div>
   </div>
 </div></div>
 
@@ -784,7 +778,7 @@ const REJECTED = [];
 (function () {
   const I18N = {
     en: {
-      tagline: "verified index", home: "Back to liyc.pw",
+      tagline: "verified index",
       eyebrow: "Verified mentions & social index · updated 4 Oct 2026",
       cloudcap: "point cloud · depth-coded · PointNeXt ↔ Perceptio",
       copy: "copy", copied: "copied",
@@ -808,7 +802,7 @@ const REJECTED = [];
       note3: "Not reachable during compilation: Zhihu profile (captcha), Xiaohongshu notes (login wall), OpenReview (bot check). LinkedIn post dates shown as “2yr / 3yr” on LinkedIn are approximate."
     },
     zh: {
-      tagline: "已核实索引", home: "返回主页 liyc.pw",
+      tagline: "已核实索引",
       eyebrow: "已核实的报道与社交媒体索引 · 更新于 2026-10-04",
       cloudcap: "点云 · 深度着色 · PointNeXt ↔ Perceptio",
       copy: "复制", copied: "已复制",
