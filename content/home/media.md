@@ -126,9 +126,9 @@ subtitle = ""
 <div class="media-coverage-grid">
   <article class="media-coverage-card" style="border-color:#0e6f68">
     <div>
-      <div class="media-coverage-meta">liyc.pw · Sep 30, 2026</div>
+      <div class="media-coverage-meta">liyc.pw · Oct 4, 2026</div>
       <h4 class="media-coverage-title">Verified index: every press mention, paper and social post</h4>
-      <p class="media-coverage-summary">47 items across 24 outlets and platforms (中文 + English), 2016–2026, each tied to me with quoted evidence. Filter by kind or language, bilingual UI.</p>
+      <p class="media-coverage-summary">85 items across 28 outlets and platforms (中文 + English), 2016–2026, each tied to me with quoted evidence. Filter by kind or language, bilingual UI.</p>
     </div>
     <a class="media-coverage-link" href="/press/">Browse the index →</a>
   </article>

@@ -126,9 +126,9 @@ subtitle = ""
 <div class="media-coverage-grid">
   <article class="media-coverage-card" style="border-color:#0e6f68">
     <div>
-      <div class="media-coverage-meta">liyc.pw · 2026年9月30日</div>
+      <div class="media-coverage-meta">liyc.pw · 2026年10月4日</div>
       <h4 class="media-coverage-title">核实索引：关于我的全部报道、论文与社交媒体</h4>
-      <p class="media-coverage-summary">47 条，来自 24 个来源与平台（中文 + English），2016–2026，每条附有指向本人的原文依据。可按类型或语言筛选，双语界面。</p>
+      <p class="media-coverage-summary">85 条，来自 28 个来源与平台（中文 + English），2016–2026，每条附有指向本人的原文依据。可按类型或语言筛选，双语界面。</p>
     </div>
     <a class="media-coverage-link" href="/press/">浏览索引 →</a>
   </article>
