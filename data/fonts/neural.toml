@@ -1,0 +1,11 @@
+# Font style metadata
+name = "Neural"
+
+# Optional Google font URL
+google_fonts = "Syne:600,700,800|IBM+Plex+Sans:400,500,600|IBM+Plex+Mono:400,500,600|Noto+Sans+SC:400,500,700"
+
+# Font families
+heading_font = "Syne"
+body_font = "IBM Plex Sans"
+nav_font = "IBM Plex Mono"
+mono_font = "IBM Plex Mono"

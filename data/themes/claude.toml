@@ -1,24 +1,25 @@
-# Theme metadata
+# Theme metadata — "Neural" skin (dark, cyan). The body class stays `theme-claude`
+# so the widget layout rules in _claude.scss keep applying; assets/css/neural.css restyles them.
 name = "Claude"
-font = "Claude"
+font = "Neural"
 
 # Is theme light or dark?
-light = true
+light = false
 
 # Primary
-primary = "#b76531"
-link = "#93502b"
-link_hover = "#ce7f4f"
+primary = "#4ee8d6"
+link = "#4ee8d6"
+link_hover = "#8ff3e8"
 
 # Menu
-menu_primary = "rgba(248, 241, 231, 0.84)"
-menu_text = "#4a3928"
-menu_text_active = "#b76531"
-menu_title = "#241a12"
+menu_primary = "rgba(7, 11, 16, 0.72)"
+menu_text = "#cfd7df"
+menu_text_active = "#4ee8d6"
+menu_title = "#e9eef2"
 
 # Background
-background = "#f6efe4"
+background = "#070b10"
 
 # Home sections
-home_section_odd = "rgb(246, 239, 228)"
-home_section_even = "rgb(240, 231, 218)"
+home_section_odd = "transparent"
+home_section_even = "transparent"
