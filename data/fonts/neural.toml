@@ -2,10 +2,10 @@
 name = "Neural"
 
 # Optional Google font URL
-google_fonts = "Syne:600,700,800|IBM+Plex+Sans:400,500,600|IBM+Plex+Mono:400,500,600|Noto+Sans+SC:400,500,700"
+google_fonts = "Source+Serif+4:500,600,700|IBM+Plex+Sans:400,500,600|IBM+Plex+Mono:400,500|Noto+Sans+SC:400,500,700|Noto+Serif+SC:600"
 
 # Font families
-heading_font = "Syne"
+heading_font = "Source Serif 4"
 body_font = "IBM Plex Sans"
-nav_font = "IBM Plex Mono"
+nav_font = "IBM Plex Sans"
 mono_font = "IBM Plex Mono"
