@@ -1,0 +1,18 @@
+{{- /* Bilibili videos as click-to-load facades: no third-party player until the visitor asks for it. */ -}}
+{{- $p := hugo.Data.press -}}
+{{- $zh := eq .Page.Lang "zh" -}}
+<div class="media-video-grid">
+  {{- range $p.videos }}
+  {{- $item := index (where $p.items "id" .ref) 0 }}
+  <div class="vfacade" data-src="{{ .src }}" data-title="{{ .title }}">
+    <button type="button" class="vfacade-btn" aria-label="{{ if $zh }}播放{{ else }}Play{{ end }}: {{ .title }}">
+      <span class="vfacade-play" aria-hidden="true"></span>
+      <span class="vfacade-text">
+        <span class="vfacade-meta">{{ if $zh }}{{ .meta_zh }}{{ else }}{{ .meta_en }}{{ end }}</span>
+        <span class="vfacade-title" lang="zh">{{ .title }}</span>
+      </span>
+    </button>
+    <a class="vfacade-out" href="{{ $item.url }}" target="_blank" rel="noopener">Bilibili ↗</a>
+  </div>
+  {{- end }}
+</div>

@@ -1,0 +1,34 @@
+{{- /* Coverage cards for the homepage, from data/press.json. The first card summarises the /press/ index. */ -}}
+{{- $p := hugo.Data.press -}}
+{{- $zh := eq .Page.Lang "zh" -}}
+{{- $outlets := slice -}}{{- $years := slice -}}
+{{- range $p.items -}}
+  {{- $outlets = $outlets | append (index (split .outlet " · ") 0) -}}
+  {{- $years = $years | append (int (substr .date 0 4)) -}}
+{{- end -}}
+{{- $years = sort $years -}}
+{{- $upd := time.AsTime $p.updated -}}
+<div class="media-coverage-grid">
+  <article class="media-coverage-card is-index">
+    <div>
+      <div class="media-coverage-meta">liyc.pw/press · {{ if $zh }}{{ $upd.Format "2006 年 1 月 2 日" }}{{ else }}{{ $upd.Format "Jan 2, 2006" }}{{ end }}</div>
+      <h4 class="media-coverage-title">{{ if $zh }}核实索引：关于我的报道、论文、演讲与社交媒体{{ else }}Verified index: press, papers, talks and social posts{{ end }}</h4>
+      <p class="media-coverage-summary">{{ if $zh -}}
+        {{ len $p.items }} 条，来自 {{ len ($outlets | uniq) }} 个来源与平台（中文 + English），{{ index $years 0 }}–{{ index $years (sub (len $years) 1) }}，每条附有指向本人的原文依据。
+      {{- else -}}
+        {{ len $p.items }} items from {{ len ($outlets | uniq) }} outlets and platforms (Chinese + English), {{ index $years 0 }}–{{ index $years (sub (len $years) 1) }}, each tied to me with quoted evidence.
+      {{- end }}</p>
+    </div>
+    <a class="media-coverage-link" href="{{ "press/" | relURL }}{{ if $zh }}?lang=zh{{ end }}">{{ if $zh }}浏览索引 →{{ else }}Browse the index →{{ end }}</a>
+  </article>
+  {{- range $p.home_cards }}
+  <article class="media-coverage-card">
+    <div>
+      <div class="media-coverage-meta">{{ if $zh }}{{ .meta_zh }}{{ else }}{{ .meta_en }}{{ end }}</div>
+      <h4 class="media-coverage-title" lang="zh">{{ .title }}</h4>
+      <p class="media-coverage-summary">{{ if $zh }}{{ .blurb_zh }}{{ else }}{{ .blurb_en }}{{ end }}</p>
+    </div>
+    <a class="media-coverage-link" href="{{ .url }}" target="_blank" rel="noopener">{{ if $zh }}{{ .cta_zh }}{{ else }}{{ .cta_en }}{{ end }} ↗</a>
+  </article>
+  {{- end }}
+</div>

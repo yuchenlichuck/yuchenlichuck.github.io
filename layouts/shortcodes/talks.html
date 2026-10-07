@@ -1,0 +1,16 @@
+{{- /* Talks, podcasts and public appearances, from data/press.json → talks. */ -}}
+{{- $p := hugo.Data.press -}}
+{{- $zh := eq .Page.Lang "zh" -}}
+<ol class="talks-list">
+  {{- range $p.talks }}
+  {{- $d := time.AsTime (printf "%s-01" .date) }}
+  <li class="talk">
+    <time class="talk-date" datetime="{{ .date }}">{{ if $zh }}{{ $d.Format "2006.01" }}{{ else }}{{ $d.Format "Jan 2006" }}{{ end }}</time>
+    <span class="talk-kind">{{ if $zh }}{{ .kind_zh }}{{ else }}{{ .kind_en }}{{ end }}</span>
+    <div class="talk-body">
+      <a class="talk-title" href="{{ .url }}" target="_blank" rel="noopener">{{ if $zh }}{{ .title_zh }}{{ else }}{{ .title_en }}{{ end }}</a>
+      <span class="talk-venue">{{ if $zh }}{{ .venue_zh }}{{ else }}{{ .venue_en }}{{ end }}</span>
+    </div>
+  </li>
+  {{- end }}
+</ol>

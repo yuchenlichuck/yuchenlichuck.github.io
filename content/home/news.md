@@ -46,6 +46,7 @@ subtitle = "Last updated: September 2026"
  # CSS class.
  css_class = "news-scroll"
 +++
+- *2026/10*: New [research note on Perceptio](/post/perceptio-spatial-tokens/): letting a VLM emit segmentation and depth tokens before it answers.
 - *2026/09*: Published a [verified bilingual index of all press, papers and social posts about me](/press/) — 85 items, each with quoted evidence ([blog post](/post/verified-press-index/)).
 - *2026/09*: Selected as a Young Researcher at the Heidelberg Laureate Forum (HLF) and awarded the Carl-Zeiss-Stiftung Abbe Grant (Top 3%) in Heidelberg, Germany.
 - *2026/09*: [PointNeXt](https://arxiv.org/abs/2206.04670) has reached 1,600 citations.

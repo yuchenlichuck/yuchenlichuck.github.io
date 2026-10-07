@@ -16,12 +16,13 @@ import urllib.request
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 DATA = ROOT / "data" / "scholar.json"
 
-# Paper keys used by the site -> distinctive words from the Scholar title.
+# Paper keys used by the site -> distinctive words from the Scholar title
+# (lower-case, spaces removed before matching).
 TITLES = {
     "pointnext": "pointnext",
     "compatpp": "3dcompat++",
-    "compat": "3dcompat: composition of materials",
-    "fewshot": "few-shot 3d point cloud",
+    "compat": "compositionofmaterialsonparts",
+    "fewshot": "prototypicalrandomwalks",
     "perceptio": "perceptio",
 }
 
@@ -52,7 +53,7 @@ def parse(page):
         c = re.search(r'class="gsc_a_ac gs_ibl"[^>]*>(\d*)</a>', row)
         if not t:
             continue
-        title = html.unescape(re.sub(r"<[^>]+>", "", t.group(1))).lower()
+        title = re.sub(r"\s+", "", html.unescape(re.sub(r"<[^>]+>", "", t.group(1))).lower())
         cites = int(c.group(1)) if c and c.group(1) else 0
         for key, needle in TITLES.items():
             if needle in title and cites >= out["papers"].get(key, 0):

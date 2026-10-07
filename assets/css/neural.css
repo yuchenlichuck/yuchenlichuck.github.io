@@ -213,12 +213,42 @@ body.theme-claude .news-scroll .blank-content li { position: relative; padding: 
 body.theme-claude .news-scroll .blank-content li::before { content: ""; position: absolute; left: 0; top: 1.02rem; width: 6px; height: 6px; border-radius: 50%; background: var(--n-accent); }
 body.theme-claude .news-scroll .blank-content li em { color: var(--n-accent); font-style: normal; font-family: var(--n-mono); font-size: .8rem; }
 
-/* ---------- media coverage (beats the widget's inline <style>) ---------- */
-body.theme-claude .media-coverage-meta { color: var(--n-accent) !important; font-family: var(--n-mono) !important; }
-body.theme-claude .media-coverage-title { color: var(--n-fg) !important; font-family: var(--n-serif) !important; font-weight: 600 !important; }
-body.theme-claude .media-coverage-summary { color: var(--n-muted) !important; }
-body.theme-claude .media-coverage-link { color: var(--n-accent) !important; }
-body.theme-claude .media-video-frame { border: 1px solid var(--n-line) !important; background: var(--n-bg-2) !important; }
+/* ---------- media & talks (shortcodes: press-cards, talks, press-videos; data in data/press.json) ---------- */
+body.theme-claude .media-coverage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin: .75rem 0 2rem; }
+body.theme-claude .media-coverage-card { display: flex; flex-direction: column; justify-content: space-between; min-height: 165px; padding: 1rem 1.1rem; }
+body.theme-claude .media-coverage-card.is-index { border-color: var(--n-line-hi) !important; background: linear-gradient(160deg, var(--claude-accent-soft), transparent 70%), var(--n-surface-2) !important; }
+body.theme-claude .media-coverage-meta { margin-bottom: .45rem; color: var(--n-accent) !important; font-family: var(--n-mono) !important; font-size: .72rem; letter-spacing: .04em; text-transform: uppercase; }
+body.theme-claude .media-coverage-title { margin: 0 0 .55rem; color: var(--n-fg) !important; font-family: var(--n-serif) !important; font-weight: 600 !important; font-size: 1rem; line-height: 1.45; }
+body.theme-claude .media-coverage-summary { margin: 0; color: var(--n-muted) !important; font-size: .9rem; line-height: 1.55; }
+body.theme-claude .media-coverage-link { margin-top: 1rem; color: var(--n-accent) !important; font-size: .86rem; font-weight: 600; }
+
+body.theme-claude .talks-list { list-style: none; margin: .5rem 0 2rem; padding: 0; border-top: 1px solid var(--n-line); }
+body.theme-claude .talk { display: grid; grid-template-columns: 6.2rem 6.6rem 1fr; gap: .4rem 1rem; align-items: baseline; padding: .7rem 0; border-bottom: 1px solid var(--n-line); }
+body.theme-claude .talk-date { font-family: var(--n-mono); font-size: .76rem; color: var(--n-muted); }
+body.theme-claude .talk-kind { justify-self: start; padding: .1rem .5rem; border: 1px solid var(--n-line); border-radius: 999px; font-family: var(--n-mono); font-size: .68rem; letter-spacing: .05em; text-transform: uppercase; color: var(--n-accent); }
+body.theme-claude .talk-body { min-width: 0; }
+body.theme-claude .talk-title { color: var(--n-fg) !important; font-weight: 600; }
+body.theme-claude .talk-title:hover { color: var(--n-accent) !important; }
+body.theme-claude .talk-venue { display: block; color: var(--n-muted); font-size: .86rem; }
+@media (max-width: 640px) {
+  body.theme-claude .talk { grid-template-columns: auto 1fr; }
+  body.theme-claude .talk-body { grid-column: 1 / -1; }
+}
+
+body.theme-claude .media-video-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: .75rem; }
+@media (max-width: 720px) { body.theme-claude .media-video-grid { grid-template-columns: 1fr; } }
+body.theme-claude .vfacade { position: relative; aspect-ratio: 16 / 9; border: 1px solid var(--n-line); border-radius: 12px; overflow: hidden;
+  background: radial-gradient(var(--n-dot) 1px, transparent 1.2px) 0 0 / 14px 14px, linear-gradient(150deg, var(--claude-accent-soft), transparent 65%), var(--n-surface-2); }
+body.theme-claude .vfacade:hover { border-color: var(--n-line-hi); }
+body.theme-claude .vfacade-btn { all: unset; box-sizing: border-box; position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 1rem 1.1rem; cursor: pointer; }
+body.theme-claude .vfacade-btn:focus-visible { outline: 2px solid var(--n-accent); outline-offset: -4px; border-radius: 12px; }
+body.theme-claude .vfacade-play { position: absolute; left: 50%; top: 42%; width: 58px; height: 58px; margin: -29px 0 0 -29px; border-radius: 50%; background: var(--n-accent); box-shadow: 0 0 0 8px var(--claude-accent-soft); transition: transform .15s; }
+body.theme-claude .vfacade-play::after { content: ""; position: absolute; left: 23px; top: 18px; border-style: solid; border-width: 11px 0 11px 17px; border-color: transparent transparent transparent var(--n-accent-ink); }
+body.theme-claude .vfacade-btn:hover .vfacade-play { transform: scale(1.06); }
+body.theme-claude .vfacade-meta { display: block; font-family: var(--n-mono); font-size: .7rem; letter-spacing: .04em; text-transform: uppercase; color: var(--n-accent); }
+body.theme-claude .vfacade-title { display: block; margin-top: .2rem; color: var(--n-fg); font-family: var(--n-serif); font-weight: 600; line-height: 1.35; }
+body.theme-claude .vfacade-out { position: absolute; top: .6rem; right: .75rem; font-family: var(--n-mono); font-size: .7rem; color: var(--n-muted) !important; }
+body.theme-claude .vfacade iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
 /* ---------- blank widgets, footer, inner pages ---------- */
 body.theme-claude .blank-content h3, body.theme-claude .blank-content h4 { color: var(--n-fg) !important; font-family: var(--n-serif) !important; }

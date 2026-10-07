@@ -46,7 +46,8 @@ subtitle = "更新于：2026 年 9 月"
  # CSS class.
  css_class = "news-scroll"
 +++
-- *2026/09*：发布了[关于我的报道、论文与社交媒体的双语核实索引](/press/)——85 条，每条附原文依据（[博客](/zh/post/verified-press-index/)）。
+- *2026/10*：新博客：[Perceptio 研究笔记](/zh/post/perceptio-spatial-tokens/)——让视觉语言模型先生成分割与深度 token 再作答。
+- *2026/09*：发布了[关于我的报道、论文与社交媒体的双语核实索引](/press/?lang=zh)——85 条，每条附原文依据（[博客](/zh/post/verified-press-index/)）。
 - *2026/09*: 入选海德堡桂冠论坛（HLF）青年研究者，获 Carl-Zeiss-Stiftung Abbe Grant（前 3%），德国海德堡。
 - *2026/09*: [PointNeXt](https://arxiv.org/abs/2206.04670) 引用量达到 1,600 次。
 - *2026/03*: [Perceptio](https://arxiv.org/abs/2603.18795) 发布 arXiv 预印本，探索通过空间 token 生成增强视觉语言模型的感知能力。

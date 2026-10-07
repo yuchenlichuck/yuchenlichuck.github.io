@@ -8,7 +8,7 @@ headless = false  # This file represents a page section.
 active = true  # Activate this widget? true/false
 weight = 96  # Order that this section will appear.
 
-title = "媒体报道"
+title = "媒体与演讲"
 subtitle = ""
 
 [design]
@@ -46,126 +46,15 @@ subtitle = ""
  # CSS class.
  css_class = ""
 +++
-<style>
-  .media-coverage-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1rem;
-    margin: 0.75rem 0 1.5rem;
-  }
-
-  .media-coverage-card {
-    display: flex;
-    min-height: 165px;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 1rem;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 8px;
-    background: #fff;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
-  }
-
-  .media-coverage-card:hover {
-    transform: translateY(-2px);
-    transition: transform 160ms ease;
-  }
-
-  body.theme-claude .media-coverage-meta {
-    margin-bottom: 0.45rem;
-    color: #6b7280;
-    font-size: 0.82rem;
-    letter-spacing: 0.01em;
-    text-transform: uppercase;
-  }
-
-  body.theme-claude .media-coverage-title {
-    margin: 0 0 0.6rem;
-    color: #111827;
-    font-size: 1rem;
-    line-height: 1.45;
-  }
-
-  body.theme-claude .media-coverage-summary {
-    margin: 0;
-    color: #4b5563;
-    font-size: 0.92rem;
-    line-height: 1.55;
-  }
-
-  body.theme-claude .media-coverage-link {
-    margin-top: 1rem;
-    font-size: 0.9rem;
-    font-weight: 600;
-  }
-
-  .media-video-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
-    margin-top: 0.75rem;
-  }
-
-  .media-video-frame {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    border: 0;
-    border-radius: 8px;
-    background: #f3f4f6;
-  }
-
-  @media (max-width: 720px) {
-    .media-video-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>
 
 ### 媒体报道
 
-<div class="media-coverage-grid">
-  <article class="media-coverage-card" style="border-color:#0e6f68">
-    <div>
-      <div class="media-coverage-meta">liyc.pw · 2026年10月4日</div>
-      <h4 class="media-coverage-title">核实索引：关于我的全部报道、论文与社交媒体</h4>
-      <p class="media-coverage-summary">85 条，来自 28 个来源与平台（中文 + English），2016–2026，每条附有指向本人的原文依据。可按类型或语言筛选，双语界面。</p>
-    </div>
-    <a class="media-coverage-link" href="/press/">浏览索引 →</a>
-  </article>
+{{< press-cards >}}
 
-  <article class="media-coverage-card">
-    <div>
-      <div class="media-coverage-meta">36氪欧洲 · 2025 年 6 月 12 日</div>
-      <h4 class="media-coverage-title">72小时全程纪实：人类首度与AI亲密接触</h4>
-      <p class="media-coverage-summary">参与 36氪欧洲关于 72 小时 AI 生存挑战的纪实报道，探讨 AI 智能体、AI 视频创作与人机交互。</p>
-    </div>
-    <a class="media-coverage-link" href="https://eu.36kr.com/zh/p/3333024150333961" target="_blank" rel="noopener">阅读文章</a>
-  </article>
+### 演讲与公开活动
 
-  <article class="media-coverage-card">
-    <div>
-      <div class="media-coverage-meta">嘉程资本 · 2024 年 1 月</div>
-      <h4 class="media-coverage-title">迪拜商业英才李禹陈：浅谈中东2030愿景</h4>
-      <p class="media-coverage-summary">受嘉程资本邀请，分享对中东 2030 愿景及中国创业者在当地发展机遇的看法。</p>
-    </div>
-    <a class="media-coverage-link" href="https://www.jiachengcap.com/blog/240105_56c8" target="_blank" rel="noopener">阅读文章</a>
-  </article>
+{{< talks >}}
 
-  <article class="media-coverage-card">
-    <div>
-      <div class="media-coverage-meta">小宇宙 · 播客</div>
-      <h4 class="media-coverage-title">07. 去中东上学：全靠酋长资助，不用交学费，还赚钱！</h4>
-      <p class="media-coverage-summary">做客《掘金中东》，分享 KAUST、MBZUAI、Dubai Business Associates、中东高校与当地生活经历。</p>
-    </div>
-    <a class="media-coverage-link" href="https://www.xiaoyuzhoufm.com/episode/6641cf18f968fce2cbbccdfc" target="_blank" rel="noopener">收听节目</a>
-  </article>
-</div>
+### 视频
 
-### 视频访谈
-
-<div class="media-video-grid">
-  <iframe class="media-video-frame" src="https://player.bilibili.com/player.html?bvid=BV1jL411G7HL&page=1&high_quality=1&autoplay=0" loading="lazy" allowfullscreen="true" scrolling="no"></iframe>
-  <iframe class="media-video-frame" src="https://player.bilibili.com/player.html?isOutside=true&aid=793300345&bvid=BV1zC4y1e7ab&cid=1396155520&p=1&autoplay=0" loading="lazy" allowfullscreen="true" scrolling="no"></iframe>
-  <iframe class="media-video-frame" src="https://player.bilibili.com/player.html?isOutside=true&aid=114919685031435&bvid=BV1728bzzEym&cid=31298225202&p=1&autoplay=0" loading="lazy" allowfullscreen="true" scrolling="no"></iframe>
-  <iframe class="media-video-frame" src="https://player.bilibili.com/player.html?isOutside=true&aid=114850344801356&bvid=BV1uguizREY3&cid=31030183754&p=1&autoplay=0" loading="lazy" allowfullscreen="true" scrolling="no"></iframe>
-</div>
+{{< press-videos >}}

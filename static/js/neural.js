@@ -41,6 +41,22 @@
     });
   });
 
+  // ---- video facades: load the Bilibili player only when asked ----
+  Array.prototype.forEach.call(document.querySelectorAll('.vfacade'), function (f) {
+    var btn = f.querySelector('.vfacade-btn');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var fr = document.createElement('iframe');
+      fr.src = f.getAttribute('data-src');
+      fr.title = f.getAttribute('data-title') || 'Video';
+      fr.setAttribute('allowfullscreen', 'true');
+      fr.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture');
+      fr.setAttribute('scrolling', 'no');
+      f.innerHTML = '';
+      f.appendChild(fr);
+    });
+  });
+
   // ---- portrait point cloud ----
   var img = document.querySelector('#profile img.portrait, .wg-about img.portrait');
   if (!img) return;
