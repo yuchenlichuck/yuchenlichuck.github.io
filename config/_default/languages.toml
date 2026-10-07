@@ -56,7 +56,7 @@
 
   [[zh.menu.main]]
     name = "报道索引"
-    url = "/press/?lang=zh"
+    url = "/press/"
     weight = 80
 
   [[zh.menu.main]]

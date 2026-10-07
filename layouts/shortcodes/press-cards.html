@@ -19,7 +19,7 @@
         {{ len $p.items }} items from {{ len ($outlets | uniq) }} outlets and platforms (Chinese + English), {{ index $years 0 }}–{{ index $years (sub (len $years) 1) }}, each tied to me with quoted evidence.
       {{- end }}</p>
     </div>
-    <a class="media-coverage-link" href="{{ "press/" | relURL }}{{ if $zh }}?lang=zh{{ end }}">{{ if $zh }}浏览索引 →{{ else }}Browse the index →{{ end }}</a>
+    <a class="media-coverage-link" href="{{ "press/" | relLangURL }}">{{ if $zh }}浏览索引 →{{ else }}Browse the index →{{ end }}</a>
   </article>
   {{- range $p.home_cards }}
   <article class="media-coverage-card">

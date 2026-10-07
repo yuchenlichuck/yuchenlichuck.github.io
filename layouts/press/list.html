@@ -4,7 +4,7 @@
 {{- $avatar_img := $avatar.Fill "320x320 Center webp q85" -}}
 {{- $press := hugo.Data.press -}}
 {{- $desc := .Params.summary | default "Verified index of press, papers, talks and social posts about Yuchen Li (李禹陈), AI PhD student at MBZUAI." }}
-<html lang="en">
+<html lang="{{ site.LanguageCode | default "en" }}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -12,6 +12,8 @@
 <title>{{ .Title }} · Yuchen Li · 李禹陈</title>
 <meta name="description" content="{{ $desc }}">
 <link rel="canonical" href="{{ .Permalink }}">
+{{ range .AllTranslations }}<link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}">
+{{ end }}
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Yuchen Li · 李禹陈">
 <meta property="og:title" content="{{ .Title }} · Yuchen Li · 李禹陈">
@@ -231,7 +233,7 @@
 <div class="top"><div class="wrap">
   <div class="brand"><span class="led" aria-hidden="true"></span>Yuchen Li · 李禹陈 <span class="tag" data-i18n="tagline"></span></div>
   <div style="display:flex;align-items:center;gap:8px">
-  <a class="home" href="{{ "/" | relURL }}" data-i18n="home"></a>
+  <a class="home" href="{{ "/" | relLangURL }}" data-i18n="home"></a>
   <div class="seg" role="group" aria-label="Language">
     <button type="button" id="lang-en" aria-pressed="true">EN</button>
     <button type="button" id="lang-zh" aria-pressed="false">中文</button>
@@ -306,6 +308,7 @@
 
 <script>
 // Data lives in data/press.json; citation counts in data/scholar.json (refreshed by CI).
+const PAGE_LANG = {{ if eq .Lang "zh" }}"zh"{{ else }}"en"{{ end }};
 const PRESS = {{ $press | jsonify | safeJS }};
 const SCHOLAR = {{ hugo.Data.scholar | jsonify | safeJS }};
 const PROFILE = PRESS.profile, ACCOUNTS = PRESS.accounts, ITEMS = PRESS.items, PENDING = [], REJECTED = [];
@@ -382,8 +385,8 @@ document.getElementById("email").textContent = PROFILE.email_user + "@" + PROFIL
   const ORDER = { likes: 1, views: 1, plays: 1, votes: 1, cites: 1 };
   const score = i => { const m = i.metrics || {}; return Math.max(0, ...Object.keys(m).filter(k => ORDER[k]).map(k => m[k])); };
 
-  let lang = "en", type = "all", langFilter = "all", q = "", sort = "new";
-  try { const s = localStorage.getItem("yl.lang"); if (s === "zh" || s === "en") lang = s; } catch (e) {}
+  let lang = PAGE_LANG, type = "all", langFilter = "all", q = "", sort = "new";
+  if (PAGE_LANG === "en") { try { const s = localStorage.getItem("yl.lang"); if (s === "zh" || s === "en") lang = s; } catch (e) {} }
   try { const qp = new URLSearchParams(location.search).get("lang"); if (qp === "zh" || qp === "en") lang = qp; } catch (e) {}
   const t = k => I18N[lang][k];
   const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
