@@ -6,10 +6,10 @@
 widget = "blank"  # See https://sourcethemes.com/academic/docs/page-builder/
 headless = false  # This file represents a page section.
 active = true  # Activate this widget? true/false
-weight = 96  # Order that this section will appear.
+weight = 26  # 中文页：放在“研究”之后，靠前展示
 
 title = "媒体与演讲"
-subtitle = ""
+subtitle = "也许你在小红书上认识我——「迪拜王子」。在中东求学和工作多年，参加过 72 小时 AI 生存挑战、讲过脱口秀，也在合肥请一百位陌生人喝过咖啡。"
 
 [design]
   # Choose how many columns the section has. Valid values: 1 or 2.

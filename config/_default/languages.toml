@@ -25,6 +25,11 @@
     weight = 20
 
   [[zh.menu.main]]
+    name = "媒体"
+    url = "#media"
+    weight = 25
+
+  [[zh.menu.main]]
     name = "论文"
     url = "#featured"
     weight = 30
