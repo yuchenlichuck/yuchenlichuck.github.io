@@ -1,0 +1,15 @@
+{
+  "profile": "7MocPGkAAAAJ",
+  "updated": "2026-09-30",
+  "source": "Google Scholar profile, read manually; refreshed weekly by scripts/update_scholar.py when Scholar answers",
+  "citations": 1719,
+  "h_index": 4,
+  "i10_index": 4,
+  "papers": {
+    "pointnext": 1629,
+    "compatpp": 32,
+    "compat": 31,
+    "fewshot": 26,
+    "perceptio": 1
+  }
+}

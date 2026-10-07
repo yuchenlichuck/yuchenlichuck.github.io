@@ -20,3 +20,4 @@ resources/
 test/go.sum
 
 public/
+__pycache__/

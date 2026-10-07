@@ -20,6 +20,27 @@
     body.classList.add('no-observer');
   }
 
+  // ---- email: assembled in the browser so the address never sits in the HTML for scrapers ----
+  function addr(el) { return el.getAttribute('data-u') + '@' + el.getAttribute('data-d'); }
+  Array.prototype.forEach.call(document.querySelectorAll('.js-email'), function (a) {
+    var m = addr(a);
+    a.setAttribute('href', 'mailto:' + m);
+    if (a.getAttribute('data-show')) { var t = a.querySelector('.js-email-text'); if (t) t.textContent = m; }
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.js-copy-email'), function (b) {
+    var label = b.querySelector('span'), orig = label ? label.textContent : '';
+    b.addEventListener('click', function () {
+      var m = addr(b);
+      var done = function () {
+        b.classList.add('is-done'); if (label) label.textContent = b.getAttribute('data-done') || 'Copied';
+        setTimeout(function () { b.classList.remove('is-done'); if (label) label.textContent = orig; }, 1600);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(m).then(done, function () { window.prompt('Email', m); });
+      } else { window.prompt('Email', m); }
+    });
+  });
+
   // ---- portrait point cloud ----
   var img = document.querySelector('#profile img.portrait, .wg-about img.portrait');
   if (!img) return;

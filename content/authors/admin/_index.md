@@ -68,6 +68,31 @@ interests:
   - item: Recursive Self-Improvement (RSI)
     works: Interested in AI systems that iteratively improve their own capabilities.
   
+# Key numbers shown under the bio. `stat` pulls a live number from data/scholar.json
+# (refreshed weekly by scripts/update_scholar.py); `value` is fixed text.
+highlights:
+  - stat: citations
+    label: citations on [Google Scholar](https://scholar.google.com/citations?user=7MocPGkAAAAJ)
+  - stat: pointnext
+    label: for PointNeXt (NeurIPS 2022)
+  - value: ECCV Oral
+    label: 3D CoMPaT, 2.7% acceptance
+  - value: Amazon · Sony AI
+    label: industry research internships
+
+# "Open to opportunities" callout under the bio.
+looking_for:
+  title: Open to research roles starting 2027
+  items:
+    - label: Roles
+      text: Research scientist, postdoctoral and industry research positions
+    - label: Topics
+      text: Multimodal VLMs · spatial reasoning · world models · generative AI
+    - label: Start
+      text: 2027, after completing my PhD at MBZUAI
+    - label: Location
+      text: United States (on-site or hybrid); currently in Abu Dhabi
+
 # Social/Academic Networking
 # For available icons, see: https://sourcethemes.com/academic/docs/widgets/#icons
 #   For an email link, use "fas" icon pack, "envelope" icon, and a link in the
@@ -94,9 +119,9 @@ social:
 - icon: rednote-black.png
   icon_pack: img
   link: https://www.xiaohongshu.com/user/profile/5b788ddd2cc31d0001487a94
-- icon: globe
-  icon_pack: fas
-  link: https://www.liyc.pw
+- icon: instagram
+  icon_pack: fab
+  link: https://www.instagram.com/yuchenlichuck/
 
 
 # Organizational groups that you belong to (for People widget)
@@ -108,5 +133,3 @@ social:
 ---
 
 I am a final-year PhD student in the Metaverse Lab at MBZUAI, supervised by Hao Li, working on spatially grounded multimodal intelligence. My research builds vision-language and generative models that understand and create 2D, 3D, video, and 4D content. My representative works include [Perceptio](https://liyc.pw/Perceptio/), UCanDance, [PointNeXt](https://arxiv.org/abs/2206.04670), and [3D-CoMPaT](https://www.ecva.net/papers/eccv_2022/papers_ECCV/html/3631_ECCV_2022_paper.php).
-
-**I am actively seeking research scientist, postdoctoral, and industry research opportunities in multimodal VLMs, spatial reasoning, world models, and generative AI starting in 2027.**

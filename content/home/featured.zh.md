@@ -9,7 +9,7 @@ active = true  # Activate this widget? true/false
 weight = 80  # Order that this section will appear.
 
 title = "精选论文"
-subtitle = "精选论文与预印本；* 表示同等贡献。"
+subtitle = "精选论文与预印本；* 表示同等贡献。完整列表见 [Google Scholar](https://scholar.google.com/citations?user=7MocPGkAAAAJ)。"
 
 [content]
   # Page type to display. E.g. post, talk, or publication.

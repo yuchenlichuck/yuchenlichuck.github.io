@@ -9,7 +9,7 @@ active = true  # Activate this widget? true/false
 weight = 80  # Order that this section will appear.
 
 title = "Featured Publications"
-subtitle = "Selected publications and preprints. * denotes equal contribution."
+subtitle = "Selected publications and preprints. * denotes equal contribution. Full list on [Google Scholar](https://scholar.google.com/citations?user=7MocPGkAAAAJ)."
 
 [content]
   # Page type to display. E.g. post, talk, or publication.

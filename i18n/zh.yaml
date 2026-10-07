@@ -4,3 +4,7 @@
   translation: 曾任
 - id: interests
   translation: 研究兴趣
+- id: copy_email
+  translation: 复制
+- id: copied
+  translation: 已复制

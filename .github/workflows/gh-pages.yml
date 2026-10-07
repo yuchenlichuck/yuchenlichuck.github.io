@@ -5,6 +5,9 @@ on:
     branches:
       - main  # Set a branch name to trigger deployment
   pull_request:
+  schedule:
+    - cron: '0 3 * * 1'   # Mondays 03:00 UTC: refresh citation counts
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -25,6 +28,9 @@ jobs:
         with:
           hugo-version: '0.159.1'
           extended: true
+
+      - name: Refresh Google Scholar numbers (best effort)
+        run: python3 scripts/update_scholar.py || true
 
       - name: Build
         run: hugo --minify

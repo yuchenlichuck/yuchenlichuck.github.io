@@ -4,3 +4,7 @@
   translation: Previous
 - id: interests
   translation: Research Interests
+- id: copy_email
+  translation: Copy
+- id: copied
+  translation: Copied

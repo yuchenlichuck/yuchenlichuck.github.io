@@ -68,6 +68,30 @@ interests:
   - item: 递归自我改进（RSI）
     works: 关注通过迭代提升自身能力的人工智能系统。
   
+# 简介下方的关键数字。`stat` 从 data/scholar.json 读取（scripts/update_scholar.py 每周更新）；`value` 为固定文字。
+highlights:
+  - stat: citations
+    label: '[Google Scholar](https://scholar.google.com/citations?user=7MocPGkAAAAJ) 总引用'
+  - stat: pointnext
+    label: PointNeXt 引用（NeurIPS 2022）
+  - value: ECCV Oral
+    label: 3D CoMPaT，口头报告录取率 2.7%
+  - value: Amazon · Sony AI
+    label: 产业研究实习
+
+# 简介下方的“求职意向”卡片。
+looking_for:
+  title: 寻找 2027 年开始的研究职位
+  items:
+    - label: 职位
+      text: 研究科学家、博士后及产业研究岗位
+    - label: 方向
+      text: 多模态视觉语言模型 · 空间推理 · 世界模型 · 生成式人工智能
+    - label: 时间
+      text: 2027 年，MBZUAI 博士毕业后
+    - label: 地点
+      text: 美国（现场或混合办公）；目前在阿布扎比
+
 # Social/Academic Networking
 # For available icons, see: https://sourcethemes.com/academic/docs/widgets/#icons
 #   For an email link, use "fas" icon pack, "envelope" icon, and a link in the
@@ -94,9 +118,9 @@ social:
 - icon: rednote-black.png
   icon_pack: img
   link: https://www.xiaohongshu.com/user/profile/5b788ddd2cc31d0001487a94
-- icon: globe
-  icon_pack: fas
-  link: https://www.liyc.pw
+- icon: instagram
+  icon_pack: fab
+  link: https://www.instagram.com/yuchenlichuck/
 
 
 # Organizational groups that you belong to (for People widget)
@@ -108,5 +132,3 @@ social:
 ---
 
 我目前是 MBZUAI Metaverse Lab 的博士生，即将进入毕业阶段，师从 Hao Li，研究以空间理解为基础的多模态智能。我致力于构建能够理解与生成二维、三维、视频及四维内容的视觉语言模型与生成模型。代表作包括 [Perceptio](https://liyc.pw/Perceptio/)、UCanDance、[PointNeXt](https://arxiv.org/abs/2206.04670) 和 [3D-CoMPaT](https://www.ecva.net/papers/eccv_2022/papers_ECCV/html/3631_ECCV_2022_paper.php)。
-
-**我正在寻找 2027 年开始的研究科学家、博士后及产业研究机会，方向包括多模态视觉语言模型、空间推理、世界模型和生成式人工智能。**

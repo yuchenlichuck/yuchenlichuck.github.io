@@ -1,0 +1,183 @@
+{{ $ := .root }}
+{{ $page := .page }}
+
+{{ $author := "" }}
+{{ if .author }}
+  {{ $author = .author }}
+{{ else }}
+  {{ $author = $page.Params.author }}
+{{end}}
+
+{{ $person_page_path := (printf "/authors/%s" (urlize $author)) }}
+{{ $person_page := site.GetPage $person_page_path }}
+{{ $person := $person_page.Params }}
+{{ $avatar := ($person_page.Resources.ByType "image").GetMatch "*avatar*" }}
+
+<!-- About widget -->
+<div class="row justify-content-center" >
+  <div class="col-12 col-lg-3">
+    <div id="profile">
+
+      {{ if site.Params.gravatar }}
+      <img class="portrait" src="https://s.gravatar.com/avatar/{{ md5 $person.email }}?s=200')" alt="Avatar">
+      {{ else if $avatar }}
+      {{ $avatar_image := $avatar.Fill "250x250 Center" }}
+      <img class="portrait" src="{{ $avatar_image.RelPermalink }}" alt="Avatar">
+      {{ end }}
+
+      <div class="portrait-title">
+        <h2>{{ $person.name }}</h2>
+        <h4>{{ $person.namecn }}</h4>
+        {{ with $person.role }}<h3>{{ . | markdownify | emojify }}</h3>{{ end }}
+
+        {{ range $person.organizations }}
+        <h3>
+          {{ with .url }}<a href="{{ . }}" target="_blank" rel="noopener">{{ end }}
+          <span>{{ .name }}</span>
+          {{ if .url }}</a>{{ end }}
+        </h3>
+        {{ end }}
+        
+        {{ if $person.address.street | or $person.address.city | or $person.address.region | or $person.address.postcode | or $person.address.country }}
+          {{ $addr := slice }}
+          {{with $person.address.street}}{{$addr = $addr | append .}}{{end}}
+          {{with $person.address.city}}{{$addr = $addr | append .}}{{end}}
+          {{with $person.address.region}}{{$addr = $addr | append .}}{{end}}
+          {{with $person.address.postcode}}{{$addr = $addr | append .}}{{end}}
+          {{with $person.address.country}}{{$addr = $addr | append .}}{{end}}
+          {{ $addr_formatted := delimit $addr (site.Params.list_delimiter | default ", ") }}
+          <h3 class="profile-address">
+            <i class="fas fa-map-marker-alt" style="margin-right: 0.3rem;"></i>{{ $addr_formatted }}
+          </h3>
+        {{ end }}
+      </div>
+
+      {{ $labels := dict "envelope" "Email" "google-scholar" "Google Scholar" "github" "GitHub" "linkedin" "LinkedIn" "twitter" "X (Twitter)" "x-twitter" "X (Twitter)" "zhihu" "Zhihu 知乎" "rednote-black.png" "Xiaohongshu 小红书" "instagram" "Instagram" "globe" "Website" "bilibili" "Bilibili" }}
+      <ul class="network-icon">
+        {{ range $person.social }}
+        {{ $pack := or .icon_pack "fas" }}
+        {{ $pack_prefix := $pack }}
+        {{ if in (slice "fab" "fas" "far" "fal") $pack }}
+          {{ $pack_prefix = "fa" }}
+        {{ end }}
+        {{ $link := .link }}
+        {{ $scheme := (urls.Parse $link).Scheme }}
+        {{ $target := "" }}
+        {{ if not $scheme }}
+          {{ $link = .link | relLangURL }}
+        {{ else if in (slice "http" "https") $scheme }}
+          {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+        {{ end }}
+        {{ $label := index $labels .icon | default .icon }}
+        <li>
+          {{ if eq $scheme "mailto" }}
+          {{ $addr := strings.TrimPrefix "mailto:" .link }}
+          {{ $parts := split $addr "@" }}
+          <a href="#" class="js-email" data-u="{{ index $parts 0 }}" data-d="{{ index $parts 1 }}" aria-label="{{ $label }}" title="{{ $label }}">
+          {{ else }}
+          <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }} aria-label="{{ $label }}" title="{{ $label }}">
+          {{ end }}
+            {{ if eq $pack "img" }}
+              {{/* Use `.icon` as the logo filename under static/img/logo (including extension). */}}
+              {{ $img_size := cond (eq .icon "rednote-black.png") "2.15em" "1.7em" }}
+              <img src="{{ printf "/img/logo/%s" .icon }}" alt="{{ $label }}" style="height:{{ $img_size }}; width:{{ $img_size }}; object-fit:contain; vertical-align:middle;">
+            {{ else }}
+              <i class="{{ $pack }} {{ $pack_prefix }}-{{ .icon }} big-icon" aria-hidden="true"></i>
+            {{ end }}
+          </a>
+        </li>
+        {{ end }}
+      </ul>
+
+    </div>
+  </div>
+  <div class="col-12 col-lg-6">
+
+    {{/* Only display widget title in explicit instances of about widget, not in author pages. */}}
+    {{ if and $page.Params.widget $page.Title }}<h1>{{ $page.Title | markdownify | emojify }}</h1>{{ end }}
+
+    <div class="profile-biography">{{ $person_page.Content }}</div>
+
+    {{ with $person.highlights }}
+    {{ $scholar := hugo.Data.scholar }}
+    <dl class="profile-highlights">
+      {{ range . }}
+      {{ $v := .value }}
+      {{ with .stat }}{{ $n := index $scholar . }}{{ if not $n }}{{ $n = index $scholar.papers . }}{{ end }}{{ with $n }}{{ $v = lang.FormatNumber 0 . }}{{ end }}{{ end }}
+      <div class="ph-item">
+        <dt>{{ $v }}</dt>
+        <dd>{{ .label | markdownify }}</dd>
+      </div>
+      {{ end }}
+    </dl>
+    {{ with $scholar.updated }}<p class="ph-source">{{ if eq site.Language.Lang "zh" }}引用数据截至{{ else }}Citation counts as of{{ end }} {{ . }}</p>{{ end }}
+    {{ end }}
+
+    {{ with $person.looking_for }}
+    <section class="looking-for" aria-label="{{ .title }}">
+      <div class="lf-head"><span class="lf-dot" aria-hidden="true"></span>{{ .title }}</div>
+      <dl>
+        {{ range .items }}
+        <div class="lf-row"><dt>{{ .label }}</dt><dd>{{ .text | markdownify }}</dd></div>
+        {{ end }}
+      </dl>
+    </section>
+    {{ end }}
+
+    {{ $email := "" }}{{ range $person.social }}{{ if hasPrefix .link "mailto:" }}{{ $email = strings.TrimPrefix "mailto:" .link }}{{ end }}{{ end }}
+    {{ with $email }}
+    {{ $parts := split . "@" }}
+    <div class="profile-contact">
+      <a class="btn btn-outline-primary profile-email js-email" href="#" data-u="{{ index $parts 0 }}" data-d="{{ index $parts 1 }}" data-show="1">
+        <i class="fas fa-envelope" aria-hidden="true"></i>
+        <span class="js-email-text">{{ replace (index $parts 0) "." " [dot] " }} [AT] {{ replace (index $parts 1) "." " [dot] " }}</span>
+      </a>
+      <button type="button" class="btn btn-outline-primary profile-copy js-copy-email" data-u="{{ index $parts 0 }}" data-d="{{ index $parts 1 }}" data-done="{{ i18n "copied" | default "Copied" }}">
+        <i class="far fa-copy" aria-hidden="true"></i> <span>{{ i18n "copy_email" | default "Copy" }}</span>
+      </button>
+    </div>
+    {{ end }}
+    <p class="profile-motto">Work Hard, Play Hard, El Psy Congroo!</p>
+
+
+    <div class="row">
+      {{ with $person.education }}
+      <div class="col-md-5">
+        <h3>{{ i18n "education" | markdownify }}</h3>
+        <ul class="ul-edu fa-ul">
+          {{ range .courses }}
+          {{ $course := . }}
+          <li>
+              {{ with $course.logo }}
+                <a href="{{ $course.link }}" target="_blank">
+                  <i><img src="{{ printf "img/logo/%s" . | relURL }}" alt="{{ $course.institution }} logo" style="position: absolute;left: -2.5rem;width: 2rem;top: 0.14285714em;text-align: center;"></i>
+                </a>
+              {{ end }}
+              <div class="description">
+                <p class="course">{{ $course.course }}</p>
+                <a href="{{ $course.link }}" target="_blank"><p class="institution">{{ $course.institution }} , {{$course.year}}</p></a>
+              </div>
+          </li>
+          {{ end }}
+        </ul>
+      </div>
+      {{ end }}
+      
+      {{ with $person.interests }}
+      <div class="col-md-7">
+        <h3>{{ i18n "interests" | markdownify }}</h3>
+        <ul class="ul-interests"> 
+          {{ range . }}
+          <div class="description">
+            <li class="course">{{ .item }}</li>
+            <div>{{ .works | markdownify | emojify }}</div>
+          </div>
+          {{ end }}
+        </ul>
+      </div>
+      {{ end }}
+
+
+    </div>
+  </div>
+</div>
