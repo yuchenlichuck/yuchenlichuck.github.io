@@ -1,0 +1,35 @@
+{{/* Override of the theme partial: labelled icons for screen readers, and the email
+     address assembled by neural.js so it is not in the HTML (same as the About section). */}}
+{{ $labels := dict "envelope" "Email" "google-scholar" "Google Scholar" "github" "GitHub" "linkedin" "LinkedIn" "twitter" "X (Twitter)" "x-twitter" "X (Twitter)" "zhihu" "Zhihu 知乎" "rednote-black.png" "Xiaohongshu 小红书" "instagram" "Instagram" "globe" "Website" "bilibili" "Bilibili" }}
+<ul class="network-icon">
+  {{ range .Params.social }}
+    {{ $pack := or .icon_pack "fas" }}
+    {{ $pack_prefix := $pack }}
+    {{ if in (slice "fab" "fas" "far" "fal") $pack }}
+      {{ $pack_prefix = "fa" }}
+    {{ end }}
+    {{ $label := index $labels .icon | default .icon }}
+    {{ $link := .link }}
+    {{ $scheme := (urls.Parse $link).Scheme }}
+    {{ $target := "" }}
+    {{ if not $scheme }}
+      {{ $link = .link | relLangURL }}
+    {{ else if in (slice "http" "https") $scheme }}
+      {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+    {{ end }}
+    <li>
+      {{ if eq $scheme "mailto" }}
+      {{ $parts := split (strings.TrimPrefix "mailto:" .link) "@" }}
+      <a href="#" class="js-email" data-u="{{ index $parts 0 }}" data-d="{{ index $parts 1 }}" aria-label="{{ $label }}" title="{{ $label }}">
+      {{ else }}
+      <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }} aria-label="{{ $label }}" title="{{ $label }}">
+      {{ end }}
+        {{ if eq $pack "img" }}
+          <img src="{{ printf "/img/logo/%s" .icon }}" alt="" style="height:1.5em; width:1.5em; vertical-align:middle;">
+        {{ else }}
+          <i class="{{ $pack }} {{ $pack_prefix }}-{{ .icon }}" aria-hidden="true"></i>
+        {{ end }}
+      </a>
+    </li>
+  {{end}}
+</ul>
