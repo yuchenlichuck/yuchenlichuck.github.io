@@ -1,0 +1,6 @@
+{{/* Site-specific <head> additions (included by the theme's site_head and by /press/). */}}
+{{ with site.Params.marketing.goatcounter }}
+{{ if hugo.IsProduction }}
+<script data-goatcounter="https://{{ . }}.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+{{ end }}
+{{ end }}

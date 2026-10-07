@@ -19,10 +19,10 @@
     <div id="profile">
 
       {{ if site.Params.gravatar }}
-      <img class="portrait" src="https://s.gravatar.com/avatar/{{ md5 $person.email }}?s=200')" alt="Avatar">
+      <img class="portrait" src="https://s.gravatar.com/avatar/{{ md5 $person.email }}?s=200')" alt="{{ $person.name }}">
       {{ else if $avatar }}
       {{ $avatar_image := $avatar.Fill "250x250 Center" }}
-      <img class="portrait" src="{{ $avatar_image.RelPermalink }}" alt="Avatar">
+      <img class="portrait" src="{{ $avatar_image.RelPermalink }}" alt="{{ $person.name }}">
       {{ end }}
 
       <div class="portrait-title">

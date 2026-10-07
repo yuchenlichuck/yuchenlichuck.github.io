@@ -21,3 +21,7 @@ test/go.sum
 
 public/
 __pycache__/
+
+# Kept locally, not published
+static/files/resume.pdf
+Claude outputs/

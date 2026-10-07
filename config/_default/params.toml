@@ -52,13 +52,6 @@ browser_title = "Yuchen Li | PhD Student in Computer Vision"
 # logo = "logo.jpg"
 logo = ""
 
-# FOOTER PARAMETERS
-footmark = "layout/feynmanfooter.png"
-stacklogo = "logo/UCR_PhysicsAndAstro_Logo_fordarkBG3.png"
-legalblurb = "All opinions expressed here are my own and do not necessarily represent those of any other agencies or groups."
-
-# HEADER PARAMETERS
-watermark = "background/motto.png"
 ############################
 ## Site Features
 ############################
@@ -129,10 +122,10 @@ contact_links = [
 ############################
 
 # Default image for social sharing and search engines. Place image in `static/img/` folder and specify image name here.
-sharing_image = "avatar.jpg"
+sharing_image = "og-card.png"  # 1200×630 card; posts with a featured image use that instead
 
 # Twitter username (without @). Used when a visitor shares your site on Twitter.
-twitter = ""
+twitter = "Dr_Yuchen"
 
 ############################
 ## Regional Settings
@@ -260,5 +253,8 @@ plugins_js  = []
 ############################
 [marketing]
   google_analytics = ""
+  # Privacy-friendly, cookie-free page counts (https://www.goatcounter.com).
+  # Sign up, then put your site code here (e.g. "liyc" for liyc.goatcounter.com). Empty = off.
+  goatcounter = ""
   google_tag_manager = ""
   google_site_verification = "7MghMiEezWCdLZfbrgYR845yxCJj-g02bSAnoythP1A"

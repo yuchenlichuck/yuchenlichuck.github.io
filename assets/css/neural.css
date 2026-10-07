@@ -301,3 +301,7 @@ body.theme-claude .article-banner { height: auto; max-width: 100%; }
 
 body.theme-claude .ph-source { margin: -.6rem 0 1.4rem; font-family: var(--n-mono, ui-monospace, monospace); font-size: .72rem; letter-spacing: .02em; color: var(--n-muted); text-align: right; }
 body.theme-claude .ph-source a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+
+/* visitor map, now a small footer element on the home page */
+body.theme-claude .footer-map { display: flex; justify-content: center; margin: 0 auto 1rem; max-width: 300px; opacity: .85; }
+body.theme-claude .footer-map img, body.theme-claude .footer-map canvas, body.theme-claude .footer-map iframe { max-width: 100% !important; height: auto !important; border-radius: 8px; }

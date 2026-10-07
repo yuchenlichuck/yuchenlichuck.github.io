@@ -1,7 +1,7 @@
 +++
 widget = "blank"
 headless = false
-active = true
+active = false  # moved into the footer (layouts/partials/site_footer.html)
 weight = 130
 
 title = "Visitor Map"
