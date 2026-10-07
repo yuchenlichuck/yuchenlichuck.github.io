@@ -299,7 +299,7 @@ body.theme-claude .profile-copy { padding: .6rem .9rem !important; }
 body.theme-claude .profile-copy.is-done { background: var(--n-accent) !important; color: var(--n-accent-ink) !important; border-color: var(--n-accent) !important; }
 body.theme-claude .article-banner { height: auto; max-width: 100%; }
 
-body.theme-claude .ph-source { margin: -.6rem 0 1.4rem; font-family: var(--n-mono, ui-monospace, monospace); font-size: .72rem; letter-spacing: .02em; color: var(--n-muted); text-align: right; }
+body.theme-claude .wg-about .col-12.col-lg-6 > p.ph-source, body.theme-claude .ph-source { margin: -.6rem 0 1.4rem; font-family: var(--n-mono, ui-monospace, monospace); font-size: .72rem; letter-spacing: .02em; color: var(--n-muted); text-align: right; }
 body.theme-claude .ph-source a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
 
 /* visitor map, now a small footer element on the home page */
