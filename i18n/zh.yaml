@@ -8,3 +8,6 @@
   translation: 复制
 - id: copied
   translation: 已复制
+
+- id: minute_read
+  translation: 分钟阅读

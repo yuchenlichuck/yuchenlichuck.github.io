@@ -1,0 +1,123 @@
+{{- /*
+  Blog inbox → posts.
+
+  Every Markdown file in the repo's `notes/` folder (mounted at assets/notes) becomes a
+  post under /post/notes/<slug>/, on both the English and the Chinese site. Files or
+  folders whose name starts with "_" are ignored (templates, drafts, the how-to).
+
+  Accepted shapes:
+    notes/2026-10-13-desert-run.md             a single file
+    notes/2026-10-13-desert-run/index.md       a folder, with its images next to it
+  Front matter is optional. Without it:
+    title    = the first "# Heading" line (removed from the body), else the file name
+    date     = the YYYY-MM-DD prefix of the file/folder name, else the build date
+    category = "Notes"
+  Optional front matter keys: title, date, summary, tags, categories, draft, image (a file
+  in the same folder used as the cover).
+*/ -}}
+{{- $.EnableAllLanguages -}}
+{{- $lang := $.Site.Language.Lang -}}
+
+{{- range resources.Match "notes/**.md" -}}
+  {{- $name := .Name -}}                                     {{- /* e.g. /notes/2026-10-13-x/index.md */ -}}
+  {{- $rel := strings.TrimPrefix "/" (strings.TrimPrefix "/notes/" (printf "/%s" (strings.TrimPrefix "/" $name))) -}}
+  {{- $parts := split $rel "/" -}}
+  {{- $skip := false -}}
+  {{- range $parts }}{{ if hasPrefix . "_" }}{{ $skip = true }}{{ end }}{{ end -}}
+  {{- $file := path.Base $rel -}}
+  {{- /* language variants: x.en.md / x.zh.md (or index.en.md / index.zh.md) are used only on that
+       site; plain x.md is used on every site that has no variant of its own */ -}}
+  {{- $vlang := "" -}}
+  {{- with findRESubmatch `\.(en|zh)\.md$` $file 1 }}{{ $vlang = index (index . 0) 1 }}{{ end -}}
+  {{- $plain := replaceRE `\.(en|zh)\.md$` ".md" $file -}}
+  {{- if $vlang -}}
+    {{- if ne $vlang $lang }}{{ $skip = true }}{{ end -}}
+  {{- else -}}
+    {{- $own := replaceRE `\.md$` (printf ".%s.md" $lang) (strings.TrimPrefix "/" $name) -}}
+    {{- if resources.Get $own }}{{ $skip = true }}{{ end -}}
+  {{- end -}}
+  {{- $isBundle := and (gt (len $parts) 1) (in (slice "index.md" "readme.md") (lower $plain)) -}}
+  {{- $stem := cond $isBundle (index $parts (sub (len $parts) 2)) (strings.TrimSuffix ".md" $plain) -}}
+  {{- if not $skip -}}
+
+    {{- /* split optional front matter (YAML between --- lines, or TOML between +++ lines) */ -}}
+    {{- $raw := replace .Content "\r\n" "\n" -}}
+    {{- $fm := dict -}}
+    {{- $body := $raw -}}
+    {{- with findRESubmatch `(?s)\A---[ \t]*\n(.*?)\n---[ \t]*\n?(.*)\z` $raw 1 -}}
+      {{- $m := index . 0 -}}{{- $fm = (index $m 1) | transform.Unmarshal (dict "format" "yaml") -}}{{- $body = index $m 2 -}}
+    {{- else -}}
+      {{- with findRESubmatch `(?s)\A\+\+\+[ \t]*\n(.*?)\n\+\+\+[ \t]*\n?(.*)\z` $raw 1 -}}
+        {{- $m := index . 0 -}}{{- $fm = (index $m 1) | transform.Unmarshal (dict "format" "toml") -}}{{- $body = index $m 2 -}}
+      {{- end -}}
+    {{- end -}}
+    {{- if not $fm }}{{ $fm = dict }}{{ end -}}
+
+    {{- /* title: front matter → first H1 (then drop it from the body) → file name */ -}}
+    {{- $title := $fm.title -}}
+    {{- with findRESubmatch `(?m)^#[ \t]+(.+?)[ \t#]*$` $body 1 -}}
+      {{- if not $title }}{{ $title = index (index . 0) 1 }}{{ end -}}
+      {{- $body = replaceRE `(?m)^#[ \t]+.+\n?` "" $body 1 -}}
+    {{- end -}}
+    {{- $datePrefix := "" -}}
+    {{- with findRESubmatch `^(\d{4}-\d{2}-\d{2})[-_ ]?(.*)$` $stem 1 }}{{ $datePrefix = index (index . 0) 1 }}{{ end -}}
+    {{- $slugBase := replaceRE `^\d{4}-\d{2}-\d{2}[-_ ]?` "" $stem -}}
+    {{- if not $slugBase }}{{ $slugBase = $stem }}{{ end -}}
+    {{- /* no heading at all (a plain README / text): use a short first line as the title */ -}}
+    {{- if not $title -}}
+      {{- with findRESubmatch `(?s)\A\s*([^\n]{1,90})\n(.*)\z` $body 1 -}}
+        {{- $line := strings.TrimSpace (replaceRE "^[#>*\\-\\s]+|[*_`]+" "" (index (index . 0) 1)) -}}
+        {{- if $line }}{{ $title = $line }}{{ $body = index (index . 0) 2 }}{{ end -}}
+      {{- end -}}
+    {{- end -}}
+    {{- if not $title }}{{ $title = replaceRE `[-_]+` " " $slugBase | strings.FirstUpper }}{{ end -}}
+    {{- $slug := urlize (lower $slugBase) -}}
+    {{- if or (not $slug) (eq $slug "readme") }}{{ $slug = urlize (lower $stem) }}{{ end -}}
+    {{- if $datePrefix }}{{ if not (hasPrefix $slug $datePrefix) }}{{ $slug = printf "%s-%s" $datePrefix $slug }}{{ end }}{{ end -}}
+
+    {{- $date := $fm.date | default $datePrefix -}}
+    {{- if not $date -}}
+      {{- warnf "notes/%s has no date: name it YYYY-MM-DD-title.md or add `date:` — using today's date for now" $rel -}}
+      {{- $date = now -}}
+    {{- end -}}
+    {{- $date = time.AsTime $date -}}
+
+    {{- /* written mostly in Chinese? (used for the "In Chinese" / "英文" marker) */ -}}
+    {{- $han := len (findRE `\p{Han}` $body) -}}
+    {{- $letters := len (findRE `[A-Za-z]` $body) -}}
+    {{- $postLang := cond (gt $han (div $letters 3)) "zh" "en" -}}
+
+    {{- $params := dict
+          "summary" ($fm.summary | default "")
+          "tags" ($fm.tags | default slice)
+          "categories" ($fm.categories | default (slice (cond (eq $lang "zh") "随笔" "Notes")))
+          "post_lang" $postLang
+          "translated_from" ($fm.translated_from | default "")
+          "note" true
+          "authors" (slice "admin") -}}
+
+    {{- $.AddPage (dict
+          "path" (printf "notes/%s" $slug)
+          "kind" "page"
+          "title" $title
+          "dates" (dict "date" $date)
+          "draft" ($fm.draft | default false)
+          "params" $params
+          "content" (dict "mediaType" "text/markdown" "value" $body)) -}}
+
+    {{- /* images and other files that sit next to a folder-style note travel with it */ -}}
+    {{- if $isBundle -}}
+      {{- $dir := path.Dir (strings.TrimPrefix "/" $name) -}}
+      {{- range resources.Match (printf "%s/*" $dir) -}}
+        {{- if not (strings.HasSuffix .Name ".md") -}}
+          {{- $base := path.Base .Name -}}
+          {{- $.AddResource (dict "path" (printf "notes/%s/%s" $slug $base) "content" (dict "value" .)) -}}
+          {{- /* the cover named in front matter is also exposed as featured.* so lists and cards pick it up */ -}}
+          {{- if and (eq $base ($fm.image | default "-")) (not (hasPrefix $base "featured")) -}}
+            {{- $.AddResource (dict "path" (printf "notes/%s/featured%s" $slug (path.Ext $base)) "content" (dict "value" .)) -}}
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}

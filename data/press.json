@@ -35,8 +35,8 @@
    "key": "scholar",
    "label": "Google Scholar",
    "handle": "7MocPGkAAAAJ",
-   "stat_en": "1,719 citations · h-index 4",
-   "stat_zh": "引用 1,719 · h 指数 4",
+   "stat_en": "1,754 citations · h-index 4",
+   "stat_zh": "引用 1,754 · h 指数 4",
    "url": "https://scholar.google.com/citations?user=7MocPGkAAAAJ",
    "status": "self"
   },
@@ -74,7 +74,9 @@
    "stat_en": "422 notes · 6,143 followers · 51.5K likes+saves",
    "stat_zh": "422 篇笔记 · 6,143 粉丝 · 5.15 万获赞与收藏",
    "url": "https://www.xiaohongshu.com/user/profile/5b788ddd2cc31d0001487a94",
-   "status": "self"
+   "status": "self",
+   "label_en": "rednote (Xiaohongshu)",
+   "handle_en": "Dubai Prince · DubaiPrince"
   },
   {
    "key": "zhihu",
@@ -83,7 +85,9 @@
    "stat_en": "217 answers · 575 followers · 2,384 upvotes",
    "stat_zh": "217 回答 · 575 关注者 · 2,384 赞同",
    "url": "https://www.zhihu.com/people/li-yu-chen-53-11-35",
-   "status": "self"
+   "status": "self",
+   "label_en": "Zhihu",
+   "handle_en": "Nanxiaohuan"
   },
   {
    "key": "kaust",
@@ -140,7 +144,7 @@
     }
    ],
    "metrics": {
-    "cites": 1
+    "cites": 3
    },
    "status": "verified",
    "ev_en": "Author list on arXiv (submitted 19 Mar 2026); listed on his Scholar profile and liyc.pw.",
@@ -165,7 +169,7 @@
     }
    ],
    "metrics": {
-    "cites": 32
+    "cites": 33
    },
    "status": "verified",
    "ev_en": "Author list matches KAUST Vision-CAIR; on his Scholar profile (verified mbzuai.ac.ae email).",
@@ -235,7 +239,7 @@
     }
    ],
    "metrics": {
-    "cites": 1629,
+    "cites": 1661,
     "stars": 1100
    },
    "status": "verified",
@@ -276,7 +280,7 @@
    "plat": "zhihu",
    "outlet": "知乎专栏 · 南小环（本人账号）",
    "title": "Perceptio：感知增强视觉语言模型，让大模型先“看懂远近”再回答",
-   "sum_en": "Long-form Chinese explainer of the Perceptio paper (method, HardBLINK results, limitations), written on his own Zhihu account 南小环. Closes with an author bio: first author, 3rd-year MBZUAI CV PhD; work done at Amazon Science Prime Video.",
+   "sum_en": "Long-form Chinese explainer of the Perceptio paper (method, HardBLINK results, limitations), written on his own Zhihu account Nanxiaohuan. Closes with an author bio: first author, 3rd-year MBZUAI CV PhD; work done at Amazon Science Prime Video.",
    "sum_zh": "在本人知乎账号「南小环」上发布的 Perceptio 论文中文长文解读（方法、HardBLINK 结果、局限）。文末作者介绍：一作李禹陈，MBZUAI 计算机视觉系三年级博士生，研究完成于 Amazon Science Prime Video 实习期间。",
    "url": "https://zhuanlan.zhihu.com/p/2035454055716233920",
    "links": [],
@@ -284,8 +288,10 @@
     "votes": 2
    },
    "status": "self",
-   "ev_en": "Published from his Zhihu account (ID 南小环, education: KAUST CS). Article text: \"本文第一作者为李禹陈（Yuchen Li）\".",
-   "ev_zh": "由本人知乎账号（ID 南小环，教育经历 KAUST 计算机科学）发布；原文「本文第一作者为李禹陈（Yuchen Li）」。"
+   "ev_en": "Published from his Zhihu account (ID Nanxiaohuan, education: KAUST CS). Article text: \"本文第一作者为李禹陈（Yuchen Li）\".",
+   "ev_zh": "由本人知乎账号（ID 南小环，教育经历 KAUST 计算机科学）发布；原文「本文第一作者为李禹陈（Yuchen Li）」。",
+   "title_en": "Perceptio: a perception-enhanced VLM that first works out what is near and far, then answers",
+   "outlet_en": "Zhihu column · Nanxiaohuan (his own account)"
   },
   {
    "id": "m2",
@@ -301,7 +307,9 @@
    "links": [],
    "status": "verified",
    "ev_en": "Article text: \"202房间的李禹陈，是全球首所人工智能大学（MBZUAI）的PhD\".",
-   "ev_zh": "原文：「202房间的李禹陈，是全球首所人工智能大学（MBZUAI）的PhD」。"
+   "ev_zh": "原文：「202房间的李禹陈，是全球首所人工智能大学（MBZUAI）的PhD」。",
+   "title_en": "Real stories of AI and people on film | 72-Hour AI Survival Challenge",
+   "outlet_en": "Tencent News · 5Y Capital"
   },
   {
    "id": "m3",
@@ -317,7 +325,8 @@
    "links": [
     {
      "l": "小红书版 (五源资本)",
-     "u": "https://www.xiaohongshu.com/discovery/item/6878d8b1000000001203c200?source=webshare&xhsshare=pc_web&xsec_token=ABfbZPrRgsTjluPxkjxgXAE1DA_WBM4M2WK4hFHIsZ0R0=&xsec_source=pc_share"
+     "u": "https://www.xiaohongshu.com/discovery/item/6878d8b1000000001203c200?source=webshare&xhsshare=pc_web&xsec_token=ABfbZPrRgsTjluPxkjxgXAE1DA_WBM4M2WK4hFHIsZ0R0=&xsec_source=pc_share",
+     "l_en": "rednote version (5Y Capital)"
     }
    ],
    "metrics": {
@@ -326,7 +335,9 @@
    },
    "status": "verified",
    "ev_en": "Video description: \"迎来了来自全球首所人工智能大学（MBZUAI）的PhD李禹陈\". 565 views · 27 likes at capture.",
-   "ev_zh": "视频简介：「迎来了来自全球首所人工智能大学（MBZUAI）的PhD李禹陈」。采集时 565 播放 · 27 赞。"
+   "ev_zh": "视频简介：「迎来了来自全球首所人工智能大学（MBZUAI）的PhD李禹陈」。采集时 565 播放 · 27 赞。",
+   "title_en": "72-Hour AI Survival Challenge | An AI PhD's 72 hours",
+   "outlet_en": "Bilibili · 5Y Capital"
   },
   {
    "id": "m4",
@@ -342,7 +353,9 @@
    "links": [],
    "status": "verified",
    "ev_en": "Names 李禹陈 as a PhD student at the world's first AI university who flew 9,000 km from Abu Dhabi.",
-   "ev_zh": "文中写明李禹陈为全球第一所 AI 大学在读博士生，从阿布扎比飞行 9,000 公里参赛。"
+   "ev_zh": "文中写明李禹陈为全球第一所 AI 大学在读博士生，从阿布扎比飞行 9,000 公里参赛。",
+   "title_en": "72-Hour AI Survival Challenge: what happened?",
+   "outlet_en": "36Kr · 5Y Capital"
   },
   {
    "id": "m5",
@@ -362,12 +375,15 @@
     },
     {
      "l": "今日头条 mirror",
-     "u": "https://www.toutiao.com/article/7514920985858982436/"
+     "u": "https://www.toutiao.com/article/7514920985858982436/",
+     "l_en": "Toutiao mirror"
     }
    ],
    "status": "verified",
    "ev_en": "Article text: \"李禹陈，全球第一所AI大学'穆罕默德·本·扎耶德人工智能大学'在读博士研究生\".",
-   "ev_zh": "原文：「李禹陈，全球第一所AI大学『穆罕默德·本·扎耶德人工智能大学』在读博士研究生」。"
+   "ev_zh": "原文：「李禹陈，全球第一所AI大学『穆罕默德·本·扎耶德人工智能大学』在读博士研究生」。",
+   "title_en": "72 hours, fully documented: humans' first close encounter with AI",
+   "outlet_en": "36Kr · Chen Zhiyan"
   },
   {
    "id": "m6",
@@ -386,7 +402,9 @@
    },
    "status": "verified",
    "ev_en": "Description lists an \"AI博士生\" among the 7 players; episode 2 names him.",
-   "ev_zh": "简介中七位玩家含「AI博士生」；第二期点名为李禹陈。"
+   "ev_zh": "简介中七位玩家含「AI博士生」；第二期点名为李禹陈。",
+   "title_en": "72-Hour AI Survival Challenge trailer | Three days relying only on AI — what did they go through?",
+   "outlet_en": "Bilibili · 5Y Capital"
   },
   {
    "id": "m7",
@@ -396,7 +414,7 @@
    "plat": "ximalaya",
    "outlet": "掘金中东 播客 · DeepMENA",
    "title": "07. 去中东上学：全靠酋长资助，不用交学费，还赚钱",
-   "sum_en": "57-minute interview with host 徐皓天. Born 1998; SUSTech → KAUST at 20 → Dubai Business Associates 2023 → MBZUAI PhD in AIGC. Covers Gulf universities, incubators, teaching in a Lebanese refugee camp, and visiting the Dubai police chief and a Dubai prince at home. Show notes list his rednote ID 迪拜王子.",
+   "sum_en": "57-minute interview with host Xu Haotian. Born 1998; SUSTech → KAUST at 20 → Dubai Business Associates 2023 → MBZUAI PhD in AIGC. Covers Gulf universities, incubators, teaching in a Lebanese refugee camp, and visiting the Dubai police chief and a Dubai prince at home. Show notes list his rednote ID \"Dubai Prince\".",
    "sum_zh": "与主播徐皓天的 57 分钟对谈。98 年出生；南科大 → 20 岁入读 KAUST → 2023 迪拜商业英才 → MBZUAI 读 AIGC 博士。聊中东高校、孵化器、黎巴嫩难民营支教，以及去迪拜警察局长、迪拜王子家做客。节目简介写明其小红书 ID：迪拜王子。",
    "url": "https://www.ximalaya.com/sound/728588159",
    "metrics": {
@@ -405,16 +423,20 @@
    "links": [
     {
      "l": "小宇宙",
-     "u": "https://www.xiaoyuzhoufm.com/episode/6641cf18f968fce2cbbccdfc"
+     "u": "https://www.xiaoyuzhoufm.com/episode/6641cf18f968fce2cbbccdfc",
+     "l_en": "Xiaoyuzhou"
     },
     {
      "l": "看中东 DeepMENA 公众号 (05-14)",
-     "u": "https://mp.weixin.qq.com/s?src=11&timestamp=1790714767&ver=6996&signature=URM227PWBxbI70Tcu85Z*iMd-sMtuJ8kmpR2uYCMbAjhlsHXqPSbDbOKGz0j0HEwYPA9BNnvpUiCX0OBOjna3BNpKwcCxsHoa9f2EzWOshSb*LiEQLhfnstURpdZn8LU&new=1"
+     "u": "https://mp.weixin.qq.com/s?src=11&timestamp=1790714767&ver=6996&signature=URM227PWBxbI70Tcu85Z*iMd-sMtuJ8kmpR2uYCMbAjhlsHXqPSbDbOKGz0j0HEwYPA9BNnvpUiCX0OBOjna3BNpKwcCxsHoa9f2EzWOshSb*LiEQLhfnstURpdZn8LU&new=1",
+     "l_en": "DeepMENA WeChat (05-14)"
     }
    ],
    "status": "verified",
    "ev_en": "Show notes: \"李禹陈 小红书ID：迪拜王子 … KAUST … 2023年迪拜商业英才 … MBZUAI计算机视觉读博\" — matches liyc.pw and his rednote profile name.",
-   "ev_zh": "节目简介：「李禹陈 小红书ID：迪拜王子 … KAUST … 2023年迪拜商业英才 … MBZUAI计算机视觉读博」，与 liyc.pw 及其小红书昵称一致。"
+   "ev_zh": "节目简介：「李禹陈 小红书ID：迪拜王子 … KAUST … 2023年迪拜商业英才 … MBZUAI计算机视觉读博」，与 liyc.pw 及其小红书昵称一致。",
+   "title_en": "Ep. 07 — Studying in the Middle East: funded by the sheikhs, no tuition, and paid to study",
+   "outlet_en": "DeepMENA podcast"
   },
   {
    "id": "m8",
@@ -430,7 +452,9 @@
    "links": [],
    "status": "verified",
    "ev_en": "Quoted as \"曾经入选过迪拜商业英才的计算机视觉博士李禹陈\".",
-   "ev_zh": "原文：「曾经入选过迪拜商业英才的计算机视觉博士李禹陈」。"
+   "ev_zh": "原文：「曾经入选过迪拜商业英才的计算机视觉博士李禹陈」。",
+   "title_en": "NextCapital's notes on going global in the Middle East: \"economic transformation\" and \"ambitious narratives\"",
+   "outlet_en": "NextCapital · WeChat"
   },
   {
    "id": "m9",
@@ -446,12 +470,15 @@
    "links": [
     {
      "l": "公众号版",
-     "u": "https://mp.weixin.qq.com/s?src=11&timestamp=1790714286&ver=6996&signature=l7pbjPXc*KoruVQ0lMPL8TiE6Mr9klrlhwtJU6m1yxqW2y7HgPjI9TmC72jEYm2niqj7pFzVR7FYKtYCcf-2SNcQDSoU2KWBk8YnXc9L5xX9pXs6nl1eRsZXXlvW-2vn&new=1"
+     "u": "https://mp.weixin.qq.com/s?src=11&timestamp=1790714286&ver=6996&signature=l7pbjPXc*KoruVQ0lMPL8TiE6Mr9klrlhwtJU6m1yxqW2y7HgPjI9TmC72jEYm2niqj7pFzVR7FYKtYCcf-2SNcQDSoU2KWBk8YnXc9L5xX9pXs6nl1eRsZXXlvW-2vn&new=1",
+     "l_en": "WeChat version"
     }
    ],
    "status": "verified",
    "ev_en": "His own words in the transcript: \"我目前在阿布扎比的MBZUAI攻读计算机视觉博士 … 之前在KAUST上学，以及在南方科技大学完成本科学业\".",
-   "ev_zh": "演讲原文：「我目前在阿布扎比的MBZUAI攻读计算机视觉博士 … 之前在沙特阿拉伯阿卜杜拉国王科技大学（KAUST）上学，以及在南方科技大学完成本科学业」。"
+   "ev_zh": "演讲原文：「我目前在阿布扎比的MBZUAI攻读计算机视觉博士 … 之前在沙特阿拉伯阿卜杜拉国王科技大学（KAUST）上学，以及在南方科技大学完成本科学业」。",
+   "title_en": "Dubai Business Associate Li Yuchen on the Middle East 2030 vision — opportunities and challenges for Chinese founders | NextCapital founder salon #202 recap",
+   "outlet_en": "NextCapital"
   },
   {
    "id": "m10",
@@ -461,18 +488,21 @@
    "plat": "wechat",
    "outlet": "嘉程资本 NextCapital",
    "title": "12月7日，探讨年轻人在中东的发展机会！创业/留学/中企/阿企/欧美企业｜嘉程创业流水席第202期",
-   "sum_en": "Event announcement for the 7 Dec 2023 salon: 'MBZUAI PhD Li Yuchen', Wing Go CTO 程颢 and Pixeltra co-founder 王启州 on opportunities for young people in the Middle East.",
+   "sum_en": "Event announcement for the 7 Dec 2023 salon: 'MBZUAI PhD Li Yuchen', Wing Go CTO Cheng Hao and Pixeltra co-founder Wang Qizhou on opportunities for young people in the Middle East.",
    "sum_zh": "2023-12-07 活动预告：「MBZUAI 博士李禹陈」、Wing Go CTO 程颢、Pixeltra FZCO 联合创始人王启州共同探讨年轻人在中东的发展机会。",
    "url": "https://www.jiachengcap.com/blog/231204",
    "links": [
     {
      "l": "公众号 (12-06)",
-     "u": "https://mp.weixin.qq.com/s?src=11&timestamp=1790714716&ver=6996&signature=l7pbjPXc*KoruVQ0lMPL8TiE6Mr9klrlhwtJU6m1yxpi8Se0Wj3p-QTHEjhbz1eLtZawz9xk7Q-Ds7iwlZ-NpvR-qF5OM08Yp5TkqFMZKqsJ6nc08NvlFusEO4k3lufr&new=1"
+     "u": "https://mp.weixin.qq.com/s?src=11&timestamp=1790714716&ver=6996&signature=l7pbjPXc*KoruVQ0lMPL8TiE6Mr9klrlhwtJU6m1yxpi8Se0Wj3p-QTHEjhbz1eLtZawz9xk7Q-Ds7iwlZ-NpvR-qF5OM08Yp5TkqFMZKqsJ6nc08NvlFusEO4k3lufr&new=1",
+     "l_en": "WeChat (12-06)"
     }
    ],
    "status": "verified",
    "ev_en": "Text: \"我们邀请了MBZUAI博士李禹陈\".",
-   "ev_zh": "原文：「我们邀请了MBZUAI博士李禹陈」。"
+   "ev_zh": "原文：「我们邀请了MBZUAI博士李禹陈」。",
+   "title_en": "7 Dec: opportunities for young people in the Middle East — startups, study, Chinese, Arab and Western companies | NextCapital founder salon #202",
+   "outlet_en": "NextCapital"
   },
   {
    "id": "m11",
@@ -488,7 +518,9 @@
    "links": [],
    "status": "verified",
    "ev_en": "Byline in the article: \"@南方科技大学与阿卜杜拉国王科技大学计算机科学本硕联培研究生李禹陈\".",
-   "ev_zh": "文中署名：「@南方科技大学与阿卜杜拉国王科技大学计算机科学本硕联培研究生李禹陈」。"
+   "ev_zh": "文中署名：「@南方科技大学与阿卜杜拉国王科技大学计算机科学本硕联培研究生李禹陈」。",
+   "title_en": "How SUSTech students and staff spent the double holiday",
+   "outlet_en": "SUSTech · official WeChat"
   },
   {
    "id": "m12",
@@ -504,12 +536,15 @@
    "links": [
     {
      "l": "公众号「迪拜留学」转载 (08-08)",
-     "u": "https://mp.weixin.qq.com/s?src=11&timestamp=1790714716&ver=6996&signature=JbqF4cEUnD8TH-x5lgk7gsdggLKKE2r1HJPvyANrLMSvE5QXxr8lcRmGXreVSKuuoYzsfwSur4xPQb4Nh4GXeV8hjFJZAM0cIFylHL14Ab0R0Bzmx7mM84pSOqoccbOl&new=1"
+     "u": "https://mp.weixin.qq.com/s?src=11&timestamp=1790714716&ver=6996&signature=JbqF4cEUnD8TH-x5lgk7gsdggLKKE2r1HJPvyANrLMSvE5QXxr8lcRmGXreVSKuuoYzsfwSur4xPQb4Nh4GXeV8hjFJZAM0cIFylHL14Ab0R0Bzmx7mM84pSOqoccbOl&new=1",
+     "l_en": "Repost by \"Study in Dubai\" WeChat (08-08)"
     }
    ],
    "status": "verified",
    "ev_en": "Profile block \"李禹陈 院校背景：南方科技大学与阿卜杜拉国王科技大学计算机科学本硕联培研究生\" + photo caption \"右二为李禹陈\"; matches DBA Sep 2022–Jun 2023 on liyc.pw.",
-   "ev_zh": "档案「李禹陈 院校背景：南方科技大学与阿卜杜拉国王科技大学计算机科学本硕联培研究生」及图注「右二为李禹陈」；与 liyc.pw 上 DBA 2022-09 至 2023-06 一致。"
+   "ev_zh": "档案「李禹陈 院校背景：南方科技大学与阿卜杜拉国王科技大学计算机科学本硕联培研究生」及图注「右二为李禹陈」；与 liyc.pw 上 DBA 2022-09 至 2023-06 一致。",
+   "title_en": "Dubai Business Associates | A thank-you letter from the Shenzhen associates of Year 8",
+   "outlet_en": "Shenzhen Foundation for International Exchange and Cooperation (SFIEC)"
   },
   {
    "id": "m13",
@@ -525,7 +560,9 @@
    "links": [],
    "status": "verified",
    "ev_en": "Text: \"南方科技大学&阿卜杜拉国王科技大学本硕联培项目的李禹陈\".",
-   "ev_zh": "原文：「南方科技大学&阿卜杜拉国王科技大学本硕联培项目的李禹陈」。"
+   "ev_zh": "原文：「南方科技大学&阿卜杜拉国王科技大学本硕联培项目的李禹陈」。",
+   "title_en": "DBA global selection announced: three talents with Shenzhen backgrounds selected",
+   "outlet_en": "SFIEC · WeChat"
   },
   {
    "id": "m14",
@@ -535,13 +572,14 @@
    "plat": "bilibili",
    "outlet": "Bilibili · TechBeat人工智能社区（将门）",
    "title": "国庆团圆日，海外学子的生活是怎样的？｜「后浪聊天室」Let's chat!",
-   "sum_en": "Short talk-show clip from 将门 TechBeat's 'Houlang chat room' on overseas students at National Day, recorded while he was at KAUST as a SuperA Youth of Jiangmen Innovation Ventures.",
+   "sum_en": "Short talk-show clip from TechBeat (Jiangmen Ventures)'s 'Houlang chat room' on overseas students at National Day, recorded while he was at KAUST as a SuperA Youth of Jiangmen Innovation Ventures.",
    "sum_zh": "将门 TechBeat「后浪聊天室」短片：国庆团圆日海外学子的生活。彼时他在 KAUST 就读，为将门创投 SuperA Youth 成员。",
    "url": "https://www.bilibili.com/video/BV1jL411G7HL/",
    "links": [
     {
      "l": "将门创投 公众号 (10-01)",
-     "u": "https://mp.weixin.qq.com/s/VLwFBFov_BE8Kb9Ovk2Z_g"
+     "u": "https://mp.weixin.qq.com/s/VLwFBFov_BE8Kb9Ovk2Z_g",
+     "l_en": "Jiangmen Ventures WeChat (10-01)"
     }
    ],
    "metrics": {
@@ -549,7 +587,9 @@
    },
    "status": "verified",
    "ev_en": "将门创投's WeChat post for the episode: \"沙特阿卜杜拉国王科技大学在读研究生李禹陈\"; also linked from his own LinkedIn experience entry (将门创投 SuperA Youth).",
-   "ev_zh": "将门创投公众号推文：「沙特阿卜杜拉国王科技大学在读研究生李禹陈」；其 LinkedIn 经历（将门创投 SuperA Youth）亦直接链接此视频。"
+   "ev_zh": "将门创投公众号推文：「沙特阿卜杜拉国王科技大学在读研究生李禹陈」；其 LinkedIn 经历（将门创投 SuperA Youth）亦直接链接此视频。",
+   "title_en": "National Day reunion: what is life like for students abroad? | \"Houlang Chat Room\" — Let's chat!",
+   "outlet_en": "Bilibili · TechBeat AI Community (Jiangmen Ventures)"
   },
   {
    "id": "c1",
@@ -565,7 +605,9 @@
    "links": [],
    "status": "verified",
    "ev_en": "\"宣传部部长 李禹陈 / KAUST 3+2 / 计算机系优秀毕业生\" — KAUST 3+2 and CS 2017–2021 match liyc.pw.",
-   "ev_zh": "「宣传部部长 李禹陈 / KAUST 3+2 / 计算机系优秀毕业生」——与 liyc.pw 的 KAUST 联培及 2017–2021 计算机本科一致。"
+   "ev_zh": "「宣传部部长 李禹陈 / KAUST 3+2 / 计算机系优秀毕业生」——与 liyc.pw 的 KAUST 联培及 2017–2021 计算机本科一致。",
+   "title_en": "Word is the rescue team turns out outstanding graduates",
+   "outlet_en": "SUSTech Emergency Rescue Team · WeChat"
   },
   {
    "id": "c2",
@@ -581,7 +623,9 @@
    "links": [],
    "status": "verified",
    "ev_en": "Named in the 2021 CS outstanding-graduate list; consistent with c1 and c3.",
-   "ev_zh": "2021 届计算机系优秀毕业生名单点名；与 c1、c3 相互印证。"
+   "ev_zh": "2021 届计算机系优秀毕业生名单点名；与 c1、c3 相互印证。",
+   "title_en": "Department of CSE class-of-2021 graduation night and alumni association launch",
+   "outlet_en": "SUSTech Dept. of Computer Science · WeChat"
   },
   {
    "id": "c3",
@@ -597,7 +641,9 @@
    "links": [],
    "status": "verified",
    "ev_en": "\"2017级计算机系李禹陈 … 人在沙特\" + photo caption \"与李禹陈同学在创新实验答辩上\" — 2017 cohort and Saudi Arabia (KAUST) match liyc.pw.",
-   "ev_zh": "「2017级计算机系李禹陈 … 人在沙特」及图注「与李禹陈同学在创新实验答辩上」——2017 级与身在沙特（KAUST）均与 liyc.pw 一致。"
+   "ev_zh": "「2017级计算机系李禹陈 … 人在沙特」及图注「与李禹陈同学在创新实验答辩上」——2017 级与身在沙特（KAUST）均与 liyc.pw 一致。",
+   "title_en": "Outstanding CS graduates | Luo Yunsheng: \"less slacking, more striving\"",
+   "outlet_en": "SUSTech Dept. of Computer Science · WeChat"
   },
   {
    "id": "c4",
@@ -613,7 +659,9 @@
    "links": [],
    "status": "verified",
    "ev_en": "Named in the list; same college and cohort as the 2017 posts below.",
-   "ev_zh": "名单点名；与下方 2017 年致仁书院帖子同一书院、同一年级。"
+   "ev_zh": "名单点名；与下方 2017 年致仁书院帖子同一书院、同一年级。",
+   "title_en": "Zhiren College class-of-2021 outstanding graduates announced",
+   "outlet_en": "SUSTech Zhiren College · WeChat"
   },
   {
    "id": "c5",
@@ -629,7 +677,9 @@
    "links": [],
    "status": "verified",
    "ev_en": "Same role and team as c1/c8 (SUSTech Emergency Rescue Team, 4th council).",
-   "ev_zh": "与 c1、c8 同一团队、同一职务（南科大应急救援队第四届理事会）。"
+   "ev_zh": "与 c1、c8 同一团队、同一职务（南科大应急救援队第四届理事会）。",
+   "title_en": "Emergency Rescue Team: first general assembly",
+   "outlet_en": "SUSTech Emergency Rescue Team · WeChat"
   },
   {
    "id": "c6",
@@ -639,13 +689,15 @@
    "plat": "wechat",
    "outlet": "南方科技大学致仁书院 · 公众号",
    "title": "【致仁书院2018届毕业晚会回顾】四年的时光填不满我们最纯真的回忆",
-   "sum_en": "Photo credit: 李禹陈、温林锋 (he shot the college's 2018 graduation night).",
+   "sum_en": "Photo credit: Li Yuchen and Wen Linfeng (he shot the college's 2018 graduation night).",
    "sum_zh": "图片署名：李禹陈、温林锋（拍摄致仁书院 2018 届毕业晚会）。",
    "url": "https://mp.weixin.qq.com/s?src=11&timestamp=1790714972&ver=6996&signature=dBYRMBshztUPAOqPlbbJaLmRYBXoo2V*TiS1pM2m5EcxskZ3fH-dhX1yWQZcRtGWgmY5FmCfzuAEro*CF9-Lcgas2jJmPxht7Q1RdS-jSM*Tv9LaJ0FLK92Zhoynyj*C&new=1",
    "links": [],
    "status": "verified",
    "ev_en": "Zhiren College publicity-department member 2017–2018 (see c11, c7).",
-   "ev_zh": "2017–2018 年致仁书院自管会宣传部成员（见 c11、c7）。"
+   "ev_zh": "2017–2018 年致仁书院自管会宣传部成员（见 c11、c7）。",
+   "title_en": "Zhiren College 2018 graduation night: four years cannot hold all our memories",
+   "outlet_en": "SUSTech Zhiren College · WeChat"
   },
   {
    "id": "c7",
@@ -655,13 +707,15 @@
    "plat": "wechat",
    "outlet": "南方科技大学致仁书院 · 公众号",
    "title": "自管会换届大会回顾",
-   "sum_en": "Student self-management council handover; he is among the 29 members recognised as 良好/称职部员 for 2017–2018.",
+   "sum_en": "Student self-management council handover; he is among the 29 members recognised as \"good / competent\" members for 2017–2018.",
    "sum_zh": "自管会换届大会；2017–2018 年度良好/称职部员名单（29 人）含李禹陈。",
    "url": "https://mp.weixin.qq.com/s?src=11&timestamp=1790714767&ver=6996&signature=dBYRMBshztUPAOqPlbbJaLmRYBXoo2V*TiS1pM2m5EfKKlluN8VekR*bfXTy-Vs6s7KG*rdbMF6ugPAC-*6lX3Sv8YeNXLUlNhlf-X-cxu-CkYWS66PNUnfMH4qRy09n&new=1",
    "links": [],
    "status": "verified",
    "ev_en": "Named; same council he joined in Sep 2017 (c11).",
-   "ev_zh": "名单点名；即 2017-09 加入的自管会（c11）。"
+   "ev_zh": "名单点名；即 2017-09 加入的自管会（c11）。",
+   "title_en": "Student self-management council handover recap",
+   "outlet_en": "SUSTech Zhiren College · WeChat"
   },
   {
    "id": "c8",
@@ -671,13 +725,15 @@
    "plat": "wechat",
    "outlet": "南科大团委 · 公众号",
    "title": "新闻｜应急救援队新一轮换届选举工作圆满完成",
-   "sum_en": "SUSTech Youth League news: the 4th Emergency Rescue Team council is elected — captain 栾闻迪, … publicity head 李禹陈.",
+   "sum_en": "SUSTech Youth League news: the 4th Emergency Rescue Team council is elected — captain Luan Wendi, … publicity head Li Yuchen.",
    "sum_zh": "南科大团委新闻：应急救援队第四届理事会选举产生——队长栾闻迪 …… 宣传部部长李禹陈。",
    "url": "https://mp.weixin.qq.com/s?src=11&timestamp=1790714900&ver=6996&signature=QvfTWNR9lSJvB7KLb9w96*uWLK54vxJYnWMruHaaf2q*1-EYoqoMB52GCqI-6h*sspwxEMgLiAK4QkJxZ0AvTxhTq2JHpSJ-oFBFf5n6IbkZF9SU*wxcnw8ztLN49f-E&new=1",
    "links": [],
    "status": "verified",
    "ev_en": "Council list \"宣传部部长 李禹陈\"; c1 later ties that person to KAUST 3+2.",
-   "ev_zh": "理事会名单「宣传部部长 李禹陈」；c1 随后将该人与 KAUST 3+2 关联。"
+   "ev_zh": "理事会名单「宣传部部长 李禹陈」；c1 随后将该人与 KAUST 3+2 关联。",
+   "title_en": "News | Emergency Rescue Team elects its new council",
+   "outlet_en": "SUSTech Youth League · WeChat"
   },
   {
    "id": "c9",
@@ -687,13 +743,15 @@
    "plat": "wechat",
    "outlet": "南方科技大学致仁书院 · 公众号",
    "title": "对于素拓，我们是认真的!",
-   "sum_en": "Team-building recap; copy credited to 常成 and 李禹陈.",
+   "sum_en": "Team-building recap; copy credited to Chang Cheng and Li Yuchen.",
    "sum_zh": "素拓活动回顾；文案署名常成、李禹陈。",
    "url": "https://mp.weixin.qq.com/s?src=11&timestamp=1790715028&ver=6996&signature=dBYRMBshztUPAOqPlbbJaLmRYBXoo2V*TiS1pM2m5EfgjgeoPGCc3nb3f9miniO6LvZWhWbvJL8g9qlrLq3z45-Eu5ba2gLSR*GoRVBEXe-pDCoaPsce7CokVXKAPPbE&new=1",
    "links": [],
    "status": "verified",
    "ev_en": "Publicity-department credit, Zhiren College, autumn 2017.",
-   "ev_zh": "2017 年秋致仁书院宣传部署名。"
+   "ev_zh": "2017 年秋致仁书院宣传部署名。",
+   "title_en": "We take team-building seriously!",
+   "outlet_en": "SUSTech Zhiren College · WeChat"
   },
   {
    "id": "c10",
@@ -703,13 +761,15 @@
    "plat": "wechat",
    "outlet": "南方科技大学致仁书院 · 公众号",
    "title": "致仁家庭晚会，定格那些美好瞬间~",
-   "sum_en": "College family night; he is listed among the photographers (摄影).",
+   "sum_en": "College family night; he is listed among the photographers.",
    "sum_zh": "致仁家庭晚会；工作人员名单中摄影含李禹陈。",
    "url": "https://mp.weixin.qq.com/s?src=11&timestamp=1790715028&ver=6996&signature=dBYRMBshztUPAOqPlbbJaLmRYBXoo2V*TiS1pM2m5EfS6ZYOuksuhe8v-9ui8TGzK587VLec9U6F55TVLjb1zy*U4jWTwt1sulxQ2KoSAJl9jN2H2etjbGxBYD-RUPup&new=1",
    "links": [],
    "status": "verified",
    "ev_en": "Staff credit, Zhiren College, autumn 2017.",
-   "ev_zh": "2017 年秋致仁书院工作人员署名。"
+   "ev_zh": "2017 年秋致仁书院工作人员署名。",
+   "title_en": "Zhiren family night: capturing the good moments",
+   "outlet_en": "SUSTech Zhiren College · WeChat"
   },
   {
    "id": "c11",
@@ -719,13 +779,15 @@
    "plat": "wechat",
    "outlet": "南方科技大学致仁书院 · 公众号",
    "title": "嘀！您定制的自管会萌新已到",
-   "sum_en": "Freshman intake of the college's student council; he joins the publicity department (宣传部).",
+   "sum_en": "Freshman intake of the college's student council; he joins the publicity department.",
    "sum_zh": "致仁书院自管会招新名单；宣传部含李禹陈。",
    "url": "https://mp.weixin.qq.com/s?src=11&timestamp=1790714767&ver=6996&signature=dBYRMBshztUPAOqPlbbJaLmRYBXoo2V*TiS1pM2m5EdgjYYZ4cOsh1ukz4lMB6dBEw9VreTO-WQm78MVqxXHf9i7ZpBXBGEgRfMiZU3i9UKDaqNZ7AozPnKmixBjGcQF&new=1",
    "links": [],
    "status": "verified",
    "ev_en": "Sep 2017 freshman intake = his SUSTech entry year (B.Sc. 2017–2021 on liyc.pw); rare name; later posts (c3) tie the same person to CS 2017 cohort and KAUST.",
-   "ev_zh": "2017-09 新生招新 = 其入学年份（liyc.pw：本科 2017–2021）；姓名罕见；后续帖子（c3）将同一人与 2017 级计算机系及 KAUST 关联。"
+   "ev_zh": "2017-09 新生招新 = 其入学年份（liyc.pw：本科 2017–2021）；姓名罕见；后续帖子（c3）将同一人与 2017 级计算机系及 KAUST 关联。",
+   "title_en": "Ding! Your new student-council members have arrived",
+   "outlet_en": "SUSTech Zhiren College · WeChat"
   },
   {
    "id": "c12",
@@ -736,13 +798,15 @@
    "outlet": "致仁书院 / 应急救援队 · 公众号",
    "title": "4 more photo & editing credits (Sep–Nov 2017)",
    "title_zh": "另外 4 条图片/后期署名（2017 年 9–11 月）",
-   "sum_en": "「我们遇到了假素拓?」(09-26, photo) · 「红十字会急救员培训圆满结束!」(10-16, photo) · 「国奖dalao来啦!!」(10-17, post-production) · 「不仅仅是GRE——记琦叔GRE演讲」(11-28, photo). Open via the 搜狗微信 search.",
+   "sum_en": "Four posts: 'We met a fake team-building?' (09-26, photo) · 'Red Cross first-aid training completed!' (10-16, photo) · 'The national-scholarship legends are here!' (10-17, post-production) · 'More than GRE — Uncle Qi's GRE talk' (11-28, photo). Open via Sogou WeChat search.",
    "sum_zh": "「我们遇到了假素拓?」（09-26，图）·「红十字会急救员培训圆满结束!」（10-16，图）·「国奖dalao来啦!!」（10-17，后期）·「不仅仅是GRE——记琦叔GRE演讲」（11-28，摄影）。可通过搜狗微信搜索打开。",
    "url": "https://weixin.sogou.com/weixin?type=2&query=%E6%9D%8E%E7%A6%B9%E9%99%88",
    "links": [],
    "status": "verified",
    "ev_en": "Same two SUSTech accounts and the same autumn-2017 publicity role as c9–c11.",
-   "ev_zh": "与 c9–c11 同一南科大账号、同一 2017 年秋宣传部角色。"
+   "ev_zh": "与 c9–c11 同一南科大账号、同一 2017 年秋宣传部角色。",
+   "title_en": "4 more photo & editing credits (Sep–Nov 2017)",
+   "outlet_en": "Zhiren College / Emergency Rescue Team · WeChat"
   },
   {
    "id": "x1",
@@ -1053,13 +1117,15 @@
    "plat": "wechat",
    "outlet": "36氪 · 官方公众号",
    "title": "WAVES 2025：创投「新纪元」里，逐浪而行",
-   "sum_en": "36Kr's official recap of its WAVES 2025 conference in Liangzhu, Hangzhou. The closing 'Let's WAVES · 00后之夜' talk show lists him among the Gen-Z speakers: \"the 'Dubai Prince' Li Yuchen, six years in the Middle Eastern desert\".",
+   "sum_en": "36Kr's official recap of its WAVES 2025 conference in Liangzhu, Hangzhou. The closing 'Let's WAVES · Gen-Z night' talk show lists him among the Gen-Z speakers: \"the 'Dubai Prince' Li Yuchen, six years in the Middle Eastern desert\".",
    "sum_zh": "36氪对杭州良渚 WAVES 2025 新浪潮大会的官方回顾。压轴的「Let's WAVES · 00后之夜」脱口秀中，他与 Philip、Arm许、谢逸凡、刘品村等同台：「在中东沙漠里泡了六年的『迪拜王子』李禹陈」。",
    "url": "https://mp.weixin.qq.com/s/jedWNrWYHYp3S6luEF9L9g",
    "links": [],
    "status": "verified",
    "ev_en": "Text: \"在中东沙漠里泡了六年的“迪拜王子”李禹陈\" — 迪拜王子 is his rednote ID.",
-   "ev_zh": "原文：「在中东沙漠里泡了六年的“迪拜王子”李禹陈」——迪拜王子即其小红书 ID。"
+   "ev_zh": "原文：「在中东沙漠里泡了六年的“迪拜王子”李禹陈」——迪拜王子即其小红书 ID。",
+   "title_en": "WAVES 2025: riding the waves in a new era of venture",
+   "outlet_en": "36Kr · official WeChat"
   },
   {
    "id": "n2",
@@ -1069,7 +1135,7 @@
    "plat": "bilibili",
    "outlet": "Bilibili · 暗涌Waves（36氪）",
    "title": "我 迪拜王子 跟酋长握过手",
-   "sum_en": "His 8-minute stand-up set from the Let's WAVES talk-show night at WAVES 2025, published by 36Kr's 暗涌Waves channel.",
+   "sum_en": "His 8-minute stand-up set from the Let's WAVES talk-show night at WAVES 2025, published by 36Kr's Waves channel.",
    "sum_zh": "WAVES 2025「Let's WAVES」脱口秀之夜上他的 8 分钟段子，由 36氪旗下暗涌Waves 账号发布。",
    "url": "https://www.bilibili.com/video/BV1728bzzEym/",
    "links": [],
@@ -1078,7 +1144,9 @@
    },
    "status": "verified",
    "ev_en": "Title uses his rednote ID 迪拜王子; the 36氪 WAVES recap names '迪拜王子 李禹陈' as a Let's WAVES speaker; link supplied by Yuchen.",
-   "ev_zh": "标题即其小红书 ID「迪拜王子」；36氪 WAVES 回顾点名「迪拜王子 李禹陈」为 Let's WAVES 讲者；链接由本人提供。"
+   "ev_zh": "标题即其小红书 ID「迪拜王子」；36氪 WAVES 回顾点名「迪拜王子 李禹陈」为 Let's WAVES 讲者；链接由本人提供。",
+   "title_en": "\"I, the Dubai Prince, have shaken hands with a sheikh\"",
+   "outlet_en": "Bilibili · Waves (36Kr)"
   },
   {
    "id": "n3",
@@ -1088,13 +1156,15 @@
    "plat": "wechat",
    "outlet": "自由职业的圈圈 · 公众号",
    "title": "围观暗涌良渚，年轻人不被定义的样子",
-   "sum_en": "An independent writer's field notes from the Let's WAVES night: Adventure X founder Ryan, Bonjour's founder, \"Arm许 who builds AI memoirs, Li Yuchen who braved the Middle East, Philip the 98-born investor…\"",
+   "sum_en": "An independent writer's field notes from the Let's WAVES night: Adventure X founder Ryan, Bonjour's founder, \"Arm Xu who builds AI memoirs, Li Yuchen who braved the Middle East, Philip the 98-born investor…\"",
    "sum_zh": "独立写作者对 Let's WAVES 之夜的现场记录：Adventure X 创始人 Ryan、Bonjour 创始人，「做AI回忆录的女孩Arm许，勇闯中东的李禹陈，98年的蓝驰投资人Philip……」",
    "url": "https://mp.weixin.qq.com/s/YvwB9MklNZ7cZArgt47Caw",
    "links": [],
    "status": "verified",
    "ev_en": "Same event and speaker line-up as the 36氪 recap (n1), which identifies him as 迪拜王子; link supplied by Yuchen.",
-   "ev_zh": "与 36氪回顾（n1）为同一活动、同一讲者阵容，后者明确其为迪拜王子；链接由本人提供。"
+   "ev_zh": "与 36氪回顾（n1）为同一活动、同一讲者阵容，后者明确其为迪拜王子；链接由本人提供。",
+   "title_en": "At Waves Liangzhu: young people who refuse to be defined",
+   "outlet_en": "Freelancer Quanquan · WeChat"
   },
   {
    "id": "n4",
@@ -1110,7 +1180,9 @@
    "links": [],
    "status": "verified",
    "ev_en": "Text: \"98年的李禹陈正在阿布扎比的MBZUAI攻读AIGC博士\".",
-   "ev_zh": "原文：「98年的李禹陈正在阿布扎比的MBZUAI攻读AIGC博士」。"
+   "ev_zh": "原文：「98年的李禹陈正在阿布扎比的MBZUAI攻读AIGC博士」。",
+   "title_en": "100 creators and student founders stay for free: Recharge Programme, season 2",
+   "outlet_en": "NCC community (Link Island) · WeChat"
   },
   {
    "id": "n5",
@@ -1130,7 +1202,9 @@
    },
    "status": "verified",
    "ev_en": "Text: \"迎来了来自全球首所人工智能大学（MBZUAI）的PhD李禹陈\".",
-   "ev_zh": "原文：「迎来了来自全球首所人工智能大学（MBZUAI）的PhD李禹陈」。"
+   "ev_zh": "原文：「迎来了来自全球首所人工智能大学（MBZUAI）的PhD李禹陈」。",
+   "title_en": "72-Hour AI Survival Challenge | An AI PhD's 72 hours",
+   "outlet_en": "rednote · 5Y Capital"
   },
   {
    "id": "n6",
@@ -1146,7 +1220,8 @@
    "links": [
     {
      "l": "文字实录",
-     "u": "https://www.jiachengcap.com/blog/240105_56c8"
+     "u": "https://www.jiachengcap.com/blog/240105_56c8",
+     "l_en": "Transcript"
     }
    ],
    "metrics": {
@@ -1155,7 +1230,9 @@
    },
    "status": "verified",
    "ev_en": "Title and description: \"迪拜商业英才李禹陈在嘉程创业流水席进行分享\".",
-   "ev_zh": "标题与简介：「迪拜商业英才李禹陈在嘉程创业流水席进行分享」。"
+   "ev_zh": "标题与简介：「迪拜商业英才李禹陈在嘉程创业流水席进行分享」。",
+   "title_en": "Dubai Business Associate Li Yuchen on the Middle East 2030 vision — opportunities and challenges for Chinese founders",
+   "outlet_en": "Bilibili · NextCapital Business Review"
   },
   {
    "id": "n7",
@@ -1171,7 +1248,9 @@
    "links": [],
    "status": "verified",
    "ev_en": "Text: \"17级计算机科学与工程系李禹陈同学为大家介绍了新加坡国立大学的学期交换、阿卜杜拉国王科技大学…3+2联合培养项目\".",
-   "ev_zh": "原文：「17级计算机科学与工程系李禹陈同学为大家介绍了新加坡国立大学的学期交换、阿卜杜拉国王科技大学项目展与3+2联合培养项目」。"
+   "ev_zh": "原文：「17级计算机科学与工程系李禹陈同学为大家介绍了新加坡国立大学的学期交换、阿卜杜拉国王科技大学项目展与3+2联合培养项目」。",
+   "title_en": "Seniors are here! Study-abroad dos and don'ts",
+   "outlet_en": "SUSTech Global · WeChat"
   },
   {
    "id": "x_03bc44",
@@ -1189,8 +1268,10 @@
     "likes": 3186
    },
    "status": "self",
-   "ev_en": "Posted from his rednote account 迪拜王子 (ID DubaiPrince); counts read on 4 Oct 2026.",
-   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。"
+   "ev_en": "Posted from his rednote account “Dubai Prince” (ID DubaiPrince); counts read on 4 Oct 2026.",
+   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。",
+   "title_en": "What is it like to drive a go-kart through the streets? (POV)",
+   "outlet_en": "rednote · Dubai Prince · video"
   },
   {
    "id": "x_00ef32",
@@ -1208,8 +1289,10 @@
     "likes": 2363
    },
    "status": "self",
-   "ev_en": "Posted from his rednote account 迪拜王子 (ID DubaiPrince); counts read on 4 Oct 2026.",
-   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。"
+   "ev_en": "Posted from his rednote account “Dubai Prince” (ID DubaiPrince); counts read on 4 Oct 2026.",
+   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。",
+   "title_en": "Turns out an executive earning nine figures a year went to my school 😅",
+   "outlet_en": "rednote · Dubai Prince"
   },
   {
    "id": "x_01796c",
@@ -1227,8 +1310,10 @@
     "likes": 1764
    },
    "status": "self",
-   "ev_en": "Posted from his rednote account 迪拜王子 (ID DubaiPrince); counts read on 4 Oct 2026.",
-   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。"
+   "ev_en": "Posted from his rednote account “Dubai Prince” (ID DubaiPrince); counts read on 4 Oct 2026.",
+   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。",
+   "title_en": "Take on only what you can deliver — if your boss doesn't get tech but loves to direct, run",
+   "outlet_en": "rednote · Dubai Prince"
   },
   {
    "id": "x_000363",
@@ -1246,8 +1331,10 @@
     "likes": 864
    },
    "status": "self",
-   "ev_en": "Posted from his rednote account 迪拜王子 (ID DubaiPrince); counts read on 4 Oct 2026.",
-   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。"
+   "ev_en": "Posted from his rednote account “Dubai Prince” (ID DubaiPrince); counts read on 4 Oct 2026.",
+   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。",
+   "title_en": "I got an offer from the Ruler of Dubai (DBA)",
+   "outlet_en": "rednote · Dubai Prince"
   },
   {
    "id": "x_021be4",
@@ -1265,8 +1352,10 @@
     "likes": 856
    },
    "status": "self",
-   "ev_en": "Posted from his rednote account 迪拜王子 (ID DubaiPrince); counts read on 4 Oct 2026.",
-   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。"
+   "ev_en": "Posted from his rednote account “Dubai Prince” (ID DubaiPrince); counts read on 4 Oct 2026.",
+   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。",
+   "title_en": "The Gulf money-making guide the Ruler of Dubai paid a Rolls-Royce to teach me — all of it, today",
+   "outlet_en": "rednote · Dubai Prince"
   },
   {
    "id": "x_01edb2",
@@ -1284,8 +1373,10 @@
     "likes": 732
    },
    "status": "self",
-   "ev_en": "Posted from his rednote account 迪拜王子 (ID DubaiPrince); counts read on 4 Oct 2026.",
-   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。"
+   "ev_en": "Posted from his rednote account “Dubai Prince” (ID DubaiPrince); counts read on 4 Oct 2026.",
+   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。",
+   "title_en": "CXMT is hiring engineers en masse — degrees matter more than majors; PhDs from top schools in demand",
+   "outlet_en": "rednote · Dubai Prince"
   },
   {
    "id": "x_012921",
@@ -1303,8 +1394,10 @@
     "likes": 691
    },
    "status": "self",
-   "ev_en": "Posted from his rednote account 迪拜王子 (ID DubaiPrince); counts read on 4 Oct 2026.",
-   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。"
+   "ev_en": "Posted from his rednote account “Dubai Prince” (ID DubaiPrince); counts read on 4 Oct 2026.",
+   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。",
+   "title_en": "Only about 2,000 computer-science PhDs graduate in the US each year",
+   "outlet_en": "rednote · Dubai Prince"
   },
   {
    "id": "x_01eca5",
@@ -1322,8 +1415,10 @@
     "likes": 667
    },
    "status": "self",
-   "ev_en": "Posted from his rednote account 迪拜王子 (ID DubaiPrince); counts read on 4 Oct 2026.",
-   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。"
+   "ev_en": "Posted from his rednote account “Dubai Prince” (ID DubaiPrince); counts read on 4 Oct 2026.",
+   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。",
+   "title_en": "Where are the informatics-olympiad stars now? Hefei edition",
+   "outlet_en": "rednote · Dubai Prince"
   },
   {
    "id": "x_00b5e2",
@@ -1341,8 +1436,10 @@
     "likes": 645
    },
    "status": "self",
-   "ev_en": "Posted from his rednote account 迪拜王子 (ID DubaiPrince); counts read on 4 Oct 2026.",
-   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。"
+   "ev_en": "Posted from his rednote account “Dubai Prince” (ID DubaiPrince); counts read on 4 Oct 2026.",
+   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。",
+   "title_en": "No wonder everyone wants to intern at NVIDIA — Jensen grills BBQ at the intern party",
+   "outlet_en": "rednote · Dubai Prince"
   },
   {
    "id": "x_013c73",
@@ -1360,8 +1457,10 @@
     "likes": 643
    },
    "status": "self",
-   "ev_en": "Posted from his rednote account 迪拜王子 (ID DubaiPrince); counts read on 4 Oct 2026.",
-   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。"
+   "ev_en": "Posted from his rednote account “Dubai Prince” (ID DubaiPrince); counts read on 4 Oct 2026.",
+   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。",
+   "title_en": "Cambridge machine-learning summer school, free — why not go all in?",
+   "outlet_en": "rednote · Dubai Prince"
   },
   {
    "id": "x_004f7c",
@@ -1379,8 +1478,10 @@
     "likes": 630
    },
    "status": "self",
-   "ev_en": "Posted from his rednote account 迪拜王子 (ID DubaiPrince); counts read on 4 Oct 2026.",
-   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。"
+   "ev_en": "Posted from his rednote account “Dubai Prince” (ID DubaiPrince); counts read on 4 Oct 2026.",
+   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。",
+   "title_en": "Graphics researcher Lingqi Yan is coming to teach in the Middle East",
+   "outlet_en": "rednote · Dubai Prince"
   },
   {
    "id": "x_029f55",
@@ -1398,8 +1499,10 @@
     "likes": 565
    },
    "status": "self",
-   "ev_en": "Posted from his rednote account 迪拜王子 (ID DubaiPrince); counts read on 4 Oct 2026.",
-   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。"
+   "ev_en": "Posted from his rednote account “Dubai Prince” (ID DubaiPrince); counts read on 4 Oct 2026.",
+   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。",
+   "title_en": "Half of China's investors are here today",
+   "outlet_en": "rednote · Dubai Prince"
   },
   {
    "id": "x_038412",
@@ -1417,8 +1520,10 @@
     "likes": 518
    },
    "status": "self",
-   "ev_en": "Posted from his rednote account 迪拜王子 (ID DubaiPrince); counts read on 4 Oct 2026.",
-   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。"
+   "ev_en": "Posted from his rednote account “Dubai Prince” (ID DubaiPrince); counts read on 4 Oct 2026.",
+   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。",
+   "title_en": "UAE / Dubai bank-card perks: the 2023 guide",
+   "outlet_en": "rednote · Dubai Prince"
   },
   {
    "id": "x_03e86a",
@@ -1436,8 +1541,10 @@
     "likes": 488
    },
    "status": "self",
-   "ev_en": "Posted from his rednote account 迪拜王子 (ID DubaiPrince); counts read on 4 Oct 2026.",
-   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。"
+   "ev_en": "Posted from his rednote account “Dubai Prince” (ID DubaiPrince); counts read on 4 Oct 2026.",
+   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。",
+   "title_en": "Where AI PhDs should go: OpenAI ≥ DeepMind ≥ Anthropic > MS",
+   "outlet_en": "rednote · Dubai Prince"
   },
   {
    "id": "x_00c3c7",
@@ -1455,8 +1562,10 @@
     "likes": 423
    },
    "status": "self",
-   "ev_en": "Posted from his rednote account 迪拜王子 (ID DubaiPrince); counts read on 4 Oct 2026.",
-   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。"
+   "ev_en": "Posted from his rednote account “Dubai Prince” (ID DubaiPrince); counts read on 4 Oct 2026.",
+   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。",
+   "title_en": "What happened to people who turned down US top-10 offers for a CS PhD in the Middle East? (KAUST)",
+   "outlet_en": "rednote · Dubai Prince"
   },
   {
    "id": "x_00d5cd",
@@ -1466,7 +1575,7 @@
    "plat": "xhs",
    "outlet": "小红书 · 迪拜王子",
    "title": "去中东上学:全靠酋长资助，不交学费还赚钱!",
-   "sum_en": "Companion note to the 掘金中东 podcast episode (m7).",
+   "sum_en": "Companion note to the DeepMENA podcast episode (m7).",
    "sum_zh": "配合《掘金中东》播客（m7）发布的笔记。",
    "url": "https://www.xiaohongshu.com/explore/66724e44000000000d00d5cd?xsec_token=AB06u4xQYN2cuqh3DwGONfl9vvZ87Ijs-6thEhpysHOgU=&xsec_source=pc_user",
    "links": [],
@@ -1474,8 +1583,10 @@
     "likes": 282
    },
    "status": "self",
-   "ev_en": "Posted from his rednote account 迪拜王子 (ID DubaiPrince); counts read on 4 Oct 2026.",
-   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。"
+   "ev_en": "Posted from his rednote account “Dubai Prince” (ID DubaiPrince); counts read on 4 Oct 2026.",
+   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。",
+   "title_en": "Studying in the Middle East: funded by the sheikhs, no tuition, and paid to study!",
+   "outlet_en": "rednote · Dubai Prince"
   },
   {
    "id": "x_004875",
@@ -1485,7 +1596,7 @@
    "plat": "xhs",
    "outlet": "小红书 · 迪拜王子",
    "title": "深圳线下｜去中东！中国青年人的新选择",
-   "sum_en": "Event he hosted in Shenzhen (21 Jun 2024) with 斑马星球: a China–Middle East youth sharing session; his own speaker bio reads 'DBA Year 8, MBZUAI CV PhD, led an Emirates consulting project'.",
+   "sum_en": "Event he hosted in Shenzhen (21 Jun 2024) with Zebra Planet: a China–Middle East youth sharing session; his own speaker bio reads 'DBA Year 8, MBZUAI CV PhD, led an Emirates consulting project'.",
    "sum_zh": "他在深圳主办的中国–中东青年分享会（2024-06-21，与斑马星球合作）；自述「迪拜商业英才DBA第八届入选者，MBZUAI计算机视觉博士生，曾带领阿联酋航空的咨询项目」。",
    "url": "https://www.xiaohongshu.com/explore/6672b7d90000000006004875?xsec_token=ABZOUpYofby889HXcPZ21l0GWxT9uMR03P7C9cEEHRI84=&xsec_source=pc_user",
    "links": [],
@@ -1493,8 +1604,10 @@
     "likes": 36
    },
    "status": "self",
-   "ev_en": "Posted from his rednote account 迪拜王子 (ID DubaiPrince); counts read on 4 Oct 2026.",
-   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。"
+   "ev_en": "Posted from his rednote account “Dubai Prince” (ID DubaiPrince); counts read on 4 Oct 2026.",
+   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。",
+   "title_en": "Shenzhen meetup | Go to the Middle East! A new option for young Chinese",
+   "outlet_en": "rednote · Dubai Prince"
   },
   {
    "id": "x_02c4f4",
@@ -1512,8 +1625,10 @@
     "likes": 258
    },
    "status": "self",
-   "ev_en": "Posted from his rednote account 迪拜王子 (ID DubaiPrince); counts read on 4 Oct 2026.",
-   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。"
+   "ev_en": "Posted from his rednote account “Dubai Prince” (ID DubaiPrince); counts read on 4 Oct 2026.",
+   "ev_zh": "本人小红书账号「迪拜王子」（ID DubaiPrince）发布；数据为 2026-10-04 读取值。",
+   "title_en": "🇨🇳 Hefei edition: I buy coffee for 100 strangers ☕️",
+   "outlet_en": "rednote · Dubai Prince"
   },
   {
    "id": "z_369241705",
@@ -1532,8 +1647,10 @@
     "comments": 140
    },
    "status": "self",
-   "ev_en": "Answered from his Zhihu account 南小环 (education listed: KAUST CS, NUS, UBC); counts read on 4 Oct 2026.",
-   "ev_zh": "本人知乎账号「南小环」（教育经历：KAUST 计算机科学、NUS、UBC）回答；数据为 2026-10-04 读取值。"
+   "ev_en": "Answered from his Zhihu account Nanxiaohuan (education listed: KAUST CS, NUS, UBC); counts read on 4 Oct 2026.",
+   "ev_zh": "本人知乎账号「南小环」（教育经历：KAUST 计算机科学、NUS、UBC）回答；数据为 2026-10-04 读取值。",
+   "title_en": "Which Chinese university has the best physics department — PKU, Tsinghua or USTC?",
+   "outlet_en": "Zhihu answer · Nanxiaohuan"
   },
   {
    "id": "z_334668070",
@@ -1552,8 +1669,10 @@
     "comments": 43
    },
    "status": "self",
-   "ev_en": "Answered from his Zhihu account 南小环 (education listed: KAUST CS, NUS, UBC); counts read on 4 Oct 2026.",
-   "ev_zh": "本人知乎账号「南小环」（教育经历：KAUST 计算机科学、NUS、UBC）回答；数据为 2026-10-04 读取值。"
+   "ev_en": "Answered from his Zhihu account Nanxiaohuan (education listed: KAUST CS, NUS, UBC); counts read on 4 Oct 2026.",
+   "ev_zh": "本人知乎账号「南小环」（教育经历：KAUST 计算机科学、NUS、UBC）回答；数据为 2026-10-04 读取值。",
+   "title_en": "Who does better at university: olympiad admits or gaokao top scorers?",
+   "outlet_en": "Zhihu answer · Nanxiaohuan"
   },
   {
    "id": "z_1914363103",
@@ -1572,8 +1691,10 @@
     "comments": 14
    },
    "status": "self",
-   "ev_en": "Answered from his Zhihu account 南小环 (education listed: KAUST CS, NUS, UBC); counts read on 4 Oct 2026.",
-   "ev_zh": "本人知乎账号「南小环」（教育经历：KAUST 计算机科学、NUS、UBC）回答；数据为 2026-10-04 读取值。"
+   "ev_en": "Answered from his Zhihu account Nanxiaohuan (education listed: KAUST CS, NUS, UBC); counts read on 4 Oct 2026.",
+   "ev_zh": "本人知乎账号「南小环」（教育经历：KAUST 计算机科学、NUS、UBC）回答；数据为 2026-10-04 读取值。",
+   "title_en": "How do Point Transformer and Point Cloud Transformer compare?",
+   "outlet_en": "Zhihu answer · Nanxiaohuan"
   },
   {
    "id": "z_1987105555",
@@ -1592,8 +1713,10 @@
     "comments": 30
    },
    "status": "self",
-   "ev_en": "Answered from his Zhihu account 南小环 (education listed: KAUST CS, NUS, UBC); counts read on 4 Oct 2026.",
-   "ev_zh": "本人知乎账号「南小环」（教育经历：KAUST 计算机科学、NUS、UBC）回答；数据为 2026-10-04 读取值。"
+   "ev_en": "Answered from his Zhihu account Nanxiaohuan (education listed: KAUST CS, NUS, UBC); counts read on 4 Oct 2026.",
+   "ev_zh": "本人知乎账号「南小环」（教育经历：KAUST 计算机科学、NUS、UBC）回答；数据为 2026-10-04 读取值。",
+   "title_en": "After two doses of Sinovac, can I get Pfizer?",
+   "outlet_en": "Zhihu answer · Nanxiaohuan"
   },
   {
    "id": "z_598338492",
@@ -1612,8 +1735,10 @@
     "comments": 9
    },
    "status": "self",
-   "ev_en": "Answered from his Zhihu account 南小环 (education listed: KAUST CS, NUS, UBC); counts read on 4 Oct 2026.",
-   "ev_zh": "本人知乎账号「南小环」（教育经历：KAUST 计算机科学、NUS、UBC）回答；数据为 2026-10-04 读取值。"
+   "ev_en": "Answered from his Zhihu account Nanxiaohuan (education listed: KAUST CS, NUS, UBC); counts read on 4 Oct 2026.",
+   "ev_zh": "本人知乎账号「南小环」（教育经历：KAUST 计算机科学、NUS、UBC）回答；数据为 2026-10-04 读取值。",
+   "title_en": "What to make of 2014 IPhO gold medallist Xu Xiaoyu joining Citadel?",
+   "outlet_en": "Zhihu answer · Nanxiaohuan"
   },
   {
    "id": "z_447005221",
@@ -1632,8 +1757,10 @@
     "comments": 13
    },
    "status": "self",
-   "ev_en": "Answered from his Zhihu account 南小环 (education listed: KAUST CS, NUS, UBC); counts read on 4 Oct 2026.",
-   "ev_zh": "本人知乎账号「南小环」（教育经历：KAUST 计算机科学、NUS、UBC）回答；数据为 2026-10-04 读取值。"
+   "ev_en": "Answered from his Zhihu account Nanxiaohuan (education listed: KAUST CS, NUS, UBC); counts read on 4 Oct 2026.",
+   "ev_zh": "本人知乎账号「南小环」（教育经历：KAUST 计算机科学、NUS、UBC）回答；数据为 2026-10-04 读取值。",
+   "title_en": "Why have HIT Shenzhen's admission ranks surged across provinces?",
+   "outlet_en": "Zhihu answer · Nanxiaohuan"
   },
   {
    "id": "z_2863224977",
@@ -1652,8 +1779,10 @@
     "comments": 2
    },
    "status": "self",
-   "ev_en": "Answered from his Zhihu account 南小环 (education listed: KAUST CS, NUS, UBC); counts read on 4 Oct 2026.",
-   "ev_zh": "本人知乎账号「南小环」（教育经历：KAUST 计算机科学、NUS、UBC）回答；数据为 2026-10-04 读取值。"
+   "ev_en": "Answered from his Zhihu account Nanxiaohuan (education listed: KAUST CS, NUS, UBC); counts read on 4 Oct 2026.",
+   "ev_zh": "本人知乎账号「南小环」（教育经历：KAUST 计算机科学、NUS、UBC）回答；数据为 2026-10-04 读取值。",
+   "title_en": "What do you think of PointNeXt?",
+   "outlet_en": "Zhihu answer · Nanxiaohuan"
   },
   {
    "id": "z_1912935613",
@@ -1672,8 +1801,10 @@
     "comments": 8
    },
    "status": "self",
-   "ev_en": "Answered from his Zhihu account 南小环 (education listed: KAUST CS, NUS, UBC); counts read on 4 Oct 2026.",
-   "ev_zh": "本人知乎账号「南小环」（教育经历：KAUST 计算机科学、NUS、UBC）回答；数据为 2026-10-04 读取值。"
+   "ev_en": "Answered from his Zhihu account Nanxiaohuan (education listed: KAUST CS, NUS, UBC); counts read on 4 Oct 2026.",
+   "ev_zh": "本人知乎账号「南小环」（教育经历：KAUST 计算机科学、NUS、UBC）回答；数据为 2026-10-04 读取值。",
+   "title_en": "How much do KAUST PhD graduates earn in Saudi Arabia (or back in China)?",
+   "outlet_en": "Zhihu answer · Nanxiaohuan"
   },
   {
    "id": "z_1778272050",
@@ -1692,8 +1823,10 @@
     "comments": 18
    },
    "status": "self",
-   "ev_en": "Answered from his Zhihu account 南小环 (education listed: KAUST CS, NUS, UBC); counts read on 4 Oct 2026.",
-   "ev_zh": "本人知乎账号「南小环」（教育经历：KAUST 计算机科学、NUS、UBC）回答；数据为 2026-10-04 读取值。"
+   "ev_en": "Answered from his Zhihu account Nanxiaohuan (education listed: KAUST CS, NUS, UBC); counts read on 4 Oct 2026.",
+   "ev_zh": "本人知乎账号「南小环」（教育经历：KAUST 计算机科学、NUS、UBC）回答；数据为 2026-10-04 读取值。",
+   "title_en": "Where did SUSTech CS class of 2021 go after graduation?",
+   "outlet_en": "Zhihu answer · Nanxiaohuan"
   },
   {
    "id": "z_a584719447",
@@ -1703,7 +1836,7 @@
    "plat": "zhihu",
    "outlet": "知乎专栏 · 南小环",
    "title": "PointNeXt: 通过改进的训练以及模型缩放策略重新探究PointNet++",
-   "sum_en": "Chinese write-up of PointNeXt by the authors ('沙特王子爱学习' and Guocheng Qian).",
+   "sum_en": "Chinese write-up of PointNeXt by the authors ('Saudi Prince Loves Learning' and Guocheng Qian).",
    "sum_zh": "作者（沙特王子爱学习、登高居士）对 PointNeXt 的中文解读。",
    "url": "https://zhuanlan.zhihu.com/p/584719447",
    "links": [],
@@ -1712,8 +1845,10 @@
     "comments": 2
    },
    "status": "self",
-   "ev_en": "Published from his Zhihu account 南小环.",
-   "ev_zh": "本人知乎账号「南小环」发布。"
+   "ev_en": "Published from his Zhihu account Nanxiaohuan.",
+   "ev_zh": "本人知乎账号「南小环」发布。",
+   "title_en": "PointNeXt: revisiting PointNet++ with improved training and scaling strategies (Chinese write-up)",
+   "outlet_en": "Zhihu column · Nanxiaohuan"
   },
   {
    "id": "z_a370777840",
@@ -1732,8 +1867,10 @@
     "comments": 11
    },
    "status": "self",
-   "ev_en": "Published from his Zhihu account 南小环.",
-   "ev_zh": "本人知乎账号「南小环」发布。"
+   "ev_en": "Published from his Zhihu account Nanxiaohuan.",
+   "ev_zh": "本人知乎账号「南小环」发布。",
+   "title_en": "[Hiring] KAUST Vision-CAIR is recruiting CV postdocs, scientists and visiting scholars — please share",
+   "outlet_en": "Zhihu column · Nanxiaohuan"
   },
   {
    "id": "p1",
@@ -1743,13 +1880,15 @@
    "plat": "wechat",
    "outlet": "合肥八中 · 公众号",
    "title": "2017年高考成绩揭晓——合肥八中本科达线率99.4%，一本达线率92.3%",
-   "sum_en": "Hefei No. 8 High School's 2017 results post. Under 学科竞赛 · 省级一等奖 · 物理 (5 students): 费浩旻 李禹陈 李玉辉 张易中 周辛宁.",
+   "sum_en": "Hefei No. 8 High School's 2017 results post. Under academic competitions · provincial first prize · physics (5 students): Fei Haomin, Li Yuchen, Li Yuhui, Zhang Yizhong, Zhou Xinning.",
    "sum_zh": "合肥八中 2017 年高考成绩通报。学科竞赛省级一等奖·物理（5 人）：费浩旻 李禹陈 李玉辉 张易中 周辛宁。",
    "url": "https://mp.weixin.qq.com/s?src=11&timestamp=1790714972&ver=6996&signature=1L68VXS0PbkQKWIgsdL3O*fLYk42*LaGSQxnOSLkmD8w85gcV7hxjS2xcgoqHEm65*VWqkSc6bRG3mAQxepvJBj-AfzfsIr4A*T1y*cEfAdAOozSEm1X2X430-UVloP2&new=1",
    "links": [],
    "status": "verified",
    "ev_en": "Class of 2017 = his SUSTech entry year; confirmed by Yuchen himself on 30 Sep 2026 (Hefei No. 8 High School is his alma mater).",
-   "ev_zh": "2017 届即其入学南科大年份；2026-09-30 经禹陈本人确认（合肥八中为其母校）。"
+   "ev_zh": "2017 届即其入学南科大年份；2026-09-30 经禹陈本人确认（合肥八中为其母校）。",
+   "title_en": "2017 gaokao results: 99.4% of Hefei No. 8 students reach the undergraduate line, 92.3% the first tier",
+   "outlet_en": "Hefei No. 8 High School · WeChat"
   },
   {
    "id": "p2",
@@ -1759,13 +1898,15 @@
    "plat": "wechat",
    "outlet": "合肥八中 · 公众号",
    "title": "年级部丨物理竞赛出硕果，金秋八中又添彩",
-   "sum_en": "33rd Chinese Physics Olympiad (2016): five class-of-2017 students, including 李禹陈, won Anhui provincial first prize.",
+   "sum_en": "33rd Chinese Physics Olympiad (2016): five class-of-2017 students, including Li Yuchen, won Anhui provincial first prize.",
    "sum_zh": "第 33 届全国中学生物理竞赛（2016）：2017 届周辛宁、费浩旻、李禹陈、李玉辉、张易中获安徽省一等奖。",
    "url": "https://mp.weixin.qq.com/s?src=3&timestamp=1790714972&ver=1&signature=Z28YWaV1KgiOMy2MMQm9ZBRSs0N48dzjiXCxLTUPigVsg6x7XkPtNzyPNLj3yrhYGqyskhI*7k-48YRw9pRij*4x80*jm8H4tb4pNyFD88NRMCBfiA2oDisn0p9dd3L5zejhz5wtV8qBHymW4Ha*nN*rbQ5hGUk53t9EcC0M7J4=",
    "links": [],
    "status": "verified",
    "ev_en": "Anhui provincial first prize, 33rd CPhO; confirmed by Yuchen himself on 30 Sep 2026.",
-   "ev_zh": "第 33 届全国中学生物理竞赛安徽省一等奖；2026-09-30 经禹陈本人确认。"
+   "ev_zh": "第 33 届全国中学生物理竞赛安徽省一等奖；2026-09-30 经禹陈本人确认。",
+   "title_en": "Grade office | Physics olympiad success brings autumn honours to No. 8",
+   "outlet_en": "Hefei No. 8 High School · WeChat"
   }
  ],
  "home_cards": [
@@ -1778,7 +1919,8 @@
    "blurb_en": "Featured in 36Kr's documentary coverage of a 72-hour AI survival challenge, discussing AI agents, AI video creation and human–AI interaction.",
    "blurb_zh": "参与 36氪关于 72 小时 AI 生存挑战的纪实报道，探讨 AI 智能体、AI 视频创作与人机交互。",
    "cta_en": "Read article",
-   "cta_zh": "阅读文章"
+   "cta_zh": "阅读文章",
+   "title_en": "72 hours, fully documented: humans' first close encounter with AI"
   },
   {
    "ref": "m9",
@@ -1789,7 +1931,8 @@
    "blurb_en": "Invited by Next Capital to share perspectives on the Middle East 2030 vision and opportunities for Chinese founders in the region.",
    "blurb_zh": "受嘉程资本邀请，分享对中东 2030 愿景及中国创业者在当地发展机遇的看法。",
    "cta_en": "Read article",
-   "cta_zh": "阅读文章"
+   "cta_zh": "阅读文章",
+   "title_en": "Dubai Business Associate Li Yuchen on the Middle East 2030 vision"
   },
   {
    "ref": "m7",
@@ -1797,10 +1940,11 @@
    "meta_en": "Xiaoyuzhou · Podcast",
    "meta_zh": "小宇宙 · 播客",
    "title": "07. 去中东上学：全靠酋长资助，不用交学费，还赚钱！",
-   "blurb_en": "Guest on 掘金中东, covering KAUST, MBZUAI, Dubai Business Associates, Middle East universities and life across the region.",
+   "blurb_en": "Guest on the DeepMENA podcast, covering KAUST, MBZUAI, Dubai Business Associates, Middle East universities and life across the region.",
    "blurb_zh": "做客《掘金中东》，分享 KAUST、MBZUAI、Dubai Business Associates、中东高校与当地生活经历。",
    "cta_en": "Listen",
-   "cta_zh": "收听节目"
+   "cta_zh": "收听节目",
+   "title_en": "Ep. 07 — Studying in the Middle East: funded by the sheikhs, no tuition, and paid to study!"
   }
  ],
  "talks": [
@@ -1833,7 +1977,7 @@
    "kind_zh": "主办",
    "title_en": "“Go to the Middle East! A new option for young Chinese” — sharing session",
    "title_zh": "深圳线下分享会《去中东！中国青年人的新选择》",
-   "venue_en": "Shenzhen, with 斑马星球",
+   "venue_en": "Shenzhen, with Zebra Planet",
    "venue_zh": "深圳 · 与斑马星球合办",
    "url": "https://www.xiaohongshu.com/explore/6672b7d90000000006004875?xsec_token=ABZOUpYofby889HXcPZ21l0GWxT9uMR03P7C9cEEHRI84=&xsec_source=pc_user"
   },
@@ -1844,7 +1988,7 @@
    "kind_zh": "播客",
    "title_en": "Ep. 07 — Studying in the Middle East",
    "title_zh": "07. 去中东上学：全靠酋长资助，不用交学费，还赚钱",
-   "venue_en": "掘金中东 · DeepMENA",
+   "venue_en": "DeepMENA podcast",
    "venue_zh": "掘金中东 · DeepMENA",
    "url": "https://www.xiaoyuzhoufm.com/episode/6641cf18f968fce2cbbccdfc"
   },
@@ -1886,9 +2030,9 @@
    "date": "2021-10",
    "kind_en": "Video chat",
    "kind_zh": "视频访谈",
-   "title_en": "How do overseas students spend the National Day holiday? — “后浪聊天室”",
+   "title_en": "How do overseas students spend the National Day holiday? — “Houlang Chat Room”",
    "title_zh": "国庆团圆日，海外学子的生活是怎样的？｜后浪聊天室",
-   "venue_en": "TechBeat (将门)",
+   "venue_en": "TechBeat (Jiangmen Ventures)",
    "venue_zh": "将门 TechBeat 人工智能社区",
    "url": "https://www.bilibili.com/video/BV1jL411G7HL/"
   }
@@ -1899,28 +2043,32 @@
    "src": "https://player.bilibili.com/player.html?isOutside=true&aid=114850344801356&bvid=BV1uguizREY3&cid=31030183754&p=1&autoplay=1",
    "title": "72小时AI生存挑战｜AI博士的极限72小时",
    "meta_en": "5Y Capital · documentary · 11:47",
-   "meta_zh": "五源资本 · 纪录片 · 11:47"
+   "meta_zh": "五源资本 · 纪录片 · 11:47",
+   "title_en": "72-Hour AI Survival Challenge | An AI PhD's 72 hours"
   },
   {
    "ref": "n2",
    "src": "https://player.bilibili.com/player.html?isOutside=true&aid=114919685031435&bvid=BV1728bzzEym&cid=31298225202&p=1&autoplay=1",
    "title": "我 迪拜王子 跟酋长握过手",
    "meta_en": "36Kr WAVES 2025 · stand-up · 8 min",
-   "meta_zh": "36氪 WAVES 2025 · 脱口秀 · 8 分钟"
+   "meta_zh": "36氪 WAVES 2025 · 脱口秀 · 8 分钟",
+   "title_en": "\"I, the Dubai Prince, have shaken hands with a sheikh\" — stand-up"
   },
   {
    "ref": "n6",
    "src": "https://player.bilibili.com/player.html?isOutside=true&aid=793300345&bvid=BV1zC4y1e7ab&cid=1396155520&p=1&autoplay=1",
    "title": "迪拜商业英才 李禹陈：浅谈中东2030愿景",
    "meta_en": "Next Capital · talk · 22 min",
-   "meta_zh": "嘉程资本 · 演讲 · 22 分钟"
+   "meta_zh": "嘉程资本 · 演讲 · 22 分钟",
+   "title_en": "Li Yuchen on the Middle East 2030 vision — opportunities for Chinese founders"
   },
   {
    "ref": "m14",
    "src": "https://player.bilibili.com/player.html?bvid=BV1jL411G7HL&page=1&high_quality=1&autoplay=1",
    "title": "国庆团圆日，海外学子的生活是怎样的？｜后浪聊天室",
    "meta_en": "TechBeat · video chat · 2021",
-   "meta_zh": "将门 TechBeat · 视频访谈 · 2021"
+   "meta_zh": "将门 TechBeat · 视频访谈 · 2021",
+   "title_en": "National Day: what is life like for students abroad? | Houlang Chat Room"
   }
  ]
 }

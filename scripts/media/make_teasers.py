@@ -1,7 +1,7 @@
 """Render looping teaser videos for liyc.pw (640x400, 24 fps, H.264).
 
 perceptio.mp4  real Perceptio outputs (RefCOCO masks, HardBlink depth) revealed by a decoding sweep
-dance.mp4      real pose→frame pairs from the dance paper figure, flipping on a 100 bpm beat
+dance.mp4      (legacy placeholder; the site now uses a real generated clip with its music track)
 pointnext.mp4  illustration: PointNet++/PointNeXt hierarchy (FPS 2048→512→128) then part segmentation
 compat.mp4     illustration: one chair, parts re-dressed with different material compositions
 """
@@ -307,7 +307,8 @@ def compat():
 
 
 if __name__ == '__main__':
-    which = sys.argv[2:] or ['perceptio', 'dance', 'pointnext', 'compat']
+    # dance.mp4 is now a real model output (with music); only re-render it explicitly.
+    which = sys.argv[2:] or ['perceptio', 'pointnext', 'compat']
     for k in which:
         globals()[k](); print('done', k)
     # posters (first frame users see before the video starts / with reduced motion)

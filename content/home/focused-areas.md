@@ -21,6 +21,7 @@ highlights = [
 [[focus_areas]]
 title = "Controllable Video and Motion Generation"
 media = "/media/teasers/dance.mp4"
+sound = true
 summary = "Studying controllable video synthesis through long-horizon pose diffusion conditioned on music and motion structure."
 highlights = [
   { name = "UCanDance", url = "", label = "Sony AI" },

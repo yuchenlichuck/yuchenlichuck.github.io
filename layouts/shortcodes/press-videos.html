@@ -4,12 +4,12 @@
 <div class="media-video-grid">
   {{- range $p.videos }}
   {{- $item := index (where $p.items "id" .ref) 0 }}
-  <div class="vfacade" data-src="{{ .src }}" data-title="{{ .title }}">
-    <button type="button" class="vfacade-btn" aria-label="{{ if $zh }}播放{{ else }}Play{{ end }}: {{ .title }}">
+  <div class="vfacade" data-src="{{ .src }}" data-title="{{ if $zh }}{{ .title }}{{ else }}{{ .title_en | default .title }}{{ end }}">
+    <button type="button" class="vfacade-btn" aria-label="{{ if $zh }}播放：{{ .title }}{{ else }}Play: {{ .title_en | default .title }}{{ end }}">
       <span class="vfacade-play" aria-hidden="true"></span>
       <span class="vfacade-text">
-        <span class="vfacade-meta">{{ if $zh }}{{ .meta_zh }}{{ else }}{{ .meta_en }}{{ end }}</span>
-        <span class="vfacade-title" lang="zh">{{ .title }}</span>
+        <span class="vfacade-meta">{{ if $zh }}{{ .meta_zh }}{{ else }}{{ .meta_en }} · in Chinese{{ end }}</span>
+        {{ if and (not $zh) .title_en }}<span class="vfacade-title">{{ .title_en }}</span>{{ else }}<span class="vfacade-title" lang="zh">{{ .title }}</span>{{ end }}
       </span>
     </button>
     <a class="vfacade-out" href="{{ $item.url }}" target="_blank" rel="noopener">Bilibili ↗</a>

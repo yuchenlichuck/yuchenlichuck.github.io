@@ -1,0 +1,59 @@
+{{- define "main" -}}
+{{- /* Blog index: research notes + personal notes (from notes/, see content/post/_content.gotmpl). */ -}}
+{{- $zh := eq site.Language.Lang "zh" -}}
+{{- $pages := where .Pages "Kind" "page" -}}
+{{- $cats := slice -}}
+{{- range $pages }}{{ range .Params.categories }}{{ $cats = $cats | append . }}{{ end }}{{ end -}}
+{{- $cats = $cats | uniq -}}
+<div class="universal-wrapper blog-index">
+  <header class="blog-head">
+    <h1>{{ .Title }}</h1>
+    {{ with .Params.subtitle }}<p class="blog-sub">{{ . | markdownify }}</p>{{ end }}
+    {{ if gt (len $cats) 1 }}
+    <div class="blog-filters" role="group" aria-label="{{ if $zh }}按类别筛选{{ else }}Filter by category{{ end }}">
+      <button type="button" class="blog-chip" data-cat="all" aria-pressed="true">{{ if $zh }}全部{{ else }}All{{ end }} <span>{{ len $pages }}</span></button>
+      {{ range $cats }}{{ $c := . }}
+      <button type="button" class="blog-chip" data-cat="{{ urlize $c }}" aria-pressed="false">{{ $c }} <span>{{ len (where $pages "Params.categories" "intersect" (slice $c)) }}</span></button>
+      {{ end }}
+    </div>
+    {{ end }}
+  </header>
+
+  <ol class="blog-list">
+    {{ range $pages.ByDate.Reverse }}
+    {{ $p := . }}
+    {{ $img := (.Resources.ByType "image").GetMatch "*featured*" }}
+    {{ $cat := index (.Params.categories | default (slice "")) 0 }}
+    <li class="blog-item" data-cat="{{ urlize $cat }}">
+      <a class="blog-card" href="{{ .RelPermalink }}">
+        <div class="blog-text">
+          <div class="blog-meta">
+            <time datetime="{{ .Date.Format "2006-01-02" }}">{{ if $zh }}{{ .Date.Format "2006 年 1 月 2 日" }}{{ else }}{{ .Date.Format "Jan 2, 2006" }}{{ end }}</time>
+            {{ with $cat }}<span class="blog-cat">{{ . }}</span>{{ end }}
+            <span>{{ if $zh }}{{ .ReadingTime }} 分钟阅读{{ else }}{{ .ReadingTime }} {{ i18n "minute_read" }}{{ end }}</span>
+            {{ partial "post_lang_note" (dict "page" $p "list" true) }}
+          </div>
+          <h2 class="blog-title">{{ .Title }}</h2>
+          <p class="blog-summary">{{ with .Params.summary }}{{ . | plainify }}{{ else }}{{ .Summary | plainify | truncate 180 }}{{ end }}</p>
+        </div>
+        {{ with $img }}{{ $t := .Fill "360x240 Center q82" }}
+        <img class="blog-thumb" src="{{ $t.RelPermalink }}" width="180" height="120" alt="" loading="lazy" decoding="async">
+        {{ end }}
+      </a>
+    </li>
+    {{ end }}
+  </ol>
+</div>
+<script>
+(function () {
+  var chips = document.querySelectorAll('.blog-chip'), items = document.querySelectorAll('.blog-item');
+  Array.prototype.forEach.call(chips, function (c) {
+    c.addEventListener('click', function () {
+      var cat = c.getAttribute('data-cat');
+      Array.prototype.forEach.call(chips, function (o) { o.setAttribute('aria-pressed', o === c ? 'true' : 'false'); });
+      Array.prototype.forEach.call(items, function (it) { it.hidden = !(cat === 'all' || it.getAttribute('data-cat') === cat); });
+    });
+  });
+})();
+</script>
+{{- end -}}

@@ -21,6 +21,7 @@ highlights = [
 [[focus_areas]]
 title = "可控视频与动作生成"
 media = "/media/teasers/dance.mp4"
+sound = true
 summary = "研究以音乐与动作结构为条件的长时序姿态扩散，实现可控视频生成。"
 highlights = [
   { name = "UCanDance", url = "", label = "Sony AI" },

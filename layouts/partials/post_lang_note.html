@@ -1,0 +1,13 @@
+{{- /* Marker when a post is not in the page's language: "In Chinese" / "Translated from Chinese" / "英文".
+       Called with a page, or with (dict "page" . "list" true) from the blog index. */ -}}
+{{- $p := . -}}{{- $inList := false -}}
+{{- if reflect.IsMap . }}{{ $p = .page }}{{ $inList = .list }}{{ end -}}
+{{- $zh := eq site.Language.Lang "zh" -}}
+{{- with $p.Params.translated_from -}}
+  {{- if and $inList (not $zh) (eq . "zh") }}<span class="lang-note">Translated from Chinese</span>{{ end -}}
+{{- else -}}
+  {{- with $p.Params.post_lang -}}
+    {{- if and (not $zh) (eq . "zh") }}<span class="lang-note">In Chinese</span>{{ end -}}
+    {{- if and $zh (eq . "en") }}<span class="lang-note">英文</span>{{ end -}}
+  {{- end -}}
+{{- end -}}

@@ -127,3 +127,33 @@ author = "admin"
     endLevel = 3
     ordered = false
     startLevel = 2
+
+# ---------------------------------------------------------------------------
+# Folders. Listing them here replaces Hugo's defaults, so all are re-declared.
+# `notes/` is the blog inbox: any Markdown file dropped there becomes a post
+# (content/post/_content.gotmpl turns them into pages; see notes/_HOW-TO.md).
+[module]
+  [[module.mounts]]
+    source = "content"
+    target = "content"
+  [[module.mounts]]
+    source = "static"
+    target = "static"
+  [[module.mounts]]
+    source = "layouts"
+    target = "layouts"
+  [[module.mounts]]
+    source = "data"
+    target = "data"
+  [[module.mounts]]
+    source = "assets"
+    target = "assets"
+  [[module.mounts]]
+    source = "i18n"
+    target = "i18n"
+  [[module.mounts]]
+    source = "archetypes"
+    target = "archetypes"
+  [[module.mounts]]
+    source = "notes"
+    target = "assets/notes"

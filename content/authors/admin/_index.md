@@ -60,7 +60,7 @@ interests:
   - item: UCanDance
     works: Music-driven long-horizon video generation / Sony AI
   - item: PointNeXt
-    works: <a target="_blank" href="https://arxiv.org/abs/2206.04670">NeurIPS</a>, 1,600+ citations
+    works: <a target="_blank" href="https://arxiv.org/abs/2206.04670">NeurIPS</a>, 1,650+ citations
   - item: 3D-CoMPaT
     works: <a target="_blank" href="https://www.ecva.net/papers/eccv_2022/papers_ECCV/html/3631_ECCV_2022_paper.php">ECCV Oral</a> / dataset
   - item: 3DCoMPaT++

@@ -1,0 +1,30 @@
+{{- define "main" -}}
+{{- /* Theme's single layout plus a language marker, a narrower reading column and prev/next links. */ -}}
+<article class="article post-article">
+
+  {{ partial "page_header" . }}
+
+  <div class="article-container">
+    {{ with partial "post_lang_note" . }}<div class="post-lang">{{ . }}</div>{{ end }}
+
+    <div class="article-style">
+      {{ .Content }}
+    </div>
+
+    {{ partial "tags" . }}
+
+    {{ partial "page_author" . }}
+
+    {{ $zh := eq site.Language.Lang "zh" }}
+    {{ with .CurrentSection.RegularPages.ByDate }}
+    {{ $prev := $.PrevInSection }}{{ $next := $.NextInSection }}
+    {{ if or $prev $next }}
+    <nav class="post-nav" aria-label="{{ if $zh }}更多文章{{ else }}More posts{{ end }}">
+      {{ with $next }}<a class="post-nav-link" href="{{ .RelPermalink }}"><span>{{ if $zh }}较早一篇{{ else }}Older{{ end }}</span>{{ .Title }}</a>{{ else }}<span></span>{{ end }}
+      {{ with $prev }}<a class="post-nav-link is-next" href="{{ .RelPermalink }}"><span>{{ if $zh }}较新一篇{{ else }}Newer{{ end }}</span>{{ .Title }}</a>{{ end }}
+    </nav>
+    {{ end }}
+    {{ end }}
+  </div>
+</article>
+{{- end -}}

@@ -249,8 +249,8 @@
       <p class="role" id="role"></p>
       <p class="bio" id="bio"></p>
       <div class="meta">
-        <span><b>Abu Dhabi, UAE</b> · 阿布扎比</span>
-        <span>@Dr_Yuchen · @yuchenlichuck · <b style="color:var(--gold)">迪拜王子</b> · 南小环</span>
+        <span><b>Abu Dhabi, UAE</b>{{ if eq .Lang "zh" }} · 阿布扎比{{ end }}</span>
+        <span>@Dr_Yuchen · @yuchenlichuck · {{ if eq .Lang "zh" }}<b style="color:var(--gold)">迪拜王子</b> · 南小环{{ else }}<b style="color:var(--gold)">Dubai Prince</b> (rednote) · Nanxiaohuan (Zhihu){{ end }}</span>
         <span id="email-wrap"><b id="email"></b> <button class="copy" type="button" id="copy-email" data-i18n="copy"></button></span>
       </div>
     </div>
@@ -327,20 +327,20 @@ document.getElementById("email").textContent = PROFILE.email_user + "@" + PROFIL
       filter_type: "Kind", filter_lang: "Language & search", search_ph: "Search titles, outlets, evidence…",
       method_h: "How each item was verified",
       method_p: "Only one Yuchen Li is indexed. A third-party item is marked Verified when its own text names 李禹陈 / Yuchen Li together with at least one identity anchor (or Yuchen confirmed it himself):",
-      anchors: ["MBZUAI PhD (Computer Vision, Metaverse Lab)", "KAUST M.Sc. / SUSTech–KAUST 3+2 joint programme", "SUSTech B.Sc. CS, class of 2017 (致仁书院)", "Hefei No. 8 High School, class of 2017", "Dubai Business Associates Year 8 (2022–23)", "Handles: @Dr_Yuchen, @yuchenlichuck, 迪拜王子 (rednote), 南小环 (Zhihu)", "Papers: PointNeXt, 3D CoMPaT, Perceptio"],
+      anchors: ["MBZUAI PhD (Computer Vision, Metaverse Lab)", "KAUST M.Sc. / SUSTech–KAUST 3+2 joint programme", "SUSTech B.Sc. CS, class of 2017 (Zhiren College)", "Hefei No. 8 High School, class of 2017", "Dubai Business Associates Year 8 (2022–23)", "Handles: @Dr_Yuchen, @yuchenlichuck, Dubai Prince (rednote), Nanxiaohuan (Zhihu)", "Papers: PointNeXt, 3D CoMPaT, Perceptio"],
       b_verified: "verified", b_self: "own account", b_pending: "pending",
       l_verified: "third-party source; explicit evidence quoted under the item",
       l_self: "published from one of his accounts",
-      all: "All", types: { news: "News & media", video: "Video", podcast: "Podcast", academic: "Papers & workshops", xhs: "小红书 notes", zhihu: "Zhihu answers", social: "X · LinkedIn · IG", campus: "SUSTech campus", school: "High school" },
+      all: "All", types: { news: "News & media", video: "Video", podcast: "Podcast", academic: "Papers & workshops", xhs: "rednote notes", zhihu: "Zhihu answers", social: "X · LinkedIn · IG", campus: "SUSTech campus", school: "High school" },
       sort_new: "Newest", sort_hot: "Most engaged", highlights: "Highlights", metrics: { likes: "likes", views: "views", votes: "upvotes", comments: "comments", saves: "saves", cites: "citations", stars: "stars", plays: "plays", impressions: "impressions" },
-      langs: { en: "English", zh: "中文" },
+      langs: { en: "English", zh: "Chinese" },
       stats: { items: "indexed items", third: "third-party mentions", sources: "outlets & platforms", span: "years covered", cites: "scholar citations", xhs: "rednote likes + saves" },
-      traj: [["2017–21","SUSTech","B.Sc. CS · 致仁书院"],["2020–22","KAUST","M.Sc. · Vision-CAIR"],["2022–23","Dubai Business Associates","Falcon · Emirates · DFF"],["2023–","MBZUAI","PhD · Metaverse Lab"],["2024","Sony AI","Research intern · Tokyo"],["2025","Amazon Science","Applied Scientist intern · Seattle"]],
+      traj: [["2017–21","SUSTech","B.Sc. CS · Zhiren College"],["2020–22","KAUST","M.Sc. · Vision-CAIR"],["2022–23","Dubai Business Associates","Falcon · Emirates · DFF"],["2023–","MBZUAI","PhD · Metaverse Lab"],["2024","Sony AI","Research intern · Tokyo"],["2025","Amazon Science","Applied Scientist intern · Seattle"]],
       evidence: "Evidence", empty: "Nothing matches this filter.",
       pending_h: "Awaiting Yuchen's confirmation", pending_p: "Found but not yet tied to an identity anchor.",
       pending_show: n => `Show ${n} unconfirmed candidate${n === 1 ? "" : "s"}`, pending_hide: "Hide unconfirmed candidates",
-      note1: "Compiled by hand from liyc.pw, Google Scholar, GitHub, LinkedIn, X, Instagram, arXiv, KAUST CEMSE, 36氪, 腾讯新闻, Bilibili, 喜马拉雅/小宇宙, 知乎, jiachengcap.com, sfiec.org.cn and WeChat public accounts (via 搜狗微信). Counts and follower numbers are as read on 30 Sep 2026.",
-      note2: "WeChat article links were captured through 搜狗微信 and can expire. If one stops opening, search the title on weixin.sogou.com or inside WeChat.",
+      note1: "Compiled by hand from liyc.pw, Google Scholar, GitHub, LinkedIn, X, Instagram, arXiv, KAUST CEMSE, 36Kr, Tencent News, Bilibili, Ximalaya/Xiaoyuzhou, Zhihu, jiachengcap.com, sfiec.org.cn and WeChat public accounts (via 搜狗微信). Counts and follower numbers are as read on 30 Sep 2026.",
+      note2: "WeChat article links were captured through Sogou WeChat search and can expire. If one stops opening, search the title on weixin.sogou.com or inside WeChat.",
       note3: "Not reachable during compilation: Zhihu profile (captcha), Xiaohongshu notes (login wall), OpenReview (bot check). LinkedIn post dates shown as “2yr / 3yr” on LinkedIn are approximate."
     },
     zh: {
@@ -379,7 +379,9 @@ document.getElementById("email").textContent = PROFILE.email_user + "@" + PROFIL
     instagram: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="12" cy="12" r="3.5"/><circle cx="17" cy="7" r="1" fill="currentColor"/></svg>',
     xhs: '<span class="zh">红</span>', zhihu: '<span class="zh">知</span>', kaust: '<span style="font-family:var(--display);font-weight:800">K</span>', rg: '<span style="font-family:var(--display);font-weight:800">RG</span>', or: '<span style="font-family:var(--display);font-weight:800">OR</span>'
   };
-  const PLAT = { arxiv: "arXiv", web: "Web", zhihu: "知乎", tencent: "腾讯新闻", bilibili: "Bilibili", "36kr": "36氪", ximalaya: "喜马拉雅", wechat: "微信公众号", x: "X", linkedin: "LinkedIn", instagram: "Instagram", xhs: "小红书" };
+  const PLAT_ZH = { arxiv: "arXiv", web: "Web", zhihu: "知乎", tencent: "腾讯新闻", bilibili: "Bilibili", "36kr": "36氪", ximalaya: "喜马拉雅", wechat: "微信公众号", x: "X", linkedin: "LinkedIn", instagram: "Instagram", xhs: "小红书" };
+  const PLAT_EN = { arxiv: "arXiv", web: "Web", zhihu: "Zhihu", tencent: "Tencent News", bilibili: "Bilibili", "36kr": "36Kr", ximalaya: "Ximalaya", wechat: "WeChat", x: "X", linkedin: "LinkedIn", instagram: "Instagram", xhs: "rednote" };
+  const PLAT = new Proxy({}, { get: (_, k) => (lang === "zh" ? PLAT_ZH : PLAT_EN)[k] });
   const TYPE_ORDER = ["news", "video", "podcast", "academic", "xhs", "zhihu", "social", "campus", "school"];
   const FEATURED = PRESS.featured;
   const ORDER = { likes: 1, views: 1, plays: 1, votes: 1, cites: 1 };
@@ -405,7 +407,7 @@ document.getElementById("email").textContent = PROFILE.email_user + "@" + PROFIL
     document.getElementById("accounts").innerHTML = ACCOUNTS.map(a => `
       <a class="acct" href="${esc(a.url)}" target="_blank" rel="noopener">
         ${glyph(a.key)}
-        <span style="min-width:0"><span class="nm">${esc(a.label)}</span><span class="hd">${esc(a.handle)}</span><div class="st">${esc(lang === "zh" ? a.stat_zh : a.stat_en)}</div></span>
+        <span style="min-width:0"><span class="nm">${esc((lang === "en" && a.label_en) || a.label)}</span><span class="hd">${esc((lang === "en" && a.handle_en) || a.handle)}</span><div class="st">${esc(lang === "zh" ? a.stat_zh : a.stat_en)}</div></span>
       </a>`).join("");
     const third = ITEMS.filter(i => i.status === "verified").length;
     const sources = new Set(ITEMS.map(i => i.outlet.split(" · ")[0])).size;
@@ -426,7 +428,7 @@ document.getElementById("email").textContent = PROFILE.email_user + "@" + PROFIL
       ["en", "zh"].map(k => `<button type="button" class="chip" data-lang="${k}" aria-pressed="${langFilter === k}">${esc(L[k])}<span class="c">${lc[k]}</span></button>`).join("");
     document.getElementById("sort-chips").innerHTML = ["new", "hot"].map(k => `<button type="button" class="chip" data-sort="${k}" aria-pressed="${sort === k}">${esc(t("sort_" + k))}</button>`).join("");
     document.getElementById("hl-title").textContent = t("highlights");
-    document.getElementById("hl").innerHTML = FEATURED.map(id => ITEMS.find(i => i.id === id)).filter(Boolean).map(i => `<a class="hl-card" href="${esc(i.url)}" target="_blank" rel="noopener"><span class="hl-meta">${esc(PLAT[i.plat] || i.plat)} · ${esc(i.date.slice(0, 4))}</span><span class="hl-t">${esc((lang === "zh" && i.title_zh) ? i.title_zh : i.title)}</span><span class="hl-m">${metricChips(i, true)}</span></a>`).join("");
+    document.getElementById("hl").innerHTML = FEATURED.map(id => ITEMS.find(i => i.id === id)).filter(Boolean).map(i => `<a class="hl-card" href="${esc(i.url)}" target="_blank" rel="noopener"><span class="hl-meta">${esc(PLAT[i.plat] || i.plat)} · ${esc(i.date.slice(0, 4))}</span><span class="hl-t">${esc(lang === "zh" ? (i.title_zh || i.title) : (i.title_en || i.title))}${(lang === "en" && i.lang === "zh") ? " (in Chinese)" : ""}</span><span class="hl-m">${metricChips(i, true)}</span></a>`).join("");
     const ps = document.getElementById("pending-section");
     ps.hidden = PENDING.length === 0;
     if (PENDING.length) {
@@ -442,20 +444,22 @@ document.getElementById("email").textContent = PROFILE.email_user + "@" + PROFIL
   }
   function card(i) {
     const T = t("types");
-    const title = (lang === "zh" && i.title_zh) ? i.title_zh : i.title;
+    const title = lang === "zh" ? (i.title_zh || i.title) : (i.title_en || i.title);
+    const outlet = (lang === "en" && i.outlet_en) ? i.outlet_en : i.outlet;
+    const orig = (lang === "en" && i.title_en) ? ` title="Original title: ${esc(i.title)}"` : "";
     const sum = lang === "zh" ? i.sum_zh : i.sum_en;
     const ev = lang === "zh" ? i.ev_zh : i.ev_en;
     const badge = `<span class="badge ${i.status}"><span class="dot"></span>${esc(t("b_" + i.status))}</span>`;
     const d = i.date;
-    const links = [{ l: lang === "zh" ? "打开" : "Open", u: i.url }].concat(i.links || []);
+    const links = [{ l: lang === "zh" ? "打开" : "Open", u: i.url }].concat((i.links || []).map(l => ({ l: (lang === "en" && l.l_en) ? l.l_en : l.l, u: l.u })));
     return `<article class="item" data-id="${esc(i.id)}">
       <div class="when"><span class="yr"${sort === "hot" ? ' style="display:inline"' : ""}>${d.slice(0, 4)}-</span>${d.slice(5)}</div>
       <div>
-        <div class="tags"><span class="tag plat">${esc(PLAT[i.plat] || i.plat)}</span><span class="tag">${esc(T[i.type] || i.type)}</span><span class="tag lang">${i.lang === "zh" ? "中文" : "EN"}</span>${badge}${metricChips(i)}</div>
-        <h3><a href="${esc(i.url)}" target="_blank" rel="noopener">${esc(title)}</a></h3>
-        <div class="outlet">${esc(i.outlet)}</div>
+        <div class="tags"><span class="tag plat">${esc(PLAT[i.plat] || i.plat)}</span><span class="tag">${esc(T[i.type] || i.type)}</span><span class="tag lang">${i.lang === "zh" ? (lang === "zh" ? "中文" : "In Chinese") : "EN"}</span>${badge}${metricChips(i)}</div>
+        <h3><a href="${esc(i.url)}" target="_blank" rel="noopener"${orig}>${esc(title)}</a></h3>
+        <div class="outlet">${esc(outlet)}</div>
         ${sum ? `<p class="sum">${esc(sum)}</p>` : ""}
-        <div class="ev"><span class="k">${esc(t("evidence"))}</span><span>${esc(ev)}</span></div>
+        <div class="ev"><span class="k">${esc(t("evidence"))}${(lang === "en" && i.lang === "zh") ? " · quoted in Chinese" : ""}</span><span>${esc(ev)}</span></div>
         <div class="links">${links.map(l => `<a href="${esc(l.u)}" target="_blank" rel="noopener">${esc(l.l)}</a>`).join("")}</div>
       </div>
     </article>`;
@@ -464,7 +468,7 @@ document.getElementById("email").textContent = PROFILE.email_user + "@" + PROFIL
   function renderStream() {
     const needle = q.trim().toLowerCase();
     const list = ITEMS.filter(i => (type === "all" || i.type === type) && (langFilter === "all" || i.lang === langFilter))
-      .filter(i => !needle || [i.title, i.title_zh, i.outlet, i.sum_en, i.sum_zh, i.ev_en, i.ev_zh].join(" ").toLowerCase().includes(needle))
+      .filter(i => !needle || [i.title, i.title_zh, i.title_en, i.outlet, i.outlet_en, i.sum_en, i.sum_zh, i.ev_en, i.ev_zh].join(" ").toLowerCase().includes(needle))
       .sort((a, b) => sort === "hot" ? (score(b) - score(a)) || b.date.localeCompare(a.date) : b.date.localeCompare(a.date));
     const el = document.getElementById("stream");
     if (!list.length) { el.innerHTML = `<div class="empty">${esc(t("empty"))}</div>`; return; }

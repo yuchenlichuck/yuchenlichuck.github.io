@@ -43,7 +43,7 @@
         {{ if $teaser }}
           {{/* Looping teaser (static/media/teasers/<name>.mp4 + .jpg poster). neural.js plays it only while on screen. */}}
           <a href="{{ $imgLink }}" target="_blank" rel="noopener" class="teaser-link">
-            <video class="article-banner teaser-video js-inview" muted loop playsinline webkit-playsinline preload="metadata"
+            <video class="article-banner teaser-video js-inview" muted loop playsinline webkit-playsinline preload="metadata"{{ if $item.Params.teaser_sound }} data-sound{{ end }}
                    width="640" height="400" poster="{{ replace $teaser ".mp4" ".jpg" | relURL }}" aria-label="{{ $item.Title }} teaser">
               <source src="{{ $teaser | relURL }}" type="video/mp4">
             </video>

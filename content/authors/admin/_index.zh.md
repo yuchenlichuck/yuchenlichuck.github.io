@@ -60,7 +60,7 @@ interests:
   - item: UCanDance
     works: 音乐驱动的长时序视频生成 / Sony AI
   - item: PointNeXt
-    works: <a target="_blank" href="https://arxiv.org/abs/2206.04670">NeurIPS</a>, 1,600+ 次引用
+    works: <a target="_blank" href="https://arxiv.org/abs/2206.04670">NeurIPS</a>, 1,650+ 次引用
   - item: 3D-CoMPaT
     works: <a target="_blank" href="https://www.ecva.net/papers/eccv_2022/papers_ECCV/html/3631_ECCV_2022_paper.php">ECCV 口头报告</a> / 数据集
   - item: 3DCoMPaT++

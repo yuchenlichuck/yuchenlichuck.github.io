@@ -1,14 +1,5 @@
 ---
-title: Posts
-
-# View.
-#   1 = List
-#   2 = Compact
-#   3 = Card
-view: 2
-
-# Optional header image (relative to `static/img/` folder).
-header:
-  caption: ""
-  image: ""
+title: Blog
+subtitle: Research notes, and the occasional thought from life between Abu Dhabi, China and wherever the next conference is.
+# Personal notes are written as plain Markdown files in the repo's notes/ folder — see notes/_HOW-TO.md.
 ---

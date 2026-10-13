@@ -9,7 +9,7 @@ active = true  # Activate this widget? true/false
 weight = 95  # Order that this section will appear.
 
 title = "News"
-subtitle = "Last updated: September 2026"
+subtitle = "Last updated: October 2026"
 
 [design]
   # Choose how many columns the section has. Valid values: 1 or 2.
@@ -46,6 +46,7 @@ subtitle = "Last updated: September 2026"
  # CSS class.
  css_class = "news-scroll"
 +++
+- *2026/10*: New blog post: [Heidelberg Laureate Forum — the hidden paradise I had been looking for](/post/notes/2026-10-13-heidelberg-laureate-forum/), a week with 200 young mathematicians and computer scientists and 20+ laureates.
 - *2026/10*: New [research note on Perceptio](/post/perceptio-spatial-tokens/): letting a VLM emit segmentation and depth tokens before it answers.
 - *2026/09*: Published a [verified bilingual index of all press, papers and social posts about me](/press/) — 85 items, each with quoted evidence ([blog post](/post/verified-press-index/)).
 - *2026/09*: Selected as a Young Researcher at the Heidelberg Laureate Forum (HLF) and awarded the Carl-Zeiss-Stiftung Abbe Grant (Top 3%) in Heidelberg, Germany.

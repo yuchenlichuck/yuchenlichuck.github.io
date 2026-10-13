@@ -15,7 +15,7 @@ image:
 projects: []
 ---
 
-**Paper:** [arXiv 2603.18795](https://arxiv.org/abs/2603.18795) · [Hugging Face](https://huggingface.co/papers/2603.18795) · [中文长文（知乎）](https://zhuanlan.zhihu.com/p/2035454055716233920)
+**Paper:** [arXiv 2603.18795](https://arxiv.org/abs/2603.18795) · [Hugging Face](https://huggingface.co/papers/2603.18795) · [Long-form write-up on Zhihu (in Chinese)](https://zhuanlan.zhihu.com/p/2035454055716233920)
 
 ## The problem
 

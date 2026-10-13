@@ -9,7 +9,7 @@ active = true  # Activate this widget? true/false
 weight = 95  # Order that this section will appear.
 
 title = "最新动态"
-subtitle = "更新于：2026 年 9 月"
+subtitle = "更新于：2026 年 10 月"
 
 [design]
   # Choose how many columns the section has. Valid values: 1 or 2.
@@ -46,6 +46,7 @@ subtitle = "更新于：2026 年 9 月"
  # CSS class.
  css_class = "news-scroll"
 +++
+- *2026/10*：新博客：[海德堡学者论坛：我一直在寻找的世外桃源](/zh/post/notes/2026-10-13-heidelberg-laureate-forum/)。
 - *2026/10*：新博客：[Perceptio 研究笔记](/zh/post/perceptio-spatial-tokens/)——让视觉语言模型先生成分割与深度 token 再作答。
 - *2026/09*：发布了[关于我的报道、论文与社交媒体的双语核实索引](/zh/press/)——85 条，每条附原文依据（[博客](/zh/post/verified-press-index/)）。
 - *2026/09*: 入选海德堡桂冠论坛（HLF）青年研究者，获 Carl-Zeiss-Stiftung Abbe Grant（前 3%），德国海德堡。

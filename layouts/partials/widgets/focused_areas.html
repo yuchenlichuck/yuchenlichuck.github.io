@@ -14,7 +14,7 @@
           {{ with $area.media }}
           {{/* Looping teaser on top of the card; poster is the same file name with .jpg. */}}
           <div class="focus-area-media">
-            <video class="js-inview" muted loop playsinline webkit-playsinline preload="metadata" width="640" height="400"
+            <video class="js-inview" muted loop playsinline webkit-playsinline preload="metadata" width="640" height="400"{{ if $area.sound }} data-sound{{ end }}
                    poster="{{ replace . ".mp4" ".jpg" | relURL }}" aria-hidden="true">
               <source src="{{ . | relURL }}" type="video/mp4">
             </video>

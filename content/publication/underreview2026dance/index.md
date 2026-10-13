@@ -18,6 +18,7 @@ math = false
 
 # Looping teaser shown on the homepage card (plays while on screen); poster = same name .jpg
 teaser_video = "/media/teasers/dance.mp4"
+teaser_sound = true   # the clip has its music track: show an unmute button
 
 [image]
   focal_point = "Center"
