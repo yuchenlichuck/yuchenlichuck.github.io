@@ -16,6 +16,9 @@ slides = ""
 tags = ["Video Generation", "Dance Generation", "Diffusion Models", "Pose"]
 math = false
 
+# Looping teaser shown on the homepage card (plays while on screen); poster = same name .jpg
+teaser_video = "/media/teasers/dance.mp4"
+
 [image]
   focal_point = "Center"
   placement = 2

@@ -25,8 +25,9 @@
   <div class="row align-items-center">
     {{ $imageResource := ($item.Resources.ByType "image").GetMatch "*featured*" }}
     {{ $videoResource := ($item.Resources.ByType "video").GetMatch "*featured*" }}
+    {{ $teaser := $item.Params.teaser_video }}
     <div class="col-12 col-lg-3">
-      {{ if or $imageResource $videoResource }}
+      {{ if or $imageResource $videoResource $teaser }}
       {{ $imgLink := $item.RelPermalink }}
       {{ if $item.Params.url_project }}
         {{ $imgLink = $item.Params.url_project }}
@@ -39,7 +40,15 @@
         {{ $thumb = $imageResource.Resize "640x webp q82" }}
       {{ end }}
       <div class="publication-image-container">
-        {{ if $videoResource }}
+        {{ if $teaser }}
+          {{/* Looping teaser (static/media/teasers/<name>.mp4 + .jpg poster). neural.js plays it only while on screen. */}}
+          <a href="{{ $imgLink }}" target="_blank" rel="noopener" class="teaser-link">
+            <video class="article-banner teaser-video js-inview" muted loop playsinline webkit-playsinline preload="metadata"
+                   width="640" height="400" poster="{{ replace $teaser ".mp4" ".jpg" | relURL }}" aria-label="{{ $item.Title }} teaser">
+              <source src="{{ $teaser | relURL }}" type="video/mp4">
+            </video>
+          </a>
+        {{ else if $videoResource }}
           <a href="{{ $imgLink }}" target="_blank" rel="noopener">
             {{ if $imageResource }}
             {{/* Show image placeholder first if available */}}

@@ -12,6 +12,8 @@
 {{ $person_page := site.GetPage $person_page_path }}
 {{ $person := $person_page.Params }}
 {{ $avatar := ($person_page.Resources.ByType "image").GetMatch "*avatar*" }}
+{{ $portrait := $person_page.Resources.GetMatch "portrait.jpg" }}
+{{ $depth := $person_page.Resources.GetMatch "portrait-depth.png" }}
 
 <!-- About widget -->
 <div class="row justify-content-center" >
@@ -20,6 +22,11 @@
 
       {{ if site.Params.gravatar }}
       <img class="portrait" src="https://s.gravatar.com/avatar/{{ md5 $person.email }}?s=200')" alt="{{ $person.name }}">
+      {{ else if $portrait }}
+      {{/* portrait.jpg is a face-centred square crop; portrait-depth.png is its monocular depth map
+           (Depth Anything V2), which neural.js uses to lift the photo into a 3D point cloud. */}}
+      {{ $p := $portrait.Fill "440x440 Center q90" }}
+      <img class="portrait" src="{{ $p.RelPermalink }}" width="220" height="220" alt="{{ $person.name }}"{{ with $depth }} data-depth="{{ .RelPermalink }}"{{ end }}>
       {{ else if $avatar }}
       {{ $avatar_image := $avatar.Fill "250x250 Center" }}
       <img class="portrait" src="{{ $avatar_image.RelPermalink }}" alt="{{ $person.name }}">

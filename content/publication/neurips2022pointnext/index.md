@@ -18,6 +18,9 @@ url_preprint = "https://arxiv.org/abs/2206.04670"
 url_code = "https://github.com/guochengqian/pointnext"
 math = false
 
+# Looping teaser shown on the homepage card (plays while on screen); poster = same name .jpg
+teaser_video = "/media/teasers/pointnext.mp4"
+
 [image]
   focal_point = "Center"
   placement = 2

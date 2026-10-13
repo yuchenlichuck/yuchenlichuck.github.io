@@ -127,17 +127,16 @@ body.theme-claude .article-summary-text, body.theme-claude .blank-content p { te
 body.theme-claude #profile, body.theme-claude.dark #profile {
   background: var(--n-surface-2) !important; border: 1px solid var(--n-line) !important; border-radius: 16px !important; box-shadow: none !important;
 }
-/* portrait point cloud (neural.js wraps the img) */
-body.theme-claude .pc-wrap { position: relative; width: 190px; height: 190px; margin: 0 auto; border-radius: 50%; cursor: pointer; }
-body.theme-claude .pc-wrap canvas { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 50%; }
-body.theme-claude .pc-wrap .portrait { position: absolute; inset: 0; margin: 0; opacity: 0; transition: opacity .45s ease; }
-body.theme-claude .pc-wrap.show-photo .portrait { opacity: 1; }
-body.theme-claude .pc-wrap.show-photo canvas { opacity: 0; }
-body.theme-claude .pc-wrap canvas { transition: opacity .45s ease; }
-body.theme-claude .pc-cap { display: block; margin: 8px auto 0; text-align: center; font-family: var(--n-mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--n-muted); }
+/* portrait: photo → colour point cloud (neural.js wraps the img and adds a canvas underneath) */
 body.theme-claude .portrait, body.theme-claude.dark .portrait {
-  width: 190px; height: 190px; border: 1px solid var(--n-line) !important; box-shadow: none !important;
+  width: 220px; height: 220px; object-fit: cover; border: 1px solid var(--n-line) !important; box-shadow: none !important;
 }
+body.theme-claude .pc-wrap { position: relative; width: 220px; height: 220px; margin: 0 auto; border-radius: 50%; cursor: pointer; outline: none; }
+body.theme-claude .pc-wrap:focus-visible { box-shadow: 0 0 0 3px rgba(11,127,120,.35); }
+body.theme-claude .pc-wrap canvas { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 50%; overflow: hidden; }
+body.theme-claude .pc-wrap .portrait { position: absolute; inset: 0; margin: 0; z-index: 1; opacity: 0; transition: opacity .9s ease; pointer-events: none; }
+body.theme-claude .pc-wrap.is-photo .portrait { opacity: 1; transition-duration: .6s; }
+body.theme-claude .pc-cap { display: block; margin: 8px auto 0; text-align: center; font-family: var(--n-mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--n-muted); min-height: 1.2em; }
 body.theme-claude .portrait-title h2 { font-size: 1.75rem !important; margin-top: 1rem; }
 body.theme-claude .portrait-title h3 { font-family: "Noto Sans SC", var(--n-serif) !important; color: var(--n-accent) !important; font-weight: 600; letter-spacing: .04em; }
 body.theme-claude .portrait-title h4, body.theme-claude .portrait-title h4 a { color: var(--n-muted-strong) !important; font-family: var(--n-body) !important; font-weight: 500; }
@@ -305,3 +304,16 @@ body.theme-claude .ph-source a { color: inherit; text-decoration: underline; tex
 /* visitor map, now a small footer element on the home page */
 body.theme-claude .footer-map { display: flex; justify-content: center; margin: 0 auto 1rem; max-width: 300px; opacity: .85; }
 body.theme-claude .footer-map img, body.theme-claude .footer-map canvas, body.theme-claude .footer-map iframe { max-width: 100% !important; height: auto !important; border-radius: 8px; }
+
+/* ---------- looping teaser videos (publication cards + research cards) ---------- */
+body.theme-claude .teaser-video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; }
+body.theme-claude .teaser-link { display: block; }
+body.theme-claude .focus-area-media {
+  margin: .15rem 0 .1rem; border-radius: 10px; overflow: hidden; aspect-ratio: 16 / 10;
+  border: 1px solid var(--n-line); background: var(--n-surface-2);
+}
+body.theme-claude .focus-area-media video { display: block; width: 100%; height: 100%; object-fit: cover; }
+@media (min-width: 992px) {   /* four research cards share the row instead of scrolling sideways */
+  body.theme-claude .focused-areas-track { width: 100%; gap: 1rem; }
+  body.theme-claude .focus-area-card.has-media { flex: 1 1 0; width: auto; min-width: 0; }
+}

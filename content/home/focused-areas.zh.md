@@ -11,6 +11,7 @@ css_class = "focused-areas-section"
 
 [[focus_areas]]
 title = "空间多模态视觉语言模型"
+media = "/media/teasers/perceptio.mp4"
 summary = "开发感知增强的视觉语言模型，通过生成空间 token 理解复杂的二维与三维空间。"
 highlights = [
   { name = "Perceptio", url = "https://liyc.pw/Perceptio/", label = "Amazon Science" },
@@ -19,6 +20,7 @@ highlights = [
 
 [[focus_areas]]
 title = "可控视频与动作生成"
+media = "/media/teasers/dance.mp4"
 summary = "研究以音乐与动作结构为条件的长时序姿态扩散，实现可控视频生成。"
 highlights = [
   { name = "UCanDance", url = "", label = "Sony AI" },
@@ -27,6 +29,7 @@ highlights = [
 
 [[focus_areas]]
 title = "可扩展的三维感知"
+media = "/media/teasers/pointnext.mp4"
 summary = "构建可扩展的点云网络与训练策略，实现稳健的三维物体理解和识别。"
 highlights = [
   { name = "PointNeXt", url = "https://arxiv.org/abs/2206.04670", label = "NeurIPS 2022" },
@@ -35,6 +38,7 @@ highlights = [
 
 [[focus_areas]]
 title = "组合式三维内容与数据集"
+media = "/media/teasers/compat.mp4"
 summary = "构建组合式三维数据集与资产，支持材质、部件和物体层面的内容生成与识别。"
 highlights = [
   { name = "3D-CoMPaT", url = "https://www.ecva.net/papers/eccv_2022/papers_ECCV/html/3631_ECCV_2022_paper.php", label = "ECCV 口头报告" },

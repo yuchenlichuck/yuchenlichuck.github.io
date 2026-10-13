@@ -18,6 +18,9 @@ url_preprint = "https://www.ecva.net/papers/eccv_2022/papers_ECCV/html/3631_ECCV
 url_code = "https://github.com/Vision-CAIR/3DCoMPaT"
 math = false
 
+# Looping teaser shown on the homepage card (plays while on screen); poster = same name .jpg
+teaser_video = "/media/teasers/compat.mp4"
+
 [image]
   focal_point = "Center"
   placement = 2

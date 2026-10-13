@@ -18,6 +18,9 @@ url_preprint = "https://arxiv.org/abs/2603.18795"
 url_project = "https://liyc.pw/Perceptio/"
 math = false
 
+# Looping teaser shown on the homepage card (plays while on screen); poster = same name .jpg
+teaser_video = "/media/teasers/perceptio.mp4"
+
 [image]
   focal_point = "Center"
   placement = 2
