@@ -73,6 +73,31 @@
     }
   }
 
+  // ---- teasers with a music track get a small unmute button (videos always start muted) ----
+  Array.prototype.forEach.call(document.querySelectorAll('video[data-sound]'), function (v) {
+    var box = v.closest('.publication-image-container, .focus-area-media') || v.parentNode;
+    var zhs = (document.documentElement.lang || '').indexOf('zh') === 0;
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'teaser-sound';
+    var set = function () {
+      b.setAttribute('aria-label', v.muted ? (zhs ? '打开声音' : 'Play with sound') : (zhs ? '静音' : 'Mute'));
+      b.innerHTML = v.muted ? '<i class="fas fa-volume-mute" aria-hidden="true"></i><span>' + (zhs ? '声音' : 'Sound') + '</span>'
+                            : '<i class="fas fa-volume-up" aria-hidden="true"></i><span>' + (zhs ? '静音' : 'Mute') + '</span>';
+    };
+    b.addEventListener('click', function (e) {
+      e.preventDefault(); e.stopPropagation();
+      var turnOn = v.muted;
+      // only one teaser plays sound at a time
+      Array.prototype.forEach.call(document.querySelectorAll('video[data-sound]'), function (o) { if (o !== v && !o.muted) { o.muted = true; o.dispatchEvent(new Event('volumechange')); } });
+      v.muted = !turnOn;
+      if (turnOn) { v.currentTime = 0; var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); }
+      set();
+    });
+    v.addEventListener('volumechange', set);
+    set();
+    box.appendChild(b);
+  });
+
   // ---- portrait: photo first, then it lifts into a beating 3D point cloud ----
   // Each point keeps the colour of its pixel in the photo; depth comes from a monocular
   // depth map (Depth Anything V2) shipped next to the photo. Timeline:
