@@ -243,7 +243,10 @@
     t0 = performance.now();
     wrap.classList.add('pc-on');
     kick();
-    setTimeout(toCloud, 1600);
+    // if the homepage intro is playing, start the photo → cloud morph only after it closes
+    var go = function () { setTimeout(toCloud, 1600); };
+    if (document.documentElement.classList.contains('intro-on')) document.addEventListener('liyc:intro-done', go, { once: true });
+    else go();
   }
 
   var ready = (img.complete && img.naturalWidth) ? Promise.resolve() : new Promise(function (r) { img.addEventListener('load', r); });
