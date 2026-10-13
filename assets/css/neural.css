@@ -387,7 +387,7 @@ body.theme-claude ul.network-icon img { width: 1.5em !important; height: 1.5em !
 /* Bilibili covers on the video cards */
 body.theme-claude .vfacade-cover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
 body.theme-claude .vfacade.has-cover:hover .vfacade-cover { transform: scale(1.035); }
-body.theme-claude .vfacade.has-cover .vfacade-btn { background: linear-gradient(180deg, rgba(10,16,22,0) 35%, rgba(10,16,22,.82) 100%); }
+body.theme-claude .vfacade.has-cover .vfacade-btn { background: linear-gradient(180deg, rgba(10,16,22,0) 22%, rgba(10,16,22,.55) 55%, rgba(10,16,22,.92) 100%); }
 body.theme-claude .vfacade.has-cover .vfacade-title { color: #fff; text-shadow: 0 1px 8px rgba(0,0,0,.35); }
 body.theme-claude .vfacade.has-cover .vfacade-meta { color: #8ff3e6; }
 body.theme-claude .vfacade.has-cover .vfacade-play { top: 40%; background: rgba(255,255,255,.92); box-shadow: 0 6px 24px rgba(0,0,0,.25); }
