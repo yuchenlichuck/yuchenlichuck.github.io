@@ -4,7 +4,11 @@
 <div class="media-video-grid">
   {{- range $p.videos }}
   {{- $item := index (where $p.items "id" .ref) 0 }}
-  <div class="vfacade" data-src="{{ .src }}" data-title="{{ if $zh }}{{ .title }}{{ else }}{{ .title_en | default .title }}{{ end }}">
+  <div class="vfacade{{ if .cover }} has-cover{{ end }}" data-src="{{ .src }}" data-title="{{ if $zh }}{{ .title }}{{ else }}{{ .title_en | default .title }}{{ end }}">
+    {{- with .cover }}
+    {{- /* Bilibili cover, hot-linked without a referrer; if it ever fails the card falls back to the plain style. */}}
+    <img class="vfacade-cover" src="{{ . }}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.parentNode.classList.remove('has-cover');this.remove()">
+    {{- end }}
     <button type="button" class="vfacade-btn" aria-label="{{ if $zh }}播放：{{ .title }}{{ else }}Play: {{ .title_en | default .title }}{{ end }}">
       <span class="vfacade-play" aria-hidden="true"></span>
       <span class="vfacade-text">

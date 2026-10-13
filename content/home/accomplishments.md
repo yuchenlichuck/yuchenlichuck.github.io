@@ -44,7 +44,7 @@ subtitle = ""
  css_style = ""
  
  # CSS class.
- css_class = ""
+ css_class = "timeline-list"
 +++
 - *2026/09*: HLF Young Researcher & Carl-Zeiss-Stiftung Abbe Grant (Top 3%), Heidelberg Laureate Forum & Carl-Zeiss-Stiftung, Heidelberg, Germany.
 - *2023/06*: Organizer, CVPR Workshop on Compositional 3D Vision and 3D-CoMPaT Challenge.

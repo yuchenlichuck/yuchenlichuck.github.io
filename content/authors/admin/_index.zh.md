@@ -11,6 +11,9 @@ namecn: Yuchen Li
 # Is this the primary user of the site?
 superuser: true
 
+# One-line research statement shown above the bio on the homepage.
+tagline: "让模型看懂三维世界，也让它动起来。"
+
 # Role/position
 role: 计算机视觉博士生
 

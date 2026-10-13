@@ -44,7 +44,7 @@ subtitle = ""
  css_style = ""
  
  # CSS class.
- css_class = ""
+ css_class = "timeline-list"
 +++
 - *2026/09*: 入选海德堡桂冠论坛（HLF）青年研究者，获 Carl-Zeiss-Stiftung Abbe Grant（前 3%），德国海德堡。
 - *2023/06*: CVPR 组合式三维视觉研讨会暨 3D-CoMPaT 挑战赛组织者。

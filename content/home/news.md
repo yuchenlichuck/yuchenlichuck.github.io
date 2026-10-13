@@ -6,7 +6,7 @@
 widget = "blank"  # See https://sourcethemes.com/academic/docs/page-builder/
 headless = false  # This file represents a page section.
 active = true  # Activate this widget? true/false
-weight = 95  # Order that this section will appear.
+weight = 25  # Right after Research: recent news near the top.
 
 title = "News"
 subtitle = "Last updated: October 2026"

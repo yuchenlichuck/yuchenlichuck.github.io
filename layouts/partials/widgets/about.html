@@ -103,6 +103,7 @@
     {{/* Only display widget title in explicit instances of about widget, not in author pages. */}}
     {{ if and $page.Params.widget $page.Title }}<h1>{{ $page.Title | markdownify | emojify }}</h1>{{ end }}
 
+    {{ with $person.tagline }}<p class="profile-tagline">{{ . | markdownify }}</p>{{ end }}
     <div class="profile-biography">{{ $person_page.Content }}</div>
 
     {{ with $person.highlights }}
