@@ -18,6 +18,9 @@ url_preprint = "https://arxiv.org/abs/2310.18511"
 url_code = "https://github.com/Vision-CAIR/3DCoMPaT-v2"
 math = false
 
+# Looping teaser shown on the homepage card (plays while on screen); poster = same name .jpg
+teaser_video = "/media/teasers/compatpp.mp4"
+
 [image]
   focal_point = "Center"
   placement = 2

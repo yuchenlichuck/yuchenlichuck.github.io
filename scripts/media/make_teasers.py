@@ -2,6 +2,8 @@
 
 perceptio.mp4  real Perceptio outputs (RefCOCO masks, HardBlink depth) revealed by a decoding sweep
 dance.mp4      (legacy placeholder; the site now uses a real generated clip with its music track)
+fewshot.mp4    illustration of Prototypical Random Walks (AAAI-21 workshop paper)
+compatpp.mp4   the official 3DCoMPaT++ header animation, re-encoded
 pointnext.mp4  illustration: PointNet++/PointNeXt hierarchy (FPS 2048→512→128) then part segmentation
 compat.mp4     illustration: one chair, parts re-dressed with different material compositions
 """
@@ -304,6 +306,121 @@ def compat():
         d.text((22, 56), txt, font=F_MONO, fill=(70, 84, 100))
         w.send(fr.tobytes())
     w.close()
+
+
+
+# ---------------------------------------------------------------- Prototypical Random Walks (illustration)
+def fewshot():
+    """Animated version of the PRW figure: prototypes → random walk over unlabeled points → back
+    to a prototype, then the embedding 'magnetizes' into compact class clusters."""
+    rng = np.random.default_rng(5)
+    COL = [(232, 93, 93), (86, 140, 230), (92, 184, 104)]          # red / blue / green classes
+    LIGHT = [(246, 170, 170), (176, 206, 246), (178, 226, 182)]
+    GREY = (176, 182, 190)
+    centers = np.array([[210, 255], [440, 150], [470, 300]], float)
+    pts, lab, labeled = [], [], []
+    for c in range(3):
+        for k in range(13):
+            pts.append(centers[c] + rng.normal(0, 1, 2) * [78, 58]); lab.append(c); labeled.append(k < 2)
+    P0 = np.array(pts); lab = np.array(lab); labeled = np.array(labeled)
+    P0[:, 0] = P0[:, 0].clip(40, 600); P0[:, 1] = P0[:, 1].clip(80, 370)
+    P1 = centers[lab] + rng.normal(0, 1, (len(lab), 2)) * 17       # magnetized positions
+    proto0 = np.array([P0[(lab == c) & labeled].mean(0) for c in range(3)])
+    unl = np.where(~labeled)[0]
+    # one walk: red prototype → unlabeled h (near red) → τ=3 hops → back to the red prototype
+    d0 = np.linalg.norm(P0[unl] - proto0[0], axis=1)
+    near = unl[np.argsort(d0)]
+    walk = [near[2]]
+    for _ in range(3):
+        cur = walk[-1]
+        cand = [j for j in unl[np.argsort(np.linalg.norm(P0[unl] - P0[cur], axis=1))][1:5] if j not in walk]
+        walk.append(cand[int(rng.integers(0, min(2, len(cand))))])
+    # kNN graph among unlabeled points (for the x→x stage)
+    edges = set()
+    for i in unl:
+        for j in unl[np.argsort(np.linalg.norm(P0[unl] - P0[i], axis=1))][1:4]:
+            edges.add(tuple(sorted((int(i), int(j)))))
+    dur = 10.0; n = int(dur * FPS); w = writer('fewshot', n, crf=26)
+    stages = [(0, 'few labels + many unlabeled'), (1.5, 'prototype → unlabeled points'), (3.4, 'random walk, τ steps'),
+              (5.2, 'walk back to a prototype'), (6.4, 'embeddings magnetize')]
+    for f in range(n):
+        t = f / FPS
+        m = ease((t - 6.4) / 1.8) * (1 - ease((t - 9.3) / 0.7))          # magnetization amount (loops back)
+        P = P0 * (1 - m) + P1 * m
+        protos = np.array([P[(lab == c) & labeled].mean(0) for c in range(3)])
+        protos = protos * (1 - m) + centers * m
+        im = Image.new('RGB', (W * 2, H * 2), BG); d = ImageDraw.Draw(im)
+        S = 2
+        def L(a, b, col, wdt=1, dash=False):
+            (x0, y0), (x1, y1) = a * S, b * S
+            if not dash:
+                d.line((x0, y0, x1, y1), fill=col, width=wdt * S); return
+            nseg = int(np.hypot(x1 - x0, y1 - y0) / 14)
+            for k in range(0, max(nseg, 1), 2):
+                u0, u1 = k / max(nseg, 1), min(1, (k + 1) / max(nseg, 1))
+                d.line((x0 + (x1 - x0) * u0, y0 + (y1 - y0) * u0, x0 + (x1 - x0) * u1, y0 + (y1 - y0) * u1), fill=col, width=wdt * S)
+        def blend(c, a):
+            return tuple(int(BG[i] + (c[i] - BG[i]) * a) for i in range(3))
+        # stage 2: transition probabilities prototype → points (fan of lines from the red prototype)
+        a2 = ease((t - 1.5) / 0.4) * (1 - ease((t - 3.4) / 0.4))
+        if a2 > 0:
+            dist = np.linalg.norm(P[unl] - protos[0], axis=1); pr = np.exp(-dist / 60); pr /= pr.max()
+            for j, q in zip(unl, pr):
+                L(protos[0], P[j], blend((120, 128, 138), a2 * (0.25 + 0.75 * q)), 1, dash=q < 0.35)
+        # stage 3: kNN graph between unlabeled points
+        a3 = ease((t - 3.4) / 0.4) * (1 - ease((t - 5.2) / 0.5))
+        if a3 > 0:
+            for i, j in edges:
+                L(P[i], P[j], blend((150, 158, 168), a3 * 0.8), 1)
+        # walker path so far
+        path = [protos[0]] + [P[k] for k in walk] + [protos[0]]
+        times = [1.9, 2.8, 3.8, 4.3, 4.8, 5.6]                       # arrival time at each node
+        if 1.9 < t < 6.6:
+            fade = 1 - ease((t - 6.2) / 0.4)
+            for k in range(1, len(path)):
+                if t >= times[k - 1]:
+                    u = min(1, (t - times[k - 1]) / (times[k] - times[k - 1] if k < len(times) else 0.6))
+                    end = path[k - 1] + (path[k] - path[k - 1]) * ease(u)
+                    L(path[k - 1], end, blend(ACC, fade), 3)
+                    if u < 1:
+                        x, y = end * S; r = 7 * S
+                        d.ellipse((x - r, y - r, x + r, y + r), fill=blend(ACC, fade))
+        # points
+        tint = ease((t - 6.6) / 1.2) * (1 - ease((t - 9.3) / 0.7))
+        for i in range(len(P)):
+            x, y = P[i] * S; r = 9 * S
+            if labeled[i]: c = LIGHT[lab[i]]
+            else: c = tuple(int(GREY[k] + (LIGHT[lab[i]][k] - GREY[k]) * tint * 0.8) for k in range(3))
+            d.ellipse((x - r, y - r, x + r, y + r), fill=c)
+        # h_i marker on the first visited point
+        if 1.9 < t < 6.0:
+            x, y = P[walk[0]] * S; r = 12 * S
+            d.ellipse((x - r, y - r, x + r, y + r), outline=(60, 68, 80), width=2 * S)
+            d.text((x + 14 * S, y - 26 * S), 'h', font=ImageFont.truetype('DejaVuSans-Oblique.ttf', 17 * S) if os.path.exists('/usr/share/fonts/truetype/dejavu/DejaVuSans-Oblique.ttf') else F_MONO, fill=(60, 68, 80))
+        # prototypes
+        pa = ease((t - 0.6) / 0.6) if t < 9.3 else 1
+        for c in range(3 if pa > 0.05 else 0):
+            x, y = protos[c] * S; r = 13 * S
+            d.ellipse((x - r, y - r, x + r, y + r), fill=blend(COL[c], pa), outline=blend((20, 24, 30), pa), width=3 * S)
+        # landing check: walker returns to its own prototype
+        if 5.6 < t < 6.6:
+            a = ease((t - 5.6) / 0.25) * (1 - ease((t - 6.3) / 0.3))
+            x, y = protos[0] * S; r = 24 * S
+            d.ellipse((x - r, y - r, x + r, y + r), outline=blend(ACC, a), width=3 * S)
+        fr = im.resize((W, H), Image.LANCZOS); dd = ImageDraw.Draw(fr)
+        cur = [s for s in stages if t >= s[0]][-1][1]
+        chip(dd, (18, 16), 'PRW', bg=INK)
+        chip(dd, (82, 16), cur)
+        w.send(fr.tobytes())
+    w.close()
+
+
+def compatpp(src=os.environ.get('COMPATPP_GIF', '../3DCoMPaT-v2/img/header_gif.gif')):
+    """The official animated header of the 3DCoMPaT++ repo (BSD-3, Vision-CAIR / KAUST), re-encoded
+    to a 640x400 H.264 loop: github.com/Vision-CAIR/3DCoMPaT-v2/blob/main/img/header_gif.gif"""
+    ff = imageio_ffmpeg.get_ffmpeg_exe()
+    os.system(f'"{ff}" -loglevel error -y -i "{src}" -vf "crop=600:375:0:37,scale=640:400:flags=lanczos,fps=25" '
+              f'-c:v libx264 -crf 26 -preset slow -pix_fmt yuv420p -movflags +faststart -an {OUT}/compatpp.mp4')
 
 
 if __name__ == '__main__':
