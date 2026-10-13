@@ -27,6 +27,7 @@
     <a href="https://www.linkedin.com/in/liyc" target="_blank" rel="noopener">LinkedIn</a>
     <a href="https://x.com/Dr_Yuchen" target="_blank" rel="noopener">X</a>
     <a href="{{ "post/index.xml" | relLangURL }}">RSS</a>
+    {{ if .IsHome }}<a href="?intro=1">{{ if $zh }}重播开场{{ else }}Replay intro{{ end }}</a>{{ end }}
   </nav>
 
   <p class="powered-by">

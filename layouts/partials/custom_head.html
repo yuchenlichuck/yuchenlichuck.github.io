@@ -4,3 +4,37 @@
 <script data-goatcounter="https://{{ . }}.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 {{ end }}
 {{ end }}
+
+{{/* Homepage intro ("the story so far"), driven by data/intro.yaml and static/js/intro.js.
+     Plays for first-time visitors (then at most once a week), never for bots, under reduced
+     motion, or when the URL has a #section. ?intro=1 forces it, ?intro=0 suppresses it. */}}
+{{ if and .IsHome hugo.Data.intro }}
+{{ $zh := eq .Lang "zh" }}
+{{ $author := (site.GetPage "/authors/admin").Params }}
+{{ $steps := slice }}
+{{ range hugo.Data.intro.steps }}
+  {{ $logo := "" }}{{ with .logo }}{{ $logo = printf "img/logo/%s" . | relURL }}{{ end }}
+  {{ $media := .media | default "" }}{{ if and $media (not (hasPrefix $media "http")) }}{{ $media = $media | relURL }}{{ end }}
+  {{ $poster := .poster | default "" }}{{ with $poster }}{{ $poster = . | relURL }}{{ end }}
+  {{ $steps = $steps | append (dict "year" .year "label" (cond $zh (.zh | default .en) .en) "media" $media "poster" $poster "logo" $logo) }}
+{{ end }}
+<script id="intro-data" type="application/json">{{ dict "steps" $steps "name" (cond $zh (printf "%s · %s" $author.namecn $author.name) $author.name) "tagline" ($author.tagline | default "") "lang" .Lang | jsonify | safeJS }}</script>
+<style>html.intro-on{overflow:hidden}html.intro-on::before{content:"";position:fixed;inset:0;background:#0a0f14;z-index:2147483000}</style>
+<script>
+(function () {
+  try {
+    var d = document.documentElement, q = location.search;
+    if (/[?&]intro=0/.test(q)) return;
+    var force = /[?&]intro=1/.test(q);
+    var calm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var bot = navigator.webdriver || /bot|crawl|spider|slurp|lighthouse|headless|preview|facebookexternalhit/i.test(navigator.userAgent);
+    var last = +(localStorage.getItem('liyc-intro') || 0);
+    if (force || (!calm && !bot && !location.hash && Date.now() - last > 7 * 864e5)) {
+      d.classList.add('intro-on');
+      setTimeout(function () { d.classList.remove('intro-on'); }, 12000);   // failsafe: never trap the page
+    }
+  } catch (e) {}
+})();
+</script>
+<script src="{{ "js/intro.js" | relURL }}?v=1" defer></script>
+{{ end }}

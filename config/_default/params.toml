@@ -255,6 +255,6 @@ plugins_js  = []
   google_analytics = ""
   # Privacy-friendly, cookie-free page counts (https://www.goatcounter.com).
   # Sign up, then put your site code here (e.g. "liyc" for liyc.goatcounter.com). Empty = off.
-  goatcounter = ""
+  goatcounter = "yuchenli"
   google_tag_manager = ""
   google_site_verification = "7MghMiEezWCdLZfbrgYR845yxCJj-g02bSAnoythP1A"

@@ -1,0 +1,50 @@
+# Homepage intro ("boot sequence"): the story so far, played once for first-time visitors.
+# Each step shows for ~0.45 s. Edit freely — add, remove or reorder steps.
+#   media: an image or .mp4 under static/ (or a full URL); logo: a file in static/img/logo/
+#   Steps without media show the logo on a plain card.
+steps:
+  - year: "2017"
+    en: "SUSTech · B.Sc. Computer Science"
+    zh: "南方科技大学 · 计算机本科"
+    logo: sustech.png
+  - year: "2020"
+    en: "KAUST · M.Sc. · few-shot learning"
+    zh: "KAUST · 硕士 · 小样本学习"
+    logo: kaust.png
+    media: /media/intro/fewshot.jpg
+  - year: "2022"
+    en: "PointNeXt · NeurIPS"
+    zh: "PointNeXt · NeurIPS"
+    media: /media/intro/pointnext.jpg
+  - year: "2022"
+    en: "3D-CoMPaT · ECCV Oral"
+    zh: "3D-CoMPaT · ECCV 口头报告"
+    media: /media/intro/compat.jpg
+  - year: "2023"
+    en: "MBZUAI · PhD, Metaverse Lab"
+    zh: "MBZUAI · 博士，Metaverse Lab"
+    logo: mbzuai.png
+    media: /media/intro/compatpp.jpg
+  - year: "2024"
+    en: "Sony AI · music → dance video"
+    zh: "Sony AI · 音乐驱动舞蹈视频"
+    logo: sony.png
+    media: /media/teasers/dance.mp4
+    poster: /media/teasers/dance.jpg
+  - year: "2025"
+    en: "Amazon · Perceptio, a VLM that sketches space"
+    zh: "Amazon · Perceptio 空间感知 VLM"
+    logo: amazon.png
+    media: /media/intro/perceptio.jpg
+  - year: "2025"
+    en: "72-hour AI survival challenge"
+    zh: "72 小时 AI 生存挑战"
+    media: "https://i2.hdslb.com/bfs/archive/4637ababcacf2b3d6024db349eacd790a7d48a93.jpg@640w_400h_1c.jpg"
+  - year: "2025"
+    en: "Stand-up on the 36Kr WAVES stage"
+    zh: "36氪 WAVES 脱口秀"
+    media: "https://i0.hdslb.com/bfs/archive/7e87ba8ef41339c5714dc25a8d9661823b888aaa.jpg@640w_400h_1c.jpg"
+  - year: "2026"
+    en: "Heidelberg Laureate Forum"
+    zh: "海德堡学者论坛"
+    media: /media/intro/hlf-stage.jpg
