@@ -12,7 +12,7 @@ namecn: 李禹陈
 superuser: true
 
 # One-line research statement shown above the bio on the homepage.
-tagline: "I build models that see the world in 3D — and make it move."
+tagline: "I build models that see the world in 3D — *and make it move.*"
 
 # Role/position
 role: PhD Student in Computer Vision

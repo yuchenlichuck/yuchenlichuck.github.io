@@ -1,0 +1,43 @@
+{{- /* "Beyond the lab": a bento grid of videos and life tiles. Tiles come from data/life.yaml;
+       video details and account/item URLs come from data/press.json. */ -}}
+{{- $p := hugo.Data.press -}}
+{{- $zh := eq .Page.Lang "zh" -}}
+{{- $author := (site.GetPage "/authors/admin").Params -}}
+{{- $email := "" }}{{ range $author.social }}{{ if hasPrefix .link "mailto:" }}{{ $email = strings.TrimPrefix "mailto:" .link }}{{ end }}{{ end -}}
+<div class="bento">
+{{- range $i, $t := hugo.Data.life.tiles }}{{ with $t }}
+  {{- $size := cond (eq .size "xl") " is-xl" "" }}
+  {{- $style := printf "--i:%d" $i }}
+  {{- if eq .type "video" }}
+    {{- $ref := .ref }}
+    {{- $v := index (where $p.videos "ref" $ref) 0 }}
+    {{- $item := index (where $p.items "id" $ref) 0 }}
+    {{- with $v }}{{ partial "video_facade.html" (dict "video" . "item" $item "zh" $zh "class" (printf "bento-item%s" $size) "style" $style) }}{{ end }}
+  {{- else }}
+    {{- $url := .url | default "" }}
+    {{- with .account }}{{ with index (where $p.accounts "key" .) 0 }}{{ $url = .url }}{{ end }}{{ end }}
+    {{- with .item }}{{ with index (where $p.items "id" .) 0 }}{{ $url = .url }}{{ end }}{{ end }}
+    {{- $ext := hasPrefix $url "http" }}
+    {{- if and (not $ext) $url }}{{ $url = $url | relLangURL }}{{ end }}
+    {{- $isEmail := eq .type "email" }}
+    {{- $parts := split $email "@" }}
+  <a class="bento-item bento-card is-{{ .key | default .type }}{{ $size }}{{ if .photo }} has-photo{{ end }}{{ if $isEmail }} js-email{{ end }}" style="{{ $style | safeCSS }}"
+     {{- if $isEmail }} href="#" data-u="{{ index $parts 0 }}" data-d="{{ index $parts 1 }}"{{ else }} href="{{ $url }}"{{ if $ext }} target="_blank" rel="noopener"{{ end }}{{ end }}>
+    {{- with .photo }}<img class="bento-photo" src="{{ . | relURL }}" alt="" loading="lazy" decoding="async">{{ end }}
+    <span class="bento-eyebrow">
+      {{- with .logo }}<img class="bento-logo" src="{{ printf "img/logo/%s" . | relURL }}" alt="">{{ end -}}
+      {{ if $zh }}{{ .eyebrow_zh }}{{ else }}{{ .eyebrow_en }}{{ end -}}
+    </span>
+    {{- if .progress }}
+    <span class="bento-big"><b data-count="{{ .progress }}">{{ .progress }}</b><small> / {{ .total }}</small></span>
+    <span class="bento-bar" aria-hidden="true"><i style="{{ printf "--p:%.0f%%" (div (mul .progress 100.0) .total) | safeCSS }}"></i></span>
+    {{- else if .big }}
+    <span class="bento-big"><b>{{ .big }}</b></span>
+    {{- end }}
+    <span class="bento-title">{{ if $zh }}{{ .title_zh }}{{ else }}{{ .title_en }}{{ end }}</span>
+    <span class="bento-blurb">{{ if $zh }}{{ .blurb_zh }}{{ else }}{{ .blurb_en }}{{ end }}</span>
+    <span class="bento-cta">{{ if $zh }}{{ .cta_zh }}{{ else }}{{ .cta_en }}{{ end }} {{ if $ext }}↗{{ else }}→{{ end }}</span>
+  </a>
+  {{- end }}
+{{- end }}{{ end }}
+</div>

@@ -1,0 +1,18 @@
+{{- /* One Bilibili video as a click-to-load facade: no third-party player until the visitor asks.
+       Context: dict "video" (an entry of data/press.json → videos) "item" (its press item) "zh" (bool) "class" (extra classes) "style" (inline style, optional). */ -}}
+{{- $v := .video -}}{{- $item := .item -}}{{- $zh := .zh -}}
+{{- $title := cond $zh $v.title ($v.title_en | default $v.title) -}}
+<div class="vfacade{{ if $v.cover }} has-cover{{ end }}{{ with .class }} {{ . }}{{ end }}"{{ with .style }} style="{{ . | safeCSS }}"{{ end }} data-src="{{ $v.src }}" data-title="{{ $title }}">
+  {{- with $v.cover }}
+  {{- /* Bilibili cover, hot-linked without a referrer; if it ever fails the card falls back to the plain style. */}}
+  <img class="vfacade-cover" src="{{ . }}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.parentNode.classList.remove('has-cover');this.remove()">
+  {{- end }}
+  <button type="button" class="vfacade-btn" aria-label="{{ if $zh }}播放：{{ $v.title }}{{ else }}Play: {{ $title }}{{ end }}">
+    <span class="vfacade-play" aria-hidden="true"></span>
+    <span class="vfacade-text">
+      <span class="vfacade-meta">{{ if $zh }}{{ $v.meta_zh }}{{ else }}{{ $v.meta_en }} · in Chinese{{ end }}</span>
+      {{ if and (not $zh) $v.title_en }}<span class="vfacade-title">{{ $v.title_en }}</span>{{ else }}<span class="vfacade-title" lang="zh">{{ $v.title }}</span>{{ end }}
+    </span>
+  </button>
+  {{- with $item }}<a class="vfacade-out" href="{{ .url }}" target="_blank" rel="noopener">Bilibili ↗</a>{{ end }}
+</div>

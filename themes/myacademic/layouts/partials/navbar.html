@@ -14,7 +14,7 @@
         {{- end -}}
       </a>
       <div class="language-switcher">
-        {{ range site.Sites }}
+        {{ range hugo.Sites }}
           {{ if ne .Language.Lang $current_page.Lang }}
             {{ $destination := .Home.RelPermalink }}
             {{ $language := .Language.Lang }}

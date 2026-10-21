@@ -29,6 +29,11 @@
   weight = 25
 
 [[main]]
+  name = "Life"
+  url = "#beyond"
+  weight = 45
+
+[[main]]
   name = "Service"
   url = "#service"
   weight = 60

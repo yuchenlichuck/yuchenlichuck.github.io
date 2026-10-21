@@ -54,7 +54,3 @@ subtitle = ""
 ### Talks & appearances
 
 {{< talks >}}
-
-### Videos
-
-{{< press-videos >}}

@@ -18,7 +18,7 @@
   {{ $poster := .poster | default "" }}{{ with $poster }}{{ $poster = . | relURL }}{{ end }}
   {{ $steps = $steps | append (dict "year" .year "label" (cond $zh (.zh | default .en) .en) "media" $media "poster" $poster "logo" $logo) }}
 {{ end }}
-<script id="intro-data" type="application/json">{{ dict "steps" $steps "name" (cond $zh (printf "%s · %s" $author.namecn $author.name) $author.name) "tagline" ($author.tagline | default "") "lang" .Lang | jsonify | safeJS }}</script>
+<script id="intro-data" type="application/json">{{ dict "steps" $steps "name" (cond $zh (printf "%s · %s" $author.namecn $author.name) $author.name) "tagline" (replace ($author.tagline | default "") "*" "") "lang" .Lang | jsonify | safeJS }}</script>
 <style>html.intro-on{overflow:hidden}html.intro-on::before{content:"";position:fixed;inset:0;background:#0a0f14;z-index:2147483000}</style>
 <script>
 (function () {

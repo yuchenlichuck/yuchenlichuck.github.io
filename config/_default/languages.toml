@@ -25,6 +25,11 @@
     weight = 20
 
   [[zh.menu.main]]
+    name = "生活"
+    url = "#beyond"
+    weight = 22
+
+  [[zh.menu.main]]
     name = "媒体"
     url = "#media"
     weight = 25

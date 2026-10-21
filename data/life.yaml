@@ -1,0 +1,74 @@
+# "Beyond the lab" — the bento grid on the homepage (layouts/shortcodes/beyond-lab.html).
+# Tiles render in this order into a 4-column grid (2 columns on small screens).
+#   type: video  → a click-to-play Bilibili facade; `ref` is an entry in data/press.json → videos
+#   type: card   → a link tile; `photo` is a file under static/, `logo` a file in static/img/logo/
+#   type: email  → the "say hi" tile; the address comes from the author's social links
+#   size: xl     → spans 2 × 2 cells (first tile only, by design)
+# Everything here is verified against data/press.json; update numbers there and here together.
+tiles:
+  - type: video
+    ref: m3
+    size: xl
+
+  - type: video
+    ref: n2
+
+  - type: card
+    key: xhs
+    account: xhs                      # pulls the URL from data/press.json → accounts
+    logo: rednote.png
+    eyebrow_en: "Xiaohongshu · DubaiPrince"
+    eyebrow_zh: "小红书 · 迪拜王子"
+    big: "6.1K"
+    title_en: "followers on Xiaohongshu as “the Dubai Prince”"
+    title_zh: "位小红书关注者 —— 在那里我是「迪拜王子」"
+    blurb_en: "422 notes on studying, working and living in the Gulf."
+    blurb_zh: "422 篇笔记，记录在海湾读书、工作与生活。"
+    cta_en: "Follow along"
+    cta_zh: "去看看"
+
+  - type: card
+    key: coffee
+    item: x_02c4f4                    # pulls the URL from data/press.json → items
+    eyebrow_en: "100 strangers, 100 coffees"
+    eyebrow_zh: "请一百位陌生人喝咖啡"
+    progress: 56
+    total: 100
+    title_en: "coffees with strangers so far — and counting"
+    title_zh: "杯咖啡已经请出去了，还在继续"
+    blurb_en: "A slow project: one stranger, one coffee, one story at a time."
+    blurb_zh: "一个慢项目：一位陌生人，一杯咖啡，一个故事。"
+    cta_en: "The Hefei stop"
+    cta_zh: "合肥这一站"
+
+  - type: card
+    key: hlf
+    photo: /media/intro/hlf-sunset.jpg
+    url: /post/notes/2026-10-13-heidelberg-laureate-forum/
+    eyebrow_en: "Sep 2026 · Heidelberg"
+    eyebrow_zh: "2026 年 9 月 · 海德堡"
+    title_en: "Heidelberg Laureate Forum: a week with 200 young researchers and 20+ laureates"
+    title_zh: "海德堡学者论坛：与 200 位青年研究者、20 多位获奖学者共度一周"
+    blurb_en: "Heidelberg Laureate Forum · Carl-Zeiss-Stiftung Abbe Grant"
+    blurb_zh: "海德堡学者论坛 · 卡尔蔡司基金会 Abbe 资助"
+    cta_en: "Read the post"
+    cta_zh: "读博客"
+
+  - type: video
+    ref: n6
+
+  - type: video
+    ref: m14
+
+  - type: video
+    ref: m6
+
+  - type: email
+    eyebrow_en: "Abu Dhabi · UTC+4"
+    eyebrow_zh: "阿布扎比 · UTC+4"
+    title_en: "In town? Let's get coffee."
+    title_zh: "来阿布扎比？约杯咖啡。"
+    blurb_en: "Research chats, collaborations, or just a hello."
+    blurb_zh: "聊研究、聊合作，或者只是打个招呼。"
+    cta_en: "Email me"
+    cta_zh: "给我写邮件"
