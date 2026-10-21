@@ -56,6 +56,25 @@
     });
   });
 
+  // ---- numbers that count up once on screen (the coffee tally in "Beyond the lab") ----
+  Array.prototype.forEach.call(document.querySelectorAll('[data-count]'), function (el) {
+    var target = parseInt(el.getAttribute('data-count'), 10);
+    if (isNaN(target) || reduce || !('IntersectionObserver' in window)) return;
+    var run = function () {
+      var t0 = null, dur = 1100;
+      var step = function (ts) {
+        if (!t0) t0 = ts;
+        var k = Math.min(1, (ts - t0) / dur); k = 1 - Math.pow(1 - k, 3);
+        el.textContent = Math.round(target * k);
+        if (k < 1) requestAnimationFrame(step);
+      };
+      el.textContent = '0';
+      requestAnimationFrame(step);
+    };
+    var cio = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { cio.disconnect(); setTimeout(run, 250); } }, { threshold: 0.4 });
+    cio.observe(el);
+  });
+
   // ---- video teasers: play only while on screen (saves battery, keeps the page calm) ----
   var vids = document.querySelectorAll('video.js-inview');
   if (vids.length) {
