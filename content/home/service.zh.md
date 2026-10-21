@@ -47,4 +47,4 @@ subtitle = ""
  css_class = "timeline-list"
 +++
 - 核心组织者：CVPR 2023 组合式三维视觉研讨会暨 3D-CoMPaT 挑战赛。
-- 担任人工智能会议与期刊的程序主席或审稿人，涉及 TPAMI、IJCV、CVPR、ICCV、AAAI、TCSVT、BMVC、TNNLS 和 NeurIPS。
+- 担任人工智能顶级会议与期刊的审稿人，涉及 TPAMI、IJCV、CVPR、ICCV、AAAI、TCSVT、BMVC、TNNLS 和 NeurIPS。

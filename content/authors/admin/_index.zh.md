@@ -134,4 +134,4 @@ social:
 
 ---
 
-我目前是 MBZUAI Metaverse Lab 的博士生，即将进入毕业阶段，师从 Hao Li，研究以空间理解为基础的多模态智能。我致力于构建能够理解与生成二维、三维、视频及四维内容的视觉语言模型与生成模型。代表作包括 [Perceptio](https://liyc.pw/Perceptio/)、UCanDance、[PointNeXt](https://arxiv.org/abs/2206.04670) 和 [3D-CoMPaT](https://www.ecva.net/papers/eccv_2022/papers_ECCV/html/3631_ECCV_2022_paper.php)。
+我目前是 MBZUAI Metaverse Lab 的博士生，即将进入毕业阶段，师从 Hao Li，研究以空间理解为基础的多模态智能。我致力于构建能够理解与生成二维、三维、视频及四维内容的视觉语言模型与生成模型。代表作包括 [Perceptio](https://liyc.pw/Perceptio/)、[UCanDance](/zh/publication/underreview2026dance/)、[PointNeXt](https://arxiv.org/abs/2206.04670) 和 [3D-CoMPaT](https://www.ecva.net/papers/eccv_2022/papers_ECCV/html/3631_ECCV_2022_paper.php)。

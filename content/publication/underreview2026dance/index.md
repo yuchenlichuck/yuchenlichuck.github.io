@@ -1,5 +1,5 @@
 +++
-title = "Rethinking Music-Driven Dance Generation in 2D: Long-Horizon Pose Diffusion for Video Synthesis"
+title = "Rethinking Music-Driven Dance Generation in 2D: Long-Horizon Pose Diffusion for Video Synthesis (UCanDance)"
 date = 2026-01-01T00:00:00
 draft = false
 authors = ["__**Yuchen Li**__", "et al."]

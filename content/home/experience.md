@@ -39,13 +39,13 @@ date_format = "Jan 2006"
   logo = "sony.png"
 
 [[experience]]
-  title = "Assistant Researcher"
+  title = "PhD Researcher, Metaverse Lab (Advisor: Prof. Hao Li)"
   company = "Mohamed bin Zayed University of Artificial Intelligence"
   company_url = "https://mbzuai.ac.ae/"
   location = "Abu Dhabi, UAE"
   date_start = "2023-09-01"
   date_end = ""
-  description = "Researching 3D and video content generation and perception using diffusion and LLM/VLM models."
+  description = "PhD research on spatially grounded multimodal intelligence: vision-language models for 2D/3D spatial reasoning (Perceptio) and diffusion-based video and 3D generation (UCanDance)."
   logo = "mbzuai.png"
 
 [[experience]]
@@ -115,6 +115,6 @@ date_format = "Jan 2006"
   location = "Beijing, China"
   date_start = "2019-06-01"
   date_end = "2019-07-31"
-  description = "Led a team to research micro-organic prediction modeling of the cladding process using CNNs."
+  description = "Led a team to research microstructure prediction modeling of the cladding process using CNNs."
   logo = "tsinghua.png"
 +++

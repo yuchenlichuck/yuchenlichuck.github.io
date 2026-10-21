@@ -88,7 +88,7 @@ edit_page = {repo_url = "https://github.com/yuchenlichuck/yuchenlichuck.github.i
 
 # Enter contact details (optional). To hide a field, clear it to "".
 email = "yuchen.li@mbzuai.ac.ae"
-phone = "+1 (616) 666-6733"
+phone = ""
 
 # Address
 # For country_code, use the 2-letter ISO code (see https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 )
@@ -114,7 +114,7 @@ contact_links = [
   {icon = "envelope", icon_pack = "fas", name = "Email", link = "mailto:yuchen.li@mbzuai.ac.ae"},
   {icon = "github", icon_pack = "fab", name = "yuchenlichuck", link = "https://github.com/yuchenlichuck"},
   {icon = "linkedin", icon_pack = "fab", name = "LinkedIn", link = "https://www.linkedin.com/in/liyc"},
-  {icon = "globe", icon_pack = "fas", name = "Website", link = "https://www.liyc.pw"},
+  {icon = "globe", icon_pack = "fas", name = "Website", link = "https://liyc.pw"},
   ]
 
 ############################

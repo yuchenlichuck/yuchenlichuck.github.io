@@ -9,7 +9,7 @@ title = "Yuchen Li"
 
 # The URL of your site.
 # End your URL with a `/` trailing slash, e.g. `https://example.com/`.
-baseurl = "https://www.liyc.pw/"
+baseurl = "https://liyc.pw/"
 
 # Enter a copyright notice to display in the site footer.
 # To display a copyright symbol, type `&copy;`. For current year, type `{year}`.
@@ -136,6 +136,9 @@ author = "admin"
   [[module.mounts]]
     source = "content"
     target = "content"
+    # Keep legacy/template dirs out of the build: the old KAUST-era Sphinx
+    # wiki (content/codebase), unused project pages, the placeholder author.
+    files = ["! codebase/**", "! project/**", "! authors/your-author-name/**"]
   [[module.mounts]]
     source = "static"
     target = "static"

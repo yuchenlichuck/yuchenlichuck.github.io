@@ -39,13 +39,13 @@ date_format = "2006/01"
   logo = "sony.png"
 
 [[experience]]
-  title = "助理研究员"
+  title = "博士研究员，Metaverse Lab（导师：Hao Li 教授）"
   company = "穆罕默德·本·扎耶德人工智能大学（MBZUAI）"
   company_url = "https://mbzuai.ac.ae/"
   location = "阿联酋阿布扎比"
   date_start = "2023-09-01"
   date_end = ""
-  description = "利用扩散模型、大语言模型和视觉语言模型研究三维与视频内容的生成和感知。"
+  description = "博士课题聚焦空间理解驱动的多模态智能：面向二维/三维空间推理的视觉语言模型（Perceptio），以及基于扩散模型的视频与三维生成（UCanDance）。"
   logo = "mbzuai.png"
 
 [[experience]]

@@ -24,7 +24,7 @@ media = "/media/teasers/dance.mp4"
 sound = true
 summary = "Studying controllable video synthesis through long-horizon pose diffusion conditioned on music and motion structure."
 highlights = [
-  { name = "UCanDance", url = "", label = "Sony AI" },
+  { name = "UCanDance", url = "/publication/underreview2026dance/", label = "Sony AI" },
   { name = "Pose-conditioned Video", url = "", label = "Music & motion control" },
 ]
 

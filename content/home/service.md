@@ -47,4 +47,4 @@ subtitle = ""
  css_class = "timeline-list"
 +++
 - Core organizer: CVPR 2023 Workshop on Compositional 3D Vision and 3D-CoMPaT Challenge.
-- Program chair and reviewer for leading AI conferences and journals, including TPAMI, IJCV, CVPR, ICCV, AAAI, TCSVT, BMVC, TNNLS and NeurIPS.
+- Reviewer for leading AI conferences and journals, including TPAMI, IJCV, CVPR, ICCV, AAAI, TCSVT, BMVC, TNNLS and NeurIPS.

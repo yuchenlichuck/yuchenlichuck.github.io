@@ -24,7 +24,7 @@ media = "/media/teasers/dance.mp4"
 sound = true
 summary = "研究以音乐与动作结构为条件的长时序姿态扩散，实现可控视频生成。"
 highlights = [
-  { name = "UCanDance", url = "", label = "Sony AI" },
+  { name = "UCanDance", url = "/zh/publication/underreview2026dance/", label = "Sony AI" },
   { name = "姿态条件视频生成", url = "", label = "音乐与动作控制" },
 ]
 

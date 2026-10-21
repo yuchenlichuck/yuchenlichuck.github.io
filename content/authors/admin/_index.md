@@ -135,4 +135,4 @@ social:
 
 ---
 
-I am a final-year PhD student in the Metaverse Lab at MBZUAI, supervised by Hao Li, working on spatially grounded multimodal intelligence. My research builds vision-language and generative models that understand and create 2D, 3D, video, and 4D content. My representative works include [Perceptio](https://liyc.pw/Perceptio/), UCanDance, [PointNeXt](https://arxiv.org/abs/2206.04670), and [3D-CoMPaT](https://www.ecva.net/papers/eccv_2022/papers_ECCV/html/3631_ECCV_2022_paper.php).
+I am a final-year PhD student in the Metaverse Lab at MBZUAI, supervised by Hao Li, working on spatially grounded multimodal intelligence. My research builds vision-language and generative models that understand and create 2D, 3D, video, and 4D content. My representative works include [Perceptio](https://liyc.pw/Perceptio/), [UCanDance](/publication/underreview2026dance/), [PointNeXt](https://arxiv.org/abs/2206.04670), and [3D-CoMPaT](https://www.ecva.net/papers/eccv_2022/papers_ECCV/html/3631_ECCV_2022_paper.php).
