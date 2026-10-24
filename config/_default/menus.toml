@@ -14,6 +14,11 @@
   weight = 20
 
 [[main]]
+  name = "News"
+  url = "#news"
+  weight = 25
+
+[[main]]
   name = "Publications"
   url = "#featured"
   weight = 30
@@ -24,14 +29,14 @@
   weight = 40
 
 [[main]]
-  name = "News"
-  url = "#news"
-  weight = 25
-
-[[main]]
   name = "Life"
   url = "#beyond"
   weight = 45
+
+[[main]]
+  name = "Media"
+  url = "#media"
+  weight = 50
 
 [[main]]
   name = "Service"

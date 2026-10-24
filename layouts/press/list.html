@@ -388,14 +388,16 @@ document.getElementById("email").textContent = PROFILE.email_user + "@" + PROFIL
   const score = i => { const m = i.metrics || {}; return Math.max(0, ...Object.keys(m).filter(k => ORDER[k]).map(k => m[k])); };
 
   let lang = PAGE_LANG, type = "all", langFilter = "all", q = "", sort = "new";
-  if (PAGE_LANG === "en") { try { const s = localStorage.getItem("yl.lang"); if (s === "zh" || s === "en") lang = s; } catch (e) {} }
   try { const qp = new URLSearchParams(location.search).get("lang"); if (qp === "zh" || qp === "en") lang = qp; } catch (e) {}
   const t = k => I18N[lang][k];
   const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const glyph = key => `<span class="glyph" aria-hidden="true">${ICON[key] || esc(key.slice(0, 2).toUpperCase())}</span>`;
 
   function renderStatic() {
+    document.documentElement.lang = lang === "zh" ? "zh-Hans" : "en-us";
     document.documentElement.classList.toggle("zh", lang === "zh");
+    const homeEl = document.querySelector(".home");
+    if (homeEl) homeEl.href = lang === "zh" ? "{{ "/zh/" | relURL }}" : "{{ "/" | relURL }}";
     document.querySelectorAll("[data-i18n]").forEach(el => { const v = t(el.dataset.i18n); if (typeof v === "string") el.textContent = v; });
     document.getElementById("q").placeholder = t("search_ph");
     document.getElementById("role").textContent = lang === "zh" ? PROFILE.role_zh : PROFILE.role_en;

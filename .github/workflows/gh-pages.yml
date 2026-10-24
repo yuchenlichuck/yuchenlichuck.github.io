@@ -11,8 +11,7 @@ on:
 
 jobs:
   deploy:
-    #runs-on: ubuntu-22.04 
-    runs-on: macos-latest 
+    runs-on: ubuntu-latest
     permissions:
       contents: write
     concurrency:
@@ -20,7 +19,6 @@ jobs:
     steps:
       - uses: actions/checkout@v6
         with:
-          submodules: true  # Fetch any Git submodules (true OR recursive)
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
 
       - name: Setup Hugo
@@ -31,6 +29,17 @@ jobs:
 
       - name: Refresh Google Scholar numbers (best effort)
         run: python3 scripts/update_scholar.py || true
+
+      - name: Commit updated Google Scholar numbers
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: |
+          if ! git diff --quiet data/scholar.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data/scholar.json
+            git commit -m "chore: refresh Google Scholar citations [skip ci]"
+            git push || true
+          fi
 
       - name: Build
         run: hugo --minify

@@ -29,10 +29,17 @@
           {{ with $area.highlights }}
           <div class="focus-area-links">
             {{ range . }}
-            <a class="focus-area-link" href="{{ .url }}" target="_blank" rel="noopener">
+            {{ if .url }}
+            <a class="focus-area-link" href="{{ .url }}"{{ if strings.HasPrefix .url "http" }} target="_blank" rel="noopener"{{ end }}>
               <span class="focus-area-link-name">{{ .name | markdownify | emojify }}</span>
               {{ with .label }}<span class="focus-area-link-label">{{ . | markdownify | emojify }}</span>{{ end }}
             </a>
+            {{ else }}
+            <div class="focus-area-link is-static">
+              <span class="focus-area-link-name">{{ .name | markdownify | emojify }}</span>
+              {{ with .label }}<span class="focus-area-link-label">{{ . | markdownify | emojify }}</span>{{ end }}
+            </div>
+            {{ end }}
             {{ end }}
           </div>
           {{ end }}

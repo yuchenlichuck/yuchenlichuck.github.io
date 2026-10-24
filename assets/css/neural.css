@@ -182,7 +182,8 @@ body.theme-claude .focus-area-index { color: var(--n-accent) !important; font-fa
 body.theme-claude .focus-area-title { color: var(--n-fg) !important; font-family: var(--n-serif) !important; font-weight: 600 !important; }
 body.theme-claude .focus-area-summary { color: var(--n-muted) !important; }
 body.theme-claude .focus-area-link { background: var(--n-surface) !important; border: 1px solid var(--n-line) !important; border-radius: 10px !important; }
-body.theme-claude .focus-area-link:hover { border-color: var(--n-line-hi) !important; }
+body.theme-claude a.focus-area-link:hover { border-color: var(--n-line-hi) !important; }
+body.theme-claude .focus-area-link.is-static { cursor: default; transform: none !important; }
 body.theme-claude .focus-area-link-name { color: var(--n-fg) !important; }
 body.theme-claude .focus-area-link-label { color: var(--n-muted) !important; }
 
