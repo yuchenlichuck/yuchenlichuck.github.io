@@ -1,14 +1,14 @@
 {
   "profile": "7MocPGkAAAAJ",
-  "updated": "2026-10-13",
+  "updated": "2026-10-24",
   "source": "Google Scholar profile, read manually; refreshed weekly by scripts/update_scholar.py when Scholar answers",
-  "citations": 1754,
+  "citations": 1777,
   "h_index": 4,
   "i10_index": 4,
   "papers": {
-    "pointnext": 1661,
+    "pointnext": 1681,
     "compatpp": 33,
-    "compat": 31,
+    "compat": 32,
     "fewshot": 26,
     "perceptio": 3
   }
