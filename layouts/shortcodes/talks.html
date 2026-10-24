@@ -9,7 +9,7 @@
     <time class="talk-date" datetime="{{ .date }}">{{ if $zh }}{{ $d.Format "2006.01" }}{{ else }}{{ $d.Format "Jan 2006" }}{{ end }}</time>
     <span class="talk-kind">{{ if $zh }}{{ .kind_zh }}{{ else }}{{ .kind_en }}{{ end }}</span>
     <div class="talk-body">
-      <a class="talk-title" href="{{ .url }}" target="_blank" rel="noopener">{{ if $zh }}{{ .title_zh }}{{ else }}{{ .title_en }}{{ end }}</a>
+      <a class="talk-title" href="{{ if hasPrefix .url "/" }}{{ strings.TrimPrefix "/" .url | relLangURL }}{{ else }}{{ .url }}{{ end }}" target="_blank" rel="noopener">{{ if $zh }}{{ .title_zh }}{{ else }}{{ .title_en }}{{ end }}</a>
       <span class="talk-venue">{{ if $zh }}{{ .venue_zh }}{{ else }}{{ .venue_en }}{{ with $src }}{{ if eq .lang "zh" }} <span class="lang-note">In Chinese</span>{{ end }}{{ end }}{{ end }}</span>
     </div>
   </li>

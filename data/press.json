@@ -1,13 +1,13 @@
 {
- "updated": "2026-10-04",
+ "updated": "2026-10-24",
  "profile": {
   "name_en": "Yuchen Li",
   "name_zh": "李禹陈",
   "nick": "Chuck Li · 迪拜王子 · 南小环",
   "role_en": "PhD student in Computer Vision, Metaverse Lab, MBZUAI (Abu Dhabi) · advised by Prof. Hao Li",
   "role_zh": "穆罕默德·本·扎耶德人工智能大学（MBZUAI）计算机视觉博士生 · Metaverse Lab · 导师 Hao Li",
-  "bio_en": "Works on spatially grounded vision-language models, 3D/4D perception and controllable video generation. Previously KAUST (M.Sc., Vision-CAIR) and SUSTech (B.Sc.); research internships at Amazon Science Prime Video and Sony AI; Dubai Business Associates Year 8; consultant at Emirates and Dubai Future Foundation.",
-  "bio_zh": "研究方向为空间感知视觉语言模型、3D/4D 感知与可控视频生成。此前就读于阿卜杜拉国王科技大学（KAUST，硕士，Vision-CAIR）与南方科技大学（本科）；曾在 Amazon Science Prime Video 与 Sony AI 实习；迪拜商业英才项目（DBA）第八届学员；曾任阿联酋航空、迪拜未来基金会顾问。",
+  "bio_en": "Works on spatially grounded vision-language models, 3D/4D perception and controllable video generation. Previously KAUST (M.Sc., Vision-CAIR) and SUSTech (B.Sc.); research internships at Amazon Science Prime Video and Sony AI; 13th Heidelberg Laureate Forum Young Researcher & Carl-Zeiss-Stiftung Abbe Grant recipient; Dubai Business Associates Year 8; consultant at Emirates and Dubai Future Foundation.",
+  "bio_zh": "研究方向为空间感知视觉语言模型、3D/4D 感知与可控视频生成。此前就读于阿卜杜拉国王科技大学（KAUST，硕士，Vision-CAIR）与南方科技大学（本科）；曾在 Amazon Science Prime Video 与 Sony AI 实习；第 13 届海德堡学者论坛（HLF）青年研究者及卡尔蔡司基金会 Abbe Grant 获得者；迪拜商业英才项目（DBA）第八届学员；曾任阿联酋航空、迪拜未来基金会顾问。",
   "location": "Abu Dhabi, UAE · 阿布扎比",
   "email_user": "yuchen.li",
   "email_domain": "mbzuai.ac.ae"
@@ -35,8 +35,8 @@
    "key": "scholar",
    "label": "Google Scholar",
    "handle": "7MocPGkAAAAJ",
-   "stat_en": "1,754 citations · h-index 4",
-   "stat_zh": "引用 1,754 · h 指数 4",
+   "stat_en": "1,777 citations · h-index 4",
+   "stat_zh": "引用 1,777 · h 指数 4",
    "url": "https://scholar.google.com/citations?user=7MocPGkAAAAJ",
    "status": "self"
   },
@@ -44,8 +44,8 @@
    "key": "github",
    "label": "GitHub",
    "handle": "@yuchenlichuck",
-   "stat_en": "97 followers",
-   "stat_zh": "97 关注者",
+   "stat_en": "97 followers · 1.1k+ stars",
+   "stat_zh": "97 关注者 · 1.1k+ 星标",
    "url": "https://github.com/yuchenlichuck",
    "status": "self"
   },
@@ -102,8 +102,8 @@
    "key": "rg",
    "label": "ResearchGate",
    "handle": "Yuchen-Li-44",
-   "stat_en": "MBZUAI · 4 publications",
-   "stat_zh": "MBZUAI · 4 篇论文",
+   "stat_en": "MBZUAI · 5+ publications",
+   "stat_zh": "MBZUAI · 5+ 篇论文",
    "url": "https://www.researchgate.net/profile/Yuchen-Li-44",
    "status": "verified"
   },
@@ -118,6 +118,8 @@
   }
  ],
  "featured": [
+  "hlf26",
+  "a1",
   "m5",
   "m3",
   "n1",
@@ -126,6 +128,33 @@
   "a5"
  ],
  "items": [
+  {
+   "id": "hlf26",
+   "type": "academic",
+   "lang": "en",
+   "date": "2026-09-20",
+   "plat": "web",
+   "outlet": "13th Heidelberg Laureate Forum (HLF 2026)",
+   "outlet_en": "13th Heidelberg Laureate Forum (HLF 2026)",
+   "title": "Selected as Young Researcher & Carl-Zeiss-Stiftung Abbe Grant Recipient (Top 3%) at the 13th Heidelberg Laureate Forum",
+   "title_en": "Selected as Young Researcher & Carl-Zeiss-Stiftung Abbe Grant Recipient (Top 3%) at the 13th Heidelberg Laureate Forum",
+   "sum_en": "Selected as one of ~200 young researchers in mathematics and computer science worldwide to dialogue with 20+ Abel, ACM A.M. Turing, Fields, and Nevanlinna/IMU Abacus laureates in Heidelberg, Germany, and awarded the competitive Carl-Zeiss-Stiftung Abbe Grant (Top 3%).",
+   "sum_zh": "入选第 13 届海德堡学者论坛（HLF 2026）全球约 200 名数学与计算机科学青年研究者之一，与 20 余位阿贝尔奖、图灵奖、菲尔兹奖得主在德国海德堡深入交流，并获颁卡尔蔡司基金会 Abbe Grant（前 3%）。",
+   "url": "https://liyc.pw/post/notes/2026-10-13-heidelberg-laureate-forum/",
+   "links": [
+    {
+     "l": "中文随笔",
+     "u": "https://liyc.pw/zh/post/notes/2026-10-13-heidelberg-laureate-forum/"
+    },
+    {
+     "l": "HLF Foundation",
+     "u": "https://www.heidelberg-laureate-forum.org/"
+    }
+   ],
+   "status": "verified",
+   "ev_en": "Documented in his Oct 2026 bilingual reflection and CV/news on liyc.pw ('Selected as a Young Researcher at the Heidelberg Laureate Forum (HLF) and awarded the Carl-Zeiss-Stiftung Abbe Grant (Top 3%) in Heidelberg, Germany').",
+   "ev_zh": "收录于其 2026 年 10 月发表的双语随笔《海德堡学者论坛：我一直在寻找的世外桃源》及个人主页荣誉列表（Carl-Zeiss-Stiftung Abbe Grant，前 3%）。"
+  },
   {
    "id": "a1",
    "type": "academic",
@@ -139,6 +168,14 @@
    "url": "https://arxiv.org/abs/2603.18795",
    "links": [
     {
+     "l": "Project Page",
+     "u": "https://liyc.pw/Perceptio/"
+    },
+    {
+     "l": "Research Note",
+     "u": "https://liyc.pw/post/perceptio-spatial-tokens/"
+    },
+    {
      "l": "Hugging Face",
      "u": "https://huggingface.co/papers/2603.18795"
     }
@@ -150,6 +187,27 @@
    "ev_en": "Author list on arXiv (submitted 19 Mar 2026); listed on his Scholar profile and liyc.pw.",
    "ev_zh": "arXiv 作者列表（2026-03-19 提交）；Scholar 主页与 liyc.pw 均收录。",
    "scholar": "perceptio"
+  },
+  {
+   "id": "a_dance",
+   "type": "academic",
+   "lang": "en",
+   "date": "2026-01-15",
+   "plat": "web",
+   "outlet": "Preprint · Sony AI & MBZUAI",
+   "title": "Rethinking Music-Driven Dance Generation in 2D: Long-Horizon Pose Diffusion for Video Synthesis (UCanDance)",
+   "sum_en": "First-author preprint from his research internship at Sony AI Tokyo with MBZUAI. Decouples 2D motion planning from human appearance rendering by combining a progressive beat-aligned 2D pose diffusion model with a pose-conditioned video generator. Co-authors:Yukio Lehara, Naoki Murata, Chieh-Hsin Lai, البراء آل غالب, Yuhta Takida, Hao Li, Yuki Mitsufuji.",
+   "sum_zh": "一作预印本，完成于 Sony AI 东京实习期间与 MBZUAI 合作。将 2D 动作规划与人物外观渲染解耦，结合渐进式节拍对齐 2D 姿态扩散模型与条件视频生成。合作者包括 Yukio Lehara、Naoki Murata、Chieh-Hsin Lai、Hao Li、Yuki Mitsufuji 等。",
+   "url": "https://liyc.pw/publication/underreview2026dance/",
+   "links": [
+    {
+     "l": "中文页",
+     "u": "https://liyc.pw/zh/publication/underreview2026dance/"
+    }
+   ],
+   "status": "verified",
+   "ev_en": "Listed on his canonical publication index at liyc.pw under Sony AI & MBZUAI research output.",
+   "ev_zh": "收录于其个人主页 liyc.pw 论文列表，系 Sony AI 东京团队实习与 MBZUAI 合作成果。"
   },
   {
    "id": "a2",
@@ -175,6 +233,31 @@
    "ev_en": "Author list matches KAUST Vision-CAIR; on his Scholar profile (verified mbzuai.ac.ae email).",
    "ev_zh": "作者列表与 KAUST Vision-CAIR 一致；Scholar 主页（已验证 mbzuai.ac.ae 邮箱）收录。",
    "scholar": "compatpp"
+  },
+  {
+   "id": "a_3dv25",
+   "type": "academic",
+   "lang": "en",
+   "date": "2025-03-25",
+   "plat": "web",
+   "outlet": "3DV 2025 · Nectar Track Spotlight",
+   "title": "Exploring Scaling Laws of PointNets",
+   "sum_en": "Co-first author (Yuchen Li*, Guocheng Qian*, Houwen Peng, Jinjie Mai, Hasan Abed Al Kader Hammoud, Mohamed Elhoseiny, Bernard Ghanem). Selected for a Nectar Track Spotlight Talk at the International Conference on 3D Vision (3DV 2025).",
+   "sum_zh": "共同第一作者（Yuchen Li*, Guocheng Qian*, Houwen Peng, Jinjie Mai, Hasan Hammoud, Mohamed Elhoseiny, Bernard Ghanem）。入选国际三维视觉大会（3DV 2025）Nectar Track Spotlight 报告。",
+   "url": "https://liyc.pw/publication/3dv2025pointnets/",
+   "links": [
+    {
+     "l": "arXiv",
+     "u": "https://arxiv.org/abs/2206.04670"
+    },
+    {
+     "l": "GitHub",
+     "u": "https://github.com/guochengqian/PointNeXt"
+    }
+   ],
+   "status": "verified",
+   "ev_en": "Listed on liyc.pw publications and News ('Exploring Scaling Laws of PointNets selected for a 3DV Nectar Track Spotlight Talk').",
+   "ev_zh": "收录于 liyc.pw 论文列表与最新动态（「Exploring Scaling Laws of PointNets 入选 3DV Nectar Track Spotlight 报告」）。"
   },
   {
    "id": "a3",
@@ -214,7 +297,7 @@
     }
    ],
    "metrics": {
-    "cites": 31
+    "cites": 32
    },
    "status": "verified",
    "ev_en": "Author list; KAUST CEMSE profile lists it; his GitHub pins the repo.",
@@ -239,7 +322,7 @@
     }
    ],
    "metrics": {
-    "cites": 1661,
+    "cites": 1681,
     "stars": 1100
    },
    "status": "verified",
@@ -425,6 +508,11 @@
      "l": "小宇宙",
      "u": "https://www.xiaoyuzhoufm.com/episode/6641cf18f968fce2cbbccdfc",
      "l_en": "Xiaoyuzhou"
+    },
+    {
+     "l": "Apple Podcasts",
+     "u": "https://podcasts.apple.com/us/podcast/07-%E5%8E%BB%E4%B8%AD%E4%B8%9C%E4%B8%8A%E5%AD%A6-%E5%85%A8%E9%9D%A0%E9%85%8B%E9%95%BF%E8%B5%84%E5%8A%A9-%E4%B8%8D%E7%94%A8%E4%BA%A4%E5%AD%A6%E8%B4%B9-%E8%BF%98%E8%B5%9A%E9%92%B1/id1741154632?i=1000655405764",
+     "l_en": "Apple Podcasts"
     },
     {
      "l": "看中东 DeepMENA 公众号 (05-14)",
@@ -1949,6 +2037,17 @@
  ],
  "talks": [
   {
+   "ref": "hlf26",
+   "date": "2026-09",
+   "kind_en": "Fellow",
+   "kind_zh": "青年学者",
+   "title_en": "13th Heidelberg Laureate Forum — Young Researcher & Carl-Zeiss-Stiftung Abbe Grant (Top 3%)",
+   "title_zh": "第 13 届海德堡学者论坛（HLF）青年研究者 · 卡尔蔡司基金会 Abbe Grant（前 3%）",
+   "venue_en": "Heidelberg Laureate Forum, Heidelberg, Germany",
+   "venue_zh": "德国海德堡",
+   "url": "/post/notes/2026-10-13-heidelberg-laureate-forum/"
+  },
+  {
    "ref": "n2",
    "date": "2025-06",
    "kind_en": "Stand-up",
@@ -1969,6 +2068,17 @@
    "venue_en": "5Y Capital, Shanghai",
    "venue_zh": "五源资本 · 上海",
    "url": "https://www.bilibili.com/video/BV1uguizREY3/"
+  },
+  {
+   "ref": "a_3dv25",
+   "date": "2025-03",
+   "kind_en": "Spotlight",
+   "kind_zh": "Spotlight",
+   "title_en": "Exploring Scaling Laws of PointNets — Nectar Track Spotlight Talk",
+   "title_zh": "Exploring Scaling Laws of PointNets · Nectar Track Spotlight 报告",
+   "venue_en": "International Conference on 3D Vision (3DV 2025)",
+   "venue_zh": "国际三维视觉大会（3DV 2025）",
+   "url": "/publication/3dv2025pointnets/"
   },
   {
    "ref": "x_004875",
