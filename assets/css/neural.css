@@ -566,3 +566,228 @@ body.theme-claude .profile-tagline em {
 body.theme-claude .home-section > .container.is-visible .profile-tagline em,
 body.theme-claude.no-observer .profile-tagline em { background-size: 100% 100%; }
 @media (prefers-reduced-motion: reduce) { body.theme-claude .profile-tagline em { background-size: 100% 100%; transition: none; } }
+
+/* ---------- Neko-VLM: Interactive AI Kitten Pet (static/js/ai-pet.js) ---------- */
+body.theme-claude .neko-pet {
+  position: fixed;
+  right: 18px;
+  bottom: 16px;
+  z-index: 990;
+  font-family: var(--n-body);
+  user-select: none;
+  pointer-events: none;
+}
+html.intro-on body.theme-claude .neko-pet {
+  opacity: 0;
+  pointer-events: none;
+}
+body.theme-claude .neko-card {
+  position: relative;
+  pointer-events: auto;
+  width: 196px;
+  padding: 8px 9px 9px;
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--n-surface) 90%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--n-line-hi);
+  box-shadow: var(--n-shadow), 0 10px 30px -12px rgba(11, 127, 120, 0.22);
+  transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.22s ease, border-color 0.2s;
+}
+body.theme-claude .neko-pet.is-minimized .neko-card {
+  opacity: 0;
+  transform: translateY(18px) scale(0.88);
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+body.theme-claude .neko-restore {
+  display: none;
+  pointer-events: auto;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1px solid var(--n-line-hi);
+  background: var(--n-surface);
+  color: var(--n-fg);
+  font-family: var(--n-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  box-shadow: var(--n-shadow);
+  cursor: pointer;
+  transition: transform 0.18s ease, border-color 0.18s ease;
+}
+body.theme-claude .neko-restore:hover {
+  transform: translateY(-2px);
+  border-color: var(--n-accent);
+}
+body.theme-claude .neko-restore-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--n-accent);
+  box-shadow: 0 0 8px var(--n-accent);
+}
+body.theme-claude .neko-pet.is-minimized .neko-restore {
+  display: inline-flex;
+}
+body.theme-claude .neko-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  margin-bottom: 2px;
+}
+body.theme-claude .neko-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--n-mono);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--n-accent);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+body.theme-claude .neko-led {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--n-accent);
+  box-shadow: 0 0 6px var(--n-accent);
+  flex-shrink: 0;
+}
+body.theme-claude .neko-min {
+  border: 0;
+  background: transparent;
+  color: var(--n-muted);
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  font-family: var(--n-mono);
+  font-size: 13px;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  padding: 0;
+}
+body.theme-claude .neko-min:hover {
+  background: var(--claude-accent-soft);
+  color: var(--n-accent);
+}
+body.theme-claude .neko-stage {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 146px;
+  margin: 0 -2px;
+  cursor: grab;
+  border-radius: 12px;
+  background: radial-gradient(circle at 50% 62%, var(--claude-accent-soft), transparent 72%);
+}
+body.theme-claude .neko-stage:active {
+  cursor: grabbing;
+}
+body.theme-claude .neko-stage canvas {
+  display: block;
+  pointer-events: none;
+}
+body.theme-claude .neko-dock {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 3px;
+  margin-top: 4px;
+}
+body.theme-claude .neko-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  padding: 4px 2px;
+  border: 1px solid var(--n-line);
+  border-radius: 9px;
+  background: var(--n-surface-2);
+  color: var(--n-fg);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, transform 0.12s;
+}
+body.theme-claude .neko-btn:hover {
+  border-color: var(--n-accent);
+  transform: translateY(-1px);
+}
+body.theme-claude .neko-btn.is-active {
+  background: var(--n-accent);
+  border-color: var(--n-accent);
+  color: var(--n-accent-ink);
+}
+body.theme-claude .neko-btn-ic {
+  font-size: 12px;
+  line-height: 1.1;
+}
+body.theme-claude .neko-btn-lb {
+  font-family: var(--n-mono);
+  font-size: 9px;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+body.theme-claude .neko-bubble {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 10px);
+  width: 232px;
+  padding: 9px 12px;
+  border-radius: 13px;
+  background: var(--n-surface);
+  border: 1px solid var(--n-line-hi);
+  box-shadow: var(--n-shadow);
+  color: var(--n-fg);
+  font-size: 12.2px;
+  line-height: 1.45;
+  opacity: 0;
+  transform: translateY(8px) scale(0.95);
+  transition: opacity 0.22s ease, transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  pointer-events: none;
+}
+body.theme-claude .neko-bubble.is-on {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+body.theme-claude .neko-bubble::after {
+  content: "";
+  position: absolute;
+  right: 32px;
+  bottom: -6px;
+  width: 10px;
+  height: 10px;
+  background: var(--n-surface);
+  border-right: 1px solid var(--n-line-hi);
+  border-bottom: 1px solid var(--n-line-hi);
+  transform: rotate(45deg);
+}
+@media (max-width: 640px) {
+  body.theme-claude .neko-pet {
+    right: 10px;
+    bottom: 10px;
+  }
+  body.theme-claude .neko-card {
+    width: 172px;
+    padding: 6px 7px 7px;
+  }
+  body.theme-claude .neko-stage {
+    height: 128px;
+    transform: scale(0.9);
+  }
+  body.theme-claude .neko-bubble {
+    width: 200px;
+    font-size: 11.5px;
+  }
+}
