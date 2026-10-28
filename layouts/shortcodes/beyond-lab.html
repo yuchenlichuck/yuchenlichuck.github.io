@@ -2,8 +2,9 @@
        video details and account/item URLs come from data/press.json. */ -}}
 {{- $p := hugo.Data.press -}}
 {{- $zh := eq .Page.Lang "zh" -}}
-{{- $author := (site.GetPage "/authors/admin").Params -}}
-{{- $email := "" }}{{ range $author.social }}{{ if hasPrefix .link "mailto:" }}{{ $email = strings.TrimPrefix "mailto:" .link }}{{ end }}{{ end -}}
+{{- $authorPage := site.GetPage "/authors/admin" -}}
+{{- $email := "yuchen.li@mbzuai.ac.ae" -}}
+{{- if $authorPage }}{{ range $authorPage.Params.social }}{{ if hasPrefix .link "mailto:" }}{{ $email = strings.TrimPrefix "mailto:" .link }}{{ end }}{{ end }}{{ end -}}
 <div class="bento">
 {{- range $i, $t := hugo.Data.life.tiles }}{{ with $t }}
   {{- $size := cond (eq .size "xl") " is-xl" "" }}
@@ -21,13 +22,20 @@
     {{- if and (not $ext) $url }}{{ $url = $url | relLangURL }}{{ end }}
     {{- $isEmail := eq .type "email" }}
     {{- $parts := split $email "@" }}
-  <a class="bento-item bento-card is-{{ .key | default .type }}{{ $size }}{{ if .photo }} has-photo{{ end }}{{ if $isEmail }} js-email{{ end }}" style="{{ $style | safeCSS }}"
-     {{- if $isEmail }} href="#" data-u="{{ index $parts 0 }}" data-d="{{ index $parts 1 }}"{{ else }} href="{{ $url }}"{{ if $ext }} target="_blank" rel="noopener"{{ end }}{{ end }}>
+  <a class="bento-item bento-card is-{{ .key | default .type }}{{ $size }}{{ if .photo }} has-photo{{ end }}{{ if $isEmail }} js-coffee-trigger{{ end }}" style="{{ $style | safeCSS }}"
+     {{- if $isEmail }} href="#coffee-chat" role="button" aria-haspopup="dialog" data-u="{{ index $parts 0 }}" data-d="{{ index $parts 1 }}"{{ else }} href="{{ $url }}"{{ if $ext }} target="_blank" rel="noopener"{{ end }}{{ end }}>
     {{- with .photo }}<img class="bento-photo" src="{{ . | relURL }}" alt="" loading="lazy" decoding="async">{{ end }}
     <span class="bento-eyebrow">
+      {{- if $isEmail }}<i class="bento-live-dot" aria-hidden="true"></i>{{ end -}}
       {{- with .logo }}<img class="bento-logo" src="{{ printf "img/logo/%s" . | relURL }}" alt="">{{ end -}}
       {{ if $zh }}{{ .eyebrow_zh }}{{ else }}{{ .eyebrow_en }}{{ end -}}
     </span>
+    {{- if $isEmail }}
+    <span class="bento-modes">
+      <span class="bento-mode-pill" data-coffee-mode="onsite">☕ {{ if $zh }}线下 · 周末{{ else }}On-site · Wknd{{ end }}</span>
+      <span class="bento-mode-pill" data-coffee-mode="online">🌐 {{ if $zh }}线上 · 跨时区{{ else }}Online · Mutual TZ{{ end }}</span>
+    </span>
+    {{- end }}
     {{- if .progress }}
     <span class="bento-big"><b data-count="{{ .progress }}">{{ .progress }}</b><small> / {{ .total }}</small></span>
     <span class="bento-bar" aria-hidden="true"><i style="{{ printf "--p:%.0f%%" (div (mul .progress 100.0) .total) | safeCSS }}"></i></span>
