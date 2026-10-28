@@ -1,11 +1,13 @@
 /* ==========================================================================
    liyc.pw — Interactive Coffee Chat Scheduler (static/js/coffee-chat.js)
    A Calendly-style meeting booking widget for "Beyond the Lab":
-   1. On-site Coffee Chat in Abu Dhabi (UTC+4) — Open on weekends (Sat & Sun)
+   1. On-site Coffee Chat in Abu Dhabi (UTC+4) — Open on weekends (Sat & Sun),
+      afternoon/evening slots only (14:00, 16:00, 18:00, 20:00).
    2. Online Coffee Chat — Mutual time zone smart matching (Host in UTC+4 vs
-      Visitor's local IANA time zone)
-   Automatically dispatches a structured booking email to Yuchen and generates
-   1-click Google Calendar, .ics calendar invite, Gmail, and mailto links.
+      Visitor's auto-detected local time or any of the 24 global UTC time zones).
+   Instant (0ms) confirmation with 1-click Google Calendar invite (which
+   automatically emails Yuchen an invitation), .ics download, Gmail, and mailto,
+   plus non-blocking background email dispatch.
    ========================================================================== */
 (function () {
   'use strict';
@@ -15,10 +17,8 @@
   if (document.getElementById('coffee-modal')) return;
 
   var zh = (document.documentElement.lang || '').toLowerCase().indexOf('zh') === 0;
-  var HOST_TZ = 'Asia/Dubai'; // UTC+4 (no DST)
-  var HOST_OFFSET_MIN = 240;  // +04:00 = +240 minutes from UTC
+  var HOST_OFFSET_MIN = 240; // Abu Dhabi = UTC+4 (+240 minutes)
 
-  // Resolve host email from the Beyond the Lab trigger or fallback
   function getHostEmail() {
     var el = document.querySelector('.js-coffee-trigger[data-u][data-d], .js-email[data-u][data-d]');
     if (el && el.getAttribute('data-u') && el.getAttribute('data-d')) {
@@ -27,38 +27,69 @@
     return 'yuchen.li@mbzuai.ac.ae';
   }
 
-  // Common global timezones for quick switching
-  var TZ_LIST = [
-    { id: 'Asia/Dubai', label_en: 'Abu Dhabi / Dubai (UTC+4)', label_zh: '阿布扎比 / 迪拜 (UTC+4)' },
-    { id: 'Asia/Shanghai', label_en: 'Beijing / Shanghai / Singapore (UTC+8)', label_zh: '北京时间 / 新加坡 (UTC+8)' },
-    { id: 'Asia/Hong_Kong', label_en: 'Hong Kong / Taipei (UTC+8)', label_zh: '香港 / 台北 (UTC+8)' },
-    { id: 'Asia/Tokyo', label_en: 'Tokyo / Seoul (UTC+9)', label_zh: '东京 / 首尔 (UTC+9)' },
-    { id: 'Asia/Kolkata', label_en: 'India Standard Time (UTC+5:30)', label_zh: '印度标准时间 (UTC+5:30)' },
-    { id: 'Asia/Riyadh', label_en: 'Riyadh / KAUST (UTC+3)', label_zh: '利雅得 / KAUST (UTC+3)' },
-    { id: 'Europe/London', label_en: 'London / UK (GMT/BST)', label_zh: '伦敦 / 英国 (GMT/BST)' },
-    { id: 'Europe/Berlin', label_en: 'Central Europe · Paris / Berlin / Zurich', label_zh: '中欧时间 · 巴黎 / 柏林 / 苏黎世' },
-    { id: 'America/New_York', label_en: 'US Eastern · New York / Boston (ET)', label_zh: '美东时间 · 纽约 / 波士顿 (ET)' },
-    { id: 'America/Chicago', label_en: 'US Central · Chicago / Austin (CT)', label_zh: '美中时间 · 芝加哥 / 奥斯汀 (CT)' },
-    { id: 'America/Denver', label_en: 'US Mountain · Denver (MT)', label_zh: '美山时间 · 丹佛 (MT)' },
-    { id: 'America/Los_Angeles', label_en: 'US Pacific · SF / Seattle / LA (PT)', label_zh: '美西时间 · 旧金山 / 西雅图 / 洛杉矶 (PT)' },
-    { id: 'America/Toronto', label_en: 'Canada Eastern · Toronto / Montreal', label_zh: '加拿大东部 · 多伦多 / 蒙特利尔' },
-    { id: 'Australia/Sydney', label_en: 'Sydney / Melbourne (AEST/AEDT)', label_zh: '悉尼 / 墨尔本 (AEST/AEDT)' }
-  ];
-
-  var detectedTz = 'Asia/Dubai';
-  try {
-    detectedTz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Dubai';
-  } catch (e) {
-    detectedTz = 'Asia/Dubai';
+  // Format offset minutes (e.g. 240 -> "UTC+4", 330 -> "UTC+5:30", -300 -> "UTC-5")
+  function formatUtcOffset(offsetMin) {
+    if (offsetMin === 0) return 'UTC+0';
+    var sign = offsetMin > 0 ? '+' : '-';
+    var abs = Math.abs(offsetMin);
+    var h = Math.floor(abs / 60);
+    var m = abs % 60;
+    return 'UTC' + sign + h + (m ? ':' + (m < 10 ? '0' + m : m) : '');
   }
 
-  // Ensure visitor's detected timezone is in TZ_LIST
-  if (detectedTz && !TZ_LIST.some(function (t) { return t.id === detectedTz; })) {
-    TZ_LIST.unshift({
-      id: detectedTz,
-      label_en: detectedTz.replace(/_/g, ' ') + ' (Local)',
-      label_zh: detectedTz.replace(/_/g, ' ') + ' (当前时区)'
+  // All 24 standard global time zones (UTC-12 to UTC+12, plus common half-hour & +13/+14 zones)
+  var ALL_TIMEZONES = [
+    { offset: -720, en: 'UTC-12:00 · Baker Island (IDLW)', zh: 'UTC-12:00 · 贝克岛 (国际换日线西)' },
+    { offset: -660, en: 'UTC-11:00 · Pago Pago / American Samoa', zh: 'UTC-11:00 · 美属萨摩亚 / 中途岛' },
+    { offset: -600, en: 'UTC-10:00 · Honolulu / Hawaii (HST)', zh: 'UTC-10:00 · 夏威夷 / 檀香山 (HST)' },
+    { offset: -540, en: 'UTC-09:00 · Anchorage / Alaska (AKST)', zh: 'UTC-09:00 · 阿拉斯加 / 安克雷奇' },
+    { offset: -480, en: 'UTC-08:00 · US Pacific · LA / Seattle / SF (PST)', zh: 'UTC-08:00 · 美西冬令时 · 洛杉矶 / 西雅图 (PST)' },
+    { offset: -420, en: 'UTC-07:00 · US Pacific Daylight / Mountain (PDT/MST)', zh: 'UTC-07:00 · 美西夏令时 / 美山时间 (PDT/MST)' },
+    { offset: -360, en: 'UTC-06:00 · US Central · Chicago / Austin / Mexico (CST)', zh: 'UTC-06:00 · 美中时间 · 芝加哥 / 奥斯汀 / 墨西哥城' },
+    { offset: -300, en: 'UTC-05:00 · US Eastern (EST) / Central Daylight', zh: 'UTC-05:00 · 美东冬令时 · 纽约 / 波士顿 / 多伦多 (EST)' },
+    { offset: -240, en: 'UTC-04:00 · US Eastern Daylight (EDT) / Santiago', zh: 'UTC-04:00 · 美东夏令时 (EDT) / 圣地亚哥' },
+    { offset: -180, en: 'UTC-03:00 · São Paulo / Buenos Aires (BRT/ART)', zh: 'UTC-03:00 · 圣保罗 / 布宜诺斯艾利斯' },
+    { offset: -120, en: 'UTC-02:00 · South Georgia / Mid-Atlantic', zh: 'UTC-02:00 · 南乔治亚 / 中大西洋时间' },
+    { offset: -60,  en: 'UTC-01:00 · Azores / Cape Verde', zh: 'UTC-01:00 · 亚速尔群岛 / 佛得角' },
+    { offset: 0,    en: 'UTC+00:00 · London / Dublin / Lisbon (GMT/UTC)', zh: 'UTC+00:00 · 伦敦 / 都柏林 / 里斯本 (GMT/UTC)' },
+    { offset: 60,   en: 'UTC+01:00 · London (BST) / Paris / Berlin / Zurich (CET)', zh: 'UTC+01:00 · 英国夏令时 / 巴黎 / 柏林 / 苏黎世 (CET)' },
+    { offset: 120,  en: 'UTC+02:00 · Central Europe Summer (CEST) / Cairo / Athens', zh: 'UTC+02:00 · 欧洲夏令时 (CEST) / 开罗 / 雅典' },
+    { offset: 180,  en: 'UTC+03:00 · Riyadh / KAUST / Doha / Moscow / Istanbul', zh: 'UTC+03:00 · 利雅得 (KAUST) / 多哈 / 莫斯科 / 伊斯坦布尔' },
+    { offset: 240,  en: 'UTC+04:00 · Abu Dhabi / Dubai (UAE · Host Time)', zh: 'UTC+04:00 · 阿布扎比 / 迪拜 (阿联酋 · 禹陈所在地)' },
+    { offset: 300,  en: 'UTC+05:00 · Tashkent / Karachi / Maldives', zh: 'UTC+05:00 · 塔什干 / 卡拉奇 / 马尔代夫' },
+    { offset: 330,  en: 'UTC+05:30 · India Standard Time · Mumbai / Bengaluru (IST)', zh: 'UTC+05:30 · 印度标准时间 · 孟买 / 班加罗尔 (IST)' },
+    { offset: 360,  en: 'UTC+06:00 · Almaty / Dhaka', zh: 'UTC+06:00 · 阿拉木图 / 达卡' },
+    { offset: 420,  en: 'UTC+07:00 · Bangkok / Jakarta / Hanoi (ICT)', zh: 'UTC+07:00 · 曼谷 / 雅加达 / 河内' },
+    { offset: 480,  en: 'UTC+08:00 · Beijing / Shanghai / HK / Singapore / Taipei', zh: 'UTC+08:00 · 北京 / 上海 / 香港 / 新加坡 / 台北' },
+    { offset: 540,  en: 'UTC+09:00 · Tokyo / Seoul (JST/KST)', zh: 'UTC+09:00 · 东京 / 首尔 (JST/KST)' },
+    { offset: 600,  en: 'UTC+10:00 · Sydney / Melbourne / Brisbane (AEST)', zh: 'UTC+10:00 · 悉尼 / 墨尔本 / 布里斯班 (AEST)' },
+    { offset: 660,  en: 'UTC+11:00 · Sydney Daylight (AEDT) / Nouméa', zh: 'UTC+11:00 · 悉尼夏令时 (AEDT) / 努美阿' },
+    { offset: 720,  en: 'UTC+12:00 · Auckland / Fiji (NZST)', zh: 'UTC+12:00 · 奥克兰 / 斐济 (NZST)' },
+    { offset: 780,  en: 'UTC+13:00 · Auckland Daylight (NZDT) / Tonga', zh: 'UTC+13:00 · 新西兰夏令时 (NZDT) / 汤加' },
+    { offset: 840,  en: 'UTC+14:00 · Kiritimati / Line Islands', zh: 'UTC+14:00 · 圣诞岛 (莱恩群岛)' }
+  ];
+
+  // Auto-detect visitor's local UTC offset & IANA name directly from the browser clock
+  var detectedOffsetMin = HOST_OFFSET_MIN;
+  var detectedIana = '';
+  try {
+    detectedOffsetMin = -new Date().getTimezoneOffset();
+    if (typeof Intl !== 'undefined' && Intl.DateTimeFormat) {
+      detectedIana = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+    }
+  } catch (e) {
+    detectedOffsetMin = HOST_OFFSET_MIN;
+  }
+
+  // Ensure the exact detected offset exists in ALL_TIMEZONES
+  if (!ALL_TIMEZONES.some(function (z) { return z.offset === detectedOffsetMin; })) {
+    var tag = formatUtcOffset(detectedOffsetMin);
+    ALL_TIMEZONES.push({
+      offset: detectedOffsetMin,
+      en: tag + ' · Local Time' + (detectedIana ? ' (' + detectedIana + ')' : ''),
+      zh: tag + ' · 本地时间' + (detectedIana ? ' (' + detectedIana + ')' : '')
     });
+    ALL_TIMEZONES.sort(function (a, b) { return a.offset - b.offset; });
   }
 
   var T = {
@@ -66,15 +97,17 @@
       badge: 'COFFEE CHAT SCHEDULER',
       hostName: 'Yuchen Li',
       hostSub: 'PhD in Computer Vision · MBZUAI',
-      hostTzLabel: 'Host time · Abu Dhabi (UTC+4)',
+      hostTzLabel: 'Abu Dhabi (UTC+4)',
       yourTzLabel: 'Your local time',
+      autoDetectedTag: 'Auto-detected from your device',
+      changeTzBtn: 'Change time zone ▾',
       modeTitle: '1. Select Meeting Mode',
       onsiteTitle: 'On-site Coffee Chat',
       onsiteSub: 'Abu Dhabi · Open on Weekends (Sat & Sun)',
-      onsiteBadge: 'Weekend Only · UTC+4',
+      onsiteBadge: 'Weekend · UTC+4',
       onlineTitle: 'Online Coffee Chat',
       onlineSub: 'Video Call · Mutual Time Zone Match',
-      onlineBadge: 'Mutual TZ Smart Match',
+      onlineBadge: 'Mutual Time Zone',
       durationLabel: 'Duration',
       locationLabel: 'Abu Dhabi Meetup Spot',
       platformLabel: 'Video Platform',
@@ -86,27 +119,25 @@
         'Flexible / Suggest a spot in notes'
       ],
       platforms: [
-        'Google Meet (Auto-link)',
+        'Google Meet',
         'Zoom Meeting',
         'Tencent Meeting / WeChat',
         'Other (share link in notes)'
       ],
-      tzSelectLabel: 'Your Time Zone (for Mutual Time Match)',
-      overlapSame: 'You are in the same time zone as Abu Dhabi (UTC+4).',
+      tzSelectLabel: 'Time Zone (24 Global Time Zones)',
+      overlapSame: 'Same time zone as Abu Dhabi (UTC+4).',
       overlapAhead: function (h) { return 'Your time is ' + h + 'h ahead of Abu Dhabi (UTC+4).'; },
       overlapBehind: function (h) { return 'Your time is ' + h + 'h behind Abu Dhabi (UTC+4).'; },
       calTitle: '2. Select a Date',
-      onsiteRuleBanner: '☕ On-site coffee chats in Abu Dhabi are open on weekends (Saturday & Sunday).',
-      onlineRuleBanner: '🌐 Showing times matched to both your local timezone and Abu Dhabi (UTC+4).',
+      onsiteRuleBanner: '☕ On-site coffee chats in Abu Dhabi are open on weekends (Sat & Sun) — afternoon & evening.',
+      onlineRuleBanner: '🌐 Afternoon & evening slots (2 PM – 8 PM UTC+4), automatically converted to your local time.',
       weekdays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
       months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-      slotTitle: '3. Select a Time Slot',
-      mutualFilterOn: '★ Mutual Friendly Hours',
-      mutualFilterAll: 'Show All UTC+4 Hours',
-      bestBadge: '★ Mutual Best',
+      slotTitle: '3. Select a Time (Afternoon / Evening)',
+      bestBadge: '★ Best Mutual Time',
       abuDhabiTag: 'Abu Dhabi',
       yourTimeTag: 'Your time',
-      noMutualSlots: 'No mutual daytime slots found with strict filter. Click "Show All UTC+4 Hours" above.',
+      noSlotsToday: 'Today\'s afternoon/evening slots have passed. Please pick an upcoming date.',
       wkndOnlyHint: 'Weekday (On-site is open Sat & Sun)',
       formTitle: 'Confirm Your Coffee Chat',
       changeSlot: '← Change time',
@@ -125,19 +156,19 @@
       ],
       notesLabel: 'Notes / Specific Questions (Optional)',
       notesPh: 'Anything you would like to discuss, paper links, or preferred coffee spot...',
-      autoEmailHint: 'Automatically sends a booking email to Yuchen and generates your calendar invite.',
-      submitBtn: 'Schedule Meeting & Send Email →',
-      submittingBtn: 'Sending booking email to Yuchen...',
-      successTitle: 'Coffee Chat Request Ready!',
-      successSentAuto: 'Booking details have been automatically dispatched to Yuchen (' + getHostEmail() + ').',
-      successFallbackNote: 'We also opened a pre-filled email / invite option below so Yuchen receives your calendar request right away.',
-      gcalBtn: '📅 Add to Google Calendar (Invites Yuchen)',
-      icsBtn: '📥 Download .ics Calendar Invite',
-      mailtoBtn: '✉️ Send via Default Mail App',
-      gmailBtn: '📨 Open in Gmail Web',
-      copyBtn: '📋 Copy Booking Summary',
-      copiedBtn: '✓ Copied to Clipboard',
-      bookAnother: '← Book another time',
+      autoEmailHint: 'Instant confirmation: book via Google Calendar invite or send a pre-filled email.',
+      submitBtn: 'Confirm Time & Continue →',
+      successTitle: 'Time Selected! Choose How to Send:',
+      successDesc: 'Pick either option below — both will notify Yuchen (' + getHostEmail() + ') with the exact meeting time:',
+      gcalBtn: '📅 Add to Google Calendar & Invite Yuchen (Recommended)',
+      gcalHint: 'Creates the event on your calendar and automatically emails a calendar invite to Yuchen.',
+      mailtoBtn: '✉️ Send Booking Email via Mail App',
+      gmailBtn: '📨 Send via Gmail Web',
+      icsBtn: '📥 Download .ics File (Apple / Outlook)',
+      copyBtn: '📋 Copy Details',
+      copiedBtn: '✓ Copied',
+      bgSentNote: '✓ A background notification was also sent to Yuchen\'s inbox.',
+      bookAnother: '← Pick another time',
       closeLabel: 'Close scheduler',
       dayShiftNext: '+1d your time',
       dayShiftPrev: '-1d your time'
@@ -146,15 +177,17 @@
       badge: 'COFFEE CHAT · 预约系统',
       hostName: '李禹陈 (Yuchen Li)',
       hostSub: 'MBZUAI 计算机视觉博士生 · 阿布扎比',
-      hostTzLabel: '禹陈所在地 · 阿布扎比 (UTC+4)',
-      yourTzLabel: '你的当前时区时间',
+      hostTzLabel: '阿布扎比时间 (UTC+4)',
+      yourTzLabel: '你的本地时间',
+      autoDetectedTag: '已自动读取你的设备时间',
+      changeTzBtn: '切换其他时区 (24个时区) ▾',
       modeTitle: '1. 选择预约方式',
       onsiteTitle: '阿布扎比线下咖啡 (On-site)',
       onsiteSub: '阿布扎比面聊 · 周末开放 (周六 & 周日)',
-      onsiteBadge: '仅周末开放 · UTC+4',
+      onsiteBadge: '仅周末 · UTC+4',
       onlineTitle: '线上咖啡交流 (Online)',
-      onlineSub: '视频会议 · 智能匹配双方时区',
-      onlineBadge: '智能跨时区匹配',
+      onlineSub: '视频会议 · 自动换算双方时区',
+      onlineBadge: '智能跨时区',
       durationLabel: '会议时长',
       locationLabel: '阿布扎比约见地点',
       platformLabel: '线上会议方式',
@@ -171,28 +204,26 @@
         '腾讯会议 / 微信语音视频',
         '其他平台（可在备注附上链接）'
       ],
-      tzSelectLabel: '你的所在时区（自动计算双方舒适时段）',
+      tzSelectLabel: '选择时区（覆盖全球 24 个标准时区）',
       overlapSame: '你当前与阿布扎比处于同一时区 (UTC+4)。',
-      overlapAhead: function (h) { return '你的时区比阿布扎比 (UTC+4) 快 ' + h + ' 小时。'; },
-      overlapBehind: function (h) { return '你的时区比阿布扎比 (UTC+4) 慢 ' + h + ' 小时。'; },
+      overlapAhead: function (h) { return '你的本地时间比阿布扎比 (UTC+4) 快 ' + h + ' 小时。'; },
+      overlapBehind: function (h) { return '你的本地时间比阿布扎比 (UTC+4) 慢 ' + h + ' 小时。'; },
       calTitle: '2. 选择日期',
-      onsiteRuleBanner: '☕ 阿布扎比线下 Coffee Chat 在周末（周六、周日）开放预约。',
-      onlineRuleBanner: '🌐 已根据你的时区与阿布扎比 (UTC+4) 自动换算并高亮「双方黄金时段」。',
+      onsiteRuleBanner: '☕ 阿布扎比线下咖啡在周末（周六、周日）下午及晚上开放。',
+      onlineRuleBanner: '🌐 已自动读取你的本地时间，并与阿布扎比下午/晚上时段（14:00 – 20:00 UTC+4）对齐。',
       weekdays: ['日', '一', '二', '三', '四', '五', '六'],
       months: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
-      slotTitle: '3. 选择具体时间',
-      mutualFilterOn: '★ 仅看双方舒适时段',
-      mutualFilterAll: '显示全部 UTC+4 时段',
+      slotTitle: '3. 选择时间段（下午 / 晚上）',
       bestBadge: '★ 双方黄金时段',
       abuDhabiTag: '阿布扎比',
-      yourTimeTag: '你的时间',
-      noMutualSlots: '当前严格过滤下暂无重叠时段，请点击上方「显示全部 UTC+4 时段」。',
+      yourTimeTag: '你的本地时间',
+      noSlotsToday: '今天的下午/晚上预约时段已过，请在左侧选择后续日期。',
       wkndOnlyHint: '工作日（线下咖啡仅周六、周日开放）',
       formTitle: '填写预约信息',
       changeSlot: '← 修改时间',
       nameLabel: '你的姓名 / 称呼 *',
       namePh: '例如：张同学 / Alex',
-      emailLabel: '你的邮箱（用于接收日历邀请与回复）*',
+      emailLabel: '你的邮箱 *',
       emailPh: 'name@example.com',
       affilLabel: '学校 / 机构 / 身份（选填）',
       affilPh: '例如：XX 大学博士生 / 研究员 / 小红书读者',
@@ -205,96 +236,45 @@
       ],
       notesLabel: '备注说明 / 想聊的具体问题（选填）',
       notesPh: '可以写下你想聊的方向、论文链接，或者推荐的咖啡馆...',
-      autoEmailHint: '点击确认后将自动向禹陈发送预约邮件，并生成日历邀请。',
-      submitBtn: '确认预约并自动发送邮件 →',
-      submittingBtn: '正在自动发送预约邮件...',
-      successTitle: 'Coffee Chat 预约请求已生成！',
-      successSentAuto: '预约详情已自动发送至禹陈的邮箱 (' + getHostEmail() + ')。',
-      successFallbackNote: '同时为你生成了一键日历邀请与邮件确认入口，确保双方日历同步：',
-      gcalBtn: '📅 添加到 Google Calendar（并邀请禹陈）',
-      icsBtn: '📥 下载 .ics 日历文件 (Apple / Outlook)',
-      mailtoBtn: '✉️ 用本地邮件客户端发送确认信',
+      autoEmailHint: '毫秒级响应：下一步可直接添加 Google Calendar 邀请或一键发邮件。',
+      submitBtn: '确认时间并继续 →',
+      successTitle: '时间已锁定！请选择通知方式：',
+      successDesc: '任选下方一种方式即可（都会把具体时间发送到禹陈的邮箱 ' + getHostEmail() + '）：',
+      gcalBtn: '📅 添加到 Google Calendar 并自动发邀请给禹陈（推荐）',
+      gcalHint: '会在你的日历创建日程，并由 Google 自动向禹陈发送带 Yes/No 的日历邀请邮件。',
+      mailtoBtn: '✉️ 直接用邮件客户端发预约信',
       gmailBtn: '📨 用 Gmail 网页版发送',
-      copyBtn: '📋 复制预约详情文本',
-      copiedBtn: '✓ 已复制到剪贴板',
+      icsBtn: '📥 下载 .ics 日历文件 (Apple / Outlook)',
+      copyBtn: '📋 复制预约信息',
+      copiedBtn: '✓ 已复制',
+      bgSentNote: '✓ 系统同时已在后台向禹陈发送了一条预约通知备份。',
       bookAnother: '← 重新选择其他时间',
       closeLabel: '关闭预约窗口',
-      dayShiftNext: '你的时区 +1天',
-      dayShiftPrev: '你的时区 -1天'
+      dayShiftNext: '你的时间 +1天',
+      dayShiftPrev: '你的时间 -1天'
     }
   }[zh ? 'zh' : 'en'];
 
-  // ---- Timezone & Date Math Helpers ----
+  // ---- Pure Offset-Based Time Math (Fast, Deterministic, 24 Timezones) ----
 
-  // Get current date parts in Abu Dhabi (UTC+4)
-  function getAbuDhabiNowParts() {
-    var now = new Date();
-    var utcMs = now.getTime() + now.getTimezoneOffset() * 60000;
-    var adDate = new Date(utcMs + HOST_OFFSET_MIN * 60000);
+  function getPartsFromOffset(dateObj, offsetMin) {
+    var shifted = new Date(dateObj.getTime() + offsetMin * 60000);
     return {
-      year: adDate.getFullYear(),
-      month: adDate.getMonth(),
-      day: adDate.getDate(),
-      hour: adDate.getHours(),
-      minute: adDate.getMinutes(),
-      dow: adDate.getDay()
+      year: shifted.getUTCFullYear(),
+      month: shifted.getUTCMonth(),
+      day: shifted.getUTCDate(),
+      hour: shifted.getUTCHours(),
+      minute: shifted.getUTCMinutes(),
+      dow: shifted.getUTCDay()
     };
   }
 
-  // Convert an Abu Dhabi (UTC+4) date (year, month 0-indexed, day, hour, minute) into an exact UTC Date object
+  function getAbuDhabiNowParts() {
+    return getPartsFromOffset(new Date(), HOST_OFFSET_MIN);
+  }
+
   function abuDhabiToDate(year, month, day, hour, minute) {
-    // UTC+4 means UTC = AbuDhabiTime - 4 hours
     return new Date(Date.UTC(year, month, day, hour - 4, minute || 0, 0));
-  }
-
-  // Extract date/time parts in any target IANA timezone from a Date instant
-  function getPartsInTz(dateObj, tz) {
-    try {
-      var fmt = new Intl.DateTimeFormat('en-US', {
-        timeZone: tz,
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        weekday: 'short',
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false
-      });
-      var parts = fmt.formatToParts(dateObj);
-      var map = {};
-      for (var i = 0; i < parts.length; i++) {
-        map[parts[i].type] = parts[i].value;
-      }
-      var h = parseInt(map.hour, 10);
-      if (h === 24) h = 0;
-      return {
-        year: parseInt(map.year, 10),
-        month: parseInt(map.month, 10) - 1,
-        day: parseInt(map.day, 10),
-        hour: h,
-        minute: parseInt(map.minute, 10),
-        weekday: map.weekday
-      };
-    } catch (e) {
-      return {
-        year: dateObj.getUTCFullYear(),
-        month: dateObj.getUTCMonth(),
-        day: dateObj.getUTCDate(),
-        hour: dateObj.getUTCHours(),
-        minute: dateObj.getUTCMinutes(),
-        weekday: ''
-      };
-    }
-  }
-
-  // Calculate timezone offset difference (in hours) between visitorTz and Abu Dhabi (UTC+4)
-  function getTzDiffHours(visitorTz) {
-    var ref = new Date();
-    var ad = getPartsInTz(ref, HOST_TZ);
-    var vis = getPartsInTz(ref, visitorTz);
-    var adUtc = Date.UTC(ad.year, ad.month, ad.day, ad.hour, ad.minute);
-    var visUtc = Date.UTC(vis.year, vis.month, vis.day, vis.hour, vis.minute);
-    return Math.round(((visUtc - adUtc) / 3600000) * 2) / 2;
   }
 
   function pad2(n) {
@@ -310,10 +290,6 @@
     return h12 + ':' + pad2(minute) + ' ' + period;
   }
 
-  function formatYMD(y, m, d) {
-    return y + '-' + pad2(m + 1) + '-' + pad2(d);
-  }
-
   function formatReadableDate(y, m, d) {
     var dt = new Date(Date.UTC(y, m, d, 12, 0, 0));
     try {
@@ -325,11 +301,10 @@
         day: 'numeric'
       }).format(dt);
     } catch (e) {
-      return formatYMD(y, m, d);
+      return y + '-' + pad2(m + 1) + '-' + pad2(d);
     }
   }
 
-  // Format UTC Date to YYYYMMDDTHHMMSSZ for Google Calendar / ICS
   function toCalUTCString(dateObj) {
     return (
       dateObj.getUTCFullYear() +
@@ -346,29 +321,24 @@
   var nowAD = getAbuDhabiNowParts();
   var state = {
     isOpen: false,
-    mode: 'onsite', // 'onsite' (weekend in Abu Dhabi) or 'online' (mutual TZ)
-    duration: 45,   // minutes
+    mode: 'onsite',                   // 'onsite' (weekend in Abu Dhabi) or 'online' (mutual TZ)
+    duration: 30,                     // 30 or 60 minutes
     location: T.locations[0],
     platform: T.platforms[0],
-    visitorTz: detectedTz || 'Asia/Dubai',
-    use12h: false,
-    strictMutual: true,
+    visitorOffsetMin: detectedOffsetMin, // auto-read from user's device clock!
+    tzPickerExpanded: false,
+    use12h: true,                     // default to clear 2:00 PM / 4:00 PM / 6:00 PM / 8:00 PM display
     viewYear: nowAD.year,
     viewMonth: nowAD.month,
     selectedYear: nowAD.year,
     selectedMonth: nowAD.month,
     selectedDay: nowAD.day,
-    selectedSlot: null, // { adHour, adMinute, startUtc, endUtc, visParts, tier, dayDiff }
-    step: 'pick',       // 'pick' | 'form' | 'done'
+    selectedSlot: null,
+    step: 'pick',                     // 'pick' | 'form' | 'done'
     topic: 'research',
-    guestName: '',
-    guestEmail: '',
-    guestAffil: '',
-    guestNotes: '',
     lastBooking: null
   };
 
-  // Check if a calendar date (in Abu Dhabi) is selectable
   function isDateSelectable(y, m, d, mode) {
     var todayAD = getAbuDhabiNowParts();
     var targetVal = y * 10000 + m * 100 + d;
@@ -377,16 +347,16 @@
 
     var dow = new Date(Date.UTC(y, m, d, 12, 0, 0)).getUTCDay();
     if (mode === 'onsite') {
-      // UAE weekend in Abu Dhabi is Saturday (6) and Sunday (0)
-      return dow === 0 || dow === 6;
+      return dow === 0 || dow === 6; // Saturday & Sunday in Abu Dhabi
     }
     return true;
   }
 
-  // Ensure selected date is valid for current mode; if not, advance to next valid date
   function ensureValidSelectedDate() {
     if (isDateSelectable(state.selectedYear, state.selectedMonth, state.selectedDay, state.mode)) {
-      return;
+      if (getSlotsForDate(state.selectedYear, state.selectedMonth, state.selectedDay).length > 0) {
+        return;
+      }
     }
     var base = new Date(Date.UTC(nowAD.year, nowAD.month, nowAD.day, 12, 0, 0));
     for (var i = 0; i < 21; i++) {
@@ -394,7 +364,7 @@
       var cy = cand.getUTCFullYear();
       var cm = cand.getUTCMonth();
       var cd = cand.getUTCDate();
-      if (isDateSelectable(cy, cm, cd, state.mode)) {
+      if (isDateSelectable(cy, cm, cd, state.mode) && getSlotsForDate(cy, cm, cd).length > 0) {
         state.selectedYear = cy;
         state.selectedMonth = cm;
         state.selectedDay = cd;
@@ -405,66 +375,30 @@
     }
   }
 
-  ensureValidSelectedDate();
+  // Core afternoon/evening slots in Abu Dhabi (UTC+4): 2:00 PM, 4:00 PM, 6:00 PM, 8:00 PM
+  var CORE_SLOTS = [
+    { h: 14, min: 0, tag_en: '2:00 PM · Afternoon Coffee', tag_zh: '下午 2:00 · 午后咖啡' },
+    { h: 16, min: 0, tag_en: '4:00 PM · Late Afternoon', tag_zh: '下午 4:00 · 下午茶歇' },
+    { h: 18, min: 0, tag_en: '6:00 PM · Evening Chat', tag_zh: '下午 6:00 · 傍晚交流' },
+    { h: 20, min: 0, tag_en: '8:00 PM · Night Coffee', tag_zh: '晚上 8:00 · 晚间咖啡' }
+  ];
 
-  // Compute time slots for the currently selected date & mode
-  function getSlotsForSelectedDate() {
-    var y = state.selectedYear;
-    var m = state.selectedMonth;
-    var d = state.selectedDay;
+  function getSlotsForDate(y, m, d) {
     var nowMs = Date.now();
-    var rawSlots = [];
-
-    if (state.mode === 'onsite') {
-      // On-site weekend slots in Abu Dhabi (UTC+4)
-      rawSlots = [
-        { h: 10, min: 0, tag_en: 'Morning Espresso', tag_zh: '早间咖啡' },
-        { h: 11, min: 0, tag_en: 'Late Morning Brew', tag_zh: '上午手冲' },
-        { h: 14, min: 0, tag_en: 'Afternoon Coffee', tag_zh: '午后咖啡' },
-        { h: 15, min: 30, tag_en: 'Afternoon Chat', tag_zh: '下午茶歇' },
-        { h: 17, min: 0, tag_en: 'Golden Hour', tag_zh: '傍晚日落' },
-        { h: 18, min: 30, tag_en: 'Evening Catch-up', tag_zh: '晚间交流' },
-        { h: 20, min: 0, tag_en: 'Night Specialty', tag_zh: '夜间特调' }
-      ];
-    } else {
-      // Online candidate slots in Abu Dhabi (UTC+4): 09:00 to 22:30 (excluding 12:00-13:00 lunch)
-      var hours = [
-        [9, 0], [9, 30], [10, 0], [10, 30], [11, 0], [11, 30],
-        [13, 30], [14, 0], [14, 30], [15, 0], [15, 30], [16, 0], [16, 30],
-        [17, 0], [17, 30], [18, 0], [18, 30], [19, 0], [19, 30],
-        [20, 0], [20, 30], [21, 0], [21, 30], [22, 0], [22, 30]
-      ];
-      for (var i = 0; i < hours.length; i++) {
-        rawSlots.push({ h: hours[i][0], min: hours[i][1] });
-      }
-    }
-
     var results = [];
-    for (var j = 0; j < rawSlots.length; j++) {
-      var s = rawSlots[j];
+
+    for (var i = 0; i < CORE_SLOTS.length; i++) {
+      var s = CORE_SLOTS[i];
       var startUtc = abuDhabiToDate(y, m, d, s.h, s.min);
-      // Skip slots in the past (with 30m buffer)
-      if (startUtc.getTime() < nowMs + 1800000) continue;
+      if (startUtc.getTime() < nowMs + 900000) continue; // skip past slots
 
       var endUtc = new Date(startUtc.getTime() + state.duration * 60000);
-      var visParts = getPartsInTz(startUtc, state.visitorTz);
-
-      var adDecimal = s.h + s.min / 60;
+      var visParts = getPartsFromOffset(startUtc, state.visitorOffsetMin);
       var visDecimal = visParts.hour + visParts.minute / 60;
 
-      // Determine mutual comfort tier
-      var tier = 3; // extended
-      if (adDecimal >= 10 && adDecimal <= 21.5 && visDecimal >= 9 && visDecimal <= 21) {
-        tier = 1; // ★ Mutual Sweet Spot
-      } else if (adDecimal >= 9 && adDecimal <= 22.5 && visDecimal >= 7.5 && visDecimal <= 22.5) {
-        tier = 2; // Reasonable overlap
-      }
+      // Best mutual overlap: when visitor's local time is between 08:30 and 22:30
+      var isSweet = visDecimal >= 8.5 && visDecimal <= 22.5;
 
-      if (state.mode === 'online' && state.strictMutual && tier === 3) {
-        continue;
-      }
-
-      // Compute day shift between Abu Dhabi date and Visitor local date
       var adDayNum = Date.UTC(y, m, d);
       var visDayNum = Date.UTC(visParts.year, visParts.month, visParts.day);
       var dayDiff = Math.round((visDayNum - adDayNum) / 86400000);
@@ -476,13 +410,14 @@
         startUtc: startUtc,
         endUtc: endUtc,
         visParts: visParts,
-        tier: tier,
+        isSweet: isSweet,
         dayDiff: dayDiff
       });
     }
-
     return results;
   }
+
+  ensureValidSelectedDate();
 
   // ---- Build DOM Modal ----
   var modal = document.createElement('div');
@@ -498,7 +433,7 @@
     '<div class="cchat-dialog" role="document">' +
       '<button type="button" class="cchat-close" data-cchat-close aria-label="' + T.closeLabel + '">×</button>' +
       '<div class="cchat-grid">' +
-        // Left sidebar: Host + Mode Switcher + Mutual TZ Info
+        // Left sidebar
         '<aside class="cchat-side">' +
           '<div class="cchat-badge"><span class="cchat-dot"></span>' + T.badge + '</div>' +
           '<div class="cchat-host">' +
@@ -508,6 +443,7 @@
               '<div class="cchat-host-sub">' + T.hostSub + '</div>' +
             '</div>' +
           '</div>' +
+          // Live Dual Clocks + Auto-detected Local Time
           '<div class="cchat-clocks">' +
             '<div class="cchat-clock-row">' +
               '<span class="cchat-clock-label">🇦🇪 ' + T.hostTzLabel + '</span>' +
@@ -516,6 +452,14 @@
             '<div class="cchat-clock-row">' +
               '<span class="cchat-clock-label">🕒 ' + T.yourTzLabel + '</span>' +
               '<strong class="cchat-clock-val" id="cchat-clock-vis">--:--</strong>' +
+            '</div>' +
+            '<div class="cchat-tz-auto-bar">' +
+              '<span class="cchat-tz-diff" id="cchat-tz-diff"></span>' +
+              '<button type="button" class="cchat-tz-toggle-btn" id="cchat-tz-toggle-btn">' + T.changeTzBtn + '</button>' +
+            '</div>' +
+            '<div class="cchat-tz-Manual" id="cchat-tz-manual" style="display:none">' +
+              '<label class="cchat-mini-label" for="cchat-tz-select">' + T.tzSelectLabel + '</label>' +
+              '<select id="cchat-tz-select" class="cchat-select"></select>' +
             '</div>' +
           '</div>' +
           '<div class="cchat-sec-label">' + T.modeTitle + '</div>' +
@@ -540,10 +484,9 @@
           '<div class="cchat-meta-controls">' +
             '<div class="cchat-field-row">' +
               '<label class="cchat-mini-label">' + T.durationLabel + '</label>' +
-              '<div class="cchat-dur-group" id="cchat-dur-group">' +
-                '<button type="button" class="cchat-dur-btn" data-dur="30">30m</button>' +
-                '<button type="button" class="cchat-dur-btn is-active" data-dur="45">45m</button>' +
-                '<button type="button" class="cchat-dur-btn" data-dur="60">60m</button>' +
+              '<div class="cchat-dur-group cchat-dur-two" id="cchat-dur-group">' +
+                '<button type="button" class="cchat-dur-btn is-active" data-dur="30">30 min</button>' +
+                '<button type="button" class="cchat-dur-btn" data-dur="60">60 min</button>' +
               '</div>' +
             '</div>' +
             '<div class="cchat-field-row" id="cchat-loc-wrap">' +
@@ -554,17 +497,12 @@
               '<label class="cchat-mini-label" for="cchat-plat-select">' + T.platformLabel + '</label>' +
               '<select id="cchat-plat-select" class="cchat-select"></select>' +
             '</div>' +
-            '<div class="cchat-field-row" id="cchat-tz-wrap">' +
-              '<label class="cchat-mini-label" for="cchat-tz-select">' + T.tzSelectLabel + '</label>' +
-              '<select id="cchat-tz-select" class="cchat-select"></select>' +
-              '<div class="cchat-tz-diff" id="cchat-tz-diff"></div>' +
-            '</div>' +
           '</div>' +
         '</aside>' +
-        // Main right area: Calendar + Slots OR Form OR Confirmation
+        // Main right area
         '<div class="cchat-main">' +
           '<div class="cchat-rule-banner" id="cchat-rule-banner"></div>' +
-          // Step 1: Calendar + Slots
+          // Step 1: Calendar + 4 Afternoon/Evening Slots
           '<div class="cchat-step-pick" id="cchat-step-pick">' +
             '<div class="cchat-cal-col">' +
               '<div class="cchat-cal-head">' +
@@ -585,8 +523,7 @@
                   '<div class="cchat-selected-date" id="cchat-selected-date"></div>' +
                 '</div>' +
                 '<div class="cchat-slot-tools">' +
-                  '<button type="button" class="cchat-tool-btn" id="cchat-mutual-toggle" style="display:none"></button>' +
-                  '<button type="button" class="cchat-tool-btn" id="cchat-fmt-toggle">24h</button>' +
+                  '<button type="button" class="cchat-tool-btn" id="cchat-fmt-toggle">12h</button>' +
                 '</div>' +
               '</div>' +
               '<div class="cchat-slots-list" id="cchat-slots-list"></div>' +
@@ -619,27 +556,30 @@
             '</div>' +
             '<div class="cchat-input-group">' +
               '<label for="cchat-in-notes">' + T.notesLabel + '</label>' +
-              '<textarea id="cchat-in-notes" class="cchat-textarea" rows="3" placeholder="' + T.notesPh + '"></textarea>' +
+              '<textarea id="cchat-in-notes" class="cchat-textarea" rows="2" placeholder="' + T.notesPh + '"></textarea>' +
             '</div>' +
             '<div class="cchat-form-foot">' +
-              '<span class="cchat-auto-hint">✨ ' + T.autoEmailHint + '</span>' +
+              '<span class="cchat-auto-hint">⚡ ' + T.autoEmailHint + '</span>' +
               '<button type="submit" class="cchat-submit-btn" id="cchat-submit-btn">' + T.submitBtn + '</button>' +
             '</div>' +
           '</form>' +
-          // Step 3: Confirmation & Calendar Invites
+          // Step 3: Instant Confirmation & 1-Click Calendar / Email
           '<div class="cchat-step-done" id="cchat-step-done" style="display:none">' +
             '<div class="cchat-done-ic">☕✓</div>' +
             '<h3 class="cchat-done-title">' + T.successTitle + '</h3>' +
-            '<p class="cchat-done-status" id="cchat-done-status"></p>' +
+            '<p class="cchat-done-sub">' + T.successDesc + '</p>' +
             '<div class="cchat-done-box" id="cchat-done-box"></div>' +
-            '<p class="cchat-done-sub">' + T.successFallbackNote + '</p>' +
+            '<div class="cchat-done-primary-wrap">' +
+              '<a id="cchat-act-gcal" class="cchat-action-btn is-primary is-big" target="_blank" rel="noopener">' + T.gcalBtn + '</a>' +
+              '<div class="cchat-gcal-hint">' + T.gcalHint + '</div>' +
+            '</div>' +
             '<div class="cchat-done-actions">' +
-              '<a id="cchat-act-gcal" class="cchat-action-btn is-primary" target="_blank" rel="noopener">' + T.gcalBtn + '</a>' +
-              '<button type="button" id="cchat-act-ics" class="cchat-action-btn">' + T.icsBtn + '</button>' +
               '<a id="cchat-act-mailto" class="cchat-action-btn">' + T.mailtoBtn + '</a>' +
               '<a id="cchat-act-gmail" class="cchat-action-btn" target="_blank" rel="noopener">' + T.gmailBtn + '</a>' +
+              '<button type="button" id="cchat-act-ics" class="cchat-action-btn">' + T.icsBtn + '</button>' +
               '<button type="button" id="cchat-act-copy" class="cchat-action-btn">' + T.copyBtn + '</button>' +
             '</div>' +
+            '<div class="cchat-bg-note" id="cchat-bg-note">' + T.bgSentNote + '</div>' +
             '<button type="button" class="cchat-back-btn cchat-reset-btn" id="cchat-reset-btn">' + T.bookAnother + '</button>' +
           '</div>' +
         '</div>' +
@@ -666,11 +606,11 @@
   });
 
   var tzSelect = document.getElementById('cchat-tz-select');
-  TZ_LIST.forEach(function (tz) {
+  ALL_TIMEZONES.forEach(function (tz) {
     var opt = document.createElement('option');
-    opt.value = tz.id;
-    opt.textContent = zh ? tz.label_zh : tz.label_en;
-    if (tz.id === state.visitorTz) opt.selected = true;
+    opt.value = String(tz.offset);
+    opt.textContent = zh ? tz.zh : tz.en;
+    if (tz.offset === state.visitorOffsetMin) opt.selected = true;
     tzSelect.appendChild(opt);
   });
 
@@ -698,15 +638,19 @@
     topicContainer.appendChild(btn);
   });
 
-  // ---- Live Clocks ----
+  // ---- Live Clocks (Reads User's Real Device Time Directly) ----
   function updateClocks() {
     var now = new Date();
-    var adP = getPartsInTz(now, HOST_TZ);
-    var visP = getPartsInTz(now, state.visitorTz);
+    var adP = getPartsFromOffset(now, HOST_OFFSET_MIN);
+    var visP = getPartsFromOffset(now, state.visitorOffsetMin);
     var adEl = document.getElementById('cchat-clock-ad');
     var visEl = document.getElementById('cchat-clock-vis');
-    if (adEl) adEl.textContent = formatHM(adP.hour, adP.minute, state.use12h) + ' (UTC+4)';
-    if (visEl) visEl.textContent = formatHM(visP.hour, visP.minute, state.use12h);
+    if (adEl) adEl.textContent = formatHM(adP.hour, adP.minute, state.use12h);
+    if (visEl) {
+      visEl.textContent =
+        formatHM(visP.hour, visP.minute, state.use12h) +
+        ' (' + formatUtcOffset(state.visitorOffsetMin) + ')';
+    }
   }
 
   // ---- Render Functions ----
@@ -724,7 +668,7 @@
     document.getElementById('cchat-loc-wrap').style.display = state.mode === 'onsite' ? '' : 'none';
     document.getElementById('cchat-plat-wrap').style.display = state.mode === 'online' ? '' : 'none';
 
-    var diffH = getTzDiffHours(state.visitorTz);
+    var diffH = Math.round(((state.visitorOffsetMin - HOST_OFFSET_MIN) / 60) * 2) / 2;
     var diffEl = document.getElementById('cchat-tz-diff');
     if (diffH === 0) {
       diffEl.textContent = T.overlapSame;
@@ -797,34 +741,27 @@
     var dateHeading = document.getElementById('cchat-selected-date');
     dateHeading.textContent = formatReadableDate(state.selectedYear, state.selectedMonth, state.selectedDay);
 
-    var mutualBtn = document.getElementById('cchat-mutual-toggle');
-    if (state.mode === 'online') {
-      mutualBtn.style.display = '';
-      mutualBtn.textContent = state.strictMutual ? T.mutualFilterOn : T.mutualFilterAll;
-      mutualBtn.classList.toggle('is-active', state.strictMutual);
-    } else {
-      mutualBtn.style.display = 'none';
-    }
-
     var fmtBtn = document.getElementById('cchat-fmt-toggle');
-    fmtBtn.textContent = state.use12h ? '12h / AM·PM' : '24h';
+    fmtBtn.textContent = state.use12h ? '12h (PM)' : '24h';
 
     var listEl = document.getElementById('cchat-slots-list');
     listEl.innerHTML = '';
 
-    var slots = getSlotsForSelectedDate();
+    var slots = getSlotsForDate(state.selectedYear, state.selectedMonth, state.selectedDay);
     if (!slots.length) {
       var emptyMsg = document.createElement('div');
       emptyMsg.className = 'cchat-slots-empty';
-      emptyMsg.textContent = T.noMutualSlots;
+      emptyMsg.textContent = T.noSlotsToday;
       listEl.appendChild(emptyMsg);
       return;
     }
 
+    var visTzTag = formatUtcOffset(state.visitorOffsetMin);
+
     slots.forEach(function (sl) {
       var btn = document.createElement('button');
       btn.type = 'button';
-      btn.className = 'cchat-slot-btn' + (sl.tier === 1 && state.mode === 'online' ? ' is-sweet' : '');
+      btn.className = 'cchat-slot-btn' + (sl.isSweet ? ' is-sweet' : '');
 
       var adStr = formatHM(sl.adHour, sl.adMinute, state.use12h);
       var visStr = formatHM(sl.visParts.hour, sl.visParts.minute, state.use12h);
@@ -833,21 +770,19 @@
       else if (sl.dayDiff < 0) shiftBadge = ' <em class="cchat-shift">(' + T.dayShiftPrev + ')</em>';
 
       if (state.mode === 'onsite') {
-        // On-site in Abu Dhabi: show Abu Dhabi UTC+4 time as primary
         btn.innerHTML =
           '<div class="cchat-slot-main">' +
             '<span class="cchat-slot-primary">' + adStr + ' <small>UTC+4</small></span>' +
-            (sl.tag ? '<span class="cchat-slot-tag">' + sl.tag + '</span>' : '') +
+            '<span class="cchat-slot-tag">' + sl.tag + '</span>' +
           '</div>' +
-          (state.visitorTz !== HOST_TZ
-            ? '<div class="cchat-slot-sub">' + T.yourTimeTag + ': ' + visStr + shiftBadge + '</div>'
+          (state.visitorOffsetMin !== HOST_OFFSET_MIN
+            ? '<div class="cchat-slot-sub">🕒 ' + T.yourTimeTag + ' (' + visTzTag + '): ' + visStr + shiftBadge + '</div>'
             : '');
       } else {
-        // Online Mutual TZ: show Visitor's local time AND Abu Dhabi UTC+4 time side by side
         btn.innerHTML =
           '<div class="cchat-slot-main">' +
-            '<span class="cchat-slot-primary">' + visStr + shiftBadge + '</span>' +
-            (sl.tier === 1 ? '<span class="cchat-sweet-pill">' + T.bestBadge + '</span>' : '') +
+            '<span class="cchat-slot-primary">' + visStr + ' <small>' + visTzTag + '</small>' + shiftBadge + '</span>' +
+            (sl.isSweet ? '<span class="cchat-sweet-pill">' + T.bestBadge + '</span>' : '') +
           '</div>' +
           '<div class="cchat-slot-sub">🇦🇪 ' + T.abuDhabiTag + ': ' + adStr + ' (UTC+4)</div>';
       }
@@ -871,18 +806,19 @@
   function buildSlotSummaryText(sl) {
     var dateStrAD = formatReadableDate(state.selectedYear, state.selectedMonth, state.selectedDay);
     var adStart = formatHM(sl.adHour, sl.adMinute, state.use12h);
-    var endADParts = getPartsInTz(sl.endUtc, HOST_TZ);
+    var endADParts = getPartsFromOffset(sl.endUtc, HOST_OFFSET_MIN);
     var adEnd = formatHM(endADParts.hour, endADParts.minute, state.use12h);
 
     var visStart = formatHM(sl.visParts.hour, sl.visParts.minute, state.use12h);
-    var visEndParts = getPartsInTz(sl.endUtc, state.visitorTz);
+    var visEndParts = getPartsFromOffset(sl.endUtc, state.visitorOffsetMin);
     var visEnd = formatHM(visEndParts.hour, visEndParts.minute, state.use12h);
     var visDateStr = formatReadableDate(sl.visParts.year, sl.visParts.month, sl.visParts.day);
+    var visTzTag = formatUtcOffset(state.visitorOffsetMin);
 
     return {
       dateStrAD: dateStrAD,
       adRange: adStart + ' – ' + adEnd + ' (Abu Dhabi · UTC+4)',
-      visRange: visDateStr + ', ' + visStart + ' – ' + visEnd + ' (' + state.visitorTz + ')',
+      visRange: visDateStr + ', ' + visStart + ' – ' + visEnd + ' (' + visTzTag + ')',
       where: state.mode === 'onsite' ? state.location : state.platform,
       modeLabel: state.mode === 'onsite' ? T.onsiteTitle : T.onlineTitle
     };
@@ -895,11 +831,10 @@
     pill.innerHTML =
       '<div><strong>' + (state.mode === 'onsite' ? '☕ ' : '🌐 ') + info.modeLabel + ' (' + state.duration + ' min)</strong> · ' + info.where + '</div>' +
       '<div>🇦🇪 <b>' + info.dateStrAD + ' · ' + info.adRange + '</b></div>' +
-      (state.visitorTz !== HOST_TZ ? '<div>🕒 ' + T.yourTimeTag + ': <b>' + info.visRange + '</b></div>' : '');
+      (state.visitorOffsetMin !== HOST_OFFSET_MIN ? '<div>🕒 ' + T.yourTimeTag + ': <b>' + info.visRange + '</b></div>' : '');
     showStep('form');
   }
 
-  // Generate .ics file content
   function buildICSContent(booking) {
     var dtStamp = toCalUTCString(new Date());
     var dtStart = toCalUTCString(booking.startUtc);
@@ -928,7 +863,7 @@
     ].join('\r\n');
   }
 
-  // Handle Booking Form Submission
+  // Handle Booking Form Submission — INSTANT (0ms wait!)
   document.getElementById('cchat-step-form').addEventListener('submit', function (e) {
     e.preventDefault();
     if (!state.selectedSlot) return;
@@ -1004,51 +939,7 @@
     };
     state.lastBooking = booking;
 
-    var submitBtn = document.getElementById('cchat-submit-btn');
-    submitBtn.disabled = true;
-    submitBtn.textContent = T.submittingBtn;
-
-    // 1. Automatically send structured email via FormSubmit AJAX endpoint
-    var payload = {
-      _subject: subject,
-      _replyto: guestEmail,
-      _template: 'table',
-      Meeting_Mode: info.modeLabel + ' (' + state.duration + ' min)',
-      Time_Abu_Dhabi_UTC4: info.dateStrAD + ' · ' + info.adRange,
-      Time_Guest_Local: info.visRange,
-      Location_or_Platform: info.where,
-      Guest_Name: guestName,
-      Guest_Email: guestEmail,
-      Guest_Affiliation: guestAffil || '—',
-      Topic: topicObj.label,
-      Notes: guestNotes || '—',
-      Quick_Add_Google_Calendar: gcalUrl
-    };
-
-    fetch('https://formsubmit.co/ajax/' + encodeURIComponent(hostEmail), {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify(payload)
-    })
-      .then(function (res) { return res.json(); })
-      .then(function (data) {
-        var autoOk = data && (data.success === 'true' || data.success === true);
-        finishBookingFlow(booking, autoOk);
-      })
-      .catch(function () {
-        finishBookingFlow(booking, false);
-      });
-  });
-
-  function finishBookingFlow(booking, autoSentOk) {
-    var submitBtn = document.getElementById('cchat-submit-btn');
-    submitBtn.disabled = false;
-    submitBtn.textContent = T.submitBtn;
-
-    document.getElementById('cchat-done-status').textContent = T.successSentAuto;
+    // 1. Immediately render confirmation screen (0ms delay!)
     document.getElementById('cchat-done-box').innerHTML =
       '<div><strong>' + booking.subject + '</strong></div>' +
       '<div>🇦🇪 ' + booking.info.dateStrAD + ' · ' + booking.info.adRange + '</div>' +
@@ -1061,27 +952,43 @@
 
     showStep('done');
 
-    // If FormSubmit AJAX has not been activated yet or network blocked it,
-    // automatically open the pre-filled mailto so Yuchen is 100% guaranteed to get the email immediately.
-    if (!autoSentOk) {
-      var a = document.createElement('a');
-      a.href = booking.mailtoUrl;
-      a.style.display = 'none';
-      body.appendChild(a);
-      a.click();
-      setTimeout(function () {
-        if (a.parentNode) a.parentNode.removeChild(a);
-      }, 200);
-    }
-  }
+    // 2. Fire non-blocking background email notification so the UI never waits
+    try {
+      var payload = {
+        _subject: subject,
+        _replyto: guestEmail,
+        _template: 'table',
+        Meeting_Mode: info.modeLabel + ' (' + state.duration + ' min)',
+        Time_Abu_Dhabi_UTC4: info.dateStrAD + ' · ' + info.adRange,
+        Time_Guest_Local: info.visRange,
+        Location_or_Platform: info.where,
+        Guest_Name: guestName,
+        Guest_Email: guestEmail,
+        Guest_Affiliation: guestAffil || '—',
+        Topic: topicObj.label,
+        Notes: guestNotes || '—',
+        Quick_Add_Google_Calendar: gcalUrl
+      };
+      fetch('https://formsubmit.co/ajax/' + encodeURIComponent(hostEmail), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload),
+        keepalive: true
+      }).catch(function () {});
+    } catch (err) {}
+  });
 
   // ---- Interactive Controls & Event Listeners ----
+  document.getElementById('cchat-tz-toggle-btn').addEventListener('click', function () {
+    state.tzPickerExpanded = !state.tzPickerExpanded;
+    document.getElementById('cchat-tz-manual').style.display = state.tzPickerExpanded ? '' : 'none';
+  });
+
   Array.prototype.forEach.call(modal.querySelectorAll('.cchat-mode-btn'), function (btn) {
     btn.addEventListener('click', function () {
       var m = btn.getAttribute('data-mode');
       if (m === state.mode) return;
       state.mode = m;
-      state.duration = m === 'onsite' ? 45 : 30;
       state.selectedSlot = null;
       ensureValidSelectedDate();
       showStep('pick');
@@ -1114,12 +1021,12 @@
   });
 
   tzSelect.addEventListener('change', function () {
-    state.visitorTz = tzSelect.value;
+    state.visitorOffsetMin = parseInt(tzSelect.value, 10);
     updateClocks();
     renderSidebarMeta();
     renderSlots();
     if (state.step === 'form' && state.selectedSlot) {
-      state.selectedSlot.visParts = getPartsInTz(state.selectedSlot.startUtc, state.visitorTz);
+      state.selectedSlot.visParts = getPartsFromOffset(state.selectedSlot.startUtc, state.visitorOffsetMin);
       openFormStep();
     }
   });
@@ -1141,11 +1048,6 @@
       state.viewYear++;
     }
     renderCalendar();
-  });
-
-  document.getElementById('cchat-mutual-toggle').addEventListener('click', function () {
-    state.strictMutual = !state.strictMutual;
-    renderSlots();
   });
 
   document.getElementById('cchat-fmt-toggle').addEventListener('click', function () {
@@ -1197,7 +1099,6 @@
   function openScheduler(preferredMode) {
     if (preferredMode === 'onsite' || preferredMode === 'online') {
       state.mode = preferredMode;
-      state.duration = preferredMode === 'onsite' ? 45 : 30;
     }
     ensureValidSelectedDate();
     showStep('pick');
@@ -1242,7 +1143,6 @@
     }
   });
 
-  // Bind triggers on the page (the Beyond the Lab tile and mode pills)
   Array.prototype.forEach.call(document.querySelectorAll('.js-coffee-trigger'), function (trig) {
     trig.addEventListener('click', function (e) {
       e.preventDefault();
@@ -1252,7 +1152,6 @@
     });
   });
 
-  // Open automatically if visited with #coffee-chat
   if (window.location.hash === '#coffee-chat') {
     setTimeout(function () { openScheduler(); }, 250);
   }
