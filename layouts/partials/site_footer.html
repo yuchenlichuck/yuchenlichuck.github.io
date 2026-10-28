@@ -11,14 +11,24 @@
   </p>
   {{ end }}
 
-  {{/* Visitor map: small, home page only (was a full section). */}}
+  {{ $zh := eq .Lang "zh" }}
+  {{/* Visitor map & 3D flight footprint: small, side by side, home page only. */}}
   {{ if .IsHome }}
-  <div class="footer-map" aria-label="{{ if eq .Lang "zh" }}访客地图{{ else }}Visitor map{{ end }}">
-    <script type="text/javascript" id="mapmyvisitors" src="https://mapmyvisitors.com/map.js?d=QPxs_-R5BqEWih0nTgJXCXOsEyYiKnmZrrJKz8EHn3Q&cl=ffffff&w=a"></script>
+  <div class="footer-maps">
+    <div class="footer-map-card footer-map-card--visitor" aria-label="{{ if $zh }}访客地图{{ else }}Visitor map{{ end }}">
+      <script type="text/javascript" id="mapmyvisitors" src="https://mapmyvisitors.com/map.js?d=QPxs_-R5BqEWih0nTgJXCXOsEyYiKnmZrrJKz8EHn3Q&cl=ffffff&w=a"></script>
+    </div>
+    <div class="footer-map-card footer-map-card--flight" aria-label="{{ if $zh }}3D 飞行足迹{{ else }}3D Flight Footprint{{ end }}">
+      <iframe
+        class="footer-flight-iframe"
+        src="{{ "flight-footprint/3d.html?embed=1" | relURL }}"
+        title="{{ if $zh }}3D 飞行足迹{{ else }}3D Flight Footprint{{ end }}"
+        loading="lazy"
+        allowfullscreen></iframe>
+      <a class="footer-flight-open" href="https://liyc.pw/flight-footprint/3d.html" target="_blank" rel="noopener" title="{{ if $zh }}全屏查看 3D 飞行足迹{{ else }}Open full 3D Flight Footprint{{ end }}">{{ if $zh }}3D 足迹 ↗{{ else }}3D Flights ↗{{ end }}</a>
+    </div>
   </div>
   {{ end }}
-
-  {{ $zh := eq .Lang "zh" }}
   <nav class="footer-links" aria-label="{{ if $zh }}站点链接{{ else }}Site links{{ end }}">
     <a href="{{ "post/" | relLangURL }}">{{ if $zh }}博客{{ else }}Blog{{ end }}</a>
     <a href="{{ "press/" | relLangURL }}">{{ if $zh }}报道索引{{ else }}Press index{{ end }}</a>

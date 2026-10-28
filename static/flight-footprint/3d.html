@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>3D 飞行足迹</title>
+<meta name="description" content="卫星地球上的飞行足迹回放：三维飞机沿航线飞行、镜头跟随、到站弹出城市与风景照，可录制成视频">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap">
+<style>
+/* Layout: satellite globe fills the screen; a transparent WebGL canvas renders the 3D aircraft at the camera target; a 2D canvas on top draws pins, photo cards and the HUD (so a recording captures exactly what is on screen); one control bar floats at the bottom. */
+:root{
+  --bg:#02060d; --fg:#f2f7ff; --muted:#a3b8d0; --dim:#6b82a0;
+  --accent:#2ea8ff; --accent-2:#8fd4ff;
+  --panel:rgba(5,12,24,.78); --panel-edge:rgba(140,190,255,.22);
+  --go:#1ec15f;
+  --font-display:"Rajdhani","Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+  --font-body:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:14px;overflow:hidden;-webkit-font-smoothing:antialiased}
+#stage{position:absolute;inset:0;overflow:hidden}
+#map{position:absolute;inset:0;background:var(--bg)}
+#plane3d{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+#overlay{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+button,select{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+button:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+#controls{position:absolute;left:50%;bottom:max(16px,env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:5;display:flex;align-items:center;gap:6px;padding:8px 10px;width:max-content;max-width:calc(100vw - 24px);background:var(--panel);border:1px solid var(--panel-edge);border-radius:14px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 8px 30px rgba(0,0,0,.45);flex-wrap:wrap;justify-content:center}
+#controls button,#controls select{height:40px;padding:0 12px;border-radius:10px;border:1px solid transparent;color:var(--muted);font-weight:500;font-size:13px;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;transition:color .15s,border-color .15s,background .15s}
+#controls button:hover{color:var(--fg);border-color:var(--panel-edge)}
+#controls button svg{width:18px;height:18px;fill:currentColor}
+#controls #b-play{background:var(--go);color:#03140a;font-weight:700;min-width:96px;justify-content:center;font-size:14px}
+#controls #b-play:hover{color:#03140a;filter:brightness(1.08)}
+#controls select{background:rgba(255,255,255,.06);border-color:var(--panel-edge);padding-right:28px;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0l5 6 5-6z' fill='%23a3b8d0'/></svg>");background-repeat:no-repeat;background-position:right 10px center}
+#controls #b-rec.on{color:#ff6b6b;border-color:rgba(255,107,107,.5)}
+#controls #b-rec.on i{animation:blink 1s steps(2) infinite}
+#controls i.dot{width:9px;height:9px;border-radius:50%;background:#ff4d4d;display:inline-block}
+@keyframes blink{to{opacity:.2}}
+#controls .sep{width:1px;height:24px;background:var(--panel-edge);margin:0 2px}
+
+#toast{position:absolute;left:50%;top:max(18px,env(safe-area-inset-top,0px));transform:translateX(-50%);z-index:6;padding:9px 14px;background:var(--panel);border:1px solid var(--panel-edge);border-radius:10px;font-size:13px;color:var(--fg);box-shadow:0 8px 30px rgba(0,0,0,.4);max-width:calc(100% - 32px);text-align:center}
+#hint{position:absolute;right:14px;top:max(14px,env(safe-area-inset-top,0px));z-index:5;font-size:11px;color:var(--dim);text-align:right;line-height:1.5;pointer-events:none}
+
+@media (max-width:640px){
+  #controls{gap:4px;padding:6px 8px;border-radius:12px}
+  #controls button,#controls select{height:36px;padding:0 9px;font-size:12px}
+  #controls #b-play{min-width:80px}
+  #controls .txt{display:none}
+  #hint{display:none}
+}
+/* MapLibre GL stylesheet, inlined because the page must be self-contained */
+.maplibregl-map{font:12px/20px Helvetica Neue,Arial,Helvetica,sans-serif;overflow:hidden;position:relative;-webkit-tap-highlight-color:rgb(0 0 0/0)}
+.maplibregl-canvas{left:0;position:absolute;top:0}
+.maplibregl-map:fullscreen{height:100%;width:100%}
+.maplibregl-canvas-container.maplibregl-interactive.maplibregl-track-pointer{cursor:pointer}
+.maplibregl-canvas-container.maplibregl-touch-zoom-rotate,.maplibregl-canvas-container.maplibregl-touch-zoom-rotate .maplibregl-canvas{touch-action:pan-x pan-y}
+.maplibregl-canvas-container.maplibregl-touch-drag-pan,.maplibregl-canvas-container.maplibregl-touch-drag-pan .maplibregl-canvas{touch-action:pinch-zoom}
+.maplibregl-canvas-container.maplibregl-touch-zoom-rotate.maplibregl-touch-drag-pan,.maplibregl-canvas-container.maplibregl-touch-zoom-rotate.maplibregl-touch-drag-pan .maplibregl-canvas{touch-action:none}
+.maplibregl-canvas-container.maplibregl-touch-drag-pan.maplibregl-cooperative-gestures,.maplibregl-canvas-container.maplibregl-touch-drag-pan.maplibregl-cooperative-gestures .maplibregl-canvas{touch-action:pan-x pan-y}
+body.is-embed #hint{display:none!important}
+body.is-embed #controls{opacity:0;pointer-events:none;transition:opacity .2s ease}
+body.is-embed:hover #controls{opacity:1;pointer-events:auto}
+</style>
+
+<script>if(window.self!==window.top||/[?&]embed=1/.test(location.search))document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('is-embed')});</script>
+<div id="stage">
+  <div id="map" aria-label="三维地球"></div>
+  <canvas id="overlay" aria-hidden="true"></canvas>
+  <div id="hint">空格 播放/暂停 · ← → 切换航段<br>暂停时可拖动、缩放地球</div>
+  <div id="controls" aria-label="播放控制">
+    <button id="b-restart" title="从头开始"><svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zM9 12l10-6v12z"/></svg></button>
+    <button id="b-prev" title="上一段"><svg viewBox="0 0 24 24"><path d="M16 6v12L6 12z"/></svg></button>
+    <button id="b-play" title="播放 / 暂停"><svg id="ic-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><span id="play-text">播放</span></button>
+    <button id="b-next" title="下一段"><svg viewBox="0 0 24 24"><path d="M8 6v12l10-6z"/></svg></button>
+    <span class="sep"></span>
+    <button id="b-view" title="切换镜头：跟随飞机 / 正北朝上"><svg viewBox="0 0 24 24"><path d="M12 2l3 7h-6zM12 22a9 9 0 1 1 0-18 9 9 0 0 1 0 18zm0-2a7 7 0 1 0 0-14 7 7 0 0 0 0 14z"/></svg><span class="txt" id="view-text">跟随镜头</span></button>
+    <select id="speed" title="播放速度"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select>
+    <select id="year" title="年份范围"></select>
+    <span class="sep"></span>
+    <button id="b-rec" title="把回放录制成视频"><i class="dot"></i><span class="txt">录制视频</span></button>
+  </div>
+  <div id="toast" hidden></div>
+</div>
+
+<script src="vendor/maplibre-gl.js"></script>
+<script src="vendor/three.min.js"></script>
+<script>
+(async function(){
+'use strict';
+const DATA = {"airports":{"AUH":{"lat":24.433,"lon":54.6511,"city":"阿布扎比","cityEn":"Abu Dhabi","country":"阿联酋","nameEn":"Abu Dhabi Zayed International","name":"阿布扎比扎耶德"},"DXB":{"lat":25.2528,"lon":55.3644,"city":"迪拜","cityEn":"Dubai","country":"阿联酋","nameEn":"Dubai International","name":"迪拜国际"},"BUD":{"lat":47.4369,"lon":19.2556,"city":"布达佩斯","cityEn":"Budapest","country":"匈牙利","nameEn":"Budapest Ferenc Liszt","name":"布达佩斯国际"},"BER":{"lat":52.3667,"lon":13.5033,"city":"柏林","cityEn":"Berlin","country":"德国","nameEn":"Berlin Brandenburg","name":"柏林勃兰登堡"},"FRA":{"lat":50.0379,"lon":8.5622,"city":"法兰克福","cityEn":"Frankfurt","country":"德国","nameEn":"Frankfurt","name":"法兰克福"},"DOH":{"lat":25.2731,"lon":51.6081,"city":"多哈","cityEn":"Doha","country":"卡塔尔","nameEn":"Doha Hamad International","name":"多哈哈马德国际"},"IST":{"lat":41.2753,"lon":28.7519,"city":"伊斯坦布尔","cityEn":"Istanbul","country":"土耳其","nameEn":"Istanbul Airport","name":"伊斯坦布尔"},"SAW":{"lat":40.8986,"lon":29.3092,"city":"伊斯坦布尔","cityEn":"Istanbul","country":"土耳其","nameEn":"Istanbul Sabiha Gökçen","name":"萨比哈格克琴"},"ESB":{"lat":40.1281,"lon":32.9951,"city":"安卡拉","cityEn":"Ankara","country":"土耳其","nameEn":"Ankara Esenboğa","name":"安卡拉埃森博阿"},"ATH":{"lat":37.9364,"lon":23.9445,"city":"雅典","cityEn":"Athens","country":"希腊","nameEn":"Athens International","name":"雅典国际"},"HBE":{"lat":30.9177,"lon":29.6964,"city":"亚历山大","cityEn":"Alexandria","country":"埃及","nameEn":"Alexandria Borg El Arab","name":"博格埃尔阿拉伯"},"RUH":{"lat":24.9576,"lon":46.6988,"city":"利雅得","cityEn":"Riyadh","country":"沙特阿拉伯","nameEn":"Riyadh King Khalid","name":"利雅得"},"JED":{"lat":21.6796,"lon":39.1565,"city":"吉达","cityEn":"Jeddah","country":"沙特阿拉伯","nameEn":"Jeddah King Abdulaziz","name":"吉达国际"},"BAH":{"lat":26.2708,"lon":50.6336,"city":"麦纳麦","cityEn":"Manama","country":"巴林","nameEn":"Bahrain International","name":"巴林国际"},"EVN":{"lat":40.1473,"lon":44.3959,"city":"埃里温","cityEn":"Yerevan","country":"亚美尼亚","nameEn":"Yerevan Zvartnots","name":"埃里温"},"PVG":{"lat":31.1434,"lon":121.8052,"city":"上海","cityEn":"Shanghai","country":"中国","nameEn":"Shanghai Pudong","name":"上海浦东"},"HFE":{"lat":31.988,"lon":116.978,"city":"合肥","cityEn":"Hefei","country":"中国","nameEn":"Hefei Xinqiao","name":"合肥新桥"},"SZX":{"lat":22.6393,"lon":113.8107,"city":"深圳","cityEn":"Shenzhen","country":"中国","nameEn":"Shenzhen Bao'an","name":"深圳宝安"},"HUZ":{"lat":23.05,"lon":114.599,"city":"惠州","cityEn":"Huizhou","country":"中国","nameEn":"Huizhou Pingtan","name":"惠州平潭"},"INC":{"lat":38.3228,"lon":106.3927,"city":"银川","cityEn":"Yinchuan","country":"中国","nameEn":"Yinchuan Hedong","name":"银川河东"},"PKX":{"lat":39.5098,"lon":116.4105,"city":"北京","cityEn":"Beijing","country":"中国","nameEn":"Beijing Daxing","name":"北京大兴"},"CAN":{"lat":23.3924,"lon":113.2988,"city":"广州","cityEn":"Guangzhou","country":"中国","nameEn":"Guangzhou Baiyun","name":"广州白云"},"XMN":{"lat":24.544,"lon":118.1277,"city":"厦门","cityEn":"Xiamen","country":"中国","nameEn":"Xiamen Gaoqi","name":"厦门高崎"},"FUG":{"lat":32.882,"lon":115.734,"city":"阜阳","cityEn":"Fuyang","country":"中国","nameEn":"Fuyang Xiguan","name":"阜阳"},"HAK":{"lat":19.9349,"lon":110.459,"city":"海口","cityEn":"Haikou","country":"中国","nameEn":"Haikou Meilan","name":"海口美兰"},"WUH":{"lat":30.7838,"lon":114.2081,"city":"武汉","cityEn":"Wuhan","country":"中国","nameEn":"Wuhan Tianhe","name":"武汉天河"},"DLC":{"lat":38.9657,"lon":121.5386,"city":"大连","cityEn":"Dalian","country":"中国","nameEn":"Dalian Zhoushuizi","name":"大连周水子"},"WHU":{"lat":31.1133,"lon":118.53,"city":"芜湖","cityEn":"Wuhu","country":"中国","nameEn":"Wuhu Xuanzhou","name":"芜湖宣州"},"ZUH":{"lat":22.0064,"lon":113.3759,"city":"珠海","cityEn":"Zhuhai","country":"中国","nameEn":"Zhuhai Jinwan","name":"珠海金湾"},"CGO":{"lat":34.5197,"lon":113.8409,"city":"郑州","cityEn":"Zhengzhou","country":"中国","nameEn":"Zhengzhou Xinzheng","name":"郑州新郑"},"MFM":{"lat":22.1496,"lon":113.5916,"city":"澳门","cityEn":"Macau","country":"中国澳门","nameEn":"Macau International","name":"中国澳门"},"NRT":{"lat":35.7647,"lon":140.3864,"city":"东京","cityEn":"Tokyo","country":"日本","nameEn":"Tokyo Narita","name":"东京成田"},"HND":{"lat":35.5494,"lon":139.7798,"city":"东京","cityEn":"Tokyo","country":"日本","nameEn":"Tokyo Haneda","name":"东京羽田"},"CTS":{"lat":42.7752,"lon":141.6923,"city":"札幌","cityEn":"Sapporo","country":"日本","nameEn":"Sapporo New Chitose","name":"札幌新千岁"},"AKJ":{"lat":43.6708,"lon":142.4475,"city":"旭川","cityEn":"Asahikawa","country":"日本","nameEn":"Asahikawa","name":"旭川"},"OKA":{"lat":26.1958,"lon":127.646,"city":"冲绳","cityEn":"Okinawa","country":"日本","nameEn":"Okinawa Naha","name":"冲绳那霸"},"UKB":{"lat":34.6328,"lon":135.2239,"city":"神户","cityEn":"Kobe","country":"日本","nameEn":"Kobe","name":"大阪神户"},"NGO":{"lat":34.8584,"lon":136.8054,"city":"名古屋","cityEn":"Nagoya","country":"日本","nameEn":"Nagoya Chubu Centrair","name":"名古屋中部国际"},"MNL":{"lat":14.5086,"lon":121.0194,"city":"马尼拉","cityEn":"Manila","country":"菲律宾","nameEn":"Manila Ninoy Aquino","name":"马尼拉尼诺伊阿基诺"},"CEB":{"lat":10.3075,"lon":123.9794,"city":"宿务","cityEn":"Cebu","country":"菲律宾","nameEn":"Cebu Mactan","name":"麦克坦宿务"},"SGN":{"lat":10.8188,"lon":106.652,"city":"胡志明市","cityEn":"Ho Chi Minh City","country":"越南","nameEn":"Ho Chi Minh City Tan Son Nhat","name":"胡志明市新山一国际"},"HAN":{"lat":21.2212,"lon":105.8072,"city":"河内","cityEn":"Hanoi","country":"越南","nameEn":"Hanoi Noi Bai","name":"河内内排国际"},"KUL":{"lat":2.7456,"lon":101.7099,"city":"吉隆坡","cityEn":"Kuala Lumpur","country":"马来西亚","nameEn":"Kuala Lumpur International","name":"吉隆坡国际"},"PEN":{"lat":5.2971,"lon":100.277,"city":"槟城","cityEn":"Penang","country":"马来西亚","nameEn":"Penang International","name":"槟城国际"},"SIN":{"lat":1.3644,"lon":103.9915,"city":"新加坡","cityEn":"Singapore","country":"新加坡","nameEn":"Singapore Changi","name":"新加坡樟宜"},"BKK":{"lat":13.69,"lon":100.7501,"city":"曼谷","cityEn":"Bangkok","country":"泰国","nameEn":"Bangkok Suvarnabhumi","name":"曼谷素万那普国际"},"HKT":{"lat":8.1132,"lon":98.3169,"city":"普吉","cityEn":"Phuket","country":"泰国","nameEn":"Phuket International","name":"普吉国际"},"SEA":{"lat":47.4502,"lon":-122.3088,"city":"西雅图","cityEn":"Seattle","country":"美国","nameEn":"Seattle-Tacoma International","name":"西雅图塔克马国际"},"SFO":{"lat":37.6213,"lon":-122.379,"city":"旧金山","cityEn":"San Francisco","country":"美国","nameEn":"San Francisco International","name":"旧金山国际"},"SJC":{"lat":37.3639,"lon":-121.9289,"city":"圣何塞","cityEn":"San Jose","country":"美国","nameEn":"San Jose Mineta","name":"诺曼峰田圣何塞"},"JFK":{"lat":40.6413,"lon":-73.7781,"city":"纽约","cityEn":"New York","country":"美国","nameEn":"New York John F. Kennedy","name":"纽约肯尼迪国际"},"EWR":{"lat":40.6895,"lon":-74.1745,"city":"纽约","cityEn":"New York","country":"美国","nameEn":"New York Newark Liberty","name":"纽约纽瓦克国际"},"LAX":{"lat":33.9416,"lon":-118.4085,"city":"洛杉矶","cityEn":"Los Angeles","country":"美国","nameEn":"Los Angeles International","name":"洛杉矶国际"},"PDX":{"lat":45.5898,"lon":-122.5951,"city":"波特兰","cityEn":"Portland","country":"美国","nameEn":"Portland International","name":"波特兰国际"},"ONT":{"lat":34.056,"lon":-117.6012,"city":"安大略","cityEn":"Ontario (CA)","country":"美国","nameEn":"Ontario International","name":"安大略国际"},"LAS":{"lat":36.084,"lon":-115.1537,"city":"拉斯维加斯","cityEn":"Las Vegas","country":"美国","nameEn":"Las Vegas Harry Reid International","name":"哈里里德国际"},"HEL":{"lat":60.3172,"lon":24.9633,"city":"赫尔辛基","cityEn":"Helsinki","country":"芬兰","nameEn":"Helsinki-Vantaa","name":"赫尔辛基万塔"}},"flights":[{"d":"2023-08-20","no":"W62358","al":"Wizz Air","f":"AUH","t":"BUD","dep":"21:20","km":4029,"min":360},{"d":"2023-08-21","no":"W62315","al":"Wizz Air","f":"BUD","t":"BER","dep":"06:55","km":685,"min":95},{"d":"2023-08-27","no":"QR80","al":"Qatar Airways","f":"BER","t":"DOH","dep":"10:00","km":4383,"min":340,"q":1},{"d":"2023-08-27","no":"TK1726","al":"Turkish Airlines","f":"BER","t":"IST","dep":"15:00","km":1687,"min":175,"q":1},{"d":"2023-08-27","no":"QR1554","al":"Qatar Airways","f":"DOH","t":"AUH","dep":"20:05","km":321,"min":70},{"d":"2023-08-28","no":"EY98","al":"Etihad Airways","f":"IST","t":"AUH","dep":"06:15","km":3039,"min":270},{"d":"2023-10-05","no":"5W7151","al":"Wizz Air Abu Dhabi","f":"AUH","t":"ESB","dep":"15:35","km":2668,"min":265},{"d":"2023-10-07","no":"5W7152","al":"Wizz Air Abu Dhabi","f":"ESB","t":"AUH","dep":"21:40","km":2668,"min":245},{"d":"2023-11-10","no":"5W7017","al":"Wizz Air Abu Dhabi","f":"AUH","t":"HBE","dep":"15:15","km":2555,"min":275},{"d":"2023-11-12","no":"5W7018","al":"Wizz Air Abu Dhabi","f":"HBE","t":"AUH","dep":"18:25","km":2555,"min":210},{"d":"2023-12-27","no":"SV585","al":"Saudia","f":"DXB","t":"RUH","dep":"02:25","km":873,"min":135},{"d":"2023-12-27","no":"SV1019","al":"Saudia","f":"RUH","t":"JED","dep":"06:00","km":852,"min":115},{"d":"2024-01-02","no":"SV1034","al":"Saudia","f":"JED","t":"RUH","dep":"14:00","km":852,"min":105},{"d":"2024-01-02","no":"SV552","al":"Saudia","f":"RUH","t":"DXB","dep":"18:05","km":873,"min":115},{"d":"2024-03-02","no":"GF543","al":"Gulf Air","f":"AUH","t":"BAH","dep":"12:35","km":452,"min":75},{"d":"2024-03-02","no":"GF167","al":"Gulf Air","f":"BAH","t":"RUH","dep":"15:40","km":421,"min":80},{"d":"2024-03-08","no":"GF168","al":"Gulf Air","f":"RUH","t":"BAH","dep":"18:00","km":421,"min":75},{"d":"2024-03-08","no":"GF546","al":"Gulf Air","f":"BAH","t":"AUH","dep":"20:30","km":452,"min":75},{"d":"2024-03-15","no":"XY216","al":"flynas","f":"DXB","t":"RUH","dep":"06:45","km":873,"min":130},{"d":"2024-03-17","no":"F3513","al":"flyadeal","f":"RUH","t":"DXB","dep":"20:00","km":873,"min":115},{"d":"2024-03-22","no":"5W7013","al":"Wizz Air Abu Dhabi","f":"AUH","t":"EVN","dep":"06:20","km":1992,"min":210},{"d":"2024-03-31","no":"5W7188","al":"Wizz Air Abu Dhabi","f":"EVN","t":"AUH","dep":"21:20","km":1992,"min":195},{"d":"2024-05-29","no":"EY862","al":"Etihad Airways","f":"AUH","t":"PVG","dep":"21:45","km":6550,"min":530},{"d":"2024-06-20","no":"ZH8610","al":"Shenzhen Airlines","f":"HFE","t":"SZX","dep":"23:30","km":1085,"min":130},{"d":"2024-06-25","no":"ZH8947","al":"Shenzhen Airlines","f":"HUZ","t":"HFE","dep":"14:35","km":1021,"min":145},{"d":"2024-06-28","no":"MU6582","al":"China Eastern Airlines","f":"HFE","t":"PVG","dep":"07:30","km":467,"min":70},{"d":"2024-06-28","no":"MU521","al":"China Eastern Airlines","f":"PVG","t":"NRT","dep":"11:40","km":1796,"min":195},{"d":"2024-08-14","no":"JL505","al":"Japan Airlines","f":"HND","t":"CTS","dep":"08:15","km":820,"min":95},{"d":"2024-08-18","no":"JL558","al":"Japan Airlines","f":"AKJ","t":"HND","dep":"20:10","km":931,"min":105},{"d":"2024-09-06","no":"BC523","al":"Skymark Airlines","f":"HND","t":"OKA","dep":"18:25","km":1554,"min":155},{"d":"2024-09-09","no":"BC510","al":"Skymark Airlines","f":"OKA","t":"HND","dep":"07:15","km":1554,"min":145},{"d":"2024-09-21","no":"Z2191","al":"Philippines AirAsia","f":"NRT","t":"MNL","dep":"11:10","km":3051,"min":280},{"d":"2024-09-21","no":"5J559","al":"Cebu Pacific","f":"MNL","t":"CEB","dep":"18:30","km":567,"min":95},{"d":"2024-09-25","no":"5J562","al":"Cebu Pacific","f":"CEB","t":"MNL","dep":"09:05","km":567,"min":85},{"d":"2024-09-25","no":"Z2192","al":"Philippines AirAsia","f":"MNL","t":"NRT","dep":"13:25","km":3051,"min":280},{"d":"2024-10-08","no":"BC118","al":"Skymark Airlines","f":"UKB","t":"HND","dep":"21:50","km":427,"min":70},{"d":"2024-10-26","no":"VJ823","al":"Vietjet Air","f":"NRT","t":"SGN","dep":"08:55","km":4383,"min":360},{"d":"2024-10-31","no":"VJ820","al":"Vietjet Air","f":"SGN","t":"HND","dep":"17:20","km":4324,"min":340},{"d":"2024-11-06","no":"MU522","al":"China Eastern Airlines","f":"NRT","t":"PVG","dep":"15:25","km":1796,"min":235},{"d":"2024-11-06","no":"MU6581","al":"China Eastern Airlines","f":"PVG","t":"HFE","dep":"21:55","km":467,"min":90},{"d":"2024-11-13","no":"MF8819","al":"Xiamen Airlines","f":"HFE","t":"INC","dep":"19:20","km":1191,"min":155},{"d":"2024-11-14","no":"3U3781","al":"Sichuan Airlines","f":"INC","t":"DXB","dep":"14:30","km":4970,"min":600},{"d":"2024-11-28","no":"EY888","al":"Etihad Airways","f":"AUH","t":"PKX","dep":"21:10","km":5943,"min":455},{"d":"2024-12-04","no":"CZ8955","al":"China Southern Airlines","f":"PKX","t":"HFE","dep":"21:45","km":838,"min":110},{"d":"2024-12-07","no":"EY867","al":"Etihad Airways","f":"PVG","t":"AUH","dep":"17:55","km":6550,"min":635},{"d":"2024-12-28","no":"SV571","al":"Saudia","f":"AUH","t":"JED","dep":"16:25","km":1614,"min":195},{"d":"2025-01-04","no":"SV526","al":"Saudia","f":"JED","t":"BAH","dep":"17:00","km":1272,"min":130},{"d":"2025-01-04","no":"GF546","al":"Gulf Air","f":"BAH","t":"AUH","dep":"20:30","km":452,"min":75},{"d":"2025-03-20","no":"EY416","al":"Etihad Airways","f":"AUH","t":"KUL","dep":"08:45","km":5588,"min":415},{"d":"2025-03-28","no":"MH608","al":"Malaysia Airlines","f":"SIN","t":"KUL","dep":"17:25","km":296,"min":80},{"d":"2025-03-28","no":"MH796","al":"Malaysia Airlines","f":"KUL","t":"BKK","dep":"22:00","km":1222,"min":130},{"d":"2025-03-30","no":"EY417","al":"Etihad Airways","f":"KUL","t":"AUH","dep":"21:40","km":5588,"min":420},{"d":"2025-04-17","no":"3U3782","al":"Sichuan Airlines","f":"DXB","t":"INC","dep":"22:00","km":4970,"min":495},{"d":"2025-04-18","no":"MU6436","al":"China Eastern Airlines","f":"INC","t":"HFE","dep":"11:15","km":1191,"min":125},{"d":"2025-04-22","no":"CZ3816","al":"China Southern Airlines","f":"HFE","t":"CAN","dep":"08:05","km":1022,"min":130},{"d":"2025-04-22","no":"CZ8057","al":"China Southern Airlines","f":"CAN","t":"DXB","dep":"13:50","km":5827,"min":560},{"d":"2025-05-12","no":"CZ384","al":"China Southern Airlines","f":"DXB","t":"CAN","dep":"01:00","km":5827,"min":460},{"d":"2025-05-12","no":"CZ6585","al":"China Southern Airlines","f":"CAN","t":"HFE","dep":"14:50","km":1022,"min":135},{"d":"2025-05-13","no":"MU5169","al":"China Eastern Airlines","f":"HFE","t":"PKX","dep":"14:55","km":838,"min":115},{"d":"2025-05-14","no":"KN5977","al":"China United Airlines","f":"PKX","t":"PVG","dep":"20:50","km":1051,"min":125},{"d":"2025-07-15","no":"MU5169","al":"China Eastern Airlines","f":"HFE","t":"PKX","dep":"14:55","km":838,"min":115},{"d":"2025-07-15","no":"EY889","al":"Etihad Airways","f":"PKX","t":"AUH","dep":"19:15","km":5943,"min":530},{"d":"2025-07-25","no":"QR1041","al":"Qatar Airways","f":"AUH","t":"DOH","dep":"05:45","km":321,"min":70},{"d":"2025-07-25","no":"QR719","al":"Qatar Airways","f":"DOH","t":"SEA","dep":"08:05","km":11906,"min":880},{"d":"2025-08-01","no":"AS1318","al":"Alaska Airlines","f":"SEA","t":"SFO","dep":"18:59","km":1093,"min":133},{"d":"2025-08-04","no":"AS1193","al":"Alaska Airlines","f":"SJC","t":"SEA","dep":"07:03","km":1122,"min":132},{"d":"2025-09-19","no":"B6264","al":"JetBlue","f":"SEA","t":"JFK","dep":"23:59","km":3887,"min":321},{"d":"2025-09-22","no":"AS299","al":"Alaska Airlines","f":"EWR","t":"SEA","dep":"07:19","km":3855,"min":361},{"d":"2025-09-26","no":"AS1468","al":"Alaska Airlines","f":"SEA","t":"LAX","dep":"16:59","km":1537,"min":169},{"d":"2025-09-28","no":"AS1055","al":"Alaska Airlines","f":"LAX","t":"SEA","dep":"21:10","km":1537,"min":176,"q":1},{"d":"2025-09-28","no":"AS1066","al":"Alaska Airlines","f":"PDX","t":"ONT","dep":"21:30","km":1351,"min":144,"q":1},{"d":"2025-10-10","no":"AS730","al":"Alaska Airlines","f":"SEA","t":"LAS","dep":"17:59","km":1395,"min":158},{"d":"2025-10-12","no":"AS787","al":"Alaska Airlines","f":"LAS","t":"SEA","dep":"21:15","km":1395,"min":171},{"d":"2025-11-14","no":"QR720","al":"Qatar Airways","f":"SEA","t":"DOH","dep":"16:05","km":11906,"min":875},{"d":"2025-11-15","no":"QR1052","al":"Qatar Airways","f":"DOH","t":"AUH","dep":"18:45","km":321,"min":70},{"d":"2026-02-05","no":"EY410","al":"Etihad Airways","f":"AUH","t":"HKT","dep":"21:15","km":4974,"min":375},{"d":"2026-02-09","no":"EY415","al":"Etihad Airways","f":"HKT","t":"AUH","dep":"00:25","km":4974,"min":425},{"d":"2026-03-06","no":"EY412","al":"Etihad Airways","f":"AUH","t":"HKT","dep":"08:40","km":4974,"min":375},{"d":"2026-03-13","no":"AK1821","al":"AirAsia","f":"HKT","t":"PEN","dep":"13:10","km":381,"min":65},{"d":"2026-03-13","no":"MF8706","al":"Xiamen Airlines","f":"PEN","t":"XMN","dep":"19:40","km":2866,"min":240},{"d":"2026-03-14","no":"MF8819","al":"Xiamen Airlines","f":"XMN","t":"HFE","dep":"16:50","km":835,"min":100},{"d":"2026-04-05","no":"GX8894","al":"Beibu Gulf Airlines","f":"FUG","t":"HAK","dep":"10:20","km":1532,"min":160},{"d":"2026-04-11","no":"CZ3846","al":"China Southern Airlines","f":"HAK","t":"WUH","dep":"11:50","km":1264,"min":145},{"d":"2026-04-20","no":"MU6961","al":"China Eastern Airlines","f":"HFE","t":"DLC","dep":"09:20","km":879,"min":90},{"d":"2026-04-24","no":"GT1024","al":"Guilin Airlines","f":"DLC","t":"WHU","dep":"19:25","km":915,"min":135},{"d":"2026-05-25","no":"ZH9988","al":"Shenzhen Airlines","f":"HFE","t":"CAN","dep":"17:50","km":1022,"min":130},{"d":"2026-05-26","no":"ZH121","al":"Shenzhen Airlines","f":"CAN","t":"HAN","dep":"11:35","km":807,"min":135},{"d":"2026-06-08","no":"CZ6078","al":"China Southern Airlines","f":"SGN","t":"PVG","dep":"12:55","km":2746,"min":265},{"d":"2026-06-09","no":"CZ8881","al":"China Southern Airlines","f":"PVG","t":"PKX","dep":"07:50","km":1051,"min":140},{"d":"2026-06-14","no":"DZ6220","al":"Donghai Airlines","f":"HFE","t":"SZX","dep":"06:00","km":1085,"min":110},{"d":"2026-06-17","no":"DZ6219","al":"Donghai Airlines","f":"SZX","t":"HFE","dep":"23:00","km":1085,"min":135},{"d":"2026-06-30","no":"MU5055","al":"China Eastern Airlines","f":"HFE","t":"MFM","dep":"10:50","km":1144,"min":150},{"d":"2026-07-02","no":"SC7943","al":"Shandong Airlines","f":"ZUH","t":"CGO","dep":"08:10","km":1392,"min":140},{"d":"2026-07-07","no":"MU6582","al":"China Eastern Airlines","f":"HFE","t":"PVG","dep":"07:30","km":467,"min":75},{"d":"2026-07-07","no":"MU719","al":"China Eastern Airlines","f":"PVG","t":"NGO","dep":"12:25","km":1457,"min":155},{"d":"2026-07-13","no":"MU720","al":"China Eastern Airlines","f":"NGO","t":"PVG","dep":"17:00","km":1457,"min":155},{"d":"2026-07-13","no":"MU6581","al":"China Eastern Airlines","f":"PVG","t":"HFE","dep":"23:05","km":467,"min":85},{"d":"2026-08-27","no":"MF8820","al":"Xiamen Airlines","f":"HFE","t":"XMN","dep":"21:05","km":835,"min":105},{"d":"2026-08-28","no":"MF853","al":"Xiamen Airlines","f":"XMN","t":"BKK","dep":"08:40","km":2185,"min":215},{"d":"2026-08-31","no":"EY405","al":"Etihad Airways","f":"BKK","t":"AUH","dep":"15:30","km":4966,"min":375},{"d":"2026-09-12","no":"EY121","al":"Etihad Airways","f":"AUH","t":"FRA","dep":"03:25","km":4863,"min":415},{"d":"2026-09-19","no":"EY124","al":"Etihad Airways","f":"FRA","t":"AUH","dep":"21:55","km":4863,"min":395},{"d":"2026-10-10","no":"EY647","al":"Etihad Airways","f":"AUH","t":"BAH","dep":"02:00","km":452,"min":70},{"d":"2026-10-10","no":"PC825","al":"Pegasus Airlines","f":"BAH","t":"SAW","dep":"04:05","km":2546,"min":245},{"d":"2026-10-11","no":"PC1311","al":"Pegasus Airlines","f":"SAW","t":"HEL","dep":"11:00","km":2180,"min":220}],"partial":[{"d":"2023-09-17","no":"5W7008","al":"Wizz Air Abu Dhabi","f":"ATH","t":null,"dep":"19:10"},{"d":"2026-09-01","no":"EY577","al":"Etihad Airways","f":"AUH","t":null,"dep":"08:35"}],"photos":{"阿联酋/阿布扎比":{"file":"photos/abu-dhabi.jpg","credit":"Wadiia · CC BY-SA 4.0","source":"en.wikipedia.org/wiki/Abu Dhabi","w":1000,"h":549},"阿联酋/迪拜":{"file":"photos/dubai.jpg","credit":"Francisco Anzola · CC-BY-2.0","source":"en.wikipedia.org/wiki/Dubai","w":1000,"h":691},"匈牙利/布达佩斯":{"file":"photos/budapest.jpg","credit":"Visions of Domino · CC BY 2.0","source":"en.wikipedia.org/wiki/Budapest","w":1000,"h":517},"德国/柏林":{"file":"photos/berlin.jpg","credit":"File:Museumsinsel Berlin Juli 2021 1 (cropped).jpg: Kasa Fue · CC BY-SA 4.0","source":"en.wikipedia.org/wiki/Berlin","w":1000,"h":583},"德国/法兰克福":{"file":"photos/frankfurt.jpg","credit":"Dr. Thomas Liptak · CC BY-SA 4.0","source":"en.wikipedia.org/wiki/Frankfurt","w":1000,"h":563},"卡塔尔/多哈":{"file":"photos/doha.jpg","credit":"Alex Sergeev (www.asergeev.com) · CC BY-SA 3.0","source":"en.wikipedia.org/wiki/Doha","w":1000,"h":666},"土耳其/伊斯坦布尔":{"file":"photos/istanbul.jpg","credit":"Hunanuk · CC0","source":"en.wikipedia.org/wiki/Istanbul","w":1000,"h":483},"土耳其/安卡拉":{"file":"photos/ankara.jpg","credit":"Boubacar Amadou Cisse · CC BY-SA 4.0","source":"en.wikipedia.org/wiki/Ankara","w":1000,"h":646},"希腊/雅典":{"file":"photos/athens.jpg","credit":"Andrew Parlette · CC BY 4.0","source":"en.wikipedia.org/wiki/Athens","w":1000,"h":563},"埃及/亚历山大":{"file":"photos/alexandria.jpg","credit":"TheEgyptian · CC BY-SA 3.0","source":"en.wikipedia.org/wiki/Alexandria","w":1000,"h":467},"沙特阿拉伯/利雅得":{"file":"photos/riyadh.jpg","credit":"B.alotaby · CC BY-SA 4.0","source":"en.wikipedia.org/wiki/Riyadh","w":1000,"h":563},"沙特阿拉伯/吉达":{"file":"photos/jeddah.jpg","credit":"Unknown authorUnknown author · CC BY-SA 4.0","source":"en.wikipedia.org/wiki/Jeddah","w":1000,"h":669},"巴林/麦纳麦":{"file":"photos/manama.jpg","credit":"Wadiia · CC BY-SA 4.0","source":"en.wikipedia.org/wiki/Manama","w":1000,"h":667},"亚美尼亚/埃里温":{"file":"photos/yerevan.jpg","credit":"Սէրուժ Ուրիշեան (Serouj Ourishian) · CC BY 4.0","source":"en.wikipedia.org/wiki/Yerevan","w":1000,"h":666},"中国/上海":{"file":"photos/shanghai.jpg","credit":"xiquinhosilva · CC BY 2.0","source":"en.wikipedia.org/wiki/Shanghai","w":1000,"h":668},"中国/合肥":{"file":"photos/hefei.jpg","credit":"钉钉 · CC BY-SA 4.0","source":"en.wikipedia.org/wiki/Hefei","w":1000,"h":563},"中国/深圳":{"file":"photos/shenzhen.jpg","credit":"Charlie fong · CC BY-SA 4.0","source":"en.wikipedia.org/wiki/Shenzhen","w":1000,"h":666},"中国/惠州":{"file":"photos/huizhou.jpg","credit":"Windmemories · CC BY-SA 4.0","source":"en.wikipedia.org/wiki/Huizhou","w":1000,"h":666},"中国/银川":{"file":"photos/yinchuan.jpg","credit":"xiquinhosilva · CC BY 2.0","source":"en.wikipedia.org/wiki/Yinchuan","w":1000,"h":666},"中国/北京":{"file":"photos/beijing.jpg","credit":"N509FZ · CC BY 4.0","source":"en.wikipedia.org/wiki/Beijing","w":1000,"h":666},"中国/广州":{"file":"photos/guangzhou.jpg","credit":"Tim Wu · CC BY-SA 4.0","source":"en.wikipedia.org/wiki/Guangzhou","w":1000,"h":666},"中国/厦门":{"file":"photos/xiamen.jpg","credit":"Windmemories · CC BY-SA 4.0","source":"en.wikipedia.org/wiki/Xiamen","w":1000,"h":666},"中国/阜阳":{"file":"photos/fuyang.jpg","credit":"SOHAM86323 · CC BY-SA 4.0","source":"en.wikipedia.org/wiki/Fuyang","w":1000,"h":561},"中国/海口":{"file":"photos/haikou.jpg","credit":"Yolanda Yao · CC BY-SA 4.0","source":"en.wikipedia.org/wiki/Haikou","w":1000,"h":750},"中国/武汉":{"file":"photos/wuhan.jpg","credit":"螺钉 · CC BY-SA 4.0","source":"en.wikipedia.org/wiki/Wuhan","w":1000,"h":750},"中国/大连":{"file":"photos/dalian.jpg","credit":"Fumihiko Ueno · CC BY 3.0","source":"en.wikipedia.org/wiki/Dalian","w":1000,"h":664},"中国/芜湖":{"file":"photos/wuhu.jpg","credit":"Wu Shan · CC BY-SA 4.0","source":"en.wikipedia.org/wiki/Wuhu","w":1000,"h":586},"中国/珠海":{"file":"photos/zhuhai.jpg","credit":"Chinyen Lu · CC BY-SA 4.0","source":"en.wikipedia.org/wiki/Zhuhai","w":1000,"h":666},"中国/郑州":{"file":"photos/zhengzhou.jpg","credit":"白诗棋 · CC0","source":"en.wikipedia.org/wiki/Zhengzhou","w":1000,"h":587},"日本/东京":{"file":"photos/tokyo.jpg","credit":"Morio · CC BY-SA 3.0","source":"en.wikipedia.org/wiki/Tokyo","w":1000,"h":533},"日本/札幌":{"file":"photos/sapporo.jpg","credit":"Nryate · CC BY-SA 4.0","source":"en.wikipedia.org/wiki/Sapporo","w":921,"h":613},"日本/旭川":{"file":"photos/asahikawa.jpg","credit":"水だらけのプール · CC BY-SA 4.0","source":"en.wikipedia.org/wiki/Asahikawa","w":800,"h":911},"日本/冲绳":{"file":"photos/okinawa.jpg","credit":"663highland nnh Composition by Kyoww · CC BY-SA 3.0","source":"en.wikipedia.org/wiki/Naha","w":733,"h":1000},"日本/神户":{"file":"photos/kobe.jpg","credit":"Balon Greyjoy · CC0","source":"en.wikipedia.org/wiki/Kobe","w":1000,"h":666},"日本/名古屋":{"file":"photos/nagoya.jpg","credit":"ウィキ太郎(WikiTaro) · Public domain","source":"en.wikipedia.org/wiki/Nagoya","w":1000,"h":750},"菲律宾/马尼拉":{"file":"photos/manila.jpg","credit":"Bahnfrend · CC BY-SA 4.0","source":"en.wikipedia.org/wiki/Manila","w":1000,"h":563},"菲律宾/宿务":{"file":"photos/cebu.jpg","credit":"DisRaptor18 · CC0","source":"en.wikipedia.org/wiki/Cebu City","w":1000,"h":750},"越南/胡志明市":{"file":"photos/ho-chi-minh-city.jpg","credit":"Steffen Schmitz (more photos) · CC BY-SA 4.0","source":"en.wikipedia.org/wiki/Ho Chi Minh City","w":1000,"h":767},"越南/河内":{"file":"photos/hanoi.jpg","credit":"Quangnlnhe182394 · CC0","source":"en.wikipedia.org/wiki/Hanoi","w":1000,"h":534},"马来西亚/吉隆坡":{"file":"photos/kuala-lumpur.jpg","credit":"Renek78 · CC0","source":"en.wikipedia.org/wiki/Kuala Lumpur","w":1000,"h":563},"马来西亚/槟城":{"file":"photos/penang.jpg","credit":"HundenvonPenang · CC BY-SA 4.0","source":"en.wikipedia.org/wiki/George Town, Penang","w":1000,"h":563},"泰国/曼谷":{"file":"photos/bangkok.jpg","credit":"Ninara from Helsinki, Finland · CC BY 2.0","source":"en.wikipedia.org/wiki/Bangkok","w":1000,"h":666},"泰国/普吉":{"file":"photos/phuket.jpg","credit":"Bennypc · CC BY-SA 4.0","source":"en.wikipedia.org/wiki/Phuket province","w":1000,"h":667},"美国/西雅图":{"file":"photos/seattle.jpg","credit":"Jeffery Hayes · CC BY-SA 3.0","source":"en.wikipedia.org/wiki/Seattle","w":1000,"h":625},"美国/旧金山":{"file":"photos/san-francisco.jpg","credit":"Craig Howell from San Carlos, CA, USA · CC BY 2.0","source":"en.wikipedia.org/wiki/San Francisco","w":1000,"h":750},"美国/圣何塞":{"file":"photos/san-jose.jpg","credit":"Payton Chung · CC BY 2.0","source":"en.wikipedia.org/wiki/San Jose, California","w":1000,"h":673},"美国/纽约":{"file":"photos/new-york.jpg","credit":"Dllu · CC BY-SA 4.0","source":"en.wikipedia.org/wiki/New York City","w":1000,"h":563},"美国/洛杉矶":{"file":"photos/los-angeles.jpg","credit":"Gnaphron · CC BY-SA 2.0","source":"en.wikipedia.org/wiki/Los Angeles","w":1000,"h":666},"美国/波特兰":{"file":"photos/portland.jpg","credit":"Spicypepper999 · CC0","source":"en.wikipedia.org/wiki/Portland, Oregon","w":1000,"h":563},"美国/安大略":{"file":"photos/ontario-ca.jpg","credit":"Originally uploaded by Rockero (Transferred by JaumeBG) · Public domain","source":"en.wikipedia.org/wiki/Ontario, California","w":1000,"h":727},"美国/拉斯维加斯":{"file":"photos/las-vegas.jpg","credit":"Eric Kilby · CC BY-SA 2.0","source":"en.wikipedia.org/wiki/Las Vegas","w":1000,"h":666},"芬兰/赫尔辛基":{"file":"photos/helsinki.jpg","credit":"Michal Pise, Michal.Pise · CC BY 2.0","source":"en.wikipedia.org/wiki/Helsinki","w":1000,"h":563},"中国澳门/澳门":{"file":"photos/macau.jpg","credit":"Melvin Loi · CC BY-SA 2.0","source":"en.wikipedia.org/wiki/Macau Peninsula","w":1000,"h":666},"新加坡/新加坡":{"file":"photos/singapore.jpg","credit":"Bijay Chaurasia · CC BY-SA 4.0","source":"en.wikipedia.org/wiki/Marina Bay, Singapore","w":1000,"h":666}}};
+const AP = DATA.airports;
+const PHOTOS = DATA.photos || {};
+const LOCAL_SAVE = function(b,name){ var a=document.createElement('a'); a.href=URL.createObjectURL(b); a.setAttribute('download',name||'飞行足迹.png'); document.body.appendChild(a); a.click(); a.remove(); };
+const $ = id => document.getElementById(id);
+const fmt = n => Math.round(n).toLocaleString('en-US');
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const ease = t => t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+const smooth = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- spherical helpers ---------- */
+const d2r = Math.PI / 180, r2d = 180 / Math.PI;
+const vec = ([lon, lat]) => { const a = lat * d2r, b = lon * d2r; return [Math.cos(a) * Math.cos(b), Math.cos(a) * Math.sin(b), Math.sin(a)]; };
+const unvec = ([x, y, z]) => [Math.atan2(y, x) * r2d, Math.atan2(z, Math.hypot(x, y)) * r2d];
+const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+const norm = v => { const l = Math.hypot(v[0], v[1], v[2]) || 1; return [v[0] / l, v[1] / l, v[2] / l]; };
+function slerpV(p, q, t){
+  const dot = clamp(p[0] * q[0] + p[1] * q[1] + p[2] * q[2], -1, 1); const w = Math.acos(dot);
+  if (w < 1e-9) return p.slice();
+  const s1 = Math.sin((1 - t) * w) / Math.sin(w), s2 = Math.sin(t * w) / Math.sin(w);
+  return [p[0] * s1 + q[0] * s2, p[1] * s1 + q[1] * s2, p[2] * s1 + q[2] * s2];
+}
+const slerp = (a, b, t) => unvec(slerpV(vec(a), vec(b), t));
+function bearing(a, b){
+  const f1 = a[1] * d2r, f2 = b[1] * d2r, dl = (b[0] - a[0]) * d2r;
+  return (Math.atan2(Math.sin(dl) * Math.cos(f2), Math.cos(f1) * Math.sin(f2) - Math.sin(f1) * Math.cos(f2) * Math.cos(dl)) * r2d + 360) % 360;
+}
+const wrap = d => ((d + 540) % 360) - 180;
+const ll = code => [AP[code].lon, AP[code].lat];
+const cityKey = code => AP[code].country + '/' + AP[code].city;
+
+/* ---------- data: flights in order; repeated city pairs get their own lateral arc so out and back never overlap ---------- */
+const ALL = DATA.flights.slice().sort((a, b) => (a.d + (a.dep || '')).localeCompare(b.d + (b.dep || '')));
+const N = 96;
+(function arcs(){
+  const groups = new Map();
+  ALL.forEach(f => { const k = f.f < f.t ? f.f + '|' + f.t : f.t + '|' + f.f; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(f); });
+  groups.forEach((list, k) => {
+    const [c1, c2] = k.split('|'); const axis = norm(cross(vec(ll(c1)), vec(ll(c2))));
+    const n = list.length, spread = Math.min(0.06, 0.16 / n);        // lateral bulge as a fraction of the route length
+    list.forEach((f, i) => {
+      const A = vec(ll(f.f)), B = vec(ll(f.t));
+      const ang = Math.acos(clamp(A[0] * B[0] + A[1] * B[1] + A[2] * B[2], -1, 1));
+      const amp = (i - (n - 1) / 2) * spread * ang;
+      f.a = ll(f.f); f.b = ll(f.t); f.pts = [];
+      for (let j = 0; j <= N; j++) {
+        const t = j / N, P = slerpV(A, B, t), phi = amp * Math.sin(Math.PI * t);
+        f.pts.push(unvec(norm([P[0] * Math.cos(phi) + axis[0] * Math.sin(phi), P[1] * Math.cos(phi) + axis[1] * Math.sin(phi), P[2] * Math.cos(phi) + axis[2] * Math.sin(phi)])));
+      }
+    });
+  });
+})();
+function along(f, p){                       // position and heading at progress p along the (curved) path
+  const x = clamp(p, 0, 1) * N, i = Math.min(N - 1, Math.floor(x)), t = x - i;
+  const a = f.pts[i], b = f.pts[i + 1];
+  return { pos: [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t], hdg: bearing(a, b) };
+}
+const YEARS = [...new Set(ALL.map(f => f.d.slice(0, 4)))].sort();
+
+/* ---------- imagery: online satellite tiles when the page may load them, NASA Blue Marble tiles shipped with the page otherwise ---------- */
+const ESRI = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+const base = location.href.replace(/[#?].*$/, '').replace(/[^/]*$/, '');
+function probe(url, ms){ return new Promise(res => { const im = new Image(); const to = setTimeout(() => { im.src = ''; res(false); }, ms); im.onload = () => { clearTimeout(to); res(true); }; im.onerror = () => { clearTimeout(to); res(false); }; im.src = url; }); }
+const HI = location.hash !== '#lowres' && await probe(ESRI.replace('{z}', '2').replace('{y}', '1').replace('{x}', '2'), 5000);
+const TERRAIN = HI && location.hash !== '#flat';
+const Z = HI ? { ap: 7.4, floor: 2.6, k: 150, pitch0: 62, pitch1: 46 } : { ap: 4.6, floor: 1.9, k: 700, pitch0: 50, pitch1: 36 };
+const zCruise = km => clamp(Z.ap - Math.log2(km / Z.k), Z.floor, Z.ap - 0.8);
+
+const empty = { type: 'FeatureCollection', features: [] };
+const style = {
+  version: 8,
+  projection: { type: 'globe' },
+  sky: { 'sky-color': '#03070f', 'horizon-color': '#1a4a7a', 'fog-color': '#02060d', 'sky-horizon-blend': .7, 'horizon-fog-blend': .6, 'fog-ground-blend': .3, 'atmosphere-blend': ['interpolate', ['linear'], ['zoom'], 0, 1, 5, .8, 7, 0] },
+  sources: Object.assign({
+    bm: { type: 'raster', tiles: [base + 'tiles/{z}/{x}/{y}.jpg'], tileSize: 512, minzoom: 0, maxzoom: 3 },
+    routes: { type: 'geojson', data: empty }, live: { type: 'geojson', data: empty }, visited: { type: 'geojson', data: empty }
+  }, HI ? { esri: { type: 'raster', tiles: [ESRI], tileSize: 256, maxzoom: 18 } } : {},
+     TERRAIN ? { dem: { type: 'raster-dem', tiles: ['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'], encoding: 'terrarium', tileSize: 256, maxzoom: 12 } } : {}),
+  layers: [
+    { id: 'bg', type: 'background', paint: { 'background-color': '#02060d' } },
+    { id: 'bm', type: 'raster', source: 'bm', paint: { 'raster-fade-duration': 0 } },
+    HI ? { id: 'esri', type: 'raster', source: 'esri', paint: { 'raster-fade-duration': 250 } } : null,
+    { id: 'routes-glow', type: 'line', source: 'routes', layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': '#2ea8ff', 'line-width': 8, 'line-opacity': .22, 'line-blur': 5 } },
+    { id: 'routes', type: 'line', source: 'routes', layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': '#5fbcff', 'line-width': 2.2, 'line-opacity': .85 } },
+    { id: 'live-glow', type: 'line', source: 'live', layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': '#2ea8ff', 'line-width': 12, 'line-opacity': .3, 'line-blur': 6 } },
+    { id: 'live', type: 'line', source: 'live', layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': '#9fdcff', 'line-width': 3.5 } },
+    { id: 'visited', type: 'circle', source: 'visited', paint: { 'circle-radius': 4, 'circle-color': '#d6f1ff', 'circle-stroke-color': '#2ea8ff', 'circle-stroke-width': 2, 'circle-opacity': .95 } }
+  ].filter(Boolean)
+};
+if (TERRAIN) style.terrain = { source: 'dem', exaggeration: 1.5 };
+// preserveDrawingBuffer keeps the globe's WebGL frame readable after it is composited, which the recorder needs (MapLibre 5 takes it via canvasContextAttributes)
+const map = new maplibregl.Map({ container: 'map', attributionControl: false, maxPitch: 78, canvasContextAttributes: { preserveDrawingBuffer: true, antialias: true }, preserveDrawingBuffer: true, fadeDuration: 0, dragRotate: false, center: [60, 30], zoom: 1.2, pitch: 0, style });
+window.__map = map;
+const handlers = ['dragPan', 'scrollZoom', 'touchZoomRotate', 'keyboard', 'doubleClickZoom'];
+function setInteractive(on){ handlers.forEach(h => { if (map[h]) on ? map[h].enable() : map[h].disable(); }); }
+
+/* ---------- canvases ---------- */
+const overlay = $('overlay'), octx = overlay.getContext('2d');
+let W = 0, H = 0, DPR = 1, PADTOP = 0;
+const T = {};                                  // three.js aircraft scene
+function sizeAll(){
+  const mc = map.getCanvas(); W = mc.clientWidth || overlay.clientWidth; H = mc.clientHeight || overlay.clientHeight; DPR = Math.min(window.devicePixelRatio || 1, 2);
+  overlay.width = Math.round(W * DPR); overlay.height = Math.round(H * DPR);
+  PADTOP = Math.round(H * 0.28);               // the camera target sits below screen centre so the view looks ahead of the aircraft
+  map.setPadding({ top: PADTOP, bottom: 0, left: 0, right: 0 });
+  if (T.renderer) { T.renderer.setPixelRatio(DPR); T.renderer.setSize(W, H, false); T.renderer.domElement.style.transform = 'translateY(' + (PADTOP / 2) + 'px)'; }
+}
+map.on('resize', sizeAll);
+
+/* ---------- the aircraft (procedural airliner, lit, with a ground shadow) ---------- */
+function initThree(){
+  T.renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, preserveDrawingBuffer: true });
+  T.renderer.setClearColor(0x000000, 0); T.renderer.domElement.id = 'plane3d';
+  $('stage').insertBefore(T.renderer.domElement, overlay);
+  T.scene = new THREE.Scene();
+  T.camera = new THREE.PerspectiveCamera(37, 1, 1, 50000);
+  const sun = new THREE.DirectionalLight(0xffffff, 1.15); sun.position.set(-0.6, 0.5, 1.4); T.scene.add(sun);
+  T.scene.add(new THREE.HemisphereLight(0xbfe3ff, 0x24364a, 0.55));
+  T.scene.add(new THREE.AmbientLight(0xffffff, 0.3));
+  const white = new THREE.MeshStandardMaterial({ color: 0xf6f8fb, roughness: .48, metalness: .12 });
+  const grey = new THREE.MeshStandardMaterial({ color: 0xd3dae3, roughness: .55, metalness: .2 });
+  const blue = new THREE.MeshStandardMaterial({ color: 0x2ea8ff, roughness: .5, metalness: .1 });
+  const dark = new THREE.MeshStandardMaterial({ color: 0x18222e, roughness: .7 });
+  const g = new THREE.Group();
+  const prof = [[0, 32], [2.3, 29.6], [3.7, 26], [4.3, 21], [4.5, 8], [4.5, -8], [4.2, -18], [3, -25], [1.6, -30], [0.6, -32.5]].map(([r, y]) => new THREE.Vector2(r, y));
+  g.add(new THREE.Mesh(new THREE.LatheGeometry(prof, 28), white));
+  const cock = new THREE.Mesh(new THREE.BoxGeometry(5.4, 3.4, 1.3), dark); cock.position.set(0, 25.6, 2.9); g.add(cock);
+  const stripe = new THREE.Mesh(new THREE.BoxGeometry(9.3, 34, 0.8), dark); stripe.position.set(0, 2, 2.1); g.add(stripe);
+  const shape = pts => { const s = new THREE.Shape(); pts.forEach(([x, y], i) => i ? s.lineTo(x, y) : s.moveTo(x, y)); s.closePath(); return s; };
+  const wing = new THREE.Mesh(new THREE.ExtrudeGeometry(shape([[-3.5, 8], [-31, -6], [-31, -9.5], [-3.5, -9], [3.5, -9], [31, -9.5], [31, -6], [3.5, 8]]), { depth: 1.1, bevelEnabled: false }), grey); wing.position.set(0, 0, -1.8); g.add(wing);
+  const stab = new THREE.Mesh(new THREE.ExtrudeGeometry(shape([[-1.5, -27], [-11.5, -31], [-11.5, -33], [-1.5, -32.5], [1.5, -32.5], [11.5, -33], [11.5, -31], [1.5, -27]]), { depth: .8, bevelEnabled: false }), grey); stab.position.set(0, 0, 1.2); g.add(stab);
+  const finG = new THREE.ExtrudeGeometry(shape([[-22, 3.5], [-29.5, 14.5], [-33.5, 14.5], [-32.5, 3.5]]), { depth: .9, bevelEnabled: false }); finG.rotateX(Math.PI / 2); finG.rotateZ(Math.PI / 2); finG.translate(-.45, 0, 0);
+  g.add(new THREE.Mesh(finG, blue));
+  [-12, 12].forEach(x => {
+    const e = new THREE.Mesh(new THREE.CylinderGeometry(2.1, 2.0, 7.5, 18), grey); e.position.set(x, -1.5, -3.5); g.add(e);
+    const i = new THREE.Mesh(new THREE.CylinderGeometry(1.7, 1.7, .6, 18), dark); i.position.set(x, 2.4, -3.5); g.add(i);
+    const p = new THREE.Mesh(new THREE.BoxGeometry(1, 5, 2.2), grey); p.position.set(x, 0, -2.2); g.add(p);
+  });
+  T.plane = g; T.scene.add(g);
+  const sh = new THREE.Mesh(new THREE.CircleGeometry(1, 28), new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: .32, depthWrite: false }));
+  T.shadow = sh; T.scene.add(sh);
+  T.visible = false;
+}
+const qZ = new THREE.Quaternion(), qX = new THREE.Quaternion(), qY = new THREE.Quaternion();
+const AX = new THREE.Vector3(1, 0, 0), AY = new THREE.Vector3(0, 1, 0), AZ = new THREE.Vector3(0, 0, 1);
+function renderPlane(plane, pitchDeg, bearingDeg, sc, off){
+  if (!T.renderer) return;
+  if (!plane) { if (T.visible) { T.renderer.clear(); T.visible = false; } return; }
+  T.visible = true;
+  T.renderer.domElement.style.transform = 'translate(' + (off ? off[0] : 0) + 'px,' + ((off ? off[1] : 0) + PADTOP / 2) + 'px)';
+  const fov = map.transform.fovInRadians !== undefined ? map.transform.fovInRadians : (map.transform.fov || 36.87) * d2r;
+  const d = 0.5 / Math.tan(fov / 2) * H;
+  T.camera.fov = fov * r2d; T.camera.aspect = W / H; T.camera.updateProjectionMatrix();
+  const p = pitchDeg * d2r, b = bearingDeg * d2r, ux = Math.sin(b), uy = Math.cos(b);
+  T.camera.position.set(-ux * d * Math.sin(p), -uy * d * Math.sin(p), d * Math.cos(p));
+  T.camera.up.set(ux, uy, 0); T.camera.lookAt(0, 0, 0);
+  const s = 60 * sc / 64;
+  qZ.setFromAxisAngle(AZ, -plane.hdg * d2r); qX.setFromAxisAngle(AX, plane.climb * d2r); qY.setFromAxisAngle(AY, plane.bank * d2r);
+  T.plane.quaternion.copy(qZ).multiply(qX).multiply(qY);
+  T.plane.scale.setScalar(s); T.plane.position.set(0, 0, 2 * s + plane.alt * 34 * sc);
+  T.shadow.rotation.z = -plane.hdg * d2r; T.shadow.scale.set(22 * s, 34 * s, 1); T.shadow.position.set(0, 0, 0.5);
+  T.shadow.material.opacity = .34 * (1 - .55 * plane.alt);
+  T.renderer.render(T.scene, T.camera);
+}
+
+/* ---------- photos ---------- */
+const photoCache = new Map();
+function photoFor(code){
+  const ph = PHOTOS[cityKey(code)]; if (!ph) return null;
+  let e = photoCache.get(ph.file);
+  if (!e) { e = { img: new Image(), ok: false, ph }; e.img.onload = () => { e.ok = true; }; e.img.src = base + ph.file; photoCache.set(ph.file, e); }
+  return e;
+}
+
+/* ---------- sequence ---------- */
+const S = { playing: false, speed: 1, year: 'all', idx: 0, t: 0, steps: [], chase: true, rec: null, counters: null, camB: 0, prevHdg: null, bank: 0 };
+const HOLD = 0.9, HOLD_NEW = 3.2;
+function buildSteps(){
+  const fl = ALL.filter(f => S.year === 'all' || f.d.startsWith(S.year));
+  const steps = [];
+  if (!fl.length) return steps;
+  const seen = new Set();
+  steps.push({ type: 'intro', to: fl[0].a, dur: 4.2, flight: fl[0] });
+  fl.forEach((f, i) => {
+    if (i > 0 && fl[i - 1].t !== f.f) steps.push({ type: 'transit', from: fl[i - 1].b, to: f.a, dur: 1.8, flight: f, prev: fl[i - 1] });
+    const newFrom = !seen.has(cityKey(f.f)), newTo = !seen.has(cityKey(f.t)) && cityKey(f.t) !== cityKey(f.f);
+    seen.add(cityKey(f.f)); seen.add(cityKey(f.t));
+    const D = clamp(2.4 + f.km / 2200, 2.4, 7.5);
+    const h0 = newFrom && PHOTOS[cityKey(f.f)] ? HOLD_NEW : HOLD, h1 = newTo && PHOTOS[cityKey(f.t)] ? HOLD_NEW : HOLD;
+    steps.push({ type: 'flight', flight: f, i: i + 1, n: fl.length, fly: D, h0, h1, dur: h0 + D + h1, newFrom, newTo, samePrev: i > 0 && fl[i - 1].t === f.f });
+  });
+  steps.push({ type: 'outro', dur: 9, total: fl.length });
+  return steps;
+}
+let routesFC, visitedFC, visitedSet;
+function resetState(){
+  S.idx = 0; S.t = 0; S.counters = { km: 0, n: 0, countries: new Set(), cities: new Set() }; S.prevHdg = null; S.bank = 0;
+  routesFC = { type: 'FeatureCollection', features: [] }; visitedFC = { type: 'FeatureCollection', features: [] }; visitedSet = new Set();
+  map.getSource('routes').setData(empty); map.getSource('live').setData(empty); map.getSource('visited').setData(empty);
+}
+function completeFlight(f){
+  routesFC.features.push({ type: 'Feature', geometry: { type: 'LineString', coordinates: f.pts } });
+  map.getSource('routes').setData(routesFC);
+  [f.f, f.t].forEach(c => { if (!visitedSet.has(c)) { visitedSet.add(c); visitedFC.features.push({ type: 'Feature', geometry: { type: 'Point', coordinates: ll(c) } }); } S.counters.countries.add(AP[c].country); S.counters.cities.add(cityKey(c)); });
+  map.getSource('visited').setData(visitedFC);
+  map.getSource('live').setData(empty);
+  S.counters.km += f.km; S.counters.n += 1;
+}
+function rebuild(){ resetState(); S.steps = buildSteps(); S.camB = 0; S.needCam = true; frame(0); }
+window.__S = S; window.__goto = i => gotoStep(i);
+function gotoStep(idx){
+  resetState(); idx = clamp(idx, 0, S.steps.length - 1);
+  for (let i = 0; i < idx; i++) if (S.steps[i].type === 'flight') completeFlight(S.steps[i].flight);
+  S.idx = idx; S.t = 0; S.needCam = true; frame(0);
+}
+
+/* ---------- per-frame scene ---------- */
+let cam = { center: [60, 30], zoom: 1.2, pitch: 0 };
+let scene = { plane: null, labels: [], photo: null, step: null, t: 0, kmLive: 0 };
+let targetHdg = 0;
+function stepView(step, t){
+  const labels = []; let plane = null, photo = null, kmLive = 0;
+  if (step.type === 'intro') {
+    const e = ease(clamp((t - 1.2) / (step.dur - 1.2), 0, 1));
+    const f = step.flight;
+    cam = { center: slerp([step.to[0] - 10, step.to[1] - 16], step.to, e), zoom: 1.2 + (Z.ap - 1.2) * e, pitch: Z.pitch0 * e };
+    targetHdg = along(f, 0).hdg;
+    if (e > .55) { labels.push({ at: f.a, code: f.f, a: (e - .55) / .45 }); plane = { pos: f.a, hdg: targetHdg, alt: 0, climb: 0, bank: 0 }; }
+  } else if (step.type === 'transit') {
+    const e = ease(clamp(t / step.dur, 0, 1)); const dip = Math.sin(Math.PI * e);
+    cam = { center: slerp(step.from, step.to, e), zoom: Z.ap - dip * Math.min(3.5, Z.ap - zCruise(900)), pitch: Z.pitch0 - dip * 12 };
+    targetHdg = along(step.flight, 0).hdg;
+    if (e < .3) labels.push({ at: step.from, code: step.prev.t, a: 1 - e / .3 });
+    if (e > .7) { labels.push({ at: step.to, code: step.flight.f, a: (e - .7) / .3 }); plane = { pos: step.to, hdg: targetHdg, alt: 0, climb: 0, bank: 0 }; }
+  } else if (step.type === 'flight') {
+    const f = step.flight; let p, phase;
+    if (t < step.h0) { phase = 0; p = 0; } else if (t < step.h0 + step.fly) { phase = 1; p = (t - step.h0) / step.fly; } else { phase = 2; p = 1; }
+    const pe = 0.12 * ease(p) + 0.88 * p;
+    const at = along(f, pe);
+    const s = Math.pow(Math.sin(Math.PI * pe), 0.55);
+    cam = { center: at.pos, zoom: Z.ap + (zCruise(f.km) - Z.ap) * s, pitch: Z.pitch0 + (Z.pitch1 - Z.pitch0) * s };
+    const alt = smooth(0, .16, pe) * (1 - smooth(.84, 1, pe));
+    const climb = pe < .2 ? 13 * Math.sin(Math.PI * pe / .2) : pe > .8 ? -7 * Math.sin(Math.PI * (pe - .8) / .2) : 0;
+    plane = { pos: at.pos, hdg: at.hdg, alt, climb, bank: 0 };
+    targetHdg = at.hdg; kmLive = f.km * pe;
+    if (phase === 0) labels.push({ at: f.a, code: f.f, a: step.samePrev ? 1 : clamp(t / .4, 0, 1) });
+    else if (pe < .22) labels.push({ at: f.a, code: f.f, a: 1 - pe / .22 });
+    if (phase === 2) labels.push({ at: f.b, code: f.t, a: 1 });
+    else if (pe > .78) labels.push({ at: f.b, code: f.t, a: (pe - .78) / .22 });
+    if (phase === 0 && step.h0 === HOLD_NEW) photo = { code: f.f, t, dur: step.h0 };
+    if (phase === 2 && step.h1 === HOLD_NEW) photo = { code: f.t, t: t - step.h0 - step.fly, dur: step.h1 };
+    const i = Math.floor(pe * N); const coords = f.pts.slice(0, i + 1); coords.push(at.pos);
+    map.getSource('live').setData({ type: 'Feature', geometry: { type: 'LineString', coordinates: coords } });
+  } else if (step.type === 'outro') {
+    if (!step.from) step.from = { center: cam.center, zoom: cam.zoom, pitch: cam.pitch, b: S.camB };
+    const e = ease(clamp(t / 3.2, 0, 1));
+    cam = { center: [slerp(step.from.center, [75, 28], e)[0] + Math.max(0, t - 3.2) * 5, slerp(step.from.center, [75, 28], e)[1]], zoom: step.from.zoom + (1.5 - step.from.zoom) * e, pitch: step.from.pitch * (1 - e) };
+    targetHdg = 0;
+  }
+  scene = { plane, labels, photo, step, t, kmLive };
+}
+function frame(dt){
+  const step = S.steps[S.idx]; if (!step) return;
+  if (S.playing) {
+    S.t += dt * S.speed;
+    if (S.t >= step.dur && S.idx < S.steps.length - 1) { if (step.type === 'flight') completeFlight(step.flight); S.t -= step.dur; S.idx += 1; }
+    if (S.idx === S.steps.length - 1 && S.t >= S.steps[S.idx].dur) { S.t = S.steps[S.idx].dur; pause(); }
+  }
+  const cur = S.steps[S.idx];
+  stepView(cur, S.t);
+  // camera bearing: follow the heading (chase) or stay north-up; the outro always settles north-up
+  const want = (S.chase && cur.type !== 'outro') ? targetHdg : 0;
+  if (dt === 0 && cur.type !== 'outro') S.camB = want; else S.camB = (S.camB + wrap(want - S.camB) * Math.min(1, dt * (cur.type === 'outro' ? 1.2 : 2.2)) + 360) % 360;
+  // bank from heading change
+  if (scene.plane) { const rate = S.prevHdg == null || dt === 0 ? 0 : wrap(scene.plane.hdg - S.prevHdg) / Math.max(dt, 1e-3); S.bank += (clamp(rate * 1.2, -28, 28) - S.bank) * Math.min(1, dt * 3); scene.plane.bank = S.bank; S.prevHdg = scene.plane.hdg; } else S.prevHdg = null;
+  // while paused the viewer may drag, tilt and zoom freely; the camera is only driven during playback (and once after a jump)
+  if (S.playing || S.needCam) { map.jumpTo({ center: cam.center, zoom: cam.zoom, pitch: cam.pitch, bearing: S.camB }); S.needCam = false; }
+  const sc = clamp(Math.min(W, H) / 720, .72, 1.25);
+  let off = [0, 0];
+  if (scene.plane && !S.playing) { const p = map.project(scene.plane.pos); if (p && isFinite(p.x)) off = [p.x - W / 2, p.y - (H / 2 + PADTOP / 2)]; }
+  renderPlane(scene.plane, S.playing ? cam.pitch : map.getPitch(), S.playing ? S.camB : map.getBearing(), sc, off);
+  draw(sc);
+  if (S.rec) {
+    const r = S.rec, k = r.c.height / H;
+    r.ctx.globalCompositeOperation = 'source-over';
+    r.ctx.fillStyle = '#02060d'; r.ctx.fillRect(0, 0, r.c.width, r.c.height);          // start every frame from a clean background
+    r.ctx.drawImage(map.getCanvas(), 0, 0, r.c.width, r.c.height);
+    if (T.visible) r.ctx.drawImage(T.renderer.domElement, off[0] * k, (off[1] + PADTOP / 2) * k, r.c.width, r.c.height);
+    r.ctx.drawImage(overlay, 0, 0, r.c.width, r.c.height);
+  }
+}
+
+/* ---------- 2D overlay: pins, photo card, HUD ---------- */
+function rr(x, y, w, h, r){ octx.beginPath(); octx.roundRect(x, y, w, h, r); }
+function draw(sc){
+  octx.setTransform(DPR, 0, 0, DPR, 0, 0); octx.clearRect(0, 0, W, H);
+  const body = '"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif', disp = '"Rajdhani",' + body;
+  octx.lineJoin = 'round'; octx.lineCap = 'round';
+  // city pins
+  scene.labels.forEach(L => {
+    const a = clamp(L.a, 0, 1); if (a <= 0) return;
+    const p = map.project(L.at); if (!p || !isFinite(p.x)) return;
+    const ap = AP[L.code]; const name = ap.city, sub = L.code + ' · ' + ap.name;
+    octx.globalAlpha = a;
+    const ph = (scene.t * 1.4) % 1, ring = 10 * sc + 12 * sc * ph;
+    octx.beginPath(); octx.arc(p.x, p.y, ring, 0, Math.PI * 2); octx.strokeStyle = 'rgba(79,190,255,' + (1 - ph) * .9 + ')'; octx.lineWidth = 1.5; octx.stroke();
+    octx.beginPath(); octx.arc(p.x, p.y, 9 * sc, 0, Math.PI * 2); octx.strokeStyle = 'rgba(79,190,255,.55)'; octx.lineWidth = 1; octx.stroke();
+    octx.beginPath(); octx.arc(p.x, p.y, 5 * sc, 0, Math.PI * 2); octx.fillStyle = '#39b4ff'; octx.fill(); octx.strokeStyle = '#fff'; octx.lineWidth = 1.5; octx.stroke();
+    const lift = 62 * sc * (0.6 + 0.4 * a);
+    octx.beginPath(); octx.moveTo(p.x, p.y - 6 * sc); octx.lineTo(p.x, p.y - lift); octx.strokeStyle = 'rgba(120,200,255,.9)'; octx.lineWidth = 1.5; octx.stroke();
+    octx.font = '700 ' + (20 * sc) + 'px ' + body; const tw = octx.measureText(name).width;
+    octx.font = '600 ' + (11 * sc) + 'px ' + disp; const sw = octx.measureText(sub).width;
+    const bw = Math.max(tw, sw) + 28 * sc, bh = 46 * sc, bx = p.x - bw / 2, by = p.y - lift - bh;
+    rr(bx, by, bw, bh, 6 * sc); octx.fillStyle = 'rgba(6,14,28,.82)'; octx.fill(); octx.strokeStyle = 'rgba(120,200,255,.9)'; octx.lineWidth = 1.5; octx.stroke();
+    octx.textAlign = 'center'; octx.textBaseline = 'alphabetic';
+    octx.font = '700 ' + (20 * sc) + 'px ' + body; octx.fillStyle = '#fff'; octx.fillText(name, p.x, by + 23 * sc);
+    octx.font = '600 ' + (11 * sc) + 'px ' + disp; octx.fillStyle = '#9fd4ff'; octx.fillText(sub, p.x, by + 38 * sc);
+    octx.globalAlpha = 1;
+  });
+  // photo card for a city visited for the first time
+  if (scene.photo) {
+    const e = photoFor(scene.photo.code);
+    if (e && e.ok) {
+      const tt = scene.photo.t, a = Math.min(smooth(0, .5, tt), 1 - smooth(scene.photo.dur - .5, scene.photo.dur, tt));
+      if (a > 0) {
+        const narrow = W < 640;
+        const cw = narrow ? Math.min(W - 2 * 16, 300 * sc) : Math.min(W * .34, 440 * sc), ch = cw * .64;
+        const cx = W - cw - 16 * sc + (1 - ease(a)) * 40, cy = narrow ? H - ch - 96 * sc : H * .5 - ch / 2 - PADTOP * .15;
+        octx.save(); octx.globalAlpha = a;
+        octx.shadowColor = 'rgba(0,0,0,.55)'; octx.shadowBlur = 24; octx.shadowOffsetY = 8;
+        rr(cx, cy, cw, ch, 12 * sc); octx.fillStyle = '#0b1626'; octx.fill(); octx.shadowColor = 'transparent';
+        octx.save(); rr(cx, cy, cw, ch, 12 * sc); octx.clip();
+        const img = e.img, iw = img.naturalWidth, ih = img.naturalHeight; const k = Math.max(cw / iw, ch / ih) * (1 + .09 * tt / scene.photo.dur);
+        const dw = iw * k, dh = ih * k; octx.drawImage(img, cx + (cw - dw) / 2 - 10 * (tt / scene.photo.dur), cy + (ch - dh) / 2, dw, dh);
+        const grad = octx.createLinearGradient(0, cy + ch * .45, 0, cy + ch); grad.addColorStop(0, 'rgba(4,10,20,0)'); grad.addColorStop(1, 'rgba(4,10,20,.88)');
+        octx.fillStyle = grad; octx.fillRect(cx, cy, cw, ch);
+        const ap = AP[scene.photo.code];
+        octx.textAlign = 'left'; octx.textBaseline = 'alphabetic';
+        octx.font = '700 ' + (26 * sc) + 'px ' + body; octx.fillStyle = '#fff'; octx.fillText(ap.city, cx + 16 * sc, cy + ch - 34 * sc);
+        octx.font = '600 ' + (12 * sc) + 'px ' + disp; octx.fillStyle = '#9fd4ff'; octx.fillText(ap.country + ' · 第一次到访', cx + 16 * sc, cy + ch - 18 * sc);
+        octx.font = '400 ' + (8.5 * sc) + 'px ' + body; octx.fillStyle = 'rgba(220,232,245,.7)'; octx.textAlign = 'right'; octx.fillText(e.ph.credit, cx + cw - 10 * sc, cy + ch - 7 * sc);
+        octx.restore();
+        rr(cx, cy, cw, ch, 12 * sc); octx.strokeStyle = 'rgba(140,190,255,.35)'; octx.lineWidth = 1; octx.stroke();
+        octx.restore();
+      }
+    }
+  }
+  // 3D plane sits in the WebGL canvas; HUD follows
+  const pad = 18 * sc;
+  octx.textAlign = 'left'; octx.textBaseline = 'alphabetic';
+  const st = scene.step, f = st && st.flight;
+  const total = S.steps.length ? S.steps[S.steps.length - 1].total : 0;
+  // intro title
+  if (st && st.type === 'intro') {
+    const a = 1 - smooth(1.4, 2.6, st.t);
+    if (a > 0) {
+      octx.save(); octx.globalAlpha = a; octx.textAlign = 'center'; octx.shadowColor = 'rgba(0,0,0,.8)'; octx.shadowBlur = 16;
+      octx.font = '700 ' + (46 * sc) + 'px ' + body; octx.fillStyle = '#fff'; octx.fillText('我的飞行足迹', W / 2, H * .42);
+      octx.font = '600 ' + (18 * sc) + 'px ' + disp; octx.fillStyle = '#9fd4ff'; octx.fillText((S.year === 'all' ? YEARS[0] + ' – ' + YEARS[YEARS.length - 1] : S.year) + '  ·  ' + total + ' 段航程', W / 2, H * .42 + 34 * sc);
+      octx.restore();
+    }
+  }
+  octx.save(); octx.shadowColor = 'rgba(0,0,0,.7)'; octx.shadowBlur = 8;
+  octx.font = '700 ' + (22 * sc) + 'px ' + body; octx.fillStyle = '#fff'; octx.fillText('飞行足迹', pad, pad + 20 * sc);
+  octx.font = '500 ' + (11 * sc) + 'px ' + disp; octx.fillStyle = '#9fd4ff';
+  octx.fillText((S.year === 'all' ? YEARS[0] + ' – ' + YEARS[YEARS.length - 1] : S.year) + ' · ' + total + ' 段航程', pad, pad + 36 * sc);
+  octx.restore();
+  if (f && st.type !== 'outro' && !(st.type === 'intro' && st.t < 2.2)) {
+    const cw = Math.min(W - 2 * pad, 360 * sc), ch = 86 * sc, cx = pad, cy = pad + 50 * sc;
+    rr(cx, cy, cw, ch, 10 * sc); octx.fillStyle = 'rgba(5,12,24,.72)'; octx.fill(); octx.strokeStyle = 'rgba(140,190,255,.25)'; octx.lineWidth = 1; octx.stroke();
+    octx.font = '600 ' + (12 * sc) + 'px ' + disp; octx.fillStyle = '#9fd4ff';
+    const idxText = st.type === 'flight' ? '第 ' + st.i + ' / ' + st.n + ' 段' : '准备起飞';
+    octx.fillText(f.d.replace(/-/g, '.') + '   ' + idxText, cx + 14 * sc, cy + 22 * sc);
+    octx.font = '700 ' + (22 * sc) + 'px ' + disp; octx.fillStyle = '#fff';
+    octx.fillText(f.f + ' ' + AP[f.f].city + '  →  ' + f.t + ' ' + AP[f.t].city, cx + 14 * sc, cy + 50 * sc);
+    octx.font = '500 ' + (12 * sc) + 'px ' + body; octx.fillStyle = '#c9dcf0';
+    octx.fillText(f.no + ' · ' + f.al + ' · ' + fmt(f.km) + ' km · ' + Math.floor(f.min / 60) + 'h' + String(f.min % 60).padStart(2, '0') + 'm', cx + 14 * sc, cy + 72 * sc);
+  }
+  // counters
+  const c = S.counters; const items = [['里程', fmt(c.km + scene.kmLive), '公里'], ['次数', String(c.n), '次'], ['国家/地区', String(c.countries.size), '个'], ['城市', String(c.cities.size), '个']];
+  let x = pad; const by = H - (W < 640 ? 74 : 26) * sc - (W < 640 ? 0 : 60);
+  octx.save(); octx.shadowColor = 'rgba(0,0,0,.8)'; octx.shadowBlur = 8;
+  items.forEach(([lab, val, unit]) => {
+    octx.font = '500 ' + (11 * sc) + 'px ' + body; octx.fillStyle = '#b9cde4'; octx.fillText(lab, x, by - 2 * sc); x += octx.measureText(lab).width + 5 * sc;
+    octx.font = '700 ' + (26 * sc) + 'px ' + disp; octx.fillStyle = '#fff'; octx.fillText(val, x, by); x += octx.measureText(val).width + 3 * sc;
+    octx.font = '500 ' + (11 * sc) + 'px ' + body; octx.fillStyle = '#b9cde4'; octx.fillText(unit, x, by - 2 * sc); x += octx.measureText(unit).width + 18 * sc;
+  });
+  octx.restore();
+  // outro card
+  if (st && st.type === 'outro') {
+    const e = smooth(1.4, 2.6, st.t); if (e > 0) {
+      octx.save(); octx.globalAlpha = e; octx.textAlign = 'center'; octx.shadowColor = 'rgba(0,0,0,.8)'; octx.shadowBlur = 14;
+      octx.font = '700 ' + (36 * sc) + 'px ' + body; octx.fillStyle = '#fff'; octx.fillText('这是我的飞行足迹', W / 2, H * .2);
+      octx.font = '600 ' + (16 * sc) + 'px ' + disp; octx.fillStyle = '#9fd4ff'; octx.fillText(total + ' 段航程 · ' + fmt(c.km) + ' 公里 · ' + c.countries.size + ' 个国家/地区 · ' + c.cities.size + ' 座城市', W / 2, H * .2 + 30 * sc);
+      octx.restore();
+    }
+  }
+  // progress + attribution
+  const prog = S.steps.length ? (S.idx + clamp(S.t / (st ? st.dur : 1), 0, 1)) / S.steps.length : 0;
+  octx.fillStyle = 'rgba(255,255,255,.14)'; octx.fillRect(0, H - 3, W, 3); octx.fillStyle = '#39b4ff'; octx.fillRect(0, H - 3, W * prog, 3);
+  octx.font = '400 ' + (10 * sc) + 'px ' + body; octx.fillStyle = 'rgba(200,220,240,.75)'; octx.textAlign = 'right';
+  octx.fillText((HI ? '影像 © Esri, Maxar, Earthstar Geographics' : '影像 NASA Blue Marble') + (TERRAIN ? ' · 地形 Mapzen/AWS' : '') + ' · 城市照片 Wikimedia Commons', W - 10, H - 9);
+  octx.textAlign = 'left';
+}
+
+/* ---------- playback ---------- */
+let rafId = null, last = null;
+function loop(now){ rafId = requestAnimationFrame(loop); const dt = last == null ? 0 : Math.min(0.1, (now - last) / 1000); last = now; frame(dt || 1e-4); }
+function play(){ if (S.playing) return; S.playing = true; setInteractive(false); $('play-text').textContent = '暂停'; $('ic-play').innerHTML = '<path d="M7 5h4v14H7zM13 5h4v14h-4z"/>'; last = null; }
+let pause = function(){ S.playing = false; setInteractive(true); $('play-text').textContent = '播放'; $('ic-play').innerHTML = '<path d="M8 5v14l11-7z"/>'; };
+function nextFlightIdx(dir){ let i = S.idx + dir; while (i >= 0 && i < S.steps.length && S.steps[i].type !== 'flight') i += dir; return clamp(i, 0, S.steps.length - 1); }
+$('b-play').addEventListener('click', () => { if (S.idx === S.steps.length - 1 && S.t >= S.steps[S.idx].dur) gotoStep(0); S.playing ? pause() : play(); });
+$('b-next').addEventListener('click', () => gotoStep(nextFlightIdx(1)));
+$('b-prev').addEventListener('click', () => gotoStep(S.t > 1.5 && S.steps[S.idx].type === 'flight' ? S.idx : nextFlightIdx(-1)));
+$('b-restart').addEventListener('click', () => { gotoStep(0); play(); });
+$('b-view').addEventListener('click', () => { S.chase = !S.chase; $('view-text').textContent = S.chase ? '跟随镜头' : '正北镜头'; $('b-view').classList.toggle('on', S.chase); });
+$('speed').addEventListener('change', e => { S.speed = +e.target.value; });
+const ysel = $('year'); [['all', '全部年份']].concat(YEARS.map(y => [y, y + ' 年'])).forEach(([v, t]) => { const o = document.createElement('option'); o.value = v; o.textContent = t; ysel.appendChild(o); });
+ysel.addEventListener('change', e => { S.year = e.target.value; rebuild(); play(); });
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'SELECT') return;
+  if (e.code === 'Space') { e.preventDefault(); $('b-play').click(); }
+  else if (e.code === 'ArrowRight') $('b-next').click();
+  else if (e.code === 'ArrowLeft') $('b-prev').click();
+});
+
+let toastT = null;
+function toast(msg, ms){ const t = $('toast'); t.textContent = msg; t.hidden = false; clearTimeout(toastT); if (ms) toastT = setTimeout(() => { t.hidden = true; }, ms); }
+
+/* ---------- recording: composite of globe, aircraft and overlay, saved as a video file ---------- */
+const downloadsP = (window.claude && typeof window.claude.use === 'function') ? Promise.resolve().then(() => window.claude.use('downloads')).catch(() => null) : Promise.resolve(null);
+async function toggleRecord(){
+  if (S.rec) { S.rec.mr.stop(); return; }
+  if (!window.MediaRecorder || !HTMLCanvasElement.prototype.captureStream) { toast('这个浏览器不支持录制，请用 Chrome 或 Safari 打开。', 4000); return; }
+  const dl = await downloadsP;
+  if (!dl && !LOCAL_SAVE) { toast('这里无法保存文件：请下载本地版网页后录制。', 4000); return; }
+  const mc = map.getCanvas(); const c = document.createElement('canvas'); c.width = mc.width; c.height = mc.height;
+  const mime = ['video/mp4;codecs=avc1', 'video/mp4', 'video/webm;codecs=vp9', 'video/webm'].find(m => MediaRecorder.isTypeSupported(m));
+  if (!mime) { toast('这个浏览器不支持录制视频。', 4000); return; }
+  const mr = new MediaRecorder(c.captureStream(30), { mimeType: mime, videoBitsPerSecond: 14e6 });
+  const chunks = [];
+  mr.ondataavailable = e => { if (e.data && e.data.size) chunks.push(e.data); };
+  mr.onstop = async () => {
+    S.rec = null; $('b-rec').classList.remove('on'); $('b-rec').querySelector('.txt').textContent = '录制视频';
+    const blob = new Blob(chunks, { type: mime }); const ext = mime.startsWith('video/mp4') ? 'mp4' : 'webm'; const name = '飞行足迹.' + ext;
+    toast('正在保存 ' + (blob.size / 1048576).toFixed(1) + ' MB 的视频…');
+    if (dl) { try { await dl.save({ filename: name, data: blob }); toast('视频已保存：' + name, 3000); } catch (e) { toast(e && e.code === 'declined' ? '已取消保存。' : '保存失败，请重试。', 3000); } }
+    else if (LOCAL_SAVE) { LOCAL_SAVE(blob, name); toast('视频已保存：' + name, 4000); }
+  };
+  mr.start(1000);
+  S.rec = { mr, c, ctx: c.getContext('2d') };
+  $('b-rec').classList.add('on'); $('b-rec').querySelector('.txt').textContent = '停止录制';
+  toast('录制中：画面与回放同步，播放结束或再次点击即停止。', 3500);
+  if (!S.playing) play();
+}
+$('b-rec').addEventListener('click', toggleRecord);
+const basePause = pause;
+pause = function(){ basePause(); if (S.rec && S.idx === S.steps.length - 1 && S.t >= S.steps[S.idx].dur) S.rec.mr.stop(); };
+
+/* ---------- boot ---------- */
+toast('正在加载地球…');
+// start as soon as the style (sources and layers) is ready; imagery and terrain tiles keep streaming in during the opening shot
+let booted = false;
+async function boot(){
+  if (booted) return; booted = true;
+  initThree(); sizeAll();
+  if (document.fonts && document.fonts.ready) { try { await Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 1500))]); } catch (e) {} }
+  $('b-view').classList.add('on');
+  rebuild();
+  // warm the photo cache in the background
+  Object.keys(PHOTOS).forEach((k, i) => setTimeout(() => { const code = Object.keys(AP).find(c => cityKey(c) === k); if (code) photoFor(code); }, 300 + i * 120));
+  $('toast').hidden = true;
+  if (!HI) toast('在线高清卫星影像不可用，已切换为 NASA 蓝色弹珠底图。', 4500);
+  rafId = requestAnimationFrame(loop);
+  if (!reduced) setTimeout(play, 400);
+}
+map.once('style.load', boot);
+map.once('load', boot);
+})();
+</script>
+
+</body>
+</html>

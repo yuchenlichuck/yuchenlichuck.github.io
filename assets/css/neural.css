@@ -302,9 +302,29 @@ body.theme-claude .article-banner { height: auto; max-width: 100%; }
 body.theme-claude .wg-about .col-12.col-lg-6 > p.ph-source, body.theme-claude .ph-source { margin: -.6rem 0 1.4rem; font-family: var(--n-mono, ui-monospace, monospace); font-size: .72rem; letter-spacing: .02em; color: var(--n-muted); text-align: right; }
 body.theme-claude .ph-source a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
 
-/* visitor map, now a small footer element on the home page */
-body.theme-claude .footer-map { display: flex; justify-content: center; margin: 0 auto 1rem; max-width: 300px; opacity: .85; }
-body.theme-claude .footer-map img, body.theme-claude .footer-map canvas, body.theme-claude .footer-map iframe { max-width: 100% !important; height: auto !important; border-radius: 8px; }
+/* visitor map & 3D flight footprint: small side-by-side footer widgets on the home page */
+body.theme-claude .footer-maps {
+  display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px; margin: 0 auto 1rem;
+}
+body.theme-claude .footer-map-card {
+  position: relative; width: 200px; height: 130px; border-radius: 8px; overflow: hidden;
+  border: 1px solid var(--n-line); background: #02060d; opacity: .92; transition: opacity .2s ease, transform .2s ease, border-color .2s ease;
+}
+body.theme-claude .footer-map-card:hover { opacity: 1; border-color: var(--n-line-hi); transform: translateY(-1px); }
+body.theme-claude .footer-map-card--visitor { background: #2d78ad; }
+body.theme-claude .footer-map-card--visitor #mapmyvisitors-widget,
+body.theme-claude .footer-map-card--visitor a#mapmyvisitors-widget { min-height: 0 !important; width: 200px !important; height: 130px !important; overflow: hidden; }
+body.theme-claude .footer-flight-iframe {
+  width: 800px !important; height: 520px !important; max-width: none !important;
+  border: 0; transform: scale(0.25); transform-origin: 0 0; display: block; background: #02060d;
+}
+body.theme-claude .footer-flight-open {
+  position: absolute; top: 5px; right: 5px; z-index: 3; padding: 2px 6px; border-radius: 999px;
+  background: rgba(5, 12, 24, .78); border: 1px solid rgba(140, 190, 255, .32); color: #d6f1ff !important;
+  font: 600 9.5px/1.3 var(--n-mono); letter-spacing: .02em; text-decoration: none !important; backdrop-filter: blur(4px);
+  transition: background .15s ease, border-color .15s ease;
+}
+body.theme-claude .footer-flight-open:hover { background: #0b7f78; border-color: #4ee8d6; color: #fff !important; }
 
 /* ---------- looping teaser videos (publication cards + research cards) ---------- */
 body.theme-claude .teaser-video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; }
