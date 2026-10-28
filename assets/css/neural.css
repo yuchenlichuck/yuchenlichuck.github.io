@@ -1071,8 +1071,31 @@ body.theme-claude .cchat-mini-label {
 }
 body.theme-claude .cchat-dur-group {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 5px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+body.theme-claude .cchat-tz-auto-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding-top: 4px;
+  margin-top: 2px;
+  border-top: 1px dashed var(--n-line);
+}
+body.theme-claude .cchat-tz-toggle-btn {
+  border: 0;
+  background: transparent;
+  color: var(--n-accent);
+  font-family: var(--n-mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  padding: 2px 4px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+body.theme-claude .cchat-tz-toggle-btn:hover {
+  text-decoration: underline;
 }
 body.theme-claude .cchat-dur-btn {
   padding: 5px 0;
@@ -1525,6 +1548,28 @@ body.theme-claude .cchat-done-sub {
   font-size: 0.76rem;
   color: var(--n-muted);
   margin: 2px 0 0;
+}
+body.theme-claude .cchat-done-primary-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 2px;
+}
+body.theme-claude .cchat-action-btn.is-big {
+  justify-content: center;
+  padding: 11px 16px;
+  font-size: 0.85rem;
+}
+body.theme-claude .cchat-gcal-hint {
+  font-size: 0.72rem;
+  color: var(--n-muted);
+}
+body.theme-claude .cchat-bg-note {
+  font-family: var(--n-mono);
+  font-size: 0.71rem;
+  color: var(--n-accent);
+  margin-top: 2px;
 }
 body.theme-claude .cchat-done-actions {
   display: flex;
