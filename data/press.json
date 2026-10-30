@@ -2150,7 +2150,7 @@
  "videos": [
   {
    "ref": "m3",
-   "src": "https://player.bilibili.com/player.html?isOutside=true&aid=114850344801356&bvid=BV1uguizREY3&cid=31030183754&p=1&autoplay=1",
+   "src": "https://www.bilibili.com/blackboard/html5mobileplayer.html?isOutside=true&aid=114850344801356&bvid=BV1uguizREY3&cid=31030183754&p=1&high_quality=1&danmaku=0&autoplay=1",
    "title": "72小时AI生存挑战｜AI博士的极限72小时",
    "meta_en": "5Y Capital · documentary · 11:47",
    "meta_zh": "五源资本 · 纪录片 · 11:47",
@@ -2159,7 +2159,7 @@
   },
   {
    "ref": "n2",
-   "src": "https://player.bilibili.com/player.html?isOutside=true&aid=114919685031435&bvid=BV1728bzzEym&cid=31298225202&p=1&autoplay=1",
+   "src": "https://www.bilibili.com/blackboard/html5mobileplayer.html?isOutside=true&aid=114919685031435&bvid=BV1728bzzEym&cid=31298225202&p=1&high_quality=1&danmaku=0&autoplay=1",
    "title": "我 迪拜王子 跟酋长握过手",
    "meta_en": "36Kr WAVES 2025 · stand-up · 8 min",
    "meta_zh": "36氪 WAVES 2025 · 脱口秀 · 8 分钟",
@@ -2168,7 +2168,7 @@
   },
   {
    "ref": "n6",
-   "src": "https://player.bilibili.com/player.html?isOutside=true&aid=793300345&bvid=BV1zC4y1e7ab&cid=1396155520&p=1&autoplay=1",
+   "src": "https://www.bilibili.com/blackboard/html5mobileplayer.html?isOutside=true&aid=793300345&bvid=BV1zC4y1e7ab&cid=1396155520&p=1&high_quality=1&danmaku=0&autoplay=1",
    "title": "迪拜商业英才 李禹陈：浅谈中东2030愿景",
    "meta_en": "Next Capital · talk · 22 min",
    "meta_zh": "嘉程资本 · 演讲 · 22 分钟",
@@ -2177,7 +2177,7 @@
   },
   {
    "ref": "m14",
-   "src": "https://player.bilibili.com/player.html?bvid=BV1jL411G7HL&page=1&high_quality=1&autoplay=1",
+   "src": "https://www.bilibili.com/blackboard/html5mobileplayer.html?isOutside=true&aid=463569210&bvid=BV1jL411G7HL&cid=423481266&p=1&high_quality=1&danmaku=0&autoplay=1",
    "title": "国庆团圆日，海外学子的生活是怎样的？｜后浪聊天室",
    "meta_en": "TechBeat · video chat · 2021",
    "meta_zh": "将门 TechBeat · 视频访谈 · 2021",
@@ -2186,11 +2186,12 @@
   },
   {
    "ref": "m6",
-   "src": "https://player.bilibili.com/player.html?bvid=BV1B6MFzeEPf&page=1&high_quality=1&autoplay=1",
+   "src": "https://www.bilibili.com/blackboard/html5mobileplayer.html?isOutside=true&aid=114668328720950&bvid=BV1B6MFzeEPf&cid=30475419812&p=1&high_quality=1&danmaku=0&autoplay=1",
    "title": "「72小时AI生存挑战」先导片｜只能靠AI度过三天，他们都经历了什么？",
    "meta_en": "5Y Capital · trailer · 2025",
    "meta_zh": "五源资本 · 先导片 · 2025",
-   "title_en": "72-Hour AI Survival Challenge — the trailer"
+   "title_en": "72-Hour AI Survival Challenge — the trailer",
+   "cover": "https://i1.hdslb.com/bfs/archive/a9ae5af3086877c84f5423a9aa075acfb13514e8.jpg@672w_378h_1c.jpg"
   }
  ]
 }
