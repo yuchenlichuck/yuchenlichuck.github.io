@@ -1,12 +1,12 @@
 # English stays at /; Chinese is available at /zh/.
 [en]
-  languageCode = "en-us"
-  languageName = "English"
+  locale = "en-us"
+  label = "English"
   weight = 1
 
 [zh]
-  languageCode = "zh-Hans"
-  languageName = "中文"
+  locale = "zh-Hans"
+  label = "中文"
   title = "李禹陈 | Yuchen Li"
   weight = 2
   [zh.params]

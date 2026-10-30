@@ -21,7 +21,7 @@
             {{ range $current_page.Translations }}
               {{ if eq .Lang $language }}{{ $destination = .RelPermalink }}{{ end }}
             {{ end }}
-            <a class="btn btn-sm btn-outline-primary language-switch" href="{{ $destination }}" lang="{{ .Language.LanguageCode }}" hreflang="{{ .Language.LanguageCode }}" aria-label="{{ if eq $language "zh" }}切换到中文{{ else }}Switch to English{{ end }}">{{ .Language.LanguageName }}</a>
+            <a class="btn btn-sm btn-outline-primary language-switch" href="{{ $destination }}" lang="{{ .Language.Locale }}" hreflang="{{ .Language.Locale }}" aria-label="{{ if eq $language "zh" }}切换到中文{{ else }}Switch to English{{ end }}">{{ .Language.Label }}</a>
           {{ end }}
         {{ end }}
       </div>

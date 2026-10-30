@@ -157,13 +157,13 @@
           {{ $course := . }}
           <li>
               {{ with $course.logo }}
-                <a href="{{ $course.link }}" target="_blank">
+                <a href="{{ $course.link }}" target="_blank" rel="noopener">
                   <i><img src="{{ printf "img/logo/%s" . | relURL }}" alt="{{ $course.institution }} logo" style="position: absolute;left: -2.5rem;width: 2rem;top: 0.14285714em;text-align: center;"></i>
                 </a>
               {{ end }}
               <div class="description">
                 <p class="course">{{ $course.course }}</p>
-                <a href="{{ $course.link }}" target="_blank"><p class="institution">{{ $course.institution }} , {{$course.year}}</p></a>
+                <a href="{{ $course.link }}" target="_blank" rel="noopener"><p class="institution">{{ $course.institution }}, {{ $course.year }}</p></a>
               </div>
           </li>
           {{ end }}
@@ -174,11 +174,16 @@
       {{ with $person.interests }}
       <div class="col-md-7">
         <h3>{{ i18n "interests" | markdownify }}</h3>
-        <ul class="ul-interests"> 
+        <ul class="ul-interests">
+          {{ $scholar := hugo.Data.scholar }}
           {{ range . }}
+          {{ $works := .works }}
+          {{/* `{key}` placeholders pull live numbers from data/scholar.json (e.g. "{pointnext}+" -> "1,681+"). */}}
+          {{ range $k, $v := $scholar.papers }}{{ $works = replace $works (printf "{%s}" $k) (lang.FormatNumber 0 $v) }}{{ end }}
+          {{ with $scholar.citations }}{{ $works = replace $works "{citations}" (lang.FormatNumber 0 .) }}{{ end }}
           <div class="description">
             <li class="course">{{ .item }}</li>
-            <div>{{ .works | markdownify | emojify }}</div>
+            <div>{{ $works | markdownify | emojify }}</div>
           </div>
           {{ end }}
         </ul>

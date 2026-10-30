@@ -4,7 +4,7 @@
 {{- $avatar_img := $avatar.Fill "320x320 Center webp q85" -}}
 {{- $press := hugo.Data.press -}}
 {{- $desc := .Params.summary | default "Verified index of press, papers, talks and social posts about Yuchen Li (李禹陈), AI PhD student at MBZUAI." }}
-<html lang="{{ site.LanguageCode | default "en" }}">
+<html lang="{{ site.Language.Locale | default "en" }}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
