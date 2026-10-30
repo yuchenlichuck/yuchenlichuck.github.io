@@ -14,7 +14,7 @@ Bilingual (English / 中文) academic homepage, blog, and verified press index b
 
 ## Local Development
 
-Requires **Hugo Extended ≥ 0.146** (CI uses `0.159.1`):
+Requires **Hugo Extended ≥ 0.146** (CI uses `0.169.0`):
 
 ```bash
 brew install hugo
