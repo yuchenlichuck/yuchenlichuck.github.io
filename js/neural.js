@@ -45,14 +45,19 @@
     var btn = f.querySelector('.vfacade-btn');
     if (!btn) return;
     btn.addEventListener('click', function () {
+      var rawSrc = f.getAttribute('data-src') || '';
+      var src = rawSrc.replace('https://player.bilibili.com/player.html', 'https://www.bilibili.com/blackboard/html5mobileplayer.html');
       var fr = document.createElement('iframe');
-      fr.src = f.getAttribute('data-src');
+      fr.src = src;
       fr.title = f.getAttribute('data-title') || 'Video';
       fr.setAttribute('allowfullscreen', 'true');
       fr.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture');
       fr.setAttribute('scrolling', 'no');
-      f.innerHTML = '';
-      f.appendChild(fr);
+      var cover = f.querySelector('.vfacade-cover');
+      if (cover) cover.remove();
+      btn.remove();
+      f.classList.add('is-playing');
+      f.insertBefore(fr, f.firstChild);
     });
   });
 

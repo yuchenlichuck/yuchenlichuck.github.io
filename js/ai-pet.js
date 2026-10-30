@@ -436,16 +436,29 @@
     }
   }, { passive: true });
 
-  // Minimize / Restore
+  // Minimize / Restore. Choice persists via localStorage; on small screens the
+  // pet starts minimized so it doesn't cover page content until summoned.
+  var store = {
+    get: function () { try { return localStorage.getItem('neko-min'); } catch (e) { return null; } },
+    set: function (v) { try { localStorage.setItem('neko-min', v); } catch (e) {} }
+  };
+  var smallScreen = window.matchMedia && window.matchMedia('(max-width: 640px)').matches;
+  var minPref = store.get();
+  if (minPref === '1' || (minPref === null && smallScreen)) {
+    state.minimized = true;
+    root.classList.add('is-minimized');
+  }
   minBtn.addEventListener('click', function (e) {
     e.stopPropagation();
     state.minimized = true;
+    store.set('1');
     root.classList.add('is-minimized');
     bubbleEl.classList.remove('is-on');
   });
   restoreBtn.addEventListener('click', function (e) {
     e.stopPropagation();
     state.minimized = false;
+    store.set('0');
     root.classList.remove('is-minimized');
     state.lastInteract = performance.now();
     triggerAction('hop', true);
