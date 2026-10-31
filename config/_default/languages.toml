@@ -65,6 +65,11 @@
     weight = 80
 
   [[zh.menu.main]]
+    name = "摄影相册"
+    url = "/albums/"
+    weight = 85
+
+  [[zh.menu.main]]
     name = "博客"
     url = "/zh/post/"
     weight = 90

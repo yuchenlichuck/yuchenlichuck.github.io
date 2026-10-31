@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-hugo --i18n-warnings server
+exec hugo server --printI18nWarnings "$@"

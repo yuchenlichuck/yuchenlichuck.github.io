@@ -54,6 +54,11 @@
   weight = 80
 
 [[main]]
+  name = "Albums"
+  url = "/albums/"
+  weight = 85
+
+[[main]]
   name = "Blog"
   url = "/post/"
   weight = 90
