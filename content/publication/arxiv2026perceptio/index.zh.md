@@ -15,7 +15,7 @@ projects = []
 slides = ""
 tags = ["VLM", "Spatial Reasoning", "3D Perception"]
 url_preprint = "https://arxiv.org/abs/2603.18795"
-url_project = "https://liyc.pw/Perceptio/"
+url_project = "https://liyc.uno/Perceptio/"
 math = false
 
 # Looping teaser shown on the homepage card (plays while on screen); poster = same name .jpg

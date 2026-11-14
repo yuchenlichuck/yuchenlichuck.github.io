@@ -11,7 +11,7 @@
 <div class="media-coverage-grid">
   <article class="media-coverage-card is-index">
     <div>
-      <div class="media-coverage-meta">liyc.pw/press · {{ if $zh }}{{ $upd.Format "2006 年 1 月 2 日" }}{{ else }}{{ $upd.Format "Jan 2, 2006" }}{{ end }}</div>
+      <div class="media-coverage-meta">liyc.uno/press · {{ if $zh }}{{ $upd.Format "2006 年 1 月 2 日" }}{{ else }}{{ $upd.Format "Jan 2, 2006" }}{{ end }}</div>
       <h4 class="media-coverage-title">{{ if $zh }}核实索引：关于我的报道、论文、演讲与社交媒体{{ else }}Verified index: press, papers, talks and social posts{{ end }}</h4>
       <p class="media-coverage-summary">{{ if $zh -}}
         {{ len $p.items }} 条，来自 {{ len ($outlets | uniq) }} 个来源与平台（中文 + English），{{ index $years 0 }}–{{ index $years (sub (len $years) 1) }}，每条附有指向本人的原文依据。

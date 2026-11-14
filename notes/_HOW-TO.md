@@ -11,8 +11,8 @@ Files and folders starting with `_` (like this one) are never published.
    (on GitHub: open the `notes` folder → **Add file → Upload files** → Commit).
    文件名以日期开头，例如 `2026-10-13-anything.md`，放进 `notes/` 文件夹
    （在 GitHub 网页上：进入 `notes` 文件夹 → **Add file → Upload files** → Commit 即可，手机也能操作）。
-3. That's it. The site rebuilds in ~2 minutes and the post appears at liyc.pw/post/ (and /zh/post/).
-   就这样。大约 2 分钟后网站自动更新，文章会出现在 liyc.pw/post/ 和 /zh/post/。
+3. That's it. The site rebuilds in ~2 minutes and the post appears at liyc.uno/post/ (and /zh/post/).
+   就这样。大约 2 分钟后网站自动更新，文章会出现在 liyc.uno/post/ 和 /zh/post/。
 
 Or just send the text (and photos) to Claude and ask for it to be posted. · 或者直接把文字和照片发给 Claude 帮你发。
 

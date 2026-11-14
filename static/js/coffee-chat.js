@@ -1,5 +1,5 @@
 /* ==========================================================================
-   liyc.pw — Interactive Coffee Chat Scheduler (static/js/coffee-chat.js)
+   liyc.uno — Interactive Coffee Chat Scheduler (static/js/coffee-chat.js)
    A Calendly-style meeting booking widget for "Beyond the Lab":
    1. On-site Coffee Chat in Abu Dhabi (UTC+4) — Open on weekends (Sat & Sun),
       afternoon/evening slots only (14:00, 16:00, 18:00, 20:00).
@@ -839,7 +839,7 @@
     var dtStamp = toCalUTCString(new Date());
     var dtStart = toCalUTCString(booking.startUtc);
     var dtEnd = toCalUTCString(booking.endUtc);
-    var uid = 'coffee-' + Date.now() + '@liyc.pw';
+    var uid = 'coffee-' + Date.now() + '@liyc.uno';
     var desc = booking.plainSummary.replace(/\r?\n/g, '\\n');
     return [
       'BEGIN:VCALENDAR',
@@ -885,7 +885,7 @@
     var plainLines = [
       'Hi Yuchen,',
       '',
-      'I would like to book a coffee chat with you via liyc.pw:',
+      'I would like to book a coffee chat with you via liyc.uno:',
       '',
       '• Mode: ' + info.modeLabel + ' (' + state.duration + ' min)',
       '• Date & Time (Abu Dhabi · UTC+4): ' + info.dateStrAD + ', ' + info.adRange,

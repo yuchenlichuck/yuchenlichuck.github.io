@@ -14,7 +14,7 @@ title = "空间多模态视觉语言模型"
 media = "/media/teasers/perceptio.mp4"
 summary = "开发感知增强的视觉语言模型，通过生成空间 token 理解复杂的二维与三维空间。"
 highlights = [
-  { name = "Perceptio", url = "https://liyc.pw/Perceptio/", label = "Amazon Science" },
+  { name = "Perceptio", url = "https://liyc.uno/Perceptio/", label = "Amazon Science" },
   { name = "空间推理", url = "", label = "二维与三维理解" },
 ]
 

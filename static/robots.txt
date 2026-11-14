@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://liyc.pw/sitemap.xml
+Sitemap: https://liyc.uno/sitemap.xml
 
 # Tell crawlers to ignore URLs with common tracking parameters
 # This helps prevent duplicate content issues

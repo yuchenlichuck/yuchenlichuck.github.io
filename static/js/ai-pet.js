@@ -1,5 +1,5 @@
 /* ==========================================================================
-   liyc.pw — "Neko-VLM" Interactive AI Kitten Pet (static/js/ai-pet.js)
+   liyc.uno — "Neko-VLM" Interactive AI Kitten Pet (static/js/ai-pet.js)
    A procedural 2.5D canvas kitten in the bottom-right corner of the homepage
    with spring physics, cursor-tracking eyes, petting detection, goofy/cute
    expressions, 360° point-cloud spins, UCanDance beat-synced dancing, bouncy

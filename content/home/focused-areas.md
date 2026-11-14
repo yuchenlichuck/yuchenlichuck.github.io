@@ -14,7 +14,7 @@ title = "Spatially Grounded Multimodal VLMs"
 media = "/media/teasers/perceptio.mp4"
 summary = "Developing perception-enhanced vision-language models that generate spatial tokens for complex 2D and 3D spatial understanding."
 highlights = [
-  { name = "Perceptio", url = "https://liyc.pw/Perceptio/", label = "Amazon Science" },
+  { name = "Perceptio", url = "https://liyc.uno/Perceptio/", label = "Amazon Science" },
   { name = "Spatial Reasoning", url = "", label = "2D & 3D understanding" },
 ]
 

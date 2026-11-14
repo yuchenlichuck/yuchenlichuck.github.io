@@ -1,4 +1,4 @@
-# Yuchen Li · Personal Homepage ([liyc.pw](https://liyc.pw/))
+# Yuchen Li · Personal Homepage ([liyc.uno](https://liyc.uno/))
 
 Bilingual (English / 中文) academic homepage, blog, and verified press index built with [Hugo](https://gohugo.io/).
 

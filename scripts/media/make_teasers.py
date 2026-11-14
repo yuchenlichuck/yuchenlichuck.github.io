@@ -1,4 +1,4 @@
-"""Render looping teaser videos for liyc.pw (640x400, 24 fps, H.264).
+"""Render looping teaser videos for liyc.uno (640x400, 24 fps, H.264).
 
 perceptio.mp4  real Perceptio outputs (RefCOCO masks, HardBlink depth) revealed by a decoding sweep
 dance.mp4      (legacy placeholder; the site now uses a real generated clip with its music track)

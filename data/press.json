@@ -15,11 +15,11 @@
  "accounts": [
   {
    "key": "web",
-   "label": "liyc.pw",
+   "label": "liyc.uno",
    "handle": "Personal site",
    "stat_en": "canonical bio & CV",
    "stat_zh": "个人主页 · 简历",
-   "url": "https://liyc.pw/",
+   "url": "https://liyc.uno/",
    "status": "self"
   },
   {
@@ -140,11 +140,11 @@
    "title_en": "Selected as Young Researcher & Carl-Zeiss-Stiftung Abbe Grant Recipient (Top 3%) at the 13th Heidelberg Laureate Forum",
    "sum_en": "Selected as one of ~200 young researchers in mathematics and computer science worldwide to dialogue with 20+ Abel, ACM A.M. Turing, Fields, and Nevanlinna/IMU Abacus laureates in Heidelberg, Germany, and awarded the competitive Carl-Zeiss-Stiftung Abbe Grant (Top 3%).",
    "sum_zh": "入选第 13 届海德堡学者论坛（HLF 2026）全球约 200 名数学与计算机科学青年研究者之一，与 20 余位阿贝尔奖、图灵奖、菲尔兹奖得主在德国海德堡深入交流，并获颁卡尔蔡司基金会 Abbe Grant（前 3%）。",
-   "url": "https://liyc.pw/post/notes/2026-10-13-heidelberg-laureate-forum/",
+   "url": "https://liyc.uno/post/notes/2026-10-13-heidelberg-laureate-forum/",
    "links": [
     {
      "l": "中文随笔",
-     "u": "https://liyc.pw/zh/post/notes/2026-10-13-heidelberg-laureate-forum/"
+     "u": "https://liyc.uno/zh/post/notes/2026-10-13-heidelberg-laureate-forum/"
     },
     {
      "l": "HLF Foundation",
@@ -152,7 +152,7 @@
     }
    ],
    "status": "verified",
-   "ev_en": "Documented in his Oct 2026 bilingual reflection and CV/news on liyc.pw ('Selected as a Young Researcher at the Heidelberg Laureate Forum (HLF) and awarded the Carl-Zeiss-Stiftung Abbe Grant (Top 3%) in Heidelberg, Germany').",
+   "ev_en": "Documented in his Oct 2026 bilingual reflection and CV/news on liyc.uno ('Selected as a Young Researcher at the Heidelberg Laureate Forum (HLF) and awarded the Carl-Zeiss-Stiftung Abbe Grant (Top 3%) in Heidelberg, Germany').",
    "ev_zh": "收录于其 2026 年 10 月发表的双语随笔《海德堡学者论坛：我一直在寻找的世外桃源》及个人主页荣誉列表（Carl-Zeiss-Stiftung Abbe Grant，前 3%）。"
   },
   {
@@ -169,11 +169,11 @@
    "links": [
     {
      "l": "Project Page",
-     "u": "https://liyc.pw/Perceptio/"
+     "u": "https://liyc.uno/Perceptio/"
     },
     {
      "l": "Research Note",
-     "u": "https://liyc.pw/post/perceptio-spatial-tokens/"
+     "u": "https://liyc.uno/post/perceptio-spatial-tokens/"
     },
     {
      "l": "Hugging Face",
@@ -184,8 +184,8 @@
     "cites": 3
    },
    "status": "verified",
-   "ev_en": "Author list on arXiv (submitted 19 Mar 2026); listed on his Scholar profile and liyc.pw.",
-   "ev_zh": "arXiv 作者列表（2026-03-19 提交）；Scholar 主页与 liyc.pw 均收录。",
+   "ev_en": "Author list on arXiv (submitted 19 Mar 2026); listed on his Scholar profile and liyc.uno.",
+   "ev_zh": "arXiv 作者列表（2026-03-19 提交）；Scholar 主页与 liyc.uno 均收录。",
    "scholar": "perceptio"
   },
   {
@@ -198,16 +198,16 @@
    "title": "Rethinking Music-Driven Dance Generation in 2D: Long-Horizon Pose Diffusion for Video Synthesis (UCanDance)",
    "sum_en": "First-author preprint from his research internship at Sony AI Tokyo with MBZUAI. Decouples 2D motion planning from human appearance rendering by combining a progressive beat-aligned 2D pose diffusion model with a pose-conditioned video generator. Co-authors:Yukio Lehara, Naoki Murata, Chieh-Hsin Lai, البراء آل غالب, Yuhta Takida, Hao Li, Yuki Mitsufuji.",
    "sum_zh": "一作预印本，完成于 Sony AI 东京实习期间与 MBZUAI 合作。将 2D 动作规划与人物外观渲染解耦，结合渐进式节拍对齐 2D 姿态扩散模型与条件视频生成。合作者包括 Yukio Lehara、Naoki Murata、Chieh-Hsin Lai、Hao Li、Yuki Mitsufuji 等。",
-   "url": "https://liyc.pw/publication/underreview2026dance/",
+   "url": "https://liyc.uno/publication/underreview2026dance/",
    "links": [
     {
      "l": "中文页",
-     "u": "https://liyc.pw/zh/publication/underreview2026dance/"
+     "u": "https://liyc.uno/zh/publication/underreview2026dance/"
     }
    ],
    "status": "verified",
-   "ev_en": "Listed on his canonical publication index at liyc.pw under Sony AI & MBZUAI research output.",
-   "ev_zh": "收录于其个人主页 liyc.pw 论文列表，系 Sony AI 东京团队实习与 MBZUAI 合作成果。"
+   "ev_en": "Listed on his canonical publication index at liyc.uno under Sony AI & MBZUAI research output.",
+   "ev_zh": "收录于其个人主页 liyc.uno 论文列表，系 Sony AI 东京团队实习与 MBZUAI 合作成果。"
   },
   {
    "id": "a2",
@@ -244,7 +244,7 @@
    "title": "Exploring Scaling Laws of PointNets",
    "sum_en": "Co-first author (Yuchen Li*, Guocheng Qian*, Houwen Peng, Jinjie Mai, Hasan Abed Al Kader Hammoud, Mohamed Elhoseiny, Bernard Ghanem). Selected for a Nectar Track Spotlight Talk at the International Conference on 3D Vision (3DV 2025).",
    "sum_zh": "共同第一作者（Yuchen Li*, Guocheng Qian*, Houwen Peng, Jinjie Mai, Hasan Hammoud, Mohamed Elhoseiny, Bernard Ghanem）。入选国际三维视觉大会（3DV 2025）Nectar Track Spotlight 报告。",
-   "url": "https://liyc.pw/publication/3dv2025pointnets/",
+   "url": "https://liyc.uno/publication/3dv2025pointnets/",
    "links": [
     {
      "l": "arXiv",
@@ -256,8 +256,8 @@
     }
    ],
    "status": "verified",
-   "ev_en": "Listed on liyc.pw publications and News ('Exploring Scaling Laws of PointNets selected for a 3DV Nectar Track Spotlight Talk').",
-   "ev_zh": "收录于 liyc.pw 论文列表与最新动态（「Exploring Scaling Laws of PointNets 入选 3DV Nectar Track Spotlight 报告」）。"
+   "ev_en": "Listed on liyc.uno publications and News ('Exploring Scaling Laws of PointNets selected for a 3DV Nectar Track Spotlight Talk').",
+   "ev_zh": "收录于 liyc.uno 论文列表与最新动态（「Exploring Scaling Laws of PointNets 入选 3DV Nectar Track Spotlight 报告」）。"
   },
   {
    "id": "a3",
@@ -272,8 +272,8 @@
    "url": "https://3dcompat-dataset.org/workshop/C3DV23/",
    "links": [],
    "status": "verified",
-   "ev_en": "Organizer page names him with the KAUST affiliation; liyc.pw lists 'core organizer'.",
-   "ev_zh": "组织者页面列出其姓名与 KAUST 隶属；liyc.pw 写明「core organizer」。"
+   "ev_en": "Organizer page names him with the KAUST affiliation; liyc.uno lists 'core organizer'.",
+   "ev_zh": "组织者页面列出其姓名与 KAUST 隶属；liyc.uno 写明「core organizer」。"
   },
   {
    "id": "a4",
@@ -521,8 +521,8 @@
     }
    ],
    "status": "verified",
-   "ev_en": "Show notes: \"李禹陈 小红书ID：迪拜王子 … KAUST … 2023年迪拜商业英才 … MBZUAI计算机视觉读博\" — matches liyc.pw and his rednote profile name.",
-   "ev_zh": "节目简介：「李禹陈 小红书ID：迪拜王子 … KAUST … 2023年迪拜商业英才 … MBZUAI计算机视觉读博」，与 liyc.pw 及其小红书昵称一致。",
+   "ev_en": "Show notes: \"李禹陈 小红书ID：迪拜王子 … KAUST … 2023年迪拜商业英才 … MBZUAI计算机视觉读博\" — matches liyc.uno and his rednote profile name.",
+   "ev_zh": "节目简介：「李禹陈 小红书ID：迪拜王子 … KAUST … 2023年迪拜商业英才 … MBZUAI计算机视觉读博」，与 liyc.uno 及其小红书昵称一致。",
    "title_en": "Ep. 07 — Studying in the Middle East: funded by the sheikhs, no tuition, and paid to study",
    "outlet_en": "DeepMENA podcast"
   },
@@ -629,8 +629,8 @@
     }
    ],
    "status": "verified",
-   "ev_en": "Profile block \"李禹陈 院校背景：南方科技大学与阿卜杜拉国王科技大学计算机科学本硕联培研究生\" + photo caption \"右二为李禹陈\"; matches DBA Sep 2022–Jun 2023 on liyc.pw.",
-   "ev_zh": "档案「李禹陈 院校背景：南方科技大学与阿卜杜拉国王科技大学计算机科学本硕联培研究生」及图注「右二为李禹陈」；与 liyc.pw 上 DBA 2022-09 至 2023-06 一致。",
+   "ev_en": "Profile block \"李禹陈 院校背景：南方科技大学与阿卜杜拉国王科技大学计算机科学本硕联培研究生\" + photo caption \"右二为李禹陈\"; matches DBA Sep 2022–Jun 2023 on liyc.uno.",
+   "ev_zh": "档案「李禹陈 院校背景：南方科技大学与阿卜杜拉国王科技大学计算机科学本硕联培研究生」及图注「右二为李禹陈」；与 liyc.uno 上 DBA 2022-09 至 2023-06 一致。",
    "title_en": "Dubai Business Associates | A thank-you letter from the Shenzhen associates of Year 8",
    "outlet_en": "Shenzhen Foundation for International Exchange and Cooperation (SFIEC)"
   },
@@ -692,8 +692,8 @@
    "url": "https://mp.weixin.qq.com/s?src=11&timestamp=1790729284&ver=6997&signature=jLmxTObiyokzcXx9euUM-tJ-osdgfJ-Umqze*l79LA-vgH2RRjE5hM6-tZjLmfZkp3O2*SsY4aPZ-oFBUhaM8h4IT1214kCgBLq3odzYpODeFxuVTJJK5GDLml9gYtaw&new=1",
    "links": [],
    "status": "verified",
-   "ev_en": "\"宣传部部长 李禹陈 / KAUST 3+2 / 计算机系优秀毕业生\" — KAUST 3+2 and CS 2017–2021 match liyc.pw.",
-   "ev_zh": "「宣传部部长 李禹陈 / KAUST 3+2 / 计算机系优秀毕业生」——与 liyc.pw 的 KAUST 联培及 2017–2021 计算机本科一致。",
+   "ev_en": "\"宣传部部长 李禹陈 / KAUST 3+2 / 计算机系优秀毕业生\" — KAUST 3+2 and CS 2017–2021 match liyc.uno.",
+   "ev_zh": "「宣传部部长 李禹陈 / KAUST 3+2 / 计算机系优秀毕业生」——与 liyc.uno 的 KAUST 联培及 2017–2021 计算机本科一致。",
    "title_en": "Word is the rescue team turns out outstanding graduates",
    "outlet_en": "SUSTech Emergency Rescue Team · WeChat"
   },
@@ -728,8 +728,8 @@
    "url": "https://mp.weixin.qq.com/s?src=11&timestamp=1790714767&ver=6996&signature=abQZXljNyUiBnAgrGvnqmBam3CqDK0Inv07efgdjP1MXpSHXhOm47F0YIj9I1UqY9ibUCWh1cuXBqpbL*j93xr6makHPgUMHKjlWb2c-qHG1Ipl8d5MQzYm50q1BjALK&new=1",
    "links": [],
    "status": "verified",
-   "ev_en": "\"2017级计算机系李禹陈 … 人在沙特\" + photo caption \"与李禹陈同学在创新实验答辩上\" — 2017 cohort and Saudi Arabia (KAUST) match liyc.pw.",
-   "ev_zh": "「2017级计算机系李禹陈 … 人在沙特」及图注「与李禹陈同学在创新实验答辩上」——2017 级与身在沙特（KAUST）均与 liyc.pw 一致。",
+   "ev_en": "\"2017级计算机系李禹陈 … 人在沙特\" + photo caption \"与李禹陈同学在创新实验答辩上\" — 2017 cohort and Saudi Arabia (KAUST) match liyc.uno.",
+   "ev_zh": "「2017级计算机系李禹陈 … 人在沙特」及图注「与李禹陈同学在创新实验答辩上」——2017 级与身在沙特（KAUST）均与 liyc.uno 一致。",
    "title_en": "Outstanding CS graduates | Luo Yunsheng: \"less slacking, more striving\"",
    "outlet_en": "SUSTech Dept. of Computer Science · WeChat"
   },
@@ -872,8 +872,8 @@
    "url": "https://mp.weixin.qq.com/s?src=11&timestamp=1790714767&ver=6996&signature=dBYRMBshztUPAOqPlbbJaLmRYBXoo2V*TiS1pM2m5EdgjYYZ4cOsh1ukz4lMB6dBEw9VreTO-WQm78MVqxXHf9i7ZpBXBGEgRfMiZU3i9UKDaqNZ7AozPnKmixBjGcQF&new=1",
    "links": [],
    "status": "verified",
-   "ev_en": "Sep 2017 freshman intake = his SUSTech entry year (B.Sc. 2017–2021 on liyc.pw); rare name; later posts (c3) tie the same person to CS 2017 cohort and KAUST.",
-   "ev_zh": "2017-09 新生招新 = 其入学年份（liyc.pw：本科 2017–2021）；姓名罕见；后续帖子（c3）将同一人与 2017 级计算机系及 KAUST 关联。",
+   "ev_en": "Sep 2017 freshman intake = his SUSTech entry year (B.Sc. 2017–2021 on liyc.uno); rare name; later posts (c3) tie the same person to CS 2017 cohort and KAUST.",
+   "ev_zh": "2017-09 新生招新 = 其入学年份（liyc.uno：本科 2017–2021）；姓名罕见；后续帖子（c3）将同一人与 2017 级计算机系及 KAUST 关联。",
    "title_en": "Ding! Your new student-council members have arrived",
    "outlet_en": "SUSTech Zhiren College · WeChat"
   },
@@ -1194,8 +1194,8 @@
     }
    ],
    "status": "self",
-   "ev_en": "Bio lists DBA/KAUST/SUSTech/NUS/UBC — the exact path on liyc.pw. Date shown = most recent dated post seen.",
-   "ev_zh": "简介列出 DBA/KAUST/SUSTech/NUS/UBC，与 liyc.pw 履历完全一致。所示日期为最近一条可见帖子的日期。"
+   "ev_en": "Bio lists DBA/KAUST/SUSTech/NUS/UBC — the exact path on liyc.uno. Date shown = most recent dated post seen.",
+   "ev_zh": "简介列出 DBA/KAUST/SUSTech/NUS/UBC，与 liyc.uno 履历完全一致。所示日期为最近一条可见帖子的日期。"
   },
   {
    "id": "n1",
