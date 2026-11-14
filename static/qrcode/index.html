@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Yuchen Li | PhD @ MBZUAI</title>
+<meta name="description" content="Yuchen Li, PhD student at MBZUAI. Find me on GitHub, Google Scholar, LinkedIn, WeChat, RedNote and Instagram.">
+<link rel="canonical" href="https://liyc.uno/qrcode/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://liyc.uno/qrcode/">
+<meta property="og:title" content="Yuchen Li | PhD @ MBZUAI">
+<meta property="og:description" content="Yuchen Li, PhD student at MBZUAI. Find me on GitHub, Google Scholar, LinkedIn, WeChat, RedNote and Instagram.">
+<meta property="og:image" content="https://liyc.uno/qrcode/avatar.jpg">
+<meta name="theme-color" content="#f4f4f5">
+<link rel="icon" type="image/png" href="/img/icon-32.png">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Icons: Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (CC BY 4.0) -->
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100vh;background:linear-gradient(180deg,#f7f7f8 0,#f1f1f2 100%);background-attachment:fixed;color:#111;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+body.locked{overflow:hidden}
+.wrap{max-width:460px;margin:0 auto;padding:max(14vh,64px) max(18px,env(safe-area-inset-right)) max(40px,calc(env(safe-area-inset-bottom) + 24px)) max(18px,env(safe-area-inset-left))}
+.avatar{display:block;width:96px;height:96px;margin:0 auto;border-radius:50%;object-fit:cover;border:4px solid #fff;box-shadow:0 4px 18px rgba(0,0,0,.12)}
+h1{margin:16px 0 10px;font-size:26px;line-height:1.25;font-weight:700;color:#111;text-align:center}
+.status{display:flex;align-items:center;gap:7px;width:fit-content;margin:0 auto 28px;padding:5px 12px;border-radius:999px;background:#e7f7ee;color:#067a3e;font-size:14px;font-weight:600}
+.status::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:#07C160;box-shadow:0 0 0 3px rgba(7,193,96,.18)}
+.list{display:flex;flex-direction:column;gap:12px}
+.row{display:flex;align-items:center;width:100%;height:64px;padding:0 16px;border:0;border-radius:16px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 14px rgba(0,0,0,.03);color:#222;font:inherit;font-size:16px;font-weight:500;text-align:left;text-decoration:none;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .15s,transform .15s}
+.row:active{background:#ececed;transform:scale(.985)}
+.row:focus-visible,.btn:focus-visible,.close:focus-visible{outline:2px solid #07C160;outline-offset:2px}
+.tile{flex:none;display:flex;align-items:center;justify-content:center;width:34px;height:34px;margin-right:16px;border-radius:8px;color:#fff;overflow:hidden}
+.tile svg{width:18px;height:18px;fill:currentColor}
+.tile img{width:100%;height:100%;object-fit:cover;display:block}
+.tile.rn{font-size:10px;font-weight:700;letter-spacing:0;white-space:nowrap}
+.label{flex:1;min-width:0}
+.chev{flex:none;width:16px;height:16px;color:#b5b5b5;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.list .row{animation:rise .5s backwards ease-out}
+.list .row:nth-child(2){animation-delay:.04s}.list .row:nth-child(3){animation-delay:.08s}.list .row:nth-child(4){animation-delay:.12s}.list .row:nth-child(5){animation-delay:.16s}.list .row:nth-child(6){animation-delay:.2s}.list .row:nth-child(7){animation-delay:.24s}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.sheet{position:fixed;inset:0;z-index:10;display:flex;align-items:flex-end;justify-content:center;visibility:hidden;transition:visibility 0s .28s}
+.sheet.open{visibility:visible;transition:none}
+.backdrop{position:absolute;inset:0;background:rgba(0,0,0,.45);opacity:0;transition:opacity .25s}
+.sheet.open .backdrop{opacity:1}
+.panel{position:relative;width:100%;max-width:460px;max-height:92vh;overflow-y:auto;padding:20px 22px max(24px,calc(env(safe-area-inset-bottom) + 16px));background:#fff;border-radius:20px 20px 0 0;text-align:center;transform:translateY(100%);transition:transform .28s cubic-bezier(.2,.8,.2,1)}
+.sheet.open .panel{transform:none}
+.panel:focus{outline:none}
+.panel h2{margin:0 0 16px;font-size:17px;font-weight:600;color:#111}
+.close{position:absolute;top:10px;right:10px;width:36px;height:36px;padding:0;border:0;border-radius:50%;background:transparent;color:#888;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.close:active{background:#eee}
+.close svg{width:18px;height:18px;stroke:currentColor;stroke-width:2;stroke-linecap:round;fill:none}
+.qr{display:block;width:min(260px,70vw);height:auto;margin:0 auto;border-radius:12px}
+.hint{margin:16px 0 0;font-size:14px;line-height:1.5;color:#333}
+.hint small{display:block;margin-top:4px;font-size:12px;color:#888}
+.actions{display:flex;flex-direction:column;gap:10px;margin-top:18px}
+.actions:empty{display:none}
+.btn{display:flex;align-items:center;justify-content:center;height:46px;border:0;border-radius:12px;font:inherit;font-size:16px;font-weight:600;text-decoration:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.btn.primary{background:#07C160;color:#fff}
+.btn.primary:active{background:#06ad56}
+.btn.secondary{background:#f2f2f3;color:#222}
+.btn.secondary:active{background:#e6e6e7}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <img class="avatar" src="./avatar.jpg" width="96" height="96" alt="Yuchen Li">
+  <h1>Yuchen Li | PhD @ MBZUAI</h1>
+  <p class="status">On the job market in 2027</p>
+  <nav class="list">
+    <a class="row" href="https://github.com/yuchenlichuck">
+      <span class="tile" style="background:#24292f"><svg viewBox="0 0 496 512" aria-hidden="true"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+      <span class="label">GitHub</span>
+      <svg class="chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 2.5 11 8l-5.5 5.5"/></svg>
+    </a>
+    <a class="row" href="https://scholar.google.com/citations?user=7MocPGkAAAAJ">
+      <span class="tile" style="background:#4285F4"><svg viewBox="0 0 512 512" aria-hidden="true"><path d="M390.9 298.5c0 0 0 .1 .1 .1c9.2 19.4 14.4 41.1 14.4 64C405.3 445.1 338.5 512 256 512s-149.3-66.9-149.3-149.3c0-22.9 5.2-44.6 14.4-64h0c1.7-3.6 3.6-7.2 5.6-10.7c4.4-7.6 9.4-14.7 15-21.3c27.4-32.6 68.5-53.3 114.4-53.3c33.6 0 64.6 11.1 89.6 29.9c9.1 6.9 17.4 14.7 24.8 23.5c5.6 6.6 10.6 13.8 15 21.3c2 3.4 3.8 7 5.5 10.5zm26.4-18.8c-30.1-58.4-91-98.4-161.3-98.4s-131.2 40-161.3 98.4L0 202.7 256 0 512 202.7l-94.7 77.1z"/></svg></span>
+      <span class="label">谷歌学术 Google Scholar</span>
+      <svg class="chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 2.5 11 8l-5.5 5.5"/></svg>
+    </a>
+    <a class="row" href="https://www.linkedin.com/in/liyc/">
+      <span class="tile" style="background:#0A66C2"><svg viewBox="0 0 448 512" aria-hidden="true"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/></svg></span>
+      <span class="label">领英 LinkedIn</span>
+      <svg class="chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 2.5 11 8l-5.5 5.5"/></svg>
+    </a>
+    <button class="row" type="button" id="wechat-btn" aria-haspopup="dialog">
+      <span class="tile" style="background:#07C160"><svg viewBox="0 0 576 512" aria-hidden="true"><path d="M385.2 167.6c6.4 0 12.6.3 18.8 1.1C387.4 90.3 303.3 32 207.7 32 100.5 32 13 104.8 13 197.4c0 53.4 29.3 97.5 77.9 131.6l-19.3 58.6 68-34.1c24.4 4.8 43.8 9.7 68.2 9.7 6.2 0 12.1-.3 18.3-.8-4-12.9-6.2-26.6-6.2-40.8-.1-84.9 72.9-154 165.3-154zm-104.5-52.9c14.5 0 24.2 9.7 24.2 24.4 0 14.5-9.7 24.2-24.2 24.2-14.8 0-29.3-9.7-29.3-24.2.1-14.7 14.6-24.4 29.3-24.4zm-136.4 48.6c-14.5 0-29.3-9.7-29.3-24.2 0-14.8 14.8-24.4 29.3-24.4 14.8 0 24.4 9.7 24.4 24.4 0 14.6-9.6 24.2-24.4 24.2zM563 319.4c0-77.9-77.9-141.3-165.4-141.3-92.7 0-165.4 63.4-165.4 141.3S305 460.7 397.6 460.7c19.3 0 38.9-5.1 58.6-9.9l53.4 29.3-14.8-48.6C534 402.1 563 363.2 563 319.4zm-219.1-24.5c-9.7 0-19.3-9.7-19.3-19.6 0-9.7 9.7-19.3 19.3-19.3 14.8 0 24.4 9.7 24.4 19.3 0 10-9.7 19.6-24.4 19.6zm107.1 0c-9.7 0-19.3-9.7-19.3-19.6 0-9.7 9.7-19.3 19.3-19.3 14.5 0 24.4 9.7 24.4 19.3.1 10-9.9 19.6-24.4 19.6z"/></svg></span>
+      <span class="label">微信 WeChat</span>
+      <svg class="chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 2.5 11 8l-5.5 5.5"/></svg>
+    </button>
+    <a class="row" href="https://www.xiaohongshu.com/user/profile/5b788ddd2cc31d0001487a94">
+      <span class="tile rn" style="background:#FF2442">小红书</span>
+      <span class="label">小红书 RedNote</span>
+      <svg class="chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 2.5 11 8l-5.5 5.5"/></svg>
+    </a>
+    <a class="row" href="https://www.instagram.com/yuchenlichuck/">
+      <span class="tile" style="background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285AEB 90%)"><svg viewBox="0 0 448 512" aria-hidden="true"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg></span>
+      <span class="label">Instagram</span>
+      <svg class="chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 2.5 11 8l-5.5 5.5"/></svg>
+    </a>
+    <a class="row" href="/">
+      <span class="tile"><img src="./avatar.jpg" alt=""></span>
+      <span class="label">个人主页 HomePage</span>
+      <svg class="chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 2.5 11 8l-5.5 5.5"/></svg>
+    </a>
+  </nav>
+</main>
+
+<div class="sheet" id="sheet">
+  <div class="backdrop" id="backdrop"></div>
+  <div class="panel" role="dialog" aria-modal="true" aria-labelledby="sheet-title" tabindex="-1" id="panel">
+    <button class="close" type="button" id="close" aria-label="关闭 Close"><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M3 3l12 12M15 3 3 15"/></svg></button>
+    <h2 id="sheet-title">微信 WeChat</h2>
+    <img class="qr" src="./wechat.jpg" alt="Yuchen Li WeChat QR code" width="697" height="1024">
+    <p class="hint" id="hint"></p>
+    <div class="actions" id="actions"></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var FILE_NAME = 'yuchen-li-wechat-qr.jpg';
+  var inWeChat = /MicroMessenger/i.test(navigator.userAgent);
+  var coarse = !!(window.matchMedia && matchMedia('(pointer: coarse)').matches);
+  var mode = inWeChat ? 'wechat' : (coarse ? 'mobile' : 'desktop');
+
+  var sheet = document.getElementById('sheet');
+  var panel = document.getElementById('panel');
+  var trigger = document.getElementById('wechat-btn');
+  var hint = document.getElementById('hint');
+  var actions = document.getElementById('actions');
+  var file = null;
+  var fetching = false;
+  var isOpen = false;
+
+  var hints = {
+    wechat: ['长按二维码，选择「识别图中的二维码」即可添加', 'Long-press the QR code and tap \u201cScan QR Code in Image\u201d to add me.'],
+    mobile: ['保存二维码后，打开微信「扫一扫」→ 相册 选择图片即可添加；也可长按图片保存', 'Save the QR code, then in WeChat tap Scan \u2192 Album and pick it. You can also long-press the image to save.'],
+    desktop: ['请用手机微信扫描上方二维码', 'Scan the QR code above with WeChat on your phone.']
+  };
+  hint.appendChild(document.createTextNode(hints[mode][0]));
+  var en = document.createElement('small');
+  en.textContent = hints[mode][1];
+  hint.appendChild(en);
+
+  function download() {
+    var a = document.createElement('a');
+    a.href = './wechat.jpg';
+    a.download = FILE_NAME;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  }
+
+  function onSave() {
+    if (mode === 'mobile' && file && navigator.canShare && navigator.canShare({ files: [file] })) {
+      navigator.share({ files: [file] }).catch(function (err) {
+        if (!err || err.name !== 'AbortError') download();
+      });
+      return;
+    }
+    download();
+  }
+
+  if (mode !== 'wechat') {
+    var save = document.createElement('button');
+    save.type = 'button';
+    save.className = 'btn primary';
+    save.textContent = '保存二维码 Save QR Code';
+    save.addEventListener('click', onSave);
+    actions.appendChild(save);
+    if (mode === 'mobile') {
+      var open = document.createElement('a');
+      open.className = 'btn secondary';
+      open.href = 'weixin://';
+      open.textContent = '打开微信 Open WeChat';
+      actions.appendChild(open);
+    }
+  }
+
+  function prefetch() {
+    if (file || fetching || !window.fetch || !window.File) return;
+    fetching = true;
+    fetch('./wechat.jpg').then(function (r) {
+      if (!r.ok) throw new Error(r.status);
+      return r.blob();
+    }).then(function (b) {
+      file = new File([b], FILE_NAME, { type: 'image/jpeg' });
+    }).catch(function () {}).then(function () { fetching = false; });
+  }
+
+  function openSheet() {
+    if (isOpen) return;
+    isOpen = true;
+    sheet.classList.add('open');
+    document.body.classList.add('locked');
+    prefetch();
+    panel.focus({ preventScroll: true });
+  }
+
+  function closeSheet() {
+    if (!isOpen) return;
+    isOpen = false;
+    sheet.classList.remove('open');
+    document.body.classList.remove('locked');
+    if (location.hash === '#wechat') {
+      history.replaceState(null, '', location.pathname + location.search);
+    }
+    trigger.focus({ preventScroll: true });
+  }
+
+  trigger.addEventListener('click', openSheet);
+  document.getElementById('close').addEventListener('click', closeSheet);
+  document.getElementById('backdrop').addEventListener('click', closeSheet);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeSheet();
+  });
+
+  if (location.hash === '#wechat') openSheet();
+})();
+</script>
+</body>
+</html>
