@@ -1,4 +1,4 @@
-/* liyc.pw — section reveal, e-mail helpers, video facades, in-view teaser videos and the
+/* liyc.uno — section reveal, e-mail helpers, video facades, in-view teaser videos and the
    portrait that turns from a photo into a colour 3D point cloud (see the portrait block below).
    Everything stays still under prefers-reduced-motion. */
 (function () {

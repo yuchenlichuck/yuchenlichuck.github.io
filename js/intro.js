@@ -1,4 +1,4 @@
-/* liyc.pw — homepage intro: "the story so far".
+/* liyc.uno — homepage intro: "the story so far".
    A ~5 s boot sequence of real work (data/intro.yaml): a log of milestones types out on the left
    while images / clips stack up on the right, then the name appears and the overlay closes like an
    iris into the portrait. Any click, key, scroll or the Skip button ends it at once.
@@ -22,7 +22,7 @@
   ov.setAttribute('role', 'dialog');
   ov.setAttribute('aria-label', zh ? '开场动画' : 'Intro');
   var top = h('div', 'intro-top');
-  top.appendChild(h('div', 'intro-brand', 'liyc.pw <b>▸</b> <span>' + (zh ? '加载到目前为止的故事' : 'loading the story so far') + '</span>'));
+  top.appendChild(h('div', 'intro-brand', 'liyc.uno <b>▸</b> <span>' + (zh ? '加载到目前为止的故事' : 'loading the story so far') + '</span>'));
   var skip = h('button', 'intro-skip', (zh ? '跳过' : 'Skip') + ' <kbd>⏎</kbd>');
   skip.type = 'button';
   top.appendChild(skip);
