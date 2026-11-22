@@ -70,6 +70,11 @@
     weight = 85
 
   [[zh.menu.main]]
+    name = "AI 热点"
+    url = "/ai-trends/"
+    weight = 87
+
+  [[zh.menu.main]]
     name = "博客"
     url = "/zh/post/"
     weight = 90

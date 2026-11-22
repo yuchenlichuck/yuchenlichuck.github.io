@@ -59,6 +59,11 @@
   weight = 85
 
 [[main]]
+  name = "AI Trends"
+  url = "/ai-trends/"
+  weight = 87
+
+[[main]]
   name = "Blog"
   url = "/post/"
   weight = 90
