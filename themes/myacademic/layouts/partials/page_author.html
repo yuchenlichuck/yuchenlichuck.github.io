@@ -28,16 +28,16 @@
   {{ $avatar := (.Resources.ByType "image").GetMatch "*avatar*" }}
   <div class="media author-card">
     {{ if and site.Params.gravatar .Params.email }}
-      <img class="portrait mr-3" src="https://s.gravatar.com/avatar/{{ md5 .Params.email }}?s=200')" alt="Avatar">
+      <img class="portrait mr-3" src="https://s.gravatar.com/avatar/{{ md5 .Params.email }}?s=200')" alt="Portrait of {{ .Params.name }}">
     {{ else if $avatar }}
       {{ $avatar_image := $avatar.Fill "250x250 Center" }}
-      <img class="portrait mr-3" src="{{ $avatar_image.RelPermalink }}" alt="Avatar">
+      <img class="portrait mr-3" src="{{ $avatar_image.RelPermalink }}" alt="Portrait of {{ .Params.name }}">
     {{ end }}
 
     <div class="media-body">
-      <h5 class="card-title"><a href="{{$profile_url}}">{{.Params.name}}</a></h5>
-      <h5 class="card-title"><a href="{{$profile_url}}">{{.Params.namecn}}</a></h5>
-      {{ with .Params.role }}<h6 class="card-subtitle">{{. | markdownify | emojify}}</h6>{{end}}
+      <p class="card-title"><a href="{{$profile_url}}">{{.Params.name}}</a></p>
+      <p class="card-title"><a href="{{$profile_url}}">{{.Params.namecn}}</a></p>
+      {{ with .Params.role }}<p class="card-subtitle">{{. | markdownify | emojify}}</p>{{end}}
       {{ with .Params.bio }}<p class="card-text">{{. | markdownify | emojify}}</p>{{end}}
       {{ partial "social_links" . }}
     </div>

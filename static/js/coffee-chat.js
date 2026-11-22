@@ -427,6 +427,7 @@
   modal.setAttribute('aria-modal', 'true');
   modal.setAttribute('aria-label', T.badge);
   modal.setAttribute('aria-hidden', 'true');
+  modal.inert = true;
 
   modal.innerHTML =
     '<div class="cchat-backdrop" data-cchat-close></div>' +
@@ -1110,6 +1111,7 @@
     state.isOpen = true;
     modal.classList.add('is-open');
     modal.setAttribute('aria-hidden', 'false');
+    modal.inert = false;
     body.classList.add('cchat-open');
 
     if (!clockTimer) {
@@ -1121,6 +1123,7 @@
     state.isOpen = false;
     modal.classList.remove('is-open');
     modal.setAttribute('aria-hidden', 'true');
+    modal.inert = true;
     body.classList.remove('cchat-open');
     if (clockTimer) {
       clearInterval(clockTimer);

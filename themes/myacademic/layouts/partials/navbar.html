@@ -2,7 +2,7 @@
 <!-- FOR WATERMARK -->
 <!-- Put it here for convenience -->
 <!--<div id="watermark" style="background-image:url('{{ $.Site.BaseURL }}/img/{{ .Site.Params.watermark }}');"></div>-->
-<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0 compensate-for-scrollbar" id="navbar-main">
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0 compensate-for-scrollbar" id="navbar-main" aria-label="Main navigation">
   <div class="container">
 
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -115,14 +115,14 @@
 
         {{ if site.Params.search.engine }}
         <li class="nav-item">
-          <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+          <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
         </li>
         {{ end }}
 
 
         {{ if site.Params.day_night }}
         <li class="nav-item">
-          <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+          <a class="nav-link js-dark-toggle" href="#" aria-label="Toggle dark mode"><i class="fas fa-moon" aria-hidden="true"></i></a>
         </li>
         {{ end }}
 

@@ -7,6 +7,8 @@
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}[hidden]{display:none!important}</style>
 </head>
 <body>
+<main style="height:100%">
+<h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap">飞行足迹</h1>
 <title>飞行足迹</title>
 <meta name="description" content="个人飞行航线图：航线、机场与里程统计">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -235,7 +237,7 @@ body.poster #poster-foot b{display:block;font-family:var(--font-display);font-si
       <button data-tab="airlines">航司</button>
     </div>
     <div class="filterbar" id="filterbar" hidden><span>筛选：<b id="filter-text"></b></span><button id="b-clear">清除</button></div>
-    <div class="list" id="list"></div>
+    <div class="list" id="list" tabindex="0" aria-label="航班列表"></div>
   </aside>
 
   <div id="poster-foot"><b id="pf-range">—</b>个人航班记录 · 大圆航线 · 点的大小为到访次数</div>
@@ -821,5 +823,6 @@ if (S.anim) startFlow();
 })();
 </script>
 
+</main>
 </body>
 </html>

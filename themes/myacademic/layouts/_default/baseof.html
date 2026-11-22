@@ -12,7 +12,9 @@
 
   {{ partial "navbar.html" . }}
 
+  <main id="main-content">
   {{ block "main" . }}{{ end }}
+  </main>
 
   {{ partial "site_js.html" . }}
 

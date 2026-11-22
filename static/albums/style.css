@@ -810,7 +810,7 @@ body {
   letter-spacing: 0.26em;
   text-transform: uppercase;
   color: var(--muted);
-  opacity: 0.68;
+  opacity: 1;
   pointer-events: none;
 }
 
