@@ -26,7 +26,7 @@
      {{- if $isEmail }} href="#coffee-chat" role="button" aria-haspopup="dialog" data-u="{{ index $parts 0 }}" data-d="{{ index $parts 1 }}"{{ else }} href="{{ $url }}"{{ if $ext }} target="_blank" rel="noopener"{{ end }}{{ end }}>
     {{- with .photo }}<img class="bento-photo" src="{{ . | relURL }}" alt="{{ if $zh }}{{ $t.title_zh }}{{ else }}{{ $t.title_en }}{{ end }}" loading="lazy" decoding="async">{{ end }}
     <span class="bento-eyebrow">
-      {{- with .logo }}<img class="bento-logo" src="{{ printf "img/logo/%s" . | relURL }}" alt="">{{ end -}}
+      {{- with .logo }}{{ $size := imageConfig (printf "static/img/logo/%s" .) }}<img class="bento-logo" src="{{ printf "img/logo/%s" . | relURL }}" width="{{ $size.Width }}" height="{{ $size.Height }}" loading="lazy" decoding="async" alt="">{{ end -}}
       {{ if $zh }}{{ .eyebrow_zh }}{{ else }}{{ .eyebrow_en }}{{ end -}}
     </span>
     {{- if .progress }}

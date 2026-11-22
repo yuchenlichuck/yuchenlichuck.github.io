@@ -82,12 +82,30 @@
 
   // ---- video teasers: play only while on screen (saves battery, keeps the page calm) ----
   var vids = document.querySelectorAll('video.js-inview');
+  function loadVideo(v) {
+    var sources = v.querySelectorAll('source[data-src]');
+    Array.prototype.forEach.call(sources, function (source) {
+      source.src = source.getAttribute('data-src');
+      source.removeAttribute('data-src');
+    });
+    if (sources.length) { v.preload = 'metadata'; v.load(); }
+  }
   if (vids.length) {
+    if ('IntersectionObserver' in window) {
+      var vlo = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { loadVideo(en.target); vlo.unobserve(en.target); }
+        });
+      }, { rootMargin: '300px' });
+      Array.prototype.forEach.call(vids, function (v) { vlo.observe(v); });
+    } else {
+      Array.prototype.forEach.call(vids, loadVideo);
+    }
     if ('IntersectionObserver' in window && !reduce) {
       var vio = new IntersectionObserver(function (entries) {
         entries.forEach(function (en) {
           var v = en.target;
-          if (en.isIntersecting) { var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); }
+          if (en.isIntersecting) { loadVideo(v); var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); }
           else v.pause();
         });
       }, { threshold: 0.25 });

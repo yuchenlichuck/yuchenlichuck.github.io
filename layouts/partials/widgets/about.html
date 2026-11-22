@@ -158,7 +158,8 @@
           <li>
               {{ with $course.logo }}
                 <a href="{{ $course.link }}" target="_blank" rel="noopener">
-                  <i><img src="{{ printf "img/logo/%s" . | relURL }}" alt="{{ $course.institution }} logo" style="position: absolute;left: -2.5rem;width: 2rem;top: 0.14285714em;text-align: center;"></i>
+                  {{ $size := imageConfig (printf "static/img/logo/%s" .) }}
+                  <i><img src="{{ printf "img/logo/%s" . | relURL }}" width="{{ $size.Width }}" height="{{ $size.Height }}" loading="lazy" decoding="async" alt="{{ $course.institution }} logo" style="position: absolute;left: -2.5rem;width: 2rem;height: auto;top: 0.14285714em;text-align: center;"></i>
                 </a>
               {{ end }}
               <div class="description">
