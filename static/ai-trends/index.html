@@ -238,7 +238,8 @@ function visible(){
   const q = state.q.trim().toLowerCase();
   let W = DATA.windows[state.w].words.filter(r => !state.off.has(r.c));
   if (state.mode==='rising') W = W.filter(r => r.r > 1).sort((a,b)=>b.r*Math.sqrt(b.n)-a.r*Math.sqrt(a.n));
-  return W.slice(0, 120).map(r => ({...r, fade: q && !r.l.toLowerCase().includes(q) && !r.k.includes(q)}));
+  W = W.slice(0, 120).map(r => ({...r, fade: !!q && !r.l.toLowerCase().includes(q) && !r.k.includes(q)}));
+  return q ? W.filter(r => !r.fade).concat(W.filter(r => r.fade)) : W;
 }
 
 function layout(){
@@ -246,14 +247,14 @@ function layout(){
   words = visible();
   const old = new Map([...box.children].filter(e=>e.dataset&&e.dataset.k).map(e => [e.dataset.k, e]));
   box.querySelectorAll('.empty').forEach(e=>e.remove());
-  if (!words.length){ old.forEach(e=>e.remove()); box.insertAdjacentHTML('beforeend',`<div class="empty">${L().none}</div>`); return; }
+  if (!words.length){ old.forEach(e=>{ clearTimeout(e._rm); e.remove(); }); box.insertAdjacentHTML('beforeend',`<div class="empty">${L().none}</div>`); return; }
   const key = state.mode==='rising' ? (r => r.r*Math.sqrt(r.n)) : (r => r.s);
   const vals = words.map(key), max = Math.max(...vals), min = Math.min(...vals);
   const area = W*H, base = Math.sqrt(area/1400)*(words.length<40?1.25:1);
   const placed = [], cx = W/2, cy = H/2, ar = W/H;
   words.forEach((r,i) => {
     let el = old.get(r.k);
-    if (el) old.delete(r.k); else {
+    if (el){ old.delete(r.k); clearTimeout(el._rm); } else {
       el = document.createElement('button'); el.type='button'; el.className='w'; el.dataset.k=r.k; el.setAttribute('role','listitem');
       el.style.transform = `translate(${cx}px,${cy}px) scale(.2)`; el.style.opacity = 0; box.appendChild(el);
     }
@@ -266,7 +267,7 @@ function layout(){
     el.classList.toggle('fade', !!r.fade);
     el.classList.toggle('sel', r.k===state.sel);
     el.style.zIndex = words.length - i;
-    const w = el.offsetWidth, h = el.offsetHeight*0.86;
+    const w = el.offsetWidth, h = el.offsetHeight;
     let x = cx-w/2, y = cy-h/2, a = 0, ok = false;
     for (let step=0; step<5000; step++){
       const rad = 3.2*a;
@@ -278,9 +279,9 @@ function layout(){
     if (!ok){ el.style.opacity = 0; el.style.pointerEvents='none'; return; }
     placed.push({x,y,w,h});
     el.style.pointerEvents='';
-    requestAnimationFrame(()=>{ el.style.transform = `translate(${x.toFixed(1)}px,${(y-el.offsetHeight*0.07).toFixed(1)}px)`; el.style.opacity = ''; });
+    requestAnimationFrame(()=>{ el.style.transform = `translate(${x.toFixed(1)}px,${y.toFixed(1)}px)`; el.style.opacity = ''; });
   });
-  old.forEach(e => { e.style.opacity = 0; setTimeout(()=>e.remove(), 400); });
+  old.forEach(e => { e.style.opacity = 0; e.style.pointerEvents='none'; clearTimeout(e._rm); e._rm = setTimeout(()=>e.remove(), 400); });
 }
 
 function paperHTML(id, i){
@@ -312,9 +313,9 @@ function renderPanel(){
 function renderLists(){
   const D = DATA.windows[state.w];
   $('#topList').innerHTML = D.top.slice(0,10).map(paperHTML).join('');
-  const rise = D.words.filter(r=>r.n>=4 && r.r>1).sort((a,b)=>b.r*Math.sqrt(b.n)-a.r*Math.sqrt(a.n)).slice(0,12);
+  const rise = D.words.filter(r=>r.n>=3 && r.r>1).sort((a,b)=>b.r*Math.sqrt(b.n)-a.r*Math.sqrt(a.n)).slice(0,12);
   const mx = Math.max(...rise.map(r=>r.r),1);
-  $('#movers').innerHTML = rise.map(r => `<button class="mover" type="button" data-k="${esc(r.k)}" style="--c:var(--c-${r.c})"><span class="nm">${esc(r.l)}</span><span class="sp"><span style="width:${(100*r.r/mx).toFixed(0)}%"></span></span><span class="x">${r.r.toFixed(1)}×</span><small style="color:var(--muted);width:54px;text-align:right">${r.n} ${state.lang==='zh'?'篇':'pp.'}</small></button>`).join('');
+  $('#movers').innerHTML = rise.map(r => `<button class="mover" type="button" data-k="${esc(r.k)}" style="--c:var(--c-${r.c})"><span class="nm">${esc(r.l)}</span><span class="sp"><span style="width:${(100*r.r/mx).toFixed(0)}%"></span></span><span class="x">${r.r.toFixed(1)}×</span><small style="color:var(--muted);width:54px;text-align:right">${r.n} ${state.lang==='zh'?'篇':'pp.'}</small></button>`).join('') || `<p class="sub" style="padding:8px 16px;margin:0">${L().none}</p>`;
 }
 
 function select(k){
@@ -350,7 +351,10 @@ let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(lay
 fetch('data.json').then(r => r.json()).then(d => {
   DATA = d; if (!DATA.windows[state.w]) state.w = '30';
   if (state.sel && !DATA.windows[state.w].words.some(r=>r.k===state.sel)) state.sel = null;
-  (document.fonts ? document.fonts.ready : Promise.resolve()).then(renderAll);
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
+    renderAll();
+    if (state.sel && innerWidth <= 960) $('#panel').classList.add('open');
+  });
 });
 })();
 </script>
