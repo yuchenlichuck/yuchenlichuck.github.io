@@ -460,6 +460,7 @@
     state.minimized = false;
     store.set('0');
     root.classList.remove('is-minimized');
+    kick();
     state.lastInteract = performance.now();
     triggerAction('hop', true);
     say(pick(T.lines.greet), 4500);
@@ -542,13 +543,24 @@
 
   // ---- Main Physics & Render Loop ----
   var lastTime = performance.now();
+  var frameId = 0;
+  var onScreen = true;
+  var introHidden = document.documentElement.classList.contains('intro-on');
+
+  function kick() {
+    if (!frameId && !state.minimized && !document.hidden && onScreen && !introHidden) {
+      lastTime = performance.now();
+      frameId = requestAnimationFrame(stepAndRender);
+    }
+  }
 
   function stepAndRender(now) {
-    requestAnimationFrame(stepAndRender);
-    if (state.minimized || document.hidden) {
+    frameId = 0;
+    if (state.minimized || document.hidden || !onScreen || introHidden) {
       lastTime = now;
       return;
     }
+    frameId = requestAnimationFrame(stepAndRender);
 
     var dt = Math.min(0.05, (now - lastTime) / 1000);
     lastTime = now;
@@ -1035,7 +1047,8 @@
         // Rotating spiral @_@ eyes
         ctx.strokeStyle = '#1e293b';
         ctx.lineWidth = 1.8;
-        [leftEyeX, rightEyeX].forEach(function (ex, idx) {
+        for (var idx = 0; idx < 2; idx++) {
+          var ex = idx === 0 ? leftEyeX : rightEyeX;
           ctx.save();
           ctx.translate(ex, eyeY);
           ctx.rotate(now * 0.012 * (idx === 0 ? 1 : -1));
@@ -1049,7 +1062,7 @@
           }
           ctx.stroke();
           ctx.restore();
-        });
+        }
       } else if (state.expr === 'squint') {
         // Unimpressed ¬_¬ half-lidded side-eye
         [leftEyeX, rightEyeX].forEach(function (ex) {
@@ -1066,7 +1079,8 @@
         });
       } else {
         // Round glossy eyes (normal, blep, shock, starry, cross, cool)
-        [leftEyeX, rightEyeX].forEach(function (ex, idx) {
+        for (var idx = 0; idx < 2; idx++) {
+          var ex = idx === 0 ? leftEyeX : rightEyeX;
           // In 'blep', left eye winks '>' while right eye is big and goofy!
           if (state.expr === 'blep' && idx === 0) {
             ctx.strokeStyle = '#1e293b';
@@ -1076,7 +1090,7 @@
             ctx.lineTo(ex + 3.5, eyeY);
             ctx.lineTo(ex - 4.5, eyeY + 4);
             ctx.stroke();
-            return;
+            continue;
           }
 
           var eyeR = state.expr === 'shock' ? 7.4 : (state.expr === 'blep' ? 6.8 : 6.2);
@@ -1127,7 +1141,7 @@
             ctx.arc(px + 1.6, py + 1.5, 0.9, 0, Math.PI * 2);
             ctx.fill();
           }
-        });
+        }
 
         // Cyber sunglasses in 'cool' mode (⌐■-■)
         if (state.expr === 'cool') {
@@ -1331,5 +1345,10 @@
     ctx.restore();
   }
 
-  requestAnimationFrame(stepAndRender);
+  document.addEventListener('visibilitychange', kick);
+  document.addEventListener('liyc:intro-done', function () { introHidden = false; kick(); });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) { onScreen = entries[0].isIntersecting; kick(); }).observe(canvas);
+  }
+  kick();
 })();
