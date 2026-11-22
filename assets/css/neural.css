@@ -23,7 +23,7 @@ body.theme-claude {
   --n-dot: rgba(16, 36, 56, 0.10);
   --n-shadow: 0 1px 2px rgba(16, 36, 56, 0.05), 0 12px 32px -20px rgba(16, 36, 56, 0.25);
   --n-serif: "Source Serif 4", "Noto Serif SC", Georgia, "Times New Roman", serif;
-  --n-body: "IBM Plex Sans", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --n-body: "IBM Plex Sans", "Noto Sans SC Site", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
   --n-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --claude-bg: var(--n-bg);
@@ -138,7 +138,7 @@ body.theme-claude .pc-wrap .portrait { position: absolute; inset: 0; margin: 0; 
 body.theme-claude .pc-wrap.is-photo .portrait { opacity: 1; transition-duration: .6s; }
 body.theme-claude .pc-cap { display: block; margin: 8px auto 0; text-align: center; font-family: var(--n-mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--n-muted); min-height: 1.2em; }
 body.theme-claude .portrait-title h2 { font-size: 1.75rem !important; margin-top: 1rem; }
-body.theme-claude .portrait-title h3 { font-family: "Noto Sans SC", var(--n-serif) !important; color: var(--n-accent) !important; font-weight: 600; letter-spacing: .04em; }
+body.theme-claude .portrait-title h3 { font-family: "Noto Sans SC Site", "Noto Sans SC", var(--n-serif) !important; color: var(--n-accent) !important; font-weight: 600; letter-spacing: .04em; }
 body.theme-claude .portrait-title h4, body.theme-claude .portrait-title h4 a { color: var(--n-muted-strong) !important; font-family: var(--n-body) !important; font-weight: 500; }
 body.theme-claude .portrait-title .profile-address, body.theme-claude .portrait-title .profile-address i { color: var(--n-muted) !important; font-size: .85rem; }
 
