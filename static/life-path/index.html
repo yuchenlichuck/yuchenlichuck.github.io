@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>人生道路选择器 · Life Path Selector — 李禹陈 Yuchen Li</title>
+<meta name="description" content="以李禹陈的真实经历为蓝图的人生道路选择小游戏：9 个路口，看看你会走出怎样的平行人生。A life-path choice game based on Yuchen Li's real journey.">
+<meta property="og:title" content="人生道路选择器 · Life Path Selector">
+<meta property="og:description" content="9 个路口，你和李禹陈的人生重合度有多少？">
+<link rel="canonical" href="https://liyc.uno/life-path/">
+<style>
+:root{--bg:#f5f0e8;--card:#fffdf8;--ink:#2b2622;--muted:#7a6f64;--line:#e2d8c8;--accent:#c96442;--accent-ink:#fff;--real:#2f7d5b;--soft:#f0e6d6;
+--serif:"Songti SC","Noto Serif SC","Source Han Serif SC",Georgia,"Times New Roman",serif;--sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans SC","Microsoft YaHei","Segoe UI",sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:var(--accent)}
+.wrap{max-width:760px;margin:0 auto;padding:20px 18px 56px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+header a.home{font-family:var(--serif);font-weight:700;color:var(--ink);text-decoration:none;font-size:17px}
+.lang{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:4px 12px;font-size:13px}
+h1{font-family:var(--serif);font-size:clamp(30px,6vw,44px);line-height:1.15;margin:28px 0 10px}
+h2{font-family:var(--serif);font-size:clamp(22px,4.4vw,28px);line-height:1.3;margin:6px 0 10px}
+.lead{color:var(--muted);font-size:16px;margin:0 0 22px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 1px 0 rgba(0,0,0,.02),0 12px 30px -22px rgba(80,50,20,.35)}
+.eyebrow{font-size:13px;letter-spacing:.06em;color:var(--accent);font-weight:600;text-transform:uppercase}
+.btn{background:var(--accent);color:var(--accent-ink);border:0;border-radius:12px;padding:12px 22px;font-weight:600;font-size:16px}
+.btn:hover{filter:brightness(1.06)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+/* track */
+.track{display:flex;align-items:center;margin:4px 0 18px}
+.stop{width:14px;height:14px;border-radius:50%;border:2px solid var(--line);background:var(--bg);flex:none}
+.stop.done{background:var(--muted);border-color:var(--muted)}
+.stop.match{background:var(--real);border-color:var(--real)}
+.stop.now{border-color:var(--accent);box-shadow:0 0 0 4px rgba(201,100,66,.18)}
+.seg{flex:1;height:2px;background:var(--line)}
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.stat{font-size:12px;color:var(--muted)}
+.stat b{float:right;color:var(--ink);font-variant-numeric:tabular-nums}
+.bar{height:6px;border-radius:3px;background:var(--soft);margin-top:4px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:3px;transition:width .5s ease}
+/* options */
+.opts{display:grid;gap:10px;margin-top:16px}
+.opt{text-align:left;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;transition:transform .12s,border-color .12s,background .12s}
+.opt:hover:not(:disabled){border-color:var(--accent);transform:translateY(-1px);background:#fff}
+.opt .k{flex:none;width:26px;height:26px;border-radius:8px;background:var(--soft);display:grid;place-items:center;font-weight:700;font-size:13px}
+.opt .t{font-weight:600}
+.opt .d{color:var(--muted);font-size:14px}
+.opt:disabled{cursor:default;opacity:.55}
+.opt.picked{opacity:1;border-color:var(--accent);background:#fff}
+.opt.real{opacity:1;border-color:var(--real)}
+.tag{display:inline-block;font-size:12px;border-radius:999px;padding:1px 8px;margin-left:6px;font-weight:600;vertical-align:middle}
+.tag.real{background:rgba(47,125,91,.12);color:var(--real)}
+.tag.you{background:rgba(201,100,66,.12);color:var(--accent)}
+.out{margin-top:16px;padding:14px 16px;border-left:3px solid var(--accent);background:var(--soft);border-radius:0 12px 12px 0;animation:in .35s ease}
+.out.realbox{border-left-color:var(--real)}
+.out p{margin:0}
+.out .h{font-size:12px;font-weight:700;letter-spacing:.05em;color:var(--muted);margin-bottom:2px}
+.delta{font-size:13px;color:var(--muted);margin-top:6px}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+/* result */
+.big{font-family:var(--serif);font-size:clamp(46px,11vw,76px);line-height:1;color:var(--accent);margin:8px 0}
+table{width:100%;border-collapse:collapse;font-size:14px;margin-top:14px}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;color:var(--muted);font-weight:600}
+td.y{white-space:nowrap;color:var(--muted);font-variant-numeric:tabular-nums}
+.ok{color:var(--real);font-weight:700}
+footer{margin-top:26px;color:var(--muted);font-size:13px;text-align:center}
+[hidden]{display:none!important}
+@media (max-width:520px){.stats{grid-template-columns:repeat(2,1fr)}.card{padding:18px}th:nth-child(1),td.y{display:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="home" href="/">liyc.uno</a>
+    <button class="lang" id="lang" type="button">EN</button>
+  </header>
+  <main id="app"></main>
+  <footer id="foot"></footer>
+</div>
+<script>
+// Every "real" option is taken from liyc.uno (bio, experience) and liyc.uno/press. Other options are playful fiction.
+// stats: r = research, w = world/horizon, v = voice, s = stability
+const STATS={r:['科研','Research'],w:['眼界','Horizon'],v:['表达','Voice'],s:['安稳','Stability']};
+const Q=[
+{y:'2017',q:['高考结束，志愿表摊在桌上。','The college entrance exam is over. Where do you go?'],o:[
+ {real:1,t:['去深圳，读一所很年轻的大学','Head to Shenzhen for a very young university'],d:['南方科技大学 · 计算机科学与技术','SUSTech · B.Sc. in Computer Science'],fx:{r:2,w:1},
+  out:['你成了南科大的本科生。学校年轻，机会也多：进实验室、出国交流的路都很短。','You enrol at SUSTech. The school is young and the paths into labs and exchanges are short.']},
+ {t:['去一所百年老校，专业服从调剂','Pick a century-old university, any major they give you'],d:['名头响亮，专业随缘','Big name, random major'],fx:{s:2,r:1},
+  out:['校徽很好看。你被调剂到一个没想过的专业，大二才转进计算机。','The crest looks great. You land in a major you never considered and transfer to CS a year later.']},
+ {t:['复读一年，再冲一次','Retake the exam next year'],d:['赌一把更高的分数','Bet on a higher score'],fx:{s:1},
+  out:['又一年题海。分数涨了 12 分，头发少了一些。','Another year of drills. Twelve more points, a little less hair.']}]},
+{y:'2019',q:['大二暑假到了，三个月怎么花？','Sophomore summer: three months to spend.'],o:[
+ {t:['泡图书馆，把绩点刷到满','Live in the library and max out the GPA'],d:['4.0 是最稳的通行证','A 4.0 opens doors'],fx:{s:2,r:1},
+  out:['成绩单很漂亮，只是简历上“经历”一栏还空着。','A spotless transcript, and an empty "experience" section.']},
+ {real:1,t:['开源 + 访学，把夏天排满','Open source plus visiting research: fill the summer'],d:['阿里巴巴编程之夏 @ Apache RocketMQ · UBC · 清华数字制造实验室','Alibaba Summer of Code @ Apache RocketMQ · UBC · Tsinghua'],fx:{r:2,w:2},
+  out:['你给 Apache RocketMQ 提交代码，去不列颠哥伦比亚大学访问，又在清华的实验室做了访问研究。次年还去了新加坡国立大学交换。','You ship code to Apache RocketMQ, visit UBC and do research at a Tsinghua lab. A year later you are on exchange at NUS.']},
+ {t:['回家躺平，打游戏','Go home and play video games'],d:['夏天就该是夏天','Summer should be summer'],fx:{s:1,v:1},
+  out:['你上了王者，还顺手开了个游戏解说号，粉丝 37 个。','You hit top rank and start a commentary channel with 37 followers.']}]},
+{y:'2020',q:['本科快毕业了，硕士去哪读？','Graduation is near. Where do you do a master\'s?'],o:[
+ {t:['保研本校，熟门熟路','Stay at your home university'],d:['导师和食堂都不用换','Same advisor, same canteen'],fx:{s:2,r:1},
+  out:['一切顺利，连宿舍楼都没换。','Smooth. You do not even change dorm buildings.']},
+ {real:1,t:['去红海边的沙特读硕士','Go to Saudi Arabia, by the Red Sea'],d:['阿卜杜拉国王科技大学 KAUST · Vision-CAIR','KAUST · Vision-CAIR group'],fx:{r:2,w:3,s:-1},
+  out:['你去了 KAUST，在 Vision-CAIR 课题组做研究助理，从小样本学习做起。这是你在中东的第一站。','You join KAUST as a research assistant in Vision-CAIR, starting with few-shot learning. It is your first stop in the Middle East.']},
+ {t:['拿大厂 offer，直接上班','Take a big-tech offer and start working'],d:['先赚钱，学位以后再说','Salary first, degree later'],fx:{s:3},
+  out:['第一年年终奖到账，你买了台很贵的人体工学椅。','The first bonus arrives. You buy a very expensive chair.']}]},
+{y:'2022',q:['硕士课题要定方向了。','Time to choose a research topic.'],o:[
+ {real:1,t:['做 3D：点云和带部件标注的数据集','Go 3D: point clouds and a part-level dataset'],d:['PointNeXt · 3D-CoMPaT','PointNeXt · 3D-CoMPaT'],fx:{r:4},
+  out:['PointNeXt 发表在 NeurIPS 2022；3D-CoMPaT 入选 ECCV 2022 Oral（录取率 2.7%），后续的 3DCoMPaT++ 发表在 TPAMI。','PointNeXt appears at NeurIPS 2022. 3D-CoMPaT is an ECCV 2022 Oral (2.7% acceptance), and 3DCoMPaT++ later lands in TPAMI.']},
+ {t:['跟最火的方向，刷榜','Chase the hottest leaderboard'],d:['别人涨 0.1，你涨 0.2','They gain 0.1, you gain 0.2'],fx:{r:2,s:1},
+  out:['你涨了 0.3 个点。两周后，榜首换人了。','You gain 0.3 points. Two weeks later someone else is on top.']},
+ {t:['少做科研，多做课程项目','Less research, more course projects'],d:['早点毕业最要紧','Graduate early'],fx:{s:2},
+  out:['你准时毕业，毕业论文致谢写了三页。','You graduate on time with three pages of acknowledgements.']}]},
+{y:'2022',q:['硕士毕业。继续读博，还是出去看看？','Master\'s done. Straight to a PhD, or look around first?'],o:[
+ {t:['无缝衔接，直接读博','Go straight into a PhD'],d:['趁热打铁','Keep the momentum'],fx:{r:2,s:1},
+  out:['你没有离开过校园，论文一篇接一篇。','You never leave campus and the papers keep coming.']},
+ {t:['回国做算法工程师','Go home as an ML engineer'],d:['离家近，工资高','Close to family, good pay'],fx:{s:3},
+  out:['你负责一个推荐模型，日活很高，周末也挺忙。','You own a recommender model with lots of users and busy weekends.']},
+ {real:1,t:['去迪拜，离开实验室做一年商业','Move to Dubai for a year of business'],d:['Dubai Business Associates · 阿联酋航空 · 迪拜未来基金会','Dubai Business Associates · Emirates · Dubai Future Foundation'],fx:{w:3,v:2,r:-1},
+  out:['你入选迪拜商业英才项目 DBA 第八届（录取率 0.3%），在阿联酋航空做战略顾问，在迪拜未来基金会做创新顾问。','You join Dubai Business Associates Year 8 (0.3% acceptance), consult on strategy at Emirates and on innovation at Dubai Future Foundation.']}]},
+{y:'2023',q:['商业世界转了一圈，下一步？','A year in business is over. What next?'],o:[
+ {t:['留在咨询行业','Stay in consulting'],d:['西装已经买了','You already own the suit'],fx:{s:2,w:1,v:1},
+  out:['你的 PPT 越做越快，常旅客等级越来越高。','Your slides get faster and your airline status gets higher.']},
+ {real:1,t:['回到科研，去阿布扎比读博','Return to research: a PhD in Abu Dhabi'],d:['MBZUAI · Metaverse Lab · 导师 Hao Li','MBZUAI · Metaverse Lab · advised by Hao Li'],fx:{r:3,w:1},
+  out:['你成为 MBZUAI 计算机视觉博士生，课题是空间理解驱动的多模态智能。','You start a PhD in computer vision at MBZUAI, working on spatially grounded multimodal intelligence.']},
+ {t:['在迪拜开一家奶茶店','Open a bubble tea shop in Dubai'],d:['沙漠里缺的就是这个','Exactly what the desert needs'],fx:{v:2,w:1,s:-1},
+  out:['开业当天排了长队。夏天 48 度，冰块成本惊人。','Opening day has a long queue. At 48°C the ice bill is alarming.']}]},
+{y:'2024–25',q:['读博期间，要不要出去实习？','During the PhD: do you intern?'],o:[
+ {real:1,t:['去东京，再去西雅图','Tokyo first, then Seattle'],d:['Sony AI · Amazon Science Prime Video','Sony AI · Amazon Science Prime Video'],fx:{r:3,w:2},
+  out:['在 Sony AI 做音乐驱动的舞蹈视频生成（UCanDance）；在 Amazon 用 256 张 H200 训练空间感知视觉语言模型 Perceptio。','At Sony AI you build music-driven dance video generation (UCanDance). At Amazon you train Perceptio, a spatially aware VLM, on 256 H200 GPUs.']},
+ {t:['留在实验室，闭关写论文','Stay in the lab and write'],d:['外面的世界太吵','The outside world is noisy'],fx:{r:2,s:2},
+  out:['你的工位上多了一盆仙人掌，它是你最稳定的合作者。','A cactus appears on your desk. It is your most reliable collaborator.']},
+ {t:['休学创业','Pause the PhD for a startup'],d:['风口不等人','The window will not wait'],fx:{v:2,w:1,s:-2},
+  out:['你见了 40 个投资人，学会了在 30 秒内讲完一个故事。','You meet 40 investors and learn to tell a story in 30 seconds.']}]},
+{y:'2025–26',q:['实验室之外，你把时间花在哪？','Outside the lab, where does your time go?'],o:[
+ {t:['保持低调，只发论文','Stay quiet and only publish papers'],d:['朋友圈三天可见','Posts visible for three days'],fx:{r:2,s:2},
+  out:['没人知道你周末在做什么，你自己也不太确定。','Nobody knows what you do on weekends. Neither do you.']},
+ {t:['全职做博主','Become a full-time creator'],d:['流量就是一切','Reach is everything'],fx:{v:4,r:-2},
+  out:['粉丝涨得很快，论文进度条不动了。','Followers climb fast. The paper progress bar stops.']},
+ {real:1,t:['一边科研，一边走到人群里','Keep the research and walk into the crowd'],d:['小红书「迪拜王子」· 请 100 位陌生人喝咖啡 · 脱口秀 · 海德堡','Xiaohongshu · 100 coffees with strangers · stand-up · Heidelberg'],fx:{v:3,w:2,r:1},
+  out:['小红书「迪拜王子」有 6 千多位关注者；请 100 位陌生人喝咖啡已到第 56 杯；登上 36氪 WAVES 讲脱口秀，参加 72 小时 AI 生存挑战；2026 年入选第 13 届海德堡学者论坛。','6K+ followers on Xiaohongshu as "the Dubai Prince"; 56 of 100 coffees with strangers; stand-up on the 36Kr WAVES stage and a 72-hour AI survival challenge; a Young Researcher at the 13th Heidelberg Laureate Forum in 2026.']}]},
+{y:'2027',open:1,q:['博士即将毕业。最后一个路口：','The PhD is almost done. One last fork:'],o:[
+ {t:['去工业界做研究科学家','Research scientist in industry'],d:['把模型做进产品里','Put models into products'],fx:{r:2,s:2},out:['','']},
+ {t:['做博士后，走学术路线','A postdoc and the academic track'],d:['继续问自己的问题','Keep asking your own questions'],fx:{r:3,w:1},out:['','']},
+ {t:['创业，做自己的东西','Found a company'],d:['从 0 到 1','Zero to one'],fx:{v:2,w:2,s:-1},out:['','']}]}
+];
+const END={
+ r:{t:['实验室隐士','Lab Hermit'],d:['你把大部分点数都加在了科研上。引用数会替你说话。','You put most of your points into research. The citations speak for you.']},
+ w:{t:['世界游民','World Nomad'],d:['你的护照比论文厚。哪里都去过，哪里都有朋友。','Your passport is thicker than your thesis. Friends in every time zone.']},
+ v:{t:['人群里的讲述者','Storyteller'],d:['你更擅长被人听见。舞台、镜头和咖啡桌都是你的主场。','You are good at being heard, on stage, on camera and over coffee.']},
+ s:{t:['安稳人生赢家','Steady Winner'],d:['你每一步都选了最稳的那条路。生活规律，睡眠充足。','You took the safest road every time. Regular hours, good sleep.']},
+ real:{t:['李禹陈本陈','Basically Yuchen Li'],d:['你几乎走出了一模一样的路：深圳、红海、迪拜、阿布扎比、东京、西雅图、海德堡。','You walked almost the same road: Shenzhen, the Red Sea, Dubai, Abu Dhabi, Tokyo, Seattle, Heidelberg.']}
+};
+const T={
+ title:['人生道路选择器','Life Path Selector'],
+ lead:['以李禹陈的真实经历为蓝图。9 个路口，每个路口选一条路，看看你会走出怎样的平行人生，以及和他本人的重合度。','Built on Yuchen Li\'s real journey. Nine forks, one choice each. See which parallel life you end up with, and how closely it matches his.'],
+ src:['真实选项来自 <a href="/">liyc.uno</a> 与 <a href="/press/">liyc.uno/press</a>；其余选项为虚构。','Real options come from <a href="/">liyc.uno</a> and <a href="/press/">liyc.uno/press</a>. The others are fiction.'],
+ start:['开始选择','Start'],next:['下一个路口','Next fork'],finish:['查看结局','See the ending'],again:['再来一次','Play again'],copy:['复制结果','Copy result'],copied:['已复制','Copied'],
+ fork:['路口','Fork'],you:['你的选择','Your pick'],real:['他的选择','His pick'],yourOut:['你的平行人生','Your parallel life'],realOut:['真实的李禹陈','What Yuchen actually did'],
+ same:['你和他选了同一条路。','You picked the same road he did.'],
+ openOut:['这一题他还没有作答。个人主页上写着：2027 年毕业后，寻找研究科学家、博士后和工业界研究岗位。有建议的话，可以约他喝杯咖啡。','He has not answered this one yet. His site says he is looking for research scientist, postdoc and industry research roles from 2027. If you have advice, book a coffee with him.'],
+ match:['与李禹陈的重合度','Match with Yuchen Li'],ending:['你的结局','Your ending'],year:['年份','Year'],
+ press:['看媒体报道','Read the press'],home:['回到主页','Back to homepage'],tbd:['未完待续','To be continued'],
+ foot:['© 李禹陈 Yuchen Li · <a href="/">liyc.uno</a> · <a href="/press/">Press</a>','© Yuchen Li · <a href="/">liyc.uno</a> · <a href="/press/">Press</a>']
+};
+let L=(new URLSearchParams(location.search).get('lang')||navigator.language||'zh').toLowerCase().startsWith('zh')?0:1;
+let S,view='intro';
+const $=s=>document.querySelector(s),app=$('#app'),t=k=>T[k][L],esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function reset(){S={i:0,picks:[],st:{r:0,w:0,v:0,s:0}}}
+function track(){return '<div class="track" aria-hidden="true">'+Q.map((q,i)=>{const p=S.picks[i];
+  const c=p==null?(i===S.i?'now':''):(q.o[p].real?'match':'done');return (i?'<span class="seg"></span>':'')+'<span class="stop '+c+'"></span>'}).join('')+'</div>'}
+function stats(){return '<div class="stats">'+Object.keys(STATS).map(k=>{const v=Math.max(0,S.st[k]);
+  return '<div class="stat">'+STATS[k][L]+'<b>'+S.st[k]+'</b><div class="bar"><i style="width:'+Math.min(100,v*5.5)+'%"></i></div></div>'}).join('')+'</div>'}
+function delta(fx){return Object.keys(fx).map(k=>STATS[k][L]+' '+(fx[k]>0?'+':'')+fx[k]).join(' · ')}
+function render(){
+  document.documentElement.lang=L?'en':'zh-CN';$('#lang').textContent=L?'中文':'EN';$('#foot').innerHTML=t('foot');
+  if(view==='intro'){app.innerHTML='<h1>'+t('title')+'</h1><p class="lead">'+t('lead')+'</p><div class="card"><p style="margin-top:0">'+t('src')+'</p>'+
+    '<div class="row" style="margin-top:6px"><button class="btn" id="go">'+t('start')+'</button></div></div>';$('#go').onclick=()=>{reset();view='play';render()};return}
+  if(view==='end')return end();
+  const q=Q[S.i],p=S.picks[S.i],done=p!=null,ri=q.o.findIndex(o=>o.real);
+  let h=track()+stats()+'<div class="card"><div class="eyebrow">'+t('fork')+' '+(S.i+1)+' / '+Q.length+' · '+q.y+'</div><h2>'+esc(q.q[L])+'</h2><div class="opts">';
+  q.o.forEach((o,i)=>{const cls=(done&&i===p?' picked':'')+(done&&o.real?' real':'');
+    h+='<button class="opt'+cls+'" data-i="'+i+'"'+(done?' disabled':'')+'><span class="k">'+'ABC'[i]+'</span><span><span class="t">'+esc(o.t[L])+'</span>'+
+      (done&&i===p?'<span class="tag you">'+t('you')+'</span>':'')+(done&&o.real?'<span class="tag real">'+t('real')+'</span>':'')+'<br><span class="d">'+esc(o.d[L])+'</span></span></button>'});
+  h+='</div>';
+  if(done){const o=q.o[p];
+    if(q.open)h+='<div class="out realbox"><div class="h">'+t('tbd')+'</div><p>'+t('openOut')+'</p><div class="delta">'+delta(o.fx)+'</div></div>';
+    else if(o.real)h+='<div class="out realbox"><div class="h">'+t('realOut')+'</div><p>'+esc(o.out[L])+'</p><div class="delta">'+t('same')+' '+delta(o.fx)+'</div></div>';
+    else h+='<div class="out"><div class="h">'+t('yourOut')+'</div><p>'+esc(o.out[L])+'</p><div class="delta">'+delta(o.fx)+'</div></div>'+
+      '<div class="out realbox"><div class="h">'+t('realOut')+'</div><p>'+esc(q.o[ri].out[L])+'</p></div>';
+    h+='<div class="row"><button class="btn" id="nx">'+(S.i<Q.length-1?t('next'):t('finish'))+'</button></div>'}
+  app.innerHTML=h+'</div>';
+  app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>pick(+b.dataset.i));
+  if(done){$('#nx').onclick=next;$('#nx').focus({preventScroll:true})}
+}
+function pick(i){if(S.picks[S.i]!=null)return;S.picks[S.i]=i;const fx=Q[S.i].o[i].fx;for(const k in fx)S.st[k]+=fx[k];render()}
+function next(){if(S.i<Q.length-1){S.i++;render();scrollTo({top:0,behavior:'smooth'})}else{view='end';render();scrollTo({top:0})}}
+function score(){const sc=Q.filter(q=>!q.open),n=sc.filter(q=>q.o[S.picks[Q.indexOf(q)]].real).length;return{n,tot:sc.length,pct:Math.round(n/sc.length*100)}}
+function end(){const m=score(),top=Object.keys(S.st).sort((a,b)=>S.st[b]-S.st[a])[0],e=m.n>=m.tot-1?END.real:END[top];
+  let h=track()+'<div class="card"><div class="eyebrow">'+t('match')+'</div><div class="big">'+m.pct+'%</div><div class="eyebrow">'+t('ending')+'</div><h2>'+e.t[L]+'</h2><p style="margin:0 0 14px">'+e.d[L]+'</p>'+stats()+
+    '<table><thead><tr><th>'+t('year')+'</th><th>'+t('you')+'</th><th>'+t('real')+'</th></tr></thead><tbody>';
+  Q.forEach((q,i)=>{const o=q.o[S.picks[i]],r=q.o.find(x=>x.real);
+    h+='<tr><td class="y">'+q.y+'</td><td>'+(o.real?'<span class="ok">✓ </span>':'')+esc(o.t[L])+'</td><td>'+(r?esc(r.t[L])+'<br><span class="d" style="color:var(--muted);font-size:13px">'+esc(r.d[L])+'</span>':t('tbd'))+'</td></tr>'});
+  h+='</tbody></table><div class="row"><button class="btn" id="ag">'+t('again')+'</button><button class="btn ghost" id="cp">'+t('copy')+'</button><a class="btn ghost" style="text-decoration:none" href="/press/">'+t('press')+'</a><a class="btn ghost" style="text-decoration:none" href="/">'+t('home')+'</a></div></div>';
+  app.innerHTML=h;$('#ag').onclick=()=>{reset();view='play';render()};
+  $('#cp').onclick=()=>{const s=t('title')+'｜'+t('match')+' '+m.pct+'% · '+e.t[L]+' → https://liyc.uno/life-path/';
+    (navigator.clipboard?navigator.clipboard.writeText(s):Promise.reject()).then(()=>{$('#cp').textContent=t('copied')}).catch(()=>prompt('',s))}}
+$('#lang').onclick=()=>{L=1-L;render()};
+addEventListener('keydown',e=>{if(view!=='play')return;const i='123abc'.indexOf(e.key.toLowerCase());
+  if(i>=0&&S.picks[S.i]==null&&!e.metaKey&&!e.ctrlKey){pick(i%3)}});
+reset();render();
+</script>
+</body>
+</html>
