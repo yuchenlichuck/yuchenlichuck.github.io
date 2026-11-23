@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>AI Hot Topics · Yuchen Li</title>
+<meta name="description" content="A living word cloud of AI research hot topics and their leading papers, rebuilt weekly from Hugging Face Daily Papers.">
+<meta property="og:title" content="AI Hot Topics">
+<meta property="og:description" content="What the AI research community is reading right now — topics sized by attention, each linked to its leading papers.">
+<link rel="icon" href="/img/icon-192.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#f6efe4;--bg2:#efe4d4;--card:#fffaf2;--ink:#2c2118;--muted:#76665a;--line:rgba(44,33,24,.12);--accent:#b76531;
+  --c-agents:#b76531;--c-reasoning:#7b4fa8;--c-generation:#c2457a;--c-multimodal:#2f7d9a;--c-3d:#1f8a68;
+  --c-robotics:#5f7f1f;--c-efficiency:#a8791a;--c-llm:#3d5bb0;--c-safety:#b23a3a;--c-ml:#6c6258;
+  --serif:"Fraunces",Georgia,serif;--sans:"Inter",system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){
+  --bg:#161210;--bg2:#221b17;--card:#1d1714;--ink:#f4eee5;--muted:#b3a597;--line:rgba(244,238,229,.12);--accent:#d98b58;
+  --c-agents:#e8925a;--c-reasoning:#b68ee0;--c-generation:#ef7fae;--c-multimodal:#6cc2e0;--c-3d:#5fd1a6;
+  --c-robotics:#a9cf5a;--c-efficiency:#e6bd6a;--c-llm:#8aa5f0;--c-safety:#f07a7a;--c-ml:#b9aea3;color-scheme:dark}}
+:root[data-theme=dark]{
+  --bg:#161210;--bg2:#221b17;--card:#1d1714;--ink:#f4eee5;--muted:#b3a597;--line:rgba(244,238,229,.12);--accent:#d98b58;
+  --c-agents:#e8925a;--c-reasoning:#b68ee0;--c-generation:#ef7fae;--c-multimodal:#6cc2e0;--c-3d:#5fd1a6;
+  --c-robotics:#a9cf5a;--c-efficiency:#e6bd6a;--c-llm:#8aa5f0;--c-safety:#f07a7a;--c-ml:#b9aea3;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 var(--sans);-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(var(--line) 1px,transparent 1px);background-size:22px 22px}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1240px;margin:0 auto;padding:22px 20px 60px}
+header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.brand{font:600 14px var(--sans);text-decoration:none;color:var(--muted)}
+.brand b{color:var(--ink)}
+.tools{display:flex;gap:6px}
+.pill{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:5px 12px;font-size:13px}
+.pill[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+h1{font:650 clamp(34px,6vw,64px)/1.02 var(--serif);letter-spacing:-.02em;margin:6px 0 10px}
+h1 em{font-style:normal;color:var(--accent)}
+.lede{max-width:720px;color:var(--muted);font-size:16px;margin:0 0 18px}
+.stats{display:flex;flex-wrap:wrap;gap:8px 22px;font-size:13px;color:var(--muted);margin-bottom:18px}
+.stats b{color:var(--ink);font:600 20px var(--serif);margin-right:4px}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;background:var(--card);padding:3px}
+.seg button{border:0;background:none;border-radius:999px;padding:5px 13px;font-size:13px;color:var(--muted)}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.search{flex:1;min-width:180px;max-width:300px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:7px 14px;font:inherit;font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:4px 11px 4px 8px;font-size:12.5px}
+.chip i{width:9px;height:9px;border-radius:50%;background:var(--c)}
+.chip[aria-pressed=false]{opacity:.42}
+.chip small{color:var(--muted)}
+.stage{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:18px;align-items:start}
+.cloud-card,.panel,.list-card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 1px 0 var(--line),0 18px 40px -28px rgba(0,0,0,.35)}
+.cloud-card{position:relative;overflow:hidden;isolation:isolate}
+#cloud{position:relative;width:100%;height:600px}
+.w{position:absolute;left:0;top:0;white-space:nowrap;border:0;background:none;padding:0 .08em;line-height:1;color:var(--c);
+  font-family:var(--serif);font-weight:650;letter-spacing:-.01em;transition:transform .7s cubic-bezier(.2,.8,.2,1),opacity .4s,filter .2s;border-radius:6px}
+.w:hover,.w.sel{filter:brightness(1.12);text-decoration:underline;text-decoration-thickness:.06em;text-underline-offset:.12em}
+.w.sel{background:color-mix(in srgb,var(--c) 12%,transparent)}
+.w.fade{opacity:.13}
+.w sup{font:600 max(.34em,9px) var(--sans);color:var(--accent);margin-left:.15em;vertical-align:.9em}
+.hint{padding:8px 14px 10px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+.empty{position:absolute;inset:0;display:grid;place-items:center;color:var(--muted)}
+.panel{position:sticky;top:14px;max-height:calc(100vh - 28px);display:flex;flex-direction:column}
+.panel header{padding:16px 18px 12px;border-bottom:1px solid var(--line)}
+.kicker{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:6px}
+.kicker i{width:8px;height:8px;border-radius:50%;background:var(--c)}
+.panel h2{font:650 26px/1.1 var(--serif);margin:6px 0 8px;color:var(--c)}
+.meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--muted)}
+.meta b{color:var(--ink)}
+.close{display:none;position:absolute;right:12px;top:10px;border:0;background:none;font-size:22px;color:var(--muted)}
+.papers{overflow:auto;padding:4px 0}
+.paper{display:block;padding:12px 18px;border-bottom:1px solid var(--line)}
+.paper:last-child{border-bottom:0}
+.paper .t{font-weight:600;font-size:14px;line-height:1.35;text-decoration:none}
+.paper .t:hover{color:var(--accent)}
+.paper .s{color:var(--muted);font-size:12.5px;margin:4px 0 6px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.paper .m{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:12px;color:var(--muted);align-items:center}
+.up{display:inline-flex;align-items:center;gap:3px;font-weight:600;color:var(--accent)}
+.rank{font:600 12px var(--serif);color:var(--muted);margin-right:6px}
+.links a{color:var(--muted);text-decoration:none;border:1px solid var(--line);border-radius:6px;padding:0 6px}
+.links a:hover{color:var(--ink);border-color:var(--ink)}
+section.more{margin-top:26px}
+section.more h3{font:650 24px var(--serif);margin:0 0 4px}
+section.more p.sub{margin:0 0 12px;color:var(--muted);font-size:13.5px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.list-card .paper{padding:12px 16px}
+.movers{padding:8px 0}
+.mover{display:flex;align-items:center;gap:10px;width:100%;border:0;background:none;padding:8px 16px;text-align:left;border-bottom:1px solid var(--line)}
+.mover:last-child{border-bottom:0}
+.mover:hover{background:var(--bg2)}
+.mover .nm{flex:1;font-weight:600;color:var(--c)}
+.mover .sp{width:90px;height:6px;border-radius:3px;background:var(--bg2);overflow:hidden}
+.mover .sp span{display:block;height:100%;background:var(--c)}
+.mover .x{font-size:12px;color:var(--accent);font-weight:600;width:48px;text-align:right}
+footer{margin-top:34px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padding-top:14px;display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between}
+@media (max-width:960px){
+  .stage{grid-template-columns:1fr}
+  .panel{position:fixed;left:0;right:0;bottom:0;top:auto;max-height:72vh;border-radius:18px 18px 0 0;transform:translateY(105%);transition:transform .3s;z-index:50;box-shadow:0 -10px 40px rgba(0,0,0,.25)}
+  .panel.open{transform:none}
+  .close{display:block}
+  .grid2{grid-template-columns:1fr}
+  #cloud{height:480px}
+}
+@media (prefers-reduced-motion:reduce){.w{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="/"><b>Yuchen Li</b> · liyc.uno</a>
+    <div class="tools">
+      <button class="pill" id="langBtn" type="button">中文</button>
+      <button class="pill" id="themeBtn" type="button" aria-label="Toggle theme">◐</button>
+    </div>
+  </header>
+
+  <h1 data-i18n="title">AI <em>Hot Topics</em></h1>
+  <p class="lede" data-i18n="lede">What the AI research community is reading right now. Each word is a research topic, sized by how much attention its papers received; click one to see its leading papers.</p>
+  <div class="stats" id="stats"></div>
+
+  <div class="bar">
+    <div class="seg" id="winSeg" role="group" aria-label="Time window">
+      <button type="button" data-w="7">7 days</button>
+      <button type="button" data-w="30">30 days</button>
+      <button type="button" data-w="90">90 days</button>
+    </div>
+    <div class="seg" id="modeSeg" role="group" aria-label="Sort">
+      <button type="button" data-m="hot" data-i18n="hot">Hottest</button>
+      <button type="button" data-m="rising" data-i18n="rising">Rising</button>
+    </div>
+    <input class="search" id="q" type="search" placeholder="Filter topics…" aria-label="Filter topics" data-i18n-ph="filter">
+  </div>
+  <div class="chips" id="chips"></div>
+
+  <div class="stage">
+    <div class="cloud-card">
+      <div id="cloud" role="list" aria-label="Topic cloud"></div>
+      <div class="hint" data-i18n="hint">Size = attention (papers × upvotes) · ▲ = rising vs. the earlier part of the window</div>
+    </div>
+    <aside class="panel" id="panel" aria-live="polite">
+      <button class="close" id="closeBtn" type="button" aria-label="Close">×</button>
+      <header id="panelHead"></header>
+      <div class="papers" id="panelPapers"></div>
+    </aside>
+  </div>
+
+  <section class="more">
+    <div class="grid2">
+      <div>
+        <h3 data-i18n="leading">Leading papers</h3>
+        <p class="sub" data-i18n="leadingSub">Most upvoted papers in the selected window.</p>
+        <div class="list-card" id="topList"></div>
+      </div>
+      <div>
+        <h3 data-i18n="movers">Fastest risers</h3>
+        <p class="sub" data-i18n="moversSub">Topics whose share of papers grew most in the latest third of the window.</p>
+        <div class="list-card movers" id="movers"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span id="foot"></span>
+    <span><a href="/">← liyc.uno</a></span>
+  </footer>
+</div>
+
+<script>
+(() => {
+const CATS = {
+  agents:["Agents","智能体"], reasoning:["Reasoning & RL","推理与强化学习"], generation:["Generation","生成模型"],
+  multimodal:["Multimodal","多模态"], "3d":["3D & Spatial","三维与空间"], robotics:["Embodied & Robotics","具身智能"],
+  efficiency:["Efficiency & Systems","效率与系统"], llm:["LLMs & Data","大模型与数据"], safety:["Safety & Trust","安全与可信"], ml:["Core ML","机器学习基础"]
+};
+const T = {
+  en:{title:'AI <em>Hot Topics</em>',lede:'What the AI research community is reading right now. Each word is a research topic, sized by how much attention its papers received; click one to see its leading papers.',
+    hot:'Hottest',rising:'Rising',filter:'Filter topics…',hint:'Size = attention (papers × upvotes) · ▲ = rising vs. the earlier part of the window',
+    leading:'Leading papers',leadingSub:'Most upvoted papers in the selected window.',movers:'Fastest risers',moversSub:'Topics whose share of papers grew most in the latest third of the window.',
+    days:d=>`${d} days`,papers:'papers',topics:'topics',updated:'updated',topic:'Topic',trend:'trend',score:'attention',
+    pick:'Pick a topic',pickSub:'Click any word in the cloud to list its leading papers.',none:'No topics match.',
+    foot:(g,s)=>`Data: ${s}, rebuilt weekly (last ${g}). Keywords are Hugging Face's AI-extracted paper keywords, normalised and merged. Upvotes reflect community attention, not peer review.`,
+    authors:(a,n)=>a.join(', ')+(n>a.length?' et al.':''),lang:'中文'},
+  zh:{title:'AI <em>热点话题</em>',lede:'AI 研究社区此刻在读什么。每个词是一个研究话题，字号代表其论文获得的关注度；点击查看该话题的领先论文。',
+    hot:'最热',rising:'上升',filter:'筛选话题…',hint:'字号 = 关注度（论文数 × 点赞）· ▲ = 相比窗口前段正在上升',
+    leading:'领先论文',leadingSub:'所选时间窗口内点赞最多的论文。',movers:'上升最快',moversSub:'在窗口最近三分之一时间里论文占比增长最多的话题。',
+    days:d=>`${d} 天`,papers:'篇论文',topics:'个话题',updated:'更新于',topic:'话题',trend:'趋势',score:'关注度',
+    pick:'选择一个话题',pickSub:'点击词云中的任意词，查看其领先论文。',none:'没有匹配的话题。',
+    foot:(g,s)=>`数据来源：${s}，每周自动更新（最近一次 ${g}）。关键词来自 Hugging Face 为论文自动抽取的关键词，经归一化合并。点赞反映社区关注度，并非同行评审。`,
+    authors:(a,n)=>a.join(', ')+(n>a.length?' 等':''),lang:'English'}
+};
+const $ = s => document.querySelector(s);
+const params = new URLSearchParams(location.search);
+const state = {w:params.get('w')||'30', mode:params.get('m')||'hot', q:'', off:new Set(), sel:params.get('t'),
+  lang: params.get('lang') || ((navigator.language||'').startsWith('zh') ? 'zh' : 'en')};
+let DATA, words = [];
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const L = () => T[state.lang];
+const catName = c => (CATS[c]||CATS.ml)[state.lang==='zh'?1:0];
+const isRising = r => r.r >= 1.5 && r.n >= 3;
+
+function syncURL(){
+  const p = new URLSearchParams();
+  if (state.w!=='30') p.set('w',state.w);
+  if (state.mode!=='hot') p.set('m',state.mode);
+  if (state.sel) p.set('t',state.sel);
+  if (params.get('lang')) p.set('lang',state.lang);
+  history.replaceState(null,'',location.pathname+(p.toString()?'?'+p:''));
+}
+
+function applyLang(){
+  document.documentElement.lang = state.lang==='zh'?'zh-CN':'en';
+  document.querySelectorAll('[data-i18n]').forEach(el => el.innerHTML = L()[el.dataset.i18n]);
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => el.placeholder = L()[el.dataset.i18nPh]);
+  document.querySelectorAll('#winSeg button').forEach(b => b.textContent = L().days(b.dataset.w));
+  $('#langBtn').textContent = L().lang;
+}
+
+function renderChips(){
+  const W = DATA.windows[state.w].words, cnt = {};
+  W.forEach(r => cnt[r.c]=(cnt[r.c]||0)+1);
+  $('#chips').innerHTML = Object.keys(CATS).filter(c=>cnt[c]).map(c =>
+    `<button class="chip" type="button" data-c="${c}" style="--c:var(--c-${c})" aria-pressed="${!state.off.has(c)}"><i></i>${catName(c)} <small>${cnt[c]}</small></button>`).join('');
+}
+
+function renderStats(){
+  const W = DATA.windows[state.w];
+  $('#stats').innerHTML = `<span><b>${W.papers.toLocaleString()}</b>${L().papers}</span><span><b>${W.words.length}</b>${L().topics}</span><span><b>${DATA.generated}</b>${L().updated}</span>`;
+  $('#foot').textContent = L().foot(DATA.generated, DATA.source);
+}
+
+function visible(){
+  const q = state.q.trim().toLowerCase();
+  let W = DATA.windows[state.w].words.filter(r => !state.off.has(r.c));
+  if (state.mode==='rising') W = W.filter(r => r.r > 1).sort((a,b)=>b.r*Math.sqrt(b.n)-a.r*Math.sqrt(a.n));
+  W = W.slice(0, 120).map(r => ({...r, fade: !!q && !r.l.toLowerCase().includes(q) && !r.k.includes(q)}));
+  return q ? W.filter(r => !r.fade).concat(W.filter(r => r.fade)) : W;
+}
+
+function layout(){
+  const box = $('#cloud'), W = box.clientWidth, H = box.clientHeight;
+  words = visible();
+  const old = new Map([...box.children].filter(e=>e.dataset&&e.dataset.k).map(e => [e.dataset.k, e]));
+  box.querySelectorAll('.empty').forEach(e=>e.remove());
+  if (!words.length){ old.forEach(e=>{ clearTimeout(e._rm); e.remove(); }); box.insertAdjacentHTML('beforeend',`<div class="empty">${L().none}</div>`); return; }
+  const key = state.mode==='rising' ? (r => r.r*Math.sqrt(r.n)) : (r => r.s);
+  const vals = words.map(key), max = Math.max(...vals), min = Math.min(...vals);
+  const area = W*H, base = Math.sqrt(area/1400)*(words.length<40?1.25:1);
+  const placed = [], cx = W/2, cy = H/2, ar = W/H;
+  words.forEach((r,i) => {
+    let el = old.get(r.k);
+    if (el){ old.delete(r.k); clearTimeout(el._rm); } else {
+      el = document.createElement('button'); el.type='button'; el.className='w'; el.dataset.k=r.k; el.setAttribute('role','listitem');
+      el.style.transform = `translate(${cx}px,${cy}px) scale(.2)`; el.style.opacity = 0; box.appendChild(el);
+    }
+    const t = (key(r)-min)/((max-min)||1);
+    const fs = Math.max(11, Math.min(base*(0.55+2.6*Math.sqrt(t)), W/ Math.max(r.l.length*0.55, 4)));
+    el.style.fontSize = fs.toFixed(1)+'px';
+    el.style.setProperty('--c', `var(--c-${r.c})`);
+    el.innerHTML = esc(r.l) + (isRising(r) ? '<sup>▲</sup>' : '');
+    el.title = `${r.l} — ${r.n} ${L().papers}`;
+    el.classList.toggle('fade', !!r.fade);
+    el.classList.toggle('sel', r.k===state.sel);
+    el.style.zIndex = words.length - i;
+    const w = el.offsetWidth, h = el.offsetHeight;
+    let x = cx-w/2, y = cy-h/2, a = 0, ok = false;
+    for (let step=0; step<5000; step++){
+      const rad = 3.2*a;
+      x = cx + rad*Math.cos(a)*Math.min(ar,2.2) - w/2; y = cy + rad*Math.sin(a) - h/2;
+      a += step<200 ? 0.35 : 0.12;
+      if (x<4||y<4||x+w>W-4||y+h>H-4) { if (rad > Math.max(W,H)) break; continue; }
+      if (!placed.some(p => x < p.x+p.w+2 && x+w+2 > p.x && y < p.y+p.h+1 && y+h+1 > p.y)) { ok = true; break; }
+    }
+    if (!ok){ el.style.opacity = 0; el.style.pointerEvents='none'; return; }
+    placed.push({x,y,w,h});
+    el.style.pointerEvents='';
+    requestAnimationFrame(()=>{ el.style.transform = `translate(${x.toFixed(1)}px,${y.toFixed(1)}px)`; el.style.opacity = ''; });
+  });
+  old.forEach(e => { e.style.opacity = 0; e.style.pointerEvents='none'; clearTimeout(e._rm); e._rm = setTimeout(()=>e.remove(), 400); });
+}
+
+function paperHTML(id, i){
+  const p = DATA.papers[id]; if (!p) return '';
+  return `<div class="paper"><a class="t" href="https://huggingface.co/papers/${id}" target="_blank" rel="noopener"><span class="rank">${i+1}</span>${esc(p.t)}</a>
+    ${p.s?`<div class="s">${esc(p.s)}</div>`:''}
+    <div class="m"><span class="up" title="Hugging Face upvotes">▲ ${p.u}</span>${p.o?`<span>${esc(p.o)}</span>`:''}<span>${esc(L().authors(p.a||[],p.na||0))}</span><span>${p.d}</span>
+    <span class="links"><a href="https://arxiv.org/abs/${id}" target="_blank" rel="noopener">arXiv</a>${p.g?` <a href="${esc(p.g)}" target="_blank" rel="noopener">code</a>`:''}</span></div></div>`;
+}
+
+function renderPanel(){
+  const all = DATA.windows[state.w].words;
+  const r = all.find(x => x.k===state.sel);
+  const head = $('#panelHead'), body = $('#panelPapers');
+  if (!r){
+    head.style.setProperty('--c','var(--accent)');
+    head.innerHTML = `<div class="kicker">${L().topic}</div><h2>${L().pick}</h2><div class="meta">${L().pickSub}</div>`;
+    body.innerHTML = DATA.windows[state.w].top.slice(0,8).map(paperHTML).join('');
+    return;
+  }
+  const trend = r.r>=1.5?'▲ '+r.r.toFixed(1)+'×':(r.r<=0.6?'▼ '+r.r.toFixed(1)+'×':'≈ '+r.r.toFixed(1)+'×');
+  head.style.setProperty('--c',`var(--c-${r.c})`);
+  head.innerHTML = `<div class="kicker"><i></i>${catName(r.c)}</div><h2>${esc(r.l)}</h2>
+    <div class="meta"><span><b>${r.n}</b> ${L().papers}</span><span>${L().score} <b>${Math.round(r.s)}</b></span><span>${L().trend} <b>${trend}</b></span></div>`;
+  body.innerHTML = r.p.map(paperHTML).join('');
+  body.scrollTop = 0;
+}
+
+function renderLists(){
+  const D = DATA.windows[state.w];
+  $('#topList').innerHTML = D.top.slice(0,10).map(paperHTML).join('');
+  const rise = D.words.filter(r=>r.n>=3 && r.r>1).sort((a,b)=>b.r*Math.sqrt(b.n)-a.r*Math.sqrt(a.n)).slice(0,12);
+  const mx = Math.max(...rise.map(r=>r.r),1);
+  $('#movers').innerHTML = rise.map(r => `<button class="mover" type="button" data-k="${esc(r.k)}" style="--c:var(--c-${r.c})"><span class="nm">${esc(r.l)}</span><span class="sp"><span style="width:${(100*r.r/mx).toFixed(0)}%"></span></span><span class="x">${r.r.toFixed(1)}×</span><small style="color:var(--muted);width:54px;text-align:right">${r.n} ${state.lang==='zh'?'篇':'pp.'}</small></button>`).join('') || `<p class="sub" style="padding:8px 16px;margin:0">${L().none}</p>`;
+}
+
+function select(k){
+  state.sel = state.sel===k && innerWidth>960 ? null : k;
+  document.querySelectorAll('.w').forEach(e => e.classList.toggle('sel', e.dataset.k===state.sel));
+  renderPanel(); syncURL();
+  $('#panel').classList.toggle('open', !!state.sel && innerWidth<=960);
+}
+
+function renderAll(){
+  document.querySelectorAll('#winSeg button').forEach(b => b.setAttribute('aria-pressed', b.dataset.w===state.w));
+  document.querySelectorAll('#modeSeg button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m===state.mode));
+  applyLang(); renderStats(); renderChips(); layout(); renderPanel(); renderLists(); syncURL();
+}
+
+$('#winSeg').onclick = e => { const b=e.target.closest('button'); if(b){ state.w=b.dataset.w; renderAll(); } };
+$('#modeSeg').onclick = e => { const b=e.target.closest('button'); if(b){ state.mode=b.dataset.m; renderAll(); } };
+$('#chips').onclick = e => { const b=e.target.closest('.chip'); if(!b) return; const c=b.dataset.c;
+  if (e.altKey || e.metaKey || e.shiftKey){ const all=Object.keys(CATS); state.off = new Set(state.off.size===all.length-1&&!state.off.has(c)?[]:all.filter(x=>x!==c)); }
+  else state.off.has(c)?state.off.delete(c):state.off.add(c);
+  renderChips(); layout(); };
+$('#q').oninput = e => { state.q = e.target.value; layout(); };
+$('#q').onkeydown = e => { if (e.key==='Enter'){ const m = words.find(r=>!r.fade); if (m) select(m.k); } };
+$('#cloud').onclick = e => { const b=e.target.closest('.w'); if(b) select(b.dataset.k); };
+$('#movers').onclick = e => { const b=e.target.closest('.mover'); if(!b) return; if (state.mode!=='hot'||state.off.size){ state.mode='hot'; state.off.clear(); renderAll(); } state.sel=null; select(b.dataset.k); if(innerWidth>960) $('#cloud').scrollIntoView({behavior:'smooth',block:'center'}); };
+$('#closeBtn').onclick = () => $('#panel').classList.remove('open');
+$('#langBtn').onclick = () => { state.lang = state.lang==='zh'?'en':'zh'; params.set('lang',state.lang); renderAll(); };
+const root = document.documentElement, saved = localStorage.getItem('aiTrendsTheme'); if (saved) root.dataset.theme = saved;
+$('#themeBtn').onclick = () => { const dark = root.dataset.theme ? root.dataset.theme==='dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  root.dataset.theme = dark?'light':'dark'; localStorage.setItem('aiTrendsTheme', root.dataset.theme); };
+let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(layout, 150); });
+
+fetch('data.json').then(r => r.json()).then(d => {
+  DATA = d; if (!DATA.windows[state.w]) state.w = '30';
+  if (state.sel && !DATA.windows[state.w].words.some(r=>r.k===state.sel)) state.sel = null;
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
+    renderAll();
+    if (state.sel && innerWidth <= 960) $('#panel').classList.add('open');
+  });
+});
+})();
+</script>
+</body>
+</html>
