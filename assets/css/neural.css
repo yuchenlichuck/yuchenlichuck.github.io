@@ -16,7 +16,7 @@ body.theme-claude {
   --n-fg: #101b26;
   --n-muted: #5c6b7a;
   --n-muted-strong: #3b4854;
-  --n-accent: #0b7f78;
+  --n-accent: #09726c;
   --n-accent-ink: #ffffff;
   --n-accent-2: #3b4fd8;
   --n-gold: #9a6a12;
@@ -70,7 +70,7 @@ body.theme-claude, body.theme-claude.dark {
 
 /* ---------- type ---------- */
 body.theme-claude h1, body.theme-claude h2, body.theme-claude h3,
-body.theme-claude .portrait-title h2, body.theme-claude .section-heading h1 {
+body.theme-claude .portrait-title :is(h1, h2), body.theme-claude .section-heading :is(h1, h2) {
   font-family: var(--n-serif) !important; color: var(--n-fg) !important; font-weight: 600 !important; letter-spacing: -0.01em !important;
 }
 body.theme-claude, body.theme-claude p, body.theme-claude li, body.theme-claude .article-metadata,
@@ -78,6 +78,10 @@ body.theme-claude .text-muted, body.theme-claude .section-heading p { color: var
 body.theme-claude a { color: var(--n-accent); }
 body.theme-claude a:hover, body.theme-claude a:focus { color: var(--n-accent); text-decoration: underline; text-underline-offset: 3px; }
 body.theme-claude code, body.theme-claude pre { font-family: var(--n-mono); }
+body.theme-claude p a, body.theme-claude .description a, body.theme-claude .blank-content li a { text-decoration: underline; text-underline-offset: 3px; }
+body.theme-claude .portrait-title .profile-role { font-size: 1rem; margin: 0 0 10px; }
+body.theme-claude .profile-subheading { font-size: 1.25rem; }
+body.theme-claude .portrait-title .profile-namecn { font-size: 1rem; margin: 0 0 .5rem; }
 body.theme-claude ::selection { background: rgba(11,127,120,.25); }
 body.theme-claude.dark ::selection { background: rgba(78,232,214,.3); }
 
@@ -108,10 +112,10 @@ body.theme-claude.dark .home-section:nth-of-type(even) > .container {
   background: var(--n-surface) !important; border: 1px solid var(--n-line) !important; border-radius: 16px !important;
   box-shadow: var(--n-shadow) !important; padding: 44px 34px !important;
 }
-body.theme-claude .section-heading h1,
-body.theme-claude .home-section.wg-blank > .container > .row > .col-lg-12 > h1 { font-size: clamp(1.7rem, 2.3vw, 2.2rem) !important; line-height: 1.15 !important; }
-body.theme-claude .section-heading h1::after,
-body.theme-claude .home-section.wg-blank > .container > .row > .col-lg-12 > h1::after {
+body.theme-claude .section-heading :is(h1, h2),
+body.theme-claude .home-section.wg-blank > .container > .row > .col-lg-12 > :is(h1, h2) { font-size: clamp(1.7rem, 2.3vw, 2.2rem) !important; line-height: 1.15 !important; }
+body.theme-claude .section-heading :is(h1, h2)::after,
+body.theme-claude .home-section.wg-blank > .container > .row > .col-lg-12 > :is(h1, h2)::after {
   content: ""; display: block; width: 40px; height: 2px; margin-top: 10px; background: var(--n-accent);
 }
 @media (prefers-reduced-motion: no-preference) {
@@ -137,9 +141,9 @@ body.theme-claude .pc-wrap canvas { position: absolute; inset: 0; width: 100%; h
 body.theme-claude .pc-wrap .portrait { position: absolute; inset: 0; margin: 0; z-index: 1; opacity: 0; transition: opacity .9s ease; pointer-events: none; }
 body.theme-claude .pc-wrap.is-photo .portrait { opacity: 1; transition-duration: .6s; }
 body.theme-claude .pc-cap { display: block; margin: 8px auto 0; text-align: center; font-family: var(--n-mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--n-muted); min-height: 1.2em; }
-body.theme-claude .portrait-title h2 { font-size: 1.75rem !important; margin-top: 1rem; }
-body.theme-claude .portrait-title h3 { font-family: "Noto Sans SC", var(--n-serif) !important; color: var(--n-accent) !important; font-weight: 600; letter-spacing: .04em; }
-body.theme-claude .portrait-title h4, body.theme-claude .portrait-title h4 a { color: var(--n-muted-strong) !important; font-family: var(--n-body) !important; font-weight: 500; }
+body.theme-claude .portrait-title :is(h1, h2) { font-size: 1.75rem !important; margin-top: 1rem; }
+body.theme-claude .portrait-title .profile-role { font-family: "Noto Sans SC", var(--n-serif) !important; color: var(--n-accent) !important; font-weight: 600; letter-spacing: .04em; }
+body.theme-claude .portrait-title .profile-namecn, body.theme-claude .portrait-title .profile-namecn a { color: var(--n-muted-strong) !important; font-family: var(--n-body) !important; font-weight: 500; }
 body.theme-claude .portrait-title .profile-address, body.theme-claude .portrait-title .profile-address i { color: var(--n-muted) !important; font-size: .85rem; }
 
 body.theme-claude ul.network-icon { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; padding: 0; margin-top: 1rem; }

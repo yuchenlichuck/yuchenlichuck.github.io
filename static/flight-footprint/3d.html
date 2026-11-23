@@ -7,6 +7,8 @@
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}[hidden]{display:none!important}</style>
 </head>
 <body>
+<main style="height:100%">
+<h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap">飞行足迹</h1>
 <title>3D 飞行足迹</title>
 <meta name="description" content="卫星地球上的飞行足迹回放：三维飞机沿航线飞行、镜头跟随、到站弹出城市与风景照，可录制成视频">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -81,8 +83,8 @@ body.is-embed:hover #controls{opacity:1;pointer-events:auto}
     <button id="b-next" title="下一段"><svg viewBox="0 0 24 24"><path d="M8 6v12l10-6z"/></svg></button>
     <span class="sep"></span>
     <button id="b-view" title="切换镜头：跟随飞机 / 正北朝上"><svg viewBox="0 0 24 24"><path d="M12 2l3 7h-6zM12 22a9 9 0 1 1 0-18 9 9 0 0 1 0 18zm0-2a7 7 0 1 0 0-14 7 7 0 0 0 0 14z"/></svg><span class="txt" id="view-text">跟随镜头</span></button>
-    <select id="speed" title="播放速度"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select>
-    <select id="year" title="年份范围"></select>
+    <select id="speed" aria-label="播放速度" title="播放速度"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select>
+    <select id="year" aria-label="年份范围" title="年份范围"></select>
     <span class="sep"></span>
     <button id="b-rec" title="把回放录制成视频"><i class="dot"></i><span class="txt">录制视频</span></button>
   </div>
@@ -576,5 +578,6 @@ map.once('load', boot);
 })();
 </script>
 
+</main>
 </body>
 </html>

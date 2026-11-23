@@ -21,28 +21,28 @@
     <div id="profile">
 
       {{ if site.Params.gravatar }}
-      <img class="portrait" src="https://s.gravatar.com/avatar/{{ md5 $person.email }}?s=200')" alt="{{ $person.name }}">
+      <img class="portrait" src="https://s.gravatar.com/avatar/{{ md5 $person.email }}?s=200')" alt="Portrait of {{ $person.name }}">
       {{ else if $portrait }}
       {{/* portrait.jpg is a face-centred square crop; portrait-depth.png is its monocular depth map
            (Depth Anything V2), which neural.js uses to lift the photo into a 3D point cloud. */}}
       {{ $p := $portrait.Fill "440x440 Center q90" }}
-      <img class="portrait" src="{{ $p.RelPermalink }}" width="220" height="220" alt="{{ $person.name }}"{{ with $depth }} data-depth="{{ .RelPermalink }}"{{ end }}>
+      <img class="portrait" src="{{ $p.RelPermalink }}" width="220" height="220" alt="Portrait of {{ $person.name }}"{{ with $depth }} data-depth="{{ .RelPermalink }}"{{ end }}>
       {{ else if $avatar }}
       {{ $avatar_image := $avatar.Fill "250x250 Center" }}
-      <img class="portrait" src="{{ $avatar_image.RelPermalink }}" alt="{{ $person.name }}">
+      <img class="portrait" src="{{ $avatar_image.RelPermalink }}" alt="Portrait of {{ $person.name }}">
       {{ end }}
 
       <div class="portrait-title">
-        <h2>{{ $person.name }}</h2>
-        <h4>{{ $person.namecn }}</h4>
-        {{ with $person.role }}<h3>{{ . | markdownify | emojify }}</h3>{{ end }}
+        <h1>{{ $person.name }}</h1>
+        {{ with $person.namecn }}<p class="profile-namecn">{{ . }}</p>{{ end }}
+        {{ with $person.role }}<p class="profile-role">{{ . | markdownify | emojify }}</p>{{ end }}
 
         {{ range $person.organizations }}
-        <h3>
+        <p class="profile-role">
           {{ with .url }}<a href="{{ . }}" target="_blank" rel="noopener">{{ end }}
           <span>{{ .name }}</span>
           {{ if .url }}</a>{{ end }}
-        </h3>
+        </p>
         {{ end }}
         
         {{ if $person.address.street | or $person.address.city | or $person.address.region | or $person.address.postcode | or $person.address.country }}
@@ -53,9 +53,9 @@
           {{with $person.address.postcode}}{{$addr = $addr | append .}}{{end}}
           {{with $person.address.country}}{{$addr = $addr | append .}}{{end}}
           {{ $addr_formatted := delimit $addr (site.Params.list_delimiter | default ", ") }}
-          <h3 class="profile-address">
+          <p class="profile-address">
             <i class="fas fa-map-marker-alt" style="margin-right: 0.3rem;"></i>{{ $addr_formatted }}
-          </h3>
+          </p>
         {{ end }}
       </div>
 
@@ -151,7 +151,7 @@
     <div class="row">
       {{ with $person.education }}
       <div class="col-md-5">
-        <h3>{{ i18n "education" | markdownify }}</h3>
+        <h2 class="profile-subheading">{{ i18n "education" | markdownify }}</h2>
         <ul class="ul-edu fa-ul">
           {{ range .courses }}
           {{ $course := . }}
@@ -173,7 +173,7 @@
       
       {{ with $person.interests }}
       <div class="col-md-7">
-        <h3>{{ i18n "interests" | markdownify }}</h3>
+        <h2 class="profile-subheading">{{ i18n "interests" | markdownify }}</h2>
         <ul class="ul-interests">
           {{ $scholar := hugo.Data.scholar }}
           {{ range . }}
@@ -181,10 +181,10 @@
           {{/* `{key}` placeholders pull live numbers from data/scholar.json (e.g. "{pointnext}+" -> "1,681+"). */}}
           {{ range $k, $v := $scholar.papers }}{{ $works = replace $works (printf "{%s}" $k) (lang.FormatNumber 0 $v) }}{{ end }}
           {{ with $scholar.citations }}{{ $works = replace $works "{citations}" (lang.FormatNumber 0 .) }}{{ end }}
-          <div class="description">
-            <li class="course">{{ .item }}</li>
+          <li class="description">
+            <div class="course">{{ .item }}</div>
             <div>{{ $works | markdownify | emojify }}</div>
-          </div>
+          </li>
           {{ end }}
         </ul>
       </div>
