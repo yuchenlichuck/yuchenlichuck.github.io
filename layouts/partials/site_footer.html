@@ -16,7 +16,23 @@
   {{ if .IsHome }}
   <div class="footer-maps">
     <div class="footer-map-card footer-map-card--visitor" aria-label="{{ if $zh }}访客地图{{ else }}Visitor map{{ end }}">
-      <script type="text/javascript" id="mapmyvisitors" src="https://mapmyvisitors.com/map.js?d=QPxs_-R5BqEWih0nTgJXCXOsEyYiKnmZrrJKz8EHn3Q&cl=ffffff&w=a"></script>
+      <script>
+        (function () {
+          var card = document.currentScript.parentNode;
+          function loadMap() {
+            var script = document.createElement('script');
+            script.id = 'mapmyvisitors';
+            script.src = 'https://mapmyvisitors.com/map.js?d=QPxs_-R5BqEWih0nTgJXCXOsEyYiKnmZrrJKz8EHn3Q&cl=ffffff&w=a';
+            card.appendChild(script);
+          }
+          if ('IntersectionObserver' in window) {
+            var observer = new IntersectionObserver(function (entries) {
+              if (entries[0].isIntersecting) { observer.disconnect(); loadMap(); }
+            }, { rootMargin: '300px' });
+            observer.observe(card);
+          } else loadMap();
+        })();
+      </script>
     </div>
     <div class="footer-map-card footer-map-card--flight" aria-label="{{ if $zh }}3D 飞行足迹{{ else }}3D Flight Footprint{{ end }}">
       <iframe

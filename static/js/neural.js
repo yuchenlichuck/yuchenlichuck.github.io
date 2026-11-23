@@ -82,12 +82,30 @@
 
   // ---- video teasers: play only while on screen (saves battery, keeps the page calm) ----
   var vids = document.querySelectorAll('video.js-inview');
+  function loadVideo(v) {
+    var sources = v.querySelectorAll('source[data-src]');
+    Array.prototype.forEach.call(sources, function (source) {
+      source.src = source.getAttribute('data-src');
+      source.removeAttribute('data-src');
+    });
+    if (sources.length) { v.preload = 'metadata'; v.load(); }
+  }
   if (vids.length) {
+    if ('IntersectionObserver' in window) {
+      var vlo = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { loadVideo(en.target); vlo.unobserve(en.target); }
+        });
+      }, { rootMargin: '300px' });
+      Array.prototype.forEach.call(vids, function (v) { vlo.observe(v); });
+    } else {
+      Array.prototype.forEach.call(vids, loadVideo);
+    }
     if ('IntersectionObserver' in window && !reduce) {
       var vio = new IntersectionObserver(function (entries) {
         entries.forEach(function (en) {
           var v = en.target;
-          if (en.isIntersecting) { var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); }
+          if (en.isIntersecting) { loadVideo(v); var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); }
           else v.pause();
         });
       }, { threshold: 0.25 });
@@ -179,11 +197,14 @@
       var p = {
         u: (x + .5) / G * 2 - 1, v: (y + .5) / G * 2 - 1,
         z: (d - 0.42) * 1.15,                                     // disparity → depth around the face plane
-        c: 'rgb(' + col[i] + ',' + col[i + 1] + ',' + col[i + 2] + ')',
+        c: '#' + ('000000' + ((col[i] << 16) | (col[i + 1] << 8) | col[i + 2]).toString(16)).slice(-6),
         r: Math.sqrt(dx * dx + dy * dy) / (G / 2),
         j: Math.random() * Math.PI * 2,
         px: 0, py: 0, vx: 0, vy: 0, sz: 0, init: false
       };
+      p.sinJ = Math.sin(p.j); p.cosJ = Math.cos(p.j);
+      p.beatPhase = p.r * 0.5;
+      p.beatScale = Math.exp(p.beatPhase / 0.11);
       p.bg = !!(dep && d < 0.16);
       (p.bg ? bg : fg).push(p);
     }
@@ -192,6 +213,7 @@
   }
 
   function ease(x) { return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; }
+  function depthOrder(a, b) { return a.dz - b.dz; }
 
   function draw(now) {
     var t = (now - t0) / 1000, dt = Math.min(0.05, (now - (last || now)) / 1000); last = now;
@@ -207,17 +229,20 @@
     var yaw = e * (0.30 * Math.sin(t * 0.55) + mouse.yaw), pitch = e * (0.09 * Math.sin(t * 0.41) + mouse.pitch);
     var cy = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
     var beatT = 60 / 96, f = 3.2, k = 1 - 0.10 * e, cell = W / G;
+    var beatPhase = ((t % beatT) + beatT) % beatT;
+    var pulseBase = Math.exp(-beatPhase / 0.11) * e;
+    var pulseWrap = Math.exp(-beatT / 0.11);
+    var shimmerSin = Math.sin(t * 2.2), shimmerCos = Math.cos(t * 2.2);
     var R = 22 * dpr, R2 = R * R;
 
     ctx.clearRect(0, 0, W, H);
     for (var n = 0; n < all.length; n++) {
       var p = all[n], isBg = p.bg;
       // a beat that ripples outward from the centre of the face
-      var ph = ((t - p.r * 0.5) % beatT + beatT) % beatT;
-      var pulse = Math.exp(-ph / 0.11) * e;
+      var pulse = pulseBase * p.beatScale * (beatPhase < p.beatPhase ? pulseWrap : 1);
       var X = p.u * (1 + pulse * 0.035), Y = p.v * (1 + pulse * 0.035);
       var Z = p.z * e * (isBg ? 1.6 : 1) + (isBg ? 0 : pulse * 0.10);
-      Y += Math.sin(t * 2.2 + p.j) * 0.006 * e;                   // tiny per-point shimmer
+      Y += (shimmerSin * p.cosJ + shimmerCos * p.sinJ) * 0.006 * e; // tiny per-point shimmer
       var x1 = X * cy + Z * sy, z1 = -X * sy + Z * cy;
       var y1 = Y * cp - z1 * sp, z2 = Y * sp + z1 * cp;
       var s = f / (f - z2);
@@ -233,7 +258,7 @@
       p.dz = isBg ? z2 - 10 : z2;                                 // background always paints first
     }
     // painter's order: far points first (re-sorted every few frames — rotation is slow)
-    if (e > 0 && (sortTick++ % 6 === 0)) all.sort(function (a, b) { return a.dz - b.dz; });
+    if (e > 0 && (sortTick++ % 6 === 0)) all.sort(depthOrder);
     var curA = -1;
     for (var q = 0; q < all.length; q++) {
       var o = all[q];
@@ -252,7 +277,7 @@
     requestAnimationFrame(frame);
   }
   var looping = false;
-  function kick() { if (!looping && running && onScreen) { looping = true; last = 0; requestAnimationFrame(frame); } }
+  function kick() { if (!looping && running && onScreen && (target !== 0 || m !== 0 || mode !== 'photo')) { looping = true; last = 0; requestAnimationFrame(frame); } }
 
   function toCloud() {
     target = 1; mode = 'cloud';
@@ -266,7 +291,6 @@
     resize();
     t0 = performance.now();
     wrap.classList.add('pc-on');
-    kick();
     // if the homepage intro is playing, start the photo → cloud morph only after it closes
     var go = function () { setTimeout(toCloud, 1600); };
     if (document.documentElement.classList.contains('intro-on')) document.addEventListener('liyc:intro-done', go, { once: true });

@@ -43,9 +43,9 @@
         {{ if $teaser }}
           {{/* Looping teaser (static/media/teasers/<name>.mp4 + .jpg poster). neural.js plays it only while on screen. */}}
           <a href="{{ $imgLink }}" target="_blank" rel="noopener" class="teaser-link">
-            <video class="article-banner teaser-video js-inview" muted loop playsinline webkit-playsinline preload="metadata"{{ if $item.Params.teaser_sound }} data-sound{{ end }}
+            <video class="article-banner teaser-video js-inview" muted loop playsinline webkit-playsinline preload="none"{{ if $item.Params.teaser_sound }} data-sound{{ end }}
                    width="640" height="400" poster="{{ replace $teaser ".mp4" ".jpg" | relURL }}" aria-label="{{ $item.Title }} teaser">
-              <source src="{{ $teaser | relURL }}" type="video/mp4">
+              <source data-src="{{ $teaser | relURL }}" type="video/mp4">
             </video>
           </a>
         {{ else if $videoResource }}
@@ -54,8 +54,8 @@
             {{/* Show image placeholder first if available */}}
             <img src="{{ $thumb.RelPermalink }}" width="{{ $thumb.Width }}" height="{{ $thumb.Height }}" loading="lazy" decoding="async" class="article-banner video-placeholder" alt="{{ $item.Title }} teaser image" style="display: block;">
             {{end}}
-            <video autoplay muted loop playsinline webkit-playsinline preload="metadata" class="article-banner video-content" style="width: 100%; height: auto; {{ if $imageResource }}display: none;{{ end }}">
-              <source src="{{ $videoResource.RelPermalink }}" type="video/mp4">
+            <video muted loop playsinline webkit-playsinline preload="none" class="article-banner video-content" style="width: 100%; height: auto; {{ if $imageResource }}display: none;{{ end }}">
+              <source data-src="{{ $videoResource.RelPermalink }}" type="video/mp4">
             </video>
           </a>
         {{ else if $imageResource }}

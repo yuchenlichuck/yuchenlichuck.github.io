@@ -20,7 +20,8 @@
           <div class="experience-card-top">
             <div class="experience-logo-container">
             {{- with .logo}}
-            <img src="{{ printf "img/logo/%s" . | relURL }}" alt="{{$company}}" class="experience-logo">
+            {{ $size := imageConfig (printf "static/img/logo/%s" .) }}
+            <img src="{{ printf "img/logo/%s" . | relURL }}" width="{{ $size.Width }}" height="{{ $size.Height }}" loading="lazy" decoding="async" alt="{{$company}}" class="experience-logo">
             {{end -}}
             </div>
             <div class="experience-status">{{ if $isCurrent }}{{ i18n "experience_current" }}{{ else }}{{ i18n "experience_previous" }}{{ end }}</div>
